@@ -5,29 +5,21 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace AirlineBookingSystem.Airport
+namespace AirlineBookingSystem
 {
-    public class Airport
+    public class Airline
     {
         #region Fields
         private string _name;
         #endregion
 
         #region Constructors
-        /// <summary>
-        /// General purpouse constructor
-        /// </summary>
-        /// <param name="name"></param>
-        public Airport(string name)
+        public Airline(string name)
         {
             Name = name;
         }
 
-        /// <summary>
-        /// Copy constructor
-        /// </summary>
-        /// <param name="other"></param>
-        public Airport(Airport other) : this(other.Name)
+        public Airline(Airline other) : this(other.Name)
         {
         }
         #endregion
@@ -38,30 +30,30 @@ namespace AirlineBookingSystem.Airport
             get => _name;
             set
             {
-                if(value != null)
+                if (value != null)
                 {
-                    if (value.HasLengthThree())
+                    if (value.HasLengthMoreThanOneAndLessThanSix())
                     {
-                        if (value.HasOnlyCapitalLetters())
+                        if (value.HasOnlyCapitalLettersAndNumbers())
                         {
                             _name = value;
                         }
                         else
                         {
-                            throw new ArgumentException("Airport name should contain only capital letters.");
+                            throw new ArgumentException("Airline name should contain only capital letters and numbers.");
                         }
                     }
                     else
                     {
-                        throw new ArgumentException("Airport name should be 3 letters long.");
+                        throw new ArgumentException("Airline name should be between 1 and 5 symbols long.");
                     }
                 }
                 else
                 {
-                    throw new ArgumentNullException("Airport name can not be null.");
+                    throw new ArgumentNullException("Airline name can not be null.");
                 }
             }
-        } 
+        }
         #endregion
     }
 }
