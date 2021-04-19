@@ -43,8 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Airline\Airline.cs" />
-    <Compile Include="Airport\Airport.cs" />
+    <Compile Include="Airline.cs" />
+    <Compile Include="Airport.cs" />
+    <Compile Include="FlightSection.cs" />
+    <Compile Include="SeatClass.cs" />
+    <Compile Include="Seat.cs" />
     <Compile Include="StringExtension.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

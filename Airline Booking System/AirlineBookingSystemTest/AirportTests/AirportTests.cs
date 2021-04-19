@@ -1,4 +1,4 @@
-using AirlineBookingSystem.Airport;
+using AirlineBookingSystem;
 using System;
 using Xunit;
 

@@ -1,4 +1,4 @@
-﻿using AirlineBookingSystem.Seat;
+﻿using AirlineBookingSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
