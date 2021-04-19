@@ -1,0 +1,7 @@
+C:\Users\Kristiyan Dimitrov\Documents\_1_Първа задача\ABS\airline-booking-system\Airline Booking System\AirlineBookingSystem\obj\Debug\AirlineBookingSystem.csprojAssemblyReference.cache
+C:\Users\Kristiyan Dimitrov\Documents\_1_Първа задача\ABS\airline-booking-system\Airline Booking System\AirlineBookingSystem\obj\Debug\AirlineBookingSystem.csproj.CoreCompileInputs.cache
+C:\Users\Kristiyan Dimitrov\Documents\_1_Първа задача\ABS\airline-booking-system\Airline Booking System\AirlineBookingSystem\bin\Debug\AirlineBookingSystem.exe.config
+C:\Users\Kristiyan Dimitrov\Documents\_1_Първа задача\ABS\airline-booking-system\Airline Booking System\AirlineBookingSystem\bin\Debug\AirlineBookingSystem.exe
+C:\Users\Kristiyan Dimitrov\Documents\_1_Първа задача\ABS\airline-booking-system\Airline Booking System\AirlineBookingSystem\bin\Debug\AirlineBookingSystem.pdb
+C:\Users\Kristiyan Dimitrov\Documents\_1_Първа задача\ABS\airline-booking-system\Airline Booking System\AirlineBookingSystem\obj\Debug\AirlineBookingSystem.exe
+C:\Users\Kristiyan Dimitrov\Documents\_1_Първа задача\ABS\airline-booking-system\Airline Booking System\AirlineBookingSystem\obj\Debug\AirlineBookingSystem.pdb
