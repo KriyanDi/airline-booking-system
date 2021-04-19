@@ -16,7 +16,7 @@ namespace AirlineBookingSystem
 
         public static bool HasOnlyCapitalLettersAndNumbers(this String str)
         {
-            return Regex.IsMatch(str, @"^[A-Z]+$");
+            return Regex.IsMatch(str, @"^[A-Z0-9]+$");
         }
 
         public static bool HasLengthThree(this String str)
@@ -26,7 +26,7 @@ namespace AirlineBookingSystem
 
         public static bool HasLengthMoreThanOneAndLessThanSix(this String str)
         {
-            return str.Length < 6;
+            return (0 < str.Length) && (str.Length < 6);
         }
     }
 }
