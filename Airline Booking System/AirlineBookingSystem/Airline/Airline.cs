@@ -9,12 +9,26 @@ namespace AirlineBookingSystem.Airline
 {
     class Airline
     {
+        #region Fields
         private string _name;
+        #endregion
 
+        #region Constructors
+        public Airline(string name)
+        {
+            Name = name;
+        }
+
+        public Airline(Airline other) : this(other.Name)
+        {
+        }
+        #endregion
+
+        #region Properties
         public string Name
         {
             get => _name;
-            set 
+            set
             {
                 if (value != null)
                 {
@@ -40,5 +54,6 @@ namespace AirlineBookingSystem.Airline
                 }
             }
         }
+        #endregion
     }
 }
