@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AirlineBookingSystem.Airline
 {
-    class Airline
+    public class Airline
     {
         #region Fields
         private string _name;
@@ -32,20 +32,20 @@ namespace AirlineBookingSystem.Airline
             {
                 if (value != null)
                 {
-                    if (value.HasLengthLessThanSix())
+                    if (value.HasLengthMoreThanOneAndLessThanSix())
                     {
-                        if (value.HasOnlyCapitalLetters())
+                        if (value.HasOnlyCapitalLettersAndNumbers())
                         {
                             _name = value;
                         }
                         else
                         {
-                            throw new ArgumentException("Airline name should contain only capital letters.");
+                            throw new ArgumentException("Airline name should contain only capital letters and numbers.");
                         }
                     }
                     else
                     {
-                        throw new ArgumentException("Airline name should be less than 6 letters long.");
+                        throw new ArgumentException("Airline name should be between 1 and 5 symbols long.");
                     }
                 }
                 else
