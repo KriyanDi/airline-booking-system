@@ -14,12 +14,17 @@ namespace AirlineBookingSystem
             return Regex.IsMatch(str, @"^[A-Z]+$");
         }
 
+        public static bool HasOnlyCapitalLettersAndNumbers(this String str)
+        {
+            return Regex.IsMatch(str, @"^[A-Z]+$");
+        }
+
         public static bool HasLengthThree(this String str)
         {
             return str.Length == 3;
         }
 
-        public static bool HasLengthLessThanSix(this String str)
+        public static bool HasLengthMoreThanOneAndLessThanSix(this String str)
         {
             return str.Length < 6;
         }
