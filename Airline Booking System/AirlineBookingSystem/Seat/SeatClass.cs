@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AirlineBookingSystem.SeatClass
+namespace AirlineBookingSystem.Seat
 {
     public enum SeatClass
     {
