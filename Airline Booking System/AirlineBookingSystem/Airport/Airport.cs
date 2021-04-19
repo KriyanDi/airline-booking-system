@@ -40,9 +40,9 @@ namespace AirlineBookingSystem.Airport
             {
                 if(value != null)
                 {
-                    if (HasLenghtThree(value))
+                    if (value.HasLengthThree())
                     {
-                        if (HasOnlyCapitalLetters(value))
+                        if (value.HasOnlyCapitalLetters())
                         {
                             _name = value;
                         }
@@ -62,18 +62,6 @@ namespace AirlineBookingSystem.Airport
                 }
             }
         } 
-        #endregion
-
-        #region Help Methods
-        private static bool HasOnlyCapitalLetters(string value)
-        {
-            return Regex.IsMatch(value, @"^[A-Z]+$");
-        }
-
-        private static bool HasLenghtThree(string value)
-        {
-            return value.Length == 3;
-        }
         #endregion
     }
 }
