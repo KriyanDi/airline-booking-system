@@ -50,7 +50,6 @@ namespace AirlineBookingSystem
                 }
             }
         }
-
         public bool IsBooked
         {
             get => _isBooked;
@@ -64,5 +63,12 @@ namespace AirlineBookingSystem
             return ('A' <= value) && (value <= 'J');
         }
         #endregion
+
+        public override bool Equals(object obj)
+        {
+            return obj is Seat seat &&
+                   Id == seat.Id &&
+                   IsBooked == seat.IsBooked;
+        }
     }
 }
