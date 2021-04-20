@@ -74,6 +74,7 @@ namespace AirlineBookingSystem
         }
         public FlightInformation Information
         {
+            // Returns a COPY!
             get => new FlightInformation(_information);
             private set => _information = value;
         }
@@ -96,7 +97,6 @@ namespace AirlineBookingSystem
                 throw new ArgumentException("This flight section already exist! Can store only one of each kind of sections.");
             }
         }
-
         public void ChangeFlightInformationId(string uniqueId)
         {
             _information.Id = uniqueId;
