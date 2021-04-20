@@ -83,9 +83,6 @@ namespace AirlineBookingSystemTest.FlightTests
             Assert.Equal(flight.Information.DepartureDate, flightCopy.Information.DepartureDate);
             Assert.Equal(flight.Information.Id, flightCopy.Information.Id);
             Assert.Equal(flight.FlightSections.Count, flightCopy.FlightSections.Count);
-           
-            Assert.Equal(flight.FlightSections, flightCopy.FlightSections);
-            
             Assert.True(HasSameSequentialElements);
         }
 
