@@ -253,5 +253,25 @@ namespace AirlineBookingSystemTest.AirlineTests
             // Assert
             Assert.Equal(expected.Message, actual.Message);
         }
+
+        [Fact]
+        public void AddFlight_AddingThreeFlights_ShouldPassTest()
+        {
+            // Arrange
+            Flight flight1 = new Flight("ASD", "QWE", "RTY", 143222, new DateTime(1992, 3, 3));
+            Flight flight2 = new Flight("ASD", "QWE", "RTY", 123222, new DateTime(1992, 3, 3));
+            Flight flight3 = new Flight("ASD", "QWE", "RTY", 143222, new DateTime(1992, 3, 3));
+
+            Airline airline = new Airline("DELTA");
+
+            // Act
+            airline.AddFlight(flight1);
+            airline.AddFlight(flight2);
+            airline.AddFlight(flight3);
+
+            Assert.Equal("DELTA00001", airline.Flights[0].Information.Id);
+            Assert.Equal("DELTA00002", airline.Flights[1].Information.Id);
+            Assert.Equal("DELTA00003", airline.Flights[2].Information.Id);
+        }
     }
 }
