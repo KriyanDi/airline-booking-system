@@ -20,6 +20,12 @@ namespace AirlineBookingSystem
             Seats = new List<Seat>();
             InitializeSeats(row, col);
         }
+
+        public FlightSection(FlightSection other)
+        {
+            SeatClass = other.SeatClass;
+            InitializeSeats(other.Seats);
+        }
         #endregion
 
         #region Properties
@@ -105,6 +111,14 @@ namespace AirlineBookingSystem
             else
             {
                 throw new ArgumentException("Row or Col are invalid.");
+            }
+        }
+        private void InitializeSeats(List<Seat> seats)
+        {
+            _seats = new List<Seat>();
+            for (int i = 0; i < seats.Count; i++)
+            {
+                _seats.Add(new Seat(seats[i]));
             }
         }
         private static bool AreValidRowCol(int row, int col)
