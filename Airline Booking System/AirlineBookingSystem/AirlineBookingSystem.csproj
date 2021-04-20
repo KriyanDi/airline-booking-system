@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Airline.cs" />
     <Compile Include="Airport.cs" />
+    <Compile Include="Flight.cs" />
+    <Compile Include="FlightInformation.cs" />
     <Compile Include="FlightSection.cs" />
     <Compile Include="SeatClass.cs" />
     <Compile Include="Seat.cs" />
