@@ -158,5 +158,14 @@ namespace AirlineBookingSystem
                 }
             }
         }
+        public override int GetHashCode()
+        {
+            int hashCode = -327950722;
+            hashCode = hashCode * -1521134295 + _seatClass.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<Seat>>.Default.GetHashCode(_seats);
+            hashCode = hashCode * -1521134295 + SeatClass.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<Seat>>.Default.GetHashCode(Seats);
+            return hashCode;
+        }
     }
 }

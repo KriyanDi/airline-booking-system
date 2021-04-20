@@ -70,5 +70,14 @@ namespace AirlineBookingSystem
                    Id == seat.Id &&
                    IsBooked == seat.IsBooked;
         }
+        public override int GetHashCode()
+        {
+            int hashCode = -1858130102;
+            hashCode = hashCode * -1521134295 + _id.GetHashCode();
+            hashCode = hashCode * -1521134295 + _isBooked.GetHashCode();
+            hashCode = hashCode * -1521134295 + Id.GetHashCode();
+            hashCode = hashCode * -1521134295 + IsBooked.GetHashCode();
+            return hashCode;
+        }
     }
 }
