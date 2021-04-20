@@ -73,7 +73,7 @@ namespace AirlineBookingSystem
 
             foreach (Seat seat in _seats)
             {
-                if(!seat.IsBooked)
+                if (!seat.IsBooked)
                 {
                     result = true;
                     break;
@@ -127,8 +127,36 @@ namespace AirlineBookingSystem
 
             bool isColValid = (1 <= col && col <= 10);
 
-            return  isRowValid && isColValid;
+            return isRowValid && isColValid;
         }
         #endregion
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                if (obj is FlightSection flightSection)
+                {
+                    for (int i = 0; i < Seats.Count; i++)
+                    {
+                        if (!(Seats[i] == flightSection.Seats[i]))
+                        {
+                            return false;
+                        }
+                    }
+
+                    return this.SeatClass == flightSection.SeatClass &&
+                           this.Seats.Count == flightSection.Seats.Count &&
+                           Seats.SequenceEqual(((FlightSection)obj).Seats);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
     }
 }
