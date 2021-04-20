@@ -11,8 +11,6 @@ namespace AirlineBookingSystem
     {
         #region Fields
         private string _name;
-        // FLIGHTS
-        // UNIQUE IDS
         #endregion
 
         #region Constructors
@@ -65,8 +63,5 @@ namespace AirlineBookingSystem
             }
         } 
         #endregion
-
-        // ADD FLIGHT
-        // REMOVE FLIGHT
     }
 }
