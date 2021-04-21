@@ -61,7 +61,18 @@ namespace AirlineBookingSystem
                     throw new ArgumentNullException("Airport name can not be null.");
                 }
             }
-        } 
+        }
         #endregion
+
+        public override bool Equals(object obj)
+        {
+            return obj is Airport &&
+                   _name == ((Airport)obj).Name;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }
