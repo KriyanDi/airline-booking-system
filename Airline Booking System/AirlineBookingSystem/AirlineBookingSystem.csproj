@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Airline.cs" />
     <Compile Include="Airport.cs" />
+    <Compile Include="SystemManager.cs" />
     <Compile Include="Flight.cs" />
     <Compile Include="FlightInformation.cs" />
     <Compile Include="FlightSection.cs" />

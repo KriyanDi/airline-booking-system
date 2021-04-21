@@ -10,7 +10,6 @@ namespace AirlineBookingSystem
     {
         static void Main(string[] args)
         {
-
         }
     }
 }
