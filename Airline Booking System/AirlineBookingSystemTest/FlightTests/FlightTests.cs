@@ -10,7 +10,7 @@ namespace AirlineBookingSystemTest.FlightTests
 {
     public class FlightTests
     {
-        private FlightInformation info = new FlightInformation("AAAA", "QWE", "RTY", 123456789, new DateTime(2021, 5, 3), null);
+        private FlightInformation info = new FlightInformation("AAAA", "QWE", "RTY", "123456789", new DateTime(2021, 5, 3), null);
         private FlightSection section1 = new FlightSection(SeatClass.BUSINESS, 45, 6);
         private FlightSection section2 = new FlightSection(SeatClass.ECONOMY, 45, 6);
         private FlightSection section3 = new FlightSection(SeatClass.FIRST, 45, 6);
