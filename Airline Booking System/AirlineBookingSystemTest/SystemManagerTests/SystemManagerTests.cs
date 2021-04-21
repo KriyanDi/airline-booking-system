@@ -265,6 +265,97 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         }
         #endregion
 
+        #region CreateFlightMethodTests
+        [Fact]
+        public void CreateFlight_CreatingFlightWithUnexistingAirline_ShouldThrowExceptionTest()
+        {
+            // Arrange
+            ArgumentException expected = new ArgumentException("Airline does not exist!");
+            SystemManager systemManager = new SystemManager();
 
+            // Act
+            ArgumentException actual = null;
+            try
+            {
+            systemManager.CreateFlight("ASD", "SSS", "TTT", 1982, 2, 3, "1234");
+            }
+            catch (ArgumentException ex)
+            {
+                actual = ex;
+            }
+
+            // Assert
+            Assert.Equal(expected.Message, actual.Message);
+        }
+
+        [Fact]
+        public void CreateFlight_CreatingFlightWithUnexistingOriginatingAirport_ShouldThrowExceptionTest()
+        {
+            // Arrange
+            ArgumentException expected = new ArgumentException("Originating Airport does not exist!");
+            SystemManager systemManager = new SystemManager();
+            systemManager.CreateAirline("ASD");
+
+            // Act
+            ArgumentException actual = null;
+            try
+            {
+                systemManager.CreateFlight("ASD", "SSS", "TTT", 1982, 2, 3, "1234");
+            }
+            catch (ArgumentException ex)
+            {
+                actual = ex;
+            }
+
+            // Assert
+            Assert.Equal(expected.Message, actual.Message);
+        }
+
+        [Fact]
+        public void CreateFlight_CreatingFlightWithUnexistingDestinationAirport_ShouldThrowExceptionTest()
+        {
+            // Arrange
+            ArgumentException expected = new ArgumentException("Destination Airport does not exist!");
+            SystemManager systemManager = new SystemManager();
+            systemManager.CreateAirline("ASD");
+            systemManager.CreateAirport("SSS");
+
+            // Act
+            ArgumentException actual = null;
+            try
+            {
+                systemManager.CreateFlight("ASD", "SSS", "TTT", 1982, 2, 3, "1234");
+            }
+            catch (ArgumentException ex)
+            {
+                actual = ex;
+            }
+
+            // Assert
+            Assert.Equal(expected.Message, actual.Message);
+        }
+
+        [Fact]
+        public void CreateFlight_CreatingValidFlight_ShouldPassTest()
+        {
+            // Arrange
+            Flight expected = new Flight("ASD", "SSS", "TTT", "1234", new DateTime(1982, 2, 3));
+            expected.ChangeFlightInformationId("ASD00001");
+            SystemManager systemManager = new SystemManager();
+            
+            systemManager.CreateAirline("ASD");
+            
+            systemManager.CreateAirport("SSS");
+            systemManager.CreateAirport("TTT");
+
+            // Act
+            systemManager.CreateFlight("ASD", "SSS", "TTT", 1982, 2, 3, "1234");
+            Flight actual = systemManager.Airlines[0].Flights[0];
+
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+        #endregion
     }
 }
