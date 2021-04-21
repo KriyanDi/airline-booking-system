@@ -190,7 +190,79 @@ namespace AirlineBookingSystemTest.SystemManagerTests
 
             // Assert
             Assert.Equal(actual.Message, actual.Message);
-        } 
+        }
+        #endregion
+
+        #region CreateAirlineMethodTests
+        [Fact]
+        public void CreateAirline_WhenObjectIsCreatedItContainsZeroAirlines_ShouldPassTest()
+        {
+            // Arrange
+            SystemManager manager = new SystemManager();
+            int expected = 0;
+
+            // Act
+            int actual = manager.Airlines.Count;
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void CreateAirline_AddingValidAirlineToEmptyListOfAirlines_ShouldPassTest()
+        {
+            // Arrange
+            SystemManager manager = new SystemManager();
+            Airline expected = new Airline("DEL2");
+
+            // Act
+            manager.CreateAirline("DEL2");
+            Airline actual = manager.Airlines[0];
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void CreateAirline_AddingValidAirlineToNonEmptyListOfAirlines_ShouldPassTest()
+        {
+            // Arrange
+            SystemManager manager = new SystemManager();
+            Airline expected = new Airline("DEL5");
+
+            // Act
+            manager.CreateAirline("DEL2");
+            manager.CreateAirline("DEL3");
+            manager.CreateAirline("DEL4");
+            manager.CreateAirline("DEL5");
+            Airline actual = manager.Airlines[3];
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void CreateAirline_AddingAirlineThatAlreadyExist_ShouldThrowExceptionTest()
+        {
+            // Arrange
+            ArgumentException expected = new ArgumentException($"Airline QWES already exists!");
+            SystemManager manager = new SystemManager();
+            manager.CreateAirline("QWES");
+
+            // Act
+            ArgumentException actual = null;
+            try
+            {
+                manager.CreateAirline("QWES");
+            }
+            catch (ArgumentException ex)
+            {
+                actual = ex;
+            }
+
+            // Assert
+            Assert.Equal(expected.Message, actual.Message);
+        }
         #endregion
 
 
