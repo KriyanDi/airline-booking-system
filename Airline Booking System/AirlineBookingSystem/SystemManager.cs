@@ -56,8 +56,6 @@ namespace AirlineBookingSystem
                 }
 
                 return airlinesCopy;
-
-                //return _airlines;
             }
         }
         #endregion
