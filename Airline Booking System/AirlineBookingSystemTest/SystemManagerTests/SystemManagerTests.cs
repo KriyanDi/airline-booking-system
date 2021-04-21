@@ -357,5 +357,72 @@ namespace AirlineBookingSystemTest.SystemManagerTests
             Assert.Equal(expected, actual);
         }
         #endregion
+
+        #region CreateSectionMethodTests
+        [Fact]
+        public void CreateSection_CreateSectionForUnexistingAirline_ShouldThrowExceptionTest()
+        {
+            // Arrange
+            ArgumentException expected = new ArgumentException("Airline does not exist!");
+            SystemManager systemManager = new SystemManager();
+
+            // Act
+            ArgumentException actual = null;
+            try
+            {
+                systemManager.CreateSection("QWE", "1234", 4, 5, SeatClass.ECONOMY);
+            }
+            catch (ArgumentException ex)
+            {
+                actual = ex;
+            }
+
+            // Assert
+            Assert.Equal(expected.Message, actual.Message);
+        }
+
+        [Fact]
+        public void CreateSection_CreateSectionForUnexistingFlight_ShouldThrowExceptionTest()
+        {
+            // Arrange
+            ArgumentException expected = new ArgumentException("Airline QWE does not contain such flight!");
+            SystemManager systemManager = new SystemManager();
+            systemManager.CreateAirline("QWE");
+
+            // Act
+            ArgumentException actual = null;
+            try
+            {
+                systemManager.CreateSection("QWE", "1234", 4, 5, SeatClass.ECONOMY);
+            }
+            catch (ArgumentException ex)
+            {
+                actual = ex;
+            }
+
+            // Assert
+            Assert.Equal(expected.Message, actual.Message);
+        }
+
+        [Fact]
+        public void CreateSection_CreateValidFlightSection_ShouldPassTest()
+        {
+            // Arrange
+            SystemManager systemManager = new SystemManager();
+            systemManager.CreateAirline("QWE");
+            systemManager.CreateAirport("WER");
+            systemManager.CreateAirport("REW");
+            systemManager.CreateFlight("QWE", "WER", "REW", 1872, 2, 2, "1234");
+
+            FlightSection expected = new FlightSection(SeatClass.ECONOMY, 4, 5);
+
+            // Act
+            systemManager.CreateSection("QWE", "1234", 4, 5, SeatClass.ECONOMY);
+            FlightSection actual = systemManager.Airlines[0].Flights[0].FlightSections[0];
+            
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+        #endregion
     }
 }
