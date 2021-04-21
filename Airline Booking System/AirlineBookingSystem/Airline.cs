@@ -12,7 +12,6 @@ namespace AirlineBookingSystem
         #region Fields
         private string _name;
         private List<Flight> _flights;
-        private int flightsCounter;
         #endregion
 
         #region Constructors
@@ -20,11 +19,9 @@ namespace AirlineBookingSystem
         {
             Name = name;
             _flights = new List<Flight>();
-            flightsCounter = 0;
         }
         public Airline(Airline other) : this(other.Name)
-        {
-            flightsCounter = other.flightsCounter;
+        { 
         }
         #endregion
 
@@ -97,20 +94,44 @@ namespace AirlineBookingSystem
         #region Methods
         public bool AddFlight(Flight flight)
         {
-            flightsCounter += 1;
-
             Flight flightCopy = new Flight(flight);
-            flightCopy.ChangeFlightInformationId($"{Name}{flightsCounter:D5}");
+
+            flightCopy.ChangeFlightInformationId($"{Name}{(_flights.Count + 1):D5}");
 
             if (_flights == null)
             {
                 _flights = new List<Flight>();
             }
 
-            _flights.Add(new Flight(flightCopy));
-            Console.WriteLine($"{Name}");
+            if(!DoesFlightMatchWithOtherFlightByFlightNumber(flight))
+            {
+                _flights.Add(new Flight(flightCopy));
+            }
+            else
+            { 
+                throw new ArgumentException("This Flight matches by flight number with other flight!");
+            }
+
             return true;
         }
+        #endregion
+
+        #region Help Methods
+        private bool DoesFlightMatchWithOtherFlightByFlightNumber(Flight flight)
+        {
+            bool match = false;
+
+            foreach (Flight currentFlight in Flights)
+            {
+                if (flight.Information.FlightNumber == currentFlight.Information.FlightNumber)
+                {
+                    match = true;
+                    break;
+                }
+            }
+
+            return match;
+        } 
         #endregion
 
         public override bool Equals(object obj)
