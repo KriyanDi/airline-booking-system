@@ -9,11 +9,11 @@ namespace AirlineBookingSystem
         private string _airlineName;
         private string _originatingAirport;
         private string _destinationAirport;
-        private int _flightNumber;
+        private string _flightNumber;
         private DateTime _departureDate;
         private string _id;
 
-        public FlightInformation(string airlineName, string originatingAirport, string destinationAirport, int flightNumber, DateTime departureDate, string id)
+        public FlightInformation(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate, string id)
         {
             AirlineName = airlineName;
             OriginatingAirport = originatingAirport;
@@ -43,7 +43,7 @@ namespace AirlineBookingSystem
             get => _destinationAirport;
             private set => _destinationAirport = value;
         }
-        public int FlightNumber
+        public string FlightNumber
         {
             get => _flightNumber;
             private set => _flightNumber = value;
@@ -58,6 +58,7 @@ namespace AirlineBookingSystem
             get => _id;
             set => _id = value;
         }
+        #endregion
 
         public override bool Equals(object obj)
         {
@@ -76,11 +77,9 @@ namespace AirlineBookingSystem
                 return false;
             }
         }
-
         public override int GetHashCode()
         {
             return 495827395 + EqualityComparer<string>.Default.GetHashCode(_airlineName);
         }
-        #endregion
     }
 }
