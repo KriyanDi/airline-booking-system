@@ -150,7 +150,7 @@ namespace AirlineBookingSystem
 
                     return this.SeatClass == flightSection.SeatClass &&
                            this.Seats.Count == flightSection.Seats.Count &&
-                           Seats.SequenceEqual(((FlightSection)obj).Seats);
+                           Seats.SequenceEqual(flightSection.Seats);
                 }
                 else
                 {
