@@ -130,33 +130,32 @@ namespace AirlineBookingSystem
             return isRowValid && isColValid;
         }
         #endregion
+
         public override bool Equals(object obj)
         {
             if ((obj == null) || !this.GetType().Equals(obj.GetType()))
             {
                 return false;
             }
+            else if (obj is FlightSection flightSection)
+            {
+                for (int i = 0; i < Seats.Count; i++)
+                {
+                    if (!(Seats[i].Equals(flightSection.Seats[i])))
+                    {
+                        return false;
+                    }
+                }
+
+                return this.SeatClass == flightSection.SeatClass &&
+                       this.Seats.Count == flightSection.Seats.Count &&
+                       Seats.SequenceEqual(flightSection.Seats);
+            }
             else
             {
-                if (obj is FlightSection flightSection)
-                {
-                    for (int i = 0; i < Seats.Count; i++)
-                    {
-                        if (!(Seats[i] == flightSection.Seats[i]))
-                        {
-                            return false;
-                        }
-                    }
-
-                    return this.SeatClass == flightSection.SeatClass &&
-                           this.Seats.Count == flightSection.Seats.Count &&
-                           Seats.SequenceEqual(flightSection.Seats);
-                }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
+
         }
         public override int GetHashCode()
         {
