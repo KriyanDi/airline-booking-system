@@ -10,13 +10,14 @@ namespace AirlineBookingSystem
     {
         #region Fields
         private List<Airport> _airports;
-
+        private List<Airline> _airlines;
         #endregion
 
         #region Constructors
         public SystemManager()
         {
             _airports = new List<Airport>();
+            _airlines = new List<Airline>();
         }
         #endregion
 
@@ -25,21 +26,38 @@ namespace AirlineBookingSystem
         {
             get
             {
-                List<Airport> airportCopy = null;
+                List<Airport> airportsCopy = null;
 
                 if (_airports != null)
                 {
-                    airportCopy = new List<Airport>();
+                    airportsCopy = new List<Airport>();
                     for (int i = 0; i < _airports.Count; i++)
                     {
-                        airportCopy.Add(new Airport(_airports[i]));
+                        airportsCopy.Add(new Airport(_airports[i]));
                     }
                 }
 
-                return airportCopy;
+                return airportsCopy;
             }
         }
+        public List<Airline> Airlines 
+        { 
+            get
+            {
+                List<Airline> airlinesCopy = null;
 
+                if (_airlines != null)
+                {
+                    airlinesCopy = new List<Airline>();
+                    for (int i = 0; i < _airlines.Count; i++)
+                    {
+                        airlinesCopy.Add(new Airline(_airlines[i]));
+                    }
+                }
+
+                return airlinesCopy;
+            }
+        }
         #endregion
 
         #region Methods
@@ -54,14 +72,17 @@ namespace AirlineBookingSystem
                 throw new ArgumentException($"Airport {airportName} already exists!");
             }
         }
-
-
-        //public void CreateAirline(string n);
-        //public void CreateFlight(string aname, string orig, string dest, int year, int month, int day, string id);
-        //public void CreateSection(string air, string flId, int rows, int cols, SeatClass s);
-        //public void FindAvailableFlights(string orig, string dest);
-        //public void BookSeat(string air, string fl, SeatClass s, int row, char col);
-        //public void DisplaySystemDetails();
+        public void CreateAirline(string airlineName)
+        {
+            if (!DoesAirlineExist(airlineName))
+            {
+                _airlines.Add(new Airline(airlineName));
+            }
+            else
+            {
+                throw new ArgumentException($"Airline {airlineName} already exists!");
+            }
+        }
         #endregion
 
         #region Help Methods
@@ -72,6 +93,21 @@ namespace AirlineBookingSystem
             foreach (Airport airport in _airports)
             {
                 if (airport.Name == airportName)
+                {
+                    exists = true;
+                    break;
+                }
+            }
+
+            return exists;
+        }
+        private bool DoesAirlineExist(string airlineName)
+        {
+            bool exists = false;
+
+            foreach (Airline airline in _airlines)
+            {
+                if (airline.Name == airlineName)
                 {
                     exists = true;
                     break;
