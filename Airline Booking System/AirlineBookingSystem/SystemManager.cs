@@ -40,8 +40,8 @@ namespace AirlineBookingSystem
                 return airportsCopy;
             }
         }
-        public List<Airline> Airlines 
-        { 
+        public List<Airline> Airlines
+        {
             get
             {
                 List<Airline> airlinesCopy = null;
@@ -85,7 +85,7 @@ namespace AirlineBookingSystem
         }
         public void CreateFlight(string airlineName, string fromAirport, string toAirport, int year, int month, int day, string id)
         {
-            if(DoesAirlineExist(airlineName))
+            if (DoesAirlineExist(airlineName))
             {
                 if (DoesAirportExist(fromAirport))
                 {
@@ -95,7 +95,7 @@ namespace AirlineBookingSystem
 
                         for (int i = 0; i < _airlines.Count; i++)
                         {
-                            if(_airlines[i].Name == airlineName)
+                            if (_airlines[i].Name == airlineName)
                             {
                                 _airlines[i].AddFlight(flight);
                                 break;
@@ -117,6 +117,31 @@ namespace AirlineBookingSystem
                 throw new ArgumentException("Airline does not exist!");
             }
         }
+        public void CreateSection(string airlineName, string flightId, int rows, int cols, SeatClass seatClass)
+        {
+            if (DoesAirlineExist(airlineName))
+            {
+                for (int i = 0; i < _airlines.Count; i++)
+                {
+                    if (_airlines[i].Name == airlineName)
+                    {
+                        if (_airlines[i].AddFlightSectionToFlight(new FlightSection(seatClass, rows, cols), flightId))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            throw new ArgumentException($"Airline {airlineName} does not contain such flight!");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Airline does not exist!");
+            }
+        }
+
         #endregion
 
         #region Help Methods
@@ -149,6 +174,10 @@ namespace AirlineBookingSystem
             }
 
             return exists;
+        }
+        private bool DoesFlightExist(string airlineName, string flightId)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

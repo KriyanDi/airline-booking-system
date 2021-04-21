@@ -69,7 +69,7 @@ namespace AirlineBookingSystemTest.FlightTests
             bool HasSameSequentialElements = true;
             for (int i = 0; i < flightCopy.FlightSections.Count; i++)
             {
-                if(flight.FlightSections[i].Equals(flightCopy.FlightSections[i]))
+                if(flight.FlightSections[i] == flightCopy.FlightSections[i])
                 {
                     HasSameSequentialElements = false;
                     break;
