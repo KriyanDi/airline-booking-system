@@ -22,7 +22,7 @@ namespace AirlineBookingSystem
         /// <param name="destinationAirport"></param>
         /// <param name="flightNumber"></param>
         /// <param name="departureDate"></param>
-        public Flight(string airlineName, string originatingAirport, string destinationAirport, int flightNumber, DateTime departureDate)
+        public Flight(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate)
         {
             string id = null;
             InitializeInformation(airlineName, originatingAirport, destinationAirport, flightNumber, departureDate, id);
@@ -120,7 +120,7 @@ namespace AirlineBookingSystem
 
             return result;
         }
-        private void InitializeInformation(string airlineName, string originatingAirport, string destinationAirport, int flightNumber, DateTime departureDate, string id)
+        private void InitializeInformation(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate, string id)
         {
             if (originatingAirport != destinationAirport)
             {
@@ -154,6 +154,15 @@ namespace AirlineBookingSystem
             {
                 return false;
             }
+        }
+        public override int GetHashCode()
+        {
+            int hashCode = -479622268;
+            hashCode = hashCode * -1521134295 + EqualityComparer<FlightInformation>.Default.GetHashCode(_information);
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<FlightSection>>.Default.GetHashCode(_flightSections);
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<FlightSection>>.Default.GetHashCode(FlightSections);
+            hashCode = hashCode * -1521134295 + EqualityComparer<FlightInformation>.Default.GetHashCode(Information);
+            return hashCode;
         }
     }
 }
