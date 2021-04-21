@@ -258,9 +258,9 @@ namespace AirlineBookingSystemTest.AirlineTests
         public void AddFlight_AddingThreeFlights_ShouldPassTest()
         {
             // Arrange
-            Flight flight1 = new Flight("ASD", "QWE", "RTY", 143222, new DateTime(1992, 3, 3));
-            Flight flight2 = new Flight("ASD", "QWE", "RTY", 123222, new DateTime(1992, 3, 3));
-            Flight flight3 = new Flight("ASD", "QWE", "RTY", 143222, new DateTime(1992, 3, 3));
+            Flight flight1 = new Flight("ASD", "QWE", "RTY", "143222", new DateTime(1992, 3, 3));
+            Flight flight2 = new Flight("ASD", "QWE", "RTY", "123221", new DateTime(1992, 3, 3));
+            Flight flight3 = new Flight("ASD", "QWE", "RTY", "143220", new DateTime(1992, 3, 3));
 
             Airline airline = new Airline("DELTA");
 
@@ -275,18 +275,41 @@ namespace AirlineBookingSystemTest.AirlineTests
         }
 
         [Fact]
+        public void AddFlight_AddingTwoDifferentFlightButWithSameFlightNumber_ShouldThrowExceptionTest()
+        {
+            // Arrange
+            ArgumentException expected = new ArgumentException("This Flight matches by flight number with other flight!");
+            Airline airline = new Airline("TEST");
+            airline.AddFlight(new Flight("QWE", "WER", "ERT", "13243", new DateTime(3002, 3, 2)));
+
+            // Act
+            ArgumentException actual = null;
+            try
+            {
+                 airline.AddFlight(new Flight("QWE", "RRR", "TTT", "13243", new DateTime(3000, 3, 2)));
+            }
+            catch (ArgumentException ex)
+            {
+                actual = ex;
+            }
+
+            // Assert
+            Assert.Equal(expected.Message, actual.Message);
+        }
+
+        [Fact]
         public void Equals_ComparingTwoAirlines_ShouldPassTest()
         {
             // Arragne
             Airline airline1 = new Airline("ASD");
-            airline1.AddFlight(new Flight("ASSD1", "ASD", "FDS", 123456, new DateTime(1992, 3, 2)));
-            airline1.AddFlight(new Flight("ASSD2", "ASD", "FDS", 123456, new DateTime(1992, 3, 2)));
-            airline1.AddFlight(new Flight("ASSD3", "ASD", "FDS", 123456, new DateTime(1992, 3, 2)));
+            airline1.AddFlight(new Flight("ASSD1", "ASD", "FDS", "123456", new DateTime(1992, 3, 2)));
+            airline1.AddFlight(new Flight("ASSD2", "ASD", "FDS", "123454", new DateTime(1992, 3, 2)));
+            airline1.AddFlight(new Flight("ASSD3", "ASD", "FDS", "123453", new DateTime(1992, 3, 2)));
 
             Airline airline2 = new Airline("ASD");
-            airline2.AddFlight(new Flight("ASSD1", "ASD", "FDS", 123456, new DateTime(1992, 3, 2)));
-            airline2.AddFlight(new Flight("ASSD2", "ASD", "FDS", 123456, new DateTime(1992, 3, 2)));
-            airline2.AddFlight(new Flight("ASSD3", "ASD", "FDS", 123456, new DateTime(1992, 3, 2)));
+            airline2.AddFlight(new Flight("ASSD1", "ASD", "FDS", "123456", new DateTime(1992, 3, 2)));
+            airline2.AddFlight(new Flight("ASSD2", "ASD", "FDS", "123454", new DateTime(1992, 3, 2)));
+            airline2.AddFlight(new Flight("ASSD3", "ASD", "FDS", "123453", new DateTime(1992, 3, 2)));
 
             bool expected = true;
 
