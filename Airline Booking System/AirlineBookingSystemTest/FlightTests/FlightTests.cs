@@ -30,7 +30,7 @@ namespace AirlineBookingSystemTest.FlightTests
             Assert.Equal(expected.DestinationAirport, actual.Information.DestinationAirport);
             Assert.Equal(expected.DepartureDate, actual.Information.DepartureDate);
             Assert.Equal(expected.Id, actual.Information.Id);
-            Assert.Null(actual.FlightSections);
+            Assert.NotNull(actual.FlightSections);
         }
 
         [Fact]
