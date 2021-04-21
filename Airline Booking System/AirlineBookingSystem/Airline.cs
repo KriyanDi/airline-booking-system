@@ -20,6 +20,7 @@ namespace AirlineBookingSystem
             Name = name;
             _flights = new List<Flight>();
         }
+
         public Airline(Airline other) : this(other.Name)
         {
             _flights = other.Flights;
