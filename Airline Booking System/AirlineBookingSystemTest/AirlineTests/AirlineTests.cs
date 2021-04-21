@@ -273,5 +273,28 @@ namespace AirlineBookingSystemTest.AirlineTests
             Assert.Equal("DELTA00002", airline.Flights[1].Information.Id);
             Assert.Equal("DELTA00003", airline.Flights[2].Information.Id);
         }
+
+        [Fact]
+        public void Equals_ComparingTwoAirlines_ShouldPassTest()
+        {
+            // Arragne
+            Airline airline1 = new Airline("ASD");
+            airline1.AddFlight(new Flight("ASSD1", "ASD", "FDS", 123456, new DateTime(1992, 3, 2)));
+            airline1.AddFlight(new Flight("ASSD2", "ASD", "FDS", 123456, new DateTime(1992, 3, 2)));
+            airline1.AddFlight(new Flight("ASSD3", "ASD", "FDS", 123456, new DateTime(1992, 3, 2)));
+
+            Airline airline2 = new Airline("ASD");
+            airline2.AddFlight(new Flight("ASSD1", "ASD", "FDS", 123456, new DateTime(1992, 3, 2)));
+            airline2.AddFlight(new Flight("ASSD2", "ASD", "FDS", 123456, new DateTime(1992, 3, 2)));
+            airline2.AddFlight(new Flight("ASSD3", "ASD", "FDS", 123456, new DateTime(1992, 3, 2)));
+
+            bool expected = true;
+
+            // Act
+            bool actual = airline1.Equals(airline2);
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
     }
 }
