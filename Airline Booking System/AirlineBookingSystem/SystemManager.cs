@@ -56,6 +56,8 @@ namespace AirlineBookingSystem
                 }
 
                 return airlinesCopy;
+
+                //return _airlines;
             }
         }
         #endregion
@@ -81,6 +83,40 @@ namespace AirlineBookingSystem
             else
             {
                 throw new ArgumentException($"Airline {airlineName} already exists!");
+            }
+        }
+        public void CreateFlight(string airlineName, string fromAirport, string toAirport, int year, int month, int day, string id)
+        {
+            if(DoesAirlineExist(airlineName))
+            {
+                if (DoesAirportExist(fromAirport))
+                {
+                    if (DoesAirportExist(toAirport))
+                    {
+                        Flight flight = new Flight(airlineName, fromAirport, toAirport, id, new DateTime(year, month, day));
+
+                        for (int i = 0; i < _airlines.Count; i++)
+                        {
+                            if(_airlines[i].Name == airlineName)
+                            {
+                                _airlines[i].AddFlight(flight);
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Destination Airport does not exist!");
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException("Originating Airport does not exist!");
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Airline does not exist!");
             }
         }
         #endregion
