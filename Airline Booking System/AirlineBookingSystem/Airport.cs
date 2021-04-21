@@ -66,8 +66,8 @@ namespace AirlineBookingSystem
 
         public override bool Equals(object obj)
         {
-            return obj is Airport &&
-                   _name == ((Airport)obj).Name;
+            return obj is Airport airport &&
+                   _name == airport.Name;
         }
 
         public override int GetHashCode()
