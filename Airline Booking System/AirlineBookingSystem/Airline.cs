@@ -116,6 +116,22 @@ namespace AirlineBookingSystem
 
             return true;
         }
+        public bool AddFlightSectionToFlight(FlightSection section, string flightId)
+        {
+            bool successfullyAdded = false;
+
+            for (int i = 0; i < _flights.Count; i++)
+            {
+                if(_flights[i].Information.FlightNumber == flightId)
+                {
+                    _flights[i].AddFlightSection(section);
+                    successfullyAdded = true;
+                    break;
+                }
+            }
+
+            return successfullyAdded;
+        }
         #endregion
 
         #region Help Methods
