@@ -12,20 +12,19 @@ namespace AirlineBookingSystem
         #region Fields
         private string _name;
         private List<Flight> _flights;
-        private static int flightsCounter;
+        private int flightsCounter;
         #endregion
 
         #region Constructors
-        static Airline()
-        {
-            flightsCounter = 0;
-        }
         public Airline(string name)
         {
             Name = name;
+            _flights = new List<Flight>();
+            flightsCounter = 0;
         }
         public Airline(Airline other) : this(other.Name)
         {
+            flightsCounter = other.flightsCounter;
         }
         #endregion
 
@@ -113,5 +112,38 @@ namespace AirlineBookingSystem
             return true;
         }
         #endregion
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Airline airline)
+            {
+                bool areFlightsExact = true;
+                for (int i = 0; i < _flights.Count; i++)
+                {
+                    if (!_flights[i].Equals(airline.Flights[i]))
+                    {
+                        areFlightsExact = false;
+                        break;
+                    }
+                }
+
+                return _name == airline._name &&
+                      _flights.Count == airline.Flights.Count &&
+                      areFlightsExact;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override int GetHashCode()
+        {
+            int hashCode = 1536774888;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(_name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<Flight>>.Default.GetHashCode(_flights);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<Flight>>.Default.GetHashCode(Flights);
+            return hashCode;
+        }
     }
 }
