@@ -26,6 +26,7 @@ namespace AirlineBookingSystem
         {
             string id = null;
             InitializeInformation(airlineName, originatingAirport, destinationAirport, flightNumber, departureDate, id);
+            FlightSections = new List<FlightSection>();
         }
 
         /// <summary>
@@ -124,12 +125,35 @@ namespace AirlineBookingSystem
             if (originatingAirport != destinationAirport)
             {
                 Information = new FlightInformation(airlineName, originatingAirport, destinationAirport, flightNumber, departureDate, id);
-                        }
+            }
             else
             {
                 throw new ArgumentException("Originating Airport and Destination Airport can not be the same.");
             }
         }
         #endregion
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Flight flight)
+            {
+                bool areFlightSectionsExact = true;
+                for (int i = 0; i < _flightSections.Count; i++)
+                {
+                    if (!_flightSections[i].Equals(flight.FlightSections[i]))
+                    {
+                        areFlightSectionsExact = false;
+                        break;
+                    }
+                }
+
+                return _information.Equals(flight.Information) &&
+                       areFlightSectionsExact;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
