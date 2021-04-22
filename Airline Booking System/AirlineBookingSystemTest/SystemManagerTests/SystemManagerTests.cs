@@ -712,8 +712,8 @@ namespace AirlineBookingSystemTest.SystemManagerTests
             system.BookSeat("ASD", "1543", SeatClass.BUSINESS, 5, 'A');
             bool actual = system
                 .GetReferenceAirlines()[0]
-                .GetReferenceFlights()[0]
-                .GetReferenceFlightSections()[0]
+                .ReferenceFlights[0]
+                .ReferenceFlightSections[0]
                 .Seats[4].IsBooked;
 
             // Assert
