@@ -188,5 +188,20 @@ namespace AirlineBookingSystem
             return match;
         }
         #endregion
+
+        #region Other Overridden Method
+        public override string ToString()
+        {
+            string name = $"{_name}";
+
+            string flights = "";
+            foreach (Flight flight in _flights)
+            {
+                flights = flight.ToString() + "\n";
+            }
+
+            return name + "\n\n" + flights;
+        } 
+        #endregion
     }
 }

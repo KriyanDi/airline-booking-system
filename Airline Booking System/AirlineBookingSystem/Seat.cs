@@ -75,8 +75,11 @@ namespace AirlineBookingSystem
             return hashCode;
         }
         public static bool operator ==(Seat lhs, Seat rhs) => lhs.Equals(rhs);
-        public static bool operator !=(Seat lhs, Seat rhs) => !(lhs == rhs); 
+        public static bool operator !=(Seat lhs, Seat rhs) => !(lhs == rhs);
         #endregion
 
+        #region Other Overridden Methods
+        public override string ToString() => $"ROW: {_id.row} COL: {_id.col} BOOKED: {_isBooked}"; 
+        #endregion
     }
 }

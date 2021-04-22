@@ -73,7 +73,11 @@ namespace AirlineBookingSystem
         private void InitializeDataMembers(string name)
         {
             Name = name;
-        } 
+        }
+        #endregion
+
+        #region Other Overridden Methods
+        public override string ToString() => $"{_name}"; 
         #endregion
     }
 }

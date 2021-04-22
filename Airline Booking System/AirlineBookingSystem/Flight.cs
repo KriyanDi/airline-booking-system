@@ -164,5 +164,20 @@ namespace AirlineBookingSystem
         public static bool operator ==(Flight lhs, Flight rhs) => lhs.Equals(rhs);
         public static bool operator !=(Flight lhs, Flight rhs) => !(lhs == rhs);
         #endregion
+
+        #region Other Overridden Methods
+        public override string ToString()
+        {
+            string information = $"{_information}";
+
+            string flightSections = "";
+            foreach (FlightSection section in _flightSections)
+            {
+                flightSections = section.ToString() + "\n";
+            }
+
+            return information + "\n" + flightSections;
+        } 
+        #endregion
     }
 }

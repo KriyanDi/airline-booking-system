@@ -64,6 +64,23 @@ namespace AirlineBookingSystem
             }
         }
         public List<Seat> SeatReference => _seats;
+        public int CountAvailableSeats
+        {
+            get
+            {
+                int available = 0;
+                for (int i = 0; i < _seats.Count; i++)
+                {
+                    if(_seats[i].IsBooked)
+                    {
+                        available += 1;
+                    }
+                }
+
+                return available;
+            }
+        }
+        public int CountOccupiedSeats => _seats.Count - CountAvailableSeats;
         #endregion
 
         #region Methods
@@ -188,7 +205,11 @@ namespace AirlineBookingSystem
             return hashCode;
         }
         public static bool operator ==(FlightSection lhs, FlightSection rhs) => lhs.Equals(rhs);
-        public static bool operator !=(FlightSection lhs, FlightSection rhs) => !(lhs == rhs); 
+        public static bool operator !=(FlightSection lhs, FlightSection rhs) => !(lhs == rhs);
+        #endregion
+
+        #region Other Overridden Methods
+        public override string ToString() => $"{_seatClass} ALL: {_seats.Count} AVLBL: {CountAvailableSeats} OCCPD: {CountOccupiedSeats}"; 
         #endregion
     }
 }
