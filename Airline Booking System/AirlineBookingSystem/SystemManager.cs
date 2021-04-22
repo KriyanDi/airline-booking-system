@@ -59,7 +59,7 @@ namespace AirlineBookingSystem
             }
         }
         public List<Airport> AirportsReference => _airports;
-        public List<Airline> AirlinesGetReference => _airlines;
+        public List<Airline> AirlinesReference => _airlines;
         #endregion
 
         #region Methods
@@ -261,8 +261,8 @@ namespace AirlineBookingSystem
         private bool TryBookSeat(int row, char col, int airlineId, int flightId, int sectionId)
         {
             return _airlines[airlineId]
-                .ReferenceFlights[flightId]
-                .ReferenceFlightSections[sectionId]
+                .FlightsReference[flightId]
+                .FlightSectionsReference[sectionId]
                 .BookSeat(row, col);
         }
 
@@ -311,7 +311,7 @@ namespace AirlineBookingSystem
                 .OriginatingAirport == fromAirport;
 
             bool matchingDestinationAirport =
-                _airlines[flightIndex]
+                _airlines[airlineIndex]
                 .Flights[flightIndex]
                 .Information
                 .DestinationAirport == toAirport;
