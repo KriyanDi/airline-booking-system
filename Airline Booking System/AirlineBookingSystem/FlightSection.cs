@@ -20,7 +20,6 @@ namespace AirlineBookingSystem
             Seats = new List<Seat>();
             InitializeSeats(row, col);
         }
-
         public FlightSection(FlightSection other)
         {
             SeatClass = other.SeatClass;
@@ -64,6 +63,7 @@ namespace AirlineBookingSystem
                 }
             }
         }
+        public List<Seat> SeatReference => _seats;
         #endregion
 
         #region Methods
@@ -99,7 +99,7 @@ namespace AirlineBookingSystem
         {
             for (int i = 0; i < _seats.Count; i++)
             {
-                if (_seats[i].Id.row == row && _seats[i].Id.col == col)
+                if (_seats[i].Id == (row, col))
                 {
                     if (!_seats[i].IsBooked)
                     {
@@ -151,6 +151,7 @@ namespace AirlineBookingSystem
         }
         #endregion
 
+        #region Equation Methods
         public override bool Equals(object obj)
         {
             if ((obj == null) || !this.GetType().Equals(obj.GetType()))
@@ -186,5 +187,8 @@ namespace AirlineBookingSystem
             hashCode = hashCode * -1521134295 + EqualityComparer<List<Seat>>.Default.GetHashCode(Seats);
             return hashCode;
         }
+        public static bool operator ==(FlightSection lhs, FlightSection rhs) => lhs.Equals(rhs);
+        public static bool operator !=(FlightSection lhs, FlightSection rhs) => !(lhs == rhs); 
+        #endregion
     }
 }
