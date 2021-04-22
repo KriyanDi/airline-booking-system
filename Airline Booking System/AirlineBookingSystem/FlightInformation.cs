@@ -12,7 +12,9 @@ namespace AirlineBookingSystem
         private string _flightNumber;
         private DateTime _departureDate;
         private string _id;
+        #endregion
 
+        #region Constructors
         public FlightInformation(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate, string id)
         {
             AirlineName = airlineName;
@@ -60,6 +62,7 @@ namespace AirlineBookingSystem
         }
         #endregion
 
+        #region Equation Methods
         public override bool Equals(object obj)
         {
             if (obj is FlightInformation information)
@@ -81,5 +84,8 @@ namespace AirlineBookingSystem
         {
             return 495827395 + EqualityComparer<string>.Default.GetHashCode(_airlineName);
         }
+        public static bool operator ==(FlightInformation lhs, FlightInformation rhs) => lhs.Equals(rhs);
+        public static bool operator !=(FlightInformation lhs, FlightInformation rhs) => !(lhs == rhs);
+        #endregion
     }
 }
