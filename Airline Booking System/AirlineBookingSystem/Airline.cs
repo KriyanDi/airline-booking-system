@@ -20,7 +20,6 @@ namespace AirlineBookingSystem
             Name = name;
             _flights = new List<Flight>();
         }
-
         public Airline(Airline other) : this(other.Name)
         {
             _flights = other.Flights;
@@ -91,6 +90,7 @@ namespace AirlineBookingSystem
                 _flights = flightsCopy;
             }
         }
+        public List<Flight> FlightsReference => _flights;
         #endregion
 
         #region Methods
@@ -98,19 +98,19 @@ namespace AirlineBookingSystem
         {
             Flight flightCopy = new Flight(flight);
 
-            flightCopy.ChangeFlightInformationId($"{Name}{(_flights.Count + 1):D5}");
+            flightCopy.InformationReference.Id = $"{Name}{(_flights.Count + 1):D5}";
 
             if (_flights == null)
             {
                 _flights = new List<Flight>();
             }
 
-            if(!DoesFlightMatchWithOtherFlightByFlightNumber(flight))
+            if (!DoesFlightMatchWithOtherFlightByFlightNumber(flight))
             {
                 _flights.Add(new Flight(flightCopy));
             }
             else
-            { 
+            {
                 throw new ArgumentException("This Flight matches by flight number with other flight!");
             }
 
@@ -122,7 +122,7 @@ namespace AirlineBookingSystem
 
             for (int i = 0; i < _flights.Count; i++)
             {
-                if(_flights[i].Information.FlightNumber == flightId)
+                if (_flights[i].Information.FlightNumber == flightId)
                 {
                     _flights[i].AddFlightSection(section);
                     successfullyAdded = true;
@@ -132,30 +132,9 @@ namespace AirlineBookingSystem
 
             return successfullyAdded;
         }
-        public List<Flight> GetReferenceFlights()
-        {
-            return _flights;
-        }
         #endregion
 
-        #region Help Methods
-        private bool DoesFlightMatchWithOtherFlightByFlightNumber(Flight flight)
-        {
-            bool match = false;
-
-            foreach (Flight currentFlight in Flights)
-            {
-                if (flight.Information.FlightNumber == currentFlight.Information.FlightNumber)
-                {
-                    match = true;
-                    break;
-                }
-            }
-
-            return match;
-        } 
-        #endregion
-
+        #region Equation Methods
         public override bool Equals(object obj)
         {
             if (obj is Airline airline)
@@ -188,5 +167,26 @@ namespace AirlineBookingSystem
             hashCode = hashCode * -1521134295 + EqualityComparer<List<Flight>>.Default.GetHashCode(Flights);
             return hashCode;
         }
+        public static bool operator ==(Airline lhs, Airline rhs) => lhs.Equals(rhs);
+        public static bool operator !=(Airline lhs, Airline rhs) => !(lhs == rhs);
+        #endregion
+
+        #region Help Methods
+        private bool DoesFlightMatchWithOtherFlightByFlightNumber(Flight flight)
+        {
+            bool match = false;
+
+            foreach (Flight currentFlight in Flights)
+            {
+                if (flight.Information.FlightNumber == currentFlight.Information.FlightNumber)
+                {
+                    match = true;
+                    break;
+                }
+            }
+
+            return match;
+        }
+        #endregion
     }
 }
