@@ -424,5 +424,122 @@ namespace AirlineBookingSystemTest.SystemManagerTests
             Assert.Equal(expected, actual);
         }
         #endregion
+
+        #region FindAvailableFlightsMethodTests
+        [Fact]
+        public void FindAvailableFlights_ForUnexistingOriginatingAirport_ShouldThrowExceptionTest()
+        {
+            // Arrange
+            ArgumentException expected = new ArgumentException("Airport DES does not exist!");
+            SystemManager system = new SystemManager();
+
+            // Act
+            ArgumentException actual = null;
+            try
+            {
+                system.FindAvailableFlights("DES", "SED");
+            }
+            catch (ArgumentException ex)
+            {
+                actual = ex;
+            }
+
+            // Assert
+            Assert.Equal(expected.Message, actual.Message);
+        }
+
+        [Fact]
+        public void FindAvailableFlights_ForUnexistingDestinationAirport_ShouldThrowExceptionTest()
+        {
+            // Arrange
+            ArgumentException expected = new ArgumentException("Airport SED does not exist!");
+            SystemManager system = new SystemManager();
+            system.CreateAirport("DES");
+
+            // Act
+            ArgumentException actual = null;
+            try
+            {
+                system.FindAvailableFlights("DES", "SED");
+            }
+            catch (ArgumentException ex)
+            {
+                actual = ex;
+            }
+
+            // Assert
+            Assert.Equal(expected.Message, actual.Message);
+        }
+
+        [Fact]
+        public void FindAvailableFlights_IfThereAreNoAvailableFLightsForExistingsAirportsReturnsEmptyList_ShouldPassTest()
+        {
+            // Arrange
+            SystemManager system = new SystemManager();
+            system.CreateAirport("DES");
+            system.CreateAirport("SED");
+
+            List<Flight> expected = new List<Flight>();
+
+            // Act
+            List<Flight> actual = system.FindAvailableFlights("DES", "SED");
+
+            // Assert
+            Assert.Equal(expected.Count, actual.Count);
+        }
+
+        [Fact]
+        public void FindAvailableFlights_IfThereAreAvailableFLightsReturnsList_ShouldPassTest()
+        {
+            // Arrange
+            bool expected = true;
+            SystemManager system = new SystemManager();
+            system.CreateAirport("DES");
+            system.CreateAirport("SED");
+
+            system.CreateAirline("DE32");
+            system.CreateAirline("DE33");
+            system.CreateAirline("DE34");
+
+            system.CreateFlight("DE32", "DES", "SED", 1982, 2, 2, "123");
+            system.CreateSection("DE32", "123", 5, 5, SeatClass.BUSINESS);
+            
+            system.CreateFlight("DE32", "DES", "SED", 1982, 2, 2, "1234");
+            system.CreateSection("DE32", "1234", 5, 5, SeatClass.BUSINESS);
+            
+            system.CreateFlight("DE33", "DES", "SED", 1982, 2, 2, "1235");
+            system.CreateSection("DE33", "1235", 5, 5, SeatClass.BUSINESS);
+            
+            system.CreateFlight("DE34", "DES", "SED", 1982, 2, 2, "1236");
+            system.CreateSection("DE34", "1236", 5, 5, SeatClass.BUSINESS);
+
+            List<Flight> flightList1 = new List<Flight>();
+            flightList1.Add(new Flight("DE32", "DES", "SED", "123", new DateTime(1982, 2, 2)));
+            flightList1[0].ChangeFlightInformationId("DE3200001");
+            flightList1.Add(new Flight("DE32", "DES", "SED", "1234", new DateTime(1982, 2, 2)));
+            flightList1[1].ChangeFlightInformationId("DE3200002");
+            flightList1.Add(new Flight("DE33", "DES", "SED", "1235", new DateTime(1982, 2, 2)));
+            flightList1[2].ChangeFlightInformationId("DE3300001");
+            flightList1.Add(new Flight("DE34", "DES", "SED", "1236", new DateTime(1982, 2, 2)));
+            flightList1[3].ChangeFlightInformationId("DE3400001");
+
+            // Act
+            List<Flight> flightList2 = system.FindAvailableFlights("DES", "SED");
+
+            bool actual = true;
+            for (int i = 0; i < flightList1.Count; i++)
+            {
+                if(!flightList1[i].Equals((flightList2[i])))
+                {
+                    actual = false;
+                    break;
+                }
+            }
+
+            // Assert
+            Assert.Equal(expected, actual);
+            Assert.Equal(flightList1.Count, flightList2.Count);
+        }
+        #endregion
     }
 }
