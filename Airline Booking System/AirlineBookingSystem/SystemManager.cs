@@ -18,7 +18,6 @@ namespace AirlineBookingSystem
         {
             InitializeDataMembers();
         }
-
         #endregion
 
         #region Properties
@@ -180,6 +179,7 @@ namespace AirlineBookingSystem
                 throw new ArgumentException("Airline does not exist!");
             }
         }
+        public void DisplaySystemDetails() => Console.WriteLine(this.ToString());
         #endregion
 
         #region Help Methods
@@ -319,6 +319,25 @@ namespace AirlineBookingSystem
             return matchingOriginatingAirport && matchingDestinationAirport;
 
 
+        }
+        #endregion
+
+        #region Other Overridden Methods
+        public override string ToString()
+        {
+            string airports = "Airports: \n";
+            foreach (Airport airport in _airports)
+            {
+                airports = airports.ToString() + "\n";
+            }
+
+            string airlines = "Airlines: \n";
+            foreach (Airline airline in _airlines)
+            {
+                airlines = airline.ToString() + "\n\n";
+            }
+
+            return airports + "/n/n" + airlines;
         }
         #endregion
     }
