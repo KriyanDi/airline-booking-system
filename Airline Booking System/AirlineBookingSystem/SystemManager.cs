@@ -58,6 +58,8 @@ namespace AirlineBookingSystem
                 return airlinesCopy;
             }
         }
+        public List<Airport> AirportsReference => _airports;
+        public List<Airline> AirlinesGetReference => _airlines;
         #endregion
 
         #region Methods
@@ -85,22 +87,14 @@ namespace AirlineBookingSystem
         }
         public void CreateFlight(string airlineName, string fromAirport, string toAirport, int year, int month, int day, string id)
         {
-            if (DoesAirlineExist(airlineName))
+            int airlineId = -1;
+            if (SetIndexWithAirlineIndexIfAirlineExists(ref airlineId, airlineName))
             {
                 if (DoesAirportExist(fromAirport))
                 {
                     if (DoesAirportExist(toAirport))
                     {
-                        Flight flight = new Flight(airlineName, fromAirport, toAirport, id, new DateTime(year, month, day));
-
-                        for (int i = 0; i < _airlines.Count; i++)
-                        {
-                            if (_airlines[i].Name == airlineName)
-                            {
-                                _airlines[i].AddFlight(flight);
-                                break;
-                            }
-                        }
+                        _airlines[airlineId].AddFlight(new Flight(airlineName, fromAirport, toAirport, id, new DateTime(year, month, day)));
                     }
                     else
                     {
@@ -119,21 +113,12 @@ namespace AirlineBookingSystem
         }
         public void CreateSection(string airlineName, string flightId, int rows, int cols, SeatClass seatClass)
         {
-            if (DoesAirlineExist(airlineName))
+            int airlineId = -1;
+            if (SetIndexWithAirlineIndexIfAirlineExists(ref airlineId, airlineName))
             {
-                for (int i = 0; i < _airlines.Count; i++)
+                if (!_airlines[airlineId].AddFlightSectionToFlight(new FlightSection(seatClass, rows, cols), flightId))
                 {
-                    if (_airlines[i].Name == airlineName)
-                    {
-                        if (_airlines[i].AddFlightSectionToFlight(new FlightSection(seatClass, rows, cols), flightId))
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            throw new ArgumentException($"Airline {airlineName} does not contain such flight!");
-                        }
-                    }
+                    throw new ArgumentException($"Airline {airlineName} does not contain such flight!");
                 }
             }
             else
@@ -195,8 +180,6 @@ namespace AirlineBookingSystem
                 throw new ArgumentException("Airline does not exist!");
             }
         }
-        public List<Airport> GetReferenceAirports() => _airports;
-        public List<Airline> GetReferenceAirlines() => _airlines;
         #endregion
 
         #region Help Methods
@@ -230,24 +213,7 @@ namespace AirlineBookingSystem
 
             return exists;
         }
-        private void SetAvailableFlights(string fromAirport, string toAirport, List<Flight> availableFlights)
-        {
-            for (int arilineIndex = 0; arilineIndex < _airlines.Count; arilineIndex++)
-            {
-                for (int flightIndex = 0; flightIndex < _airlines[arilineIndex].Flights.Count; flightIndex++)
-                {
-                    for (int flightSectionIndex = 0; flightSectionIndex < _airlines[arilineIndex].Flights[flightIndex].FlightSections.Count; flightSectionIndex++)
-                    {
-                        if (_airlines[arilineIndex].Flights[flightIndex].Information.OriginatingAirport == fromAirport &&
-                        _airlines[arilineIndex].Flights[flightIndex].Information.DestinationAirport == toAirport &&
-                        _airlines[arilineIndex].Flights[flightIndex].FlightSections[flightSectionIndex].HasAvailableSeats())
-                        {
-                            availableFlights.Add(new Flight(_airlines[arilineIndex].Flights[flightIndex]));
-                        }
-                    }
-                }
-            }
-        }
+
         private bool SetIndexWithAirlineIndexIfAirlineExists(ref int airlineId, string airlineName)
         {
             for (int i = 0; i < _airlines.Count; i++)
@@ -290,9 +256,64 @@ namespace AirlineBookingSystem
         private bool TryBookSeat(int row, char col, int airlineId, int flightId, int sectionId)
         {
             return _airlines[airlineId]
-                .GetReferenceFlights()[flightId]
-                .GetReferenceFlightSections()[sectionId]
+                .ReferenceFlights[flightId]
+                .ReferenceFlightSections[sectionId]
                 .BookSeat(row, col);
+        }
+
+        private void SetAvailableFlights(string fromAirport, string toAirport, List<Flight> availableFlights)
+        {
+            TourEveryAirportAndAddItsFlightsIfTheyHaveAvailableSeats(fromAirport, toAirport, availableFlights);
+        }
+        private void TourEveryAirportAndAddItsFlightsIfTheyHaveAvailableSeats(string fromAirport, string toAirport, List<Flight> availableFlights)
+        {
+            for (int arilineIndex = 0; arilineIndex < _airlines.Count; arilineIndex++)
+            {
+                TourEveryFlightAndAddItIfItHasAvailableSeats(fromAirport, toAirport, availableFlights, arilineIndex);
+            }
+        }
+        private void TourEveryFlightAndAddItIfItHasAvailableSeats(string fromAirport, string toAirport, List<Flight> availableFlights, int arilineIndex)
+        {
+            for (int flightIndex = 0; flightIndex < _airlines[arilineIndex].Flights.Count; flightIndex++)
+            {
+                TourEveryFlightSectionAndAddFlightIfItHasAvailableSeats(fromAirport, toAirport, availableFlights, arilineIndex, flightIndex);
+            }
+        }
+        private void TourEveryFlightSectionAndAddFlightIfItHasAvailableSeats(string fromAirport, string toAirport, List<Flight> availableFlights, int airlineIndex, int flightIndex)
+        {
+            for (int flightSectionIndex = 0; flightSectionIndex < _airlines[airlineIndex].Flights[flightIndex].FlightSections.Count; flightSectionIndex++)
+            {
+                if (CanFlightBeAddedToAvailableFlightsList(fromAirport, toAirport, airlineIndex, flightIndex, flightSectionIndex))
+                {
+                    availableFlights.Add(new Flight(_airlines[airlineIndex].Flights[flightIndex]));
+                }
+            }
+        }
+        private bool CanFlightBeAddedToAvailableFlightsList(string fromAirport, string toAirport, int airlineIndex, int flightIndex, int flightSectionIndex)
+        {
+            return DoesFlightMeetsTheGivenRequierments(airlineIndex, flightIndex, toAirport, fromAirport) && HasFlightAvailableSeatsInThisFlightSection(airlineIndex, flightIndex, flightSectionIndex);
+        }
+        private bool HasFlightAvailableSeatsInThisFlightSection(int airlineIndex, int flightIndex, int flightSectionIndex)
+        {
+            return _airlines[airlineIndex].Flights[flightIndex].FlightSections[flightSectionIndex].HasAvailableSeats();
+        }
+        private bool DoesFlightMeetsTheGivenRequierments(int airlineIndex, int flightIndex, string toAirport, string fromAirport)
+        {
+            bool matchingOriginatingAirport =
+                _airlines[airlineIndex]
+                .Flights[flightIndex]
+                .Information
+                .OriginatingAirport == fromAirport;
+
+            bool matchingDestinationAirport =
+                _airlines[flightIndex]
+                .Flights[flightIndex]
+                .Information
+                .DestinationAirport == toAirport;
+
+            return matchingOriginatingAirport && matchingDestinationAirport;
+
+
         }
         #endregion
     }
