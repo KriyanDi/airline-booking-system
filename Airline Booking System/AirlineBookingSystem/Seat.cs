@@ -14,21 +14,10 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Constructors
-        /// <summary>
-        /// General purpouse
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="isBooked"></param>
         public Seat((int row, char col) id, bool isBooked)
         {
-            Id = id;
-            IsBooked = isBooked;
+            InitializeDataMembers(id, isBooked);
         }
-
-        /// <summary>
-        /// Copy constructor
-        /// </summary>
-        /// <param name="other"></param>
         public Seat(Seat other) : this(other.Id, other.IsBooked)
         {
         }
@@ -58,12 +47,18 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Help Methods
+        private void InitializeDataMembers((int row, char col) id, bool isBooked)
+        {
+            Id = id;
+            IsBooked = isBooked;
+        }
         private static bool IsLetterBetweenAAndJ(char value)
         {
             return ('A' <= value) && (value <= 'J');
         }
         #endregion
 
+        #region Equation Methods
         public override bool Equals(object obj)
         {
             return obj is Seat seat &&
@@ -79,5 +74,9 @@ namespace AirlineBookingSystem
             hashCode = hashCode * -1521134295 + IsBooked.GetHashCode();
             return hashCode;
         }
+        public static bool operator ==(Seat lhs, Seat rhs) => lhs.Equals(rhs);
+        public static bool operator !=(Seat lhs, Seat rhs) => !(lhs == rhs); 
+        #endregion
+
     }
 }
