@@ -102,14 +102,8 @@ namespace AirlineBookingSystem
         {
             _information.Id = uniqueId;
         }
-        public FlightInformation GetReferenceInformation()
-        {
-            return _information;
-        }
-        public List<FlightSection> GetReferenceFlightSections()
-        {
-            return _flightSections;
-        }
+        public FlightInformation ReferenceInformation => _information;
+        public List<FlightSection> ReferenceFlightSections => _flightSections;
 
         #endregion
 
