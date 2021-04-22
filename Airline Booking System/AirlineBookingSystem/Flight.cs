@@ -14,33 +14,22 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Constructors
-        /// <summary>
-        /// General purpouse constructor
-        /// </summary>
-        /// <param name="airlineName"></param>
-        /// <param name="originatingAirport"></param>
-        /// <param name="destinationAirport"></param>
-        /// <param name="flightNumber"></param>
-        /// <param name="departureDate"></param>
         public Flight(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate)
         {
-            string id = null;
-            InitializeInformation(airlineName, originatingAirport, destinationAirport, flightNumber, departureDate, id);
-            FlightSections = new List<FlightSection>();
+            InitializeDataMembers(airlineName, originatingAirport, destinationAirport, flightNumber, departureDate);
         }
-
-        /// <summary>
-        /// Copy constructor
-        /// </summary>
-        /// <param name="other"></param>
         public Flight(Flight other)
         {
-            Information = new FlightInformation(other.Information);
-            FlightSections = other.FlightSections;
+            InitializeDataMembersFrom(other);
         }
         #endregion
 
         #region Properties
+        public FlightInformation Information
+        {
+            get => new FlightInformation(_information);
+            private set => _information = value;
+        }
         public List<FlightSection> FlightSections
         {
             get
@@ -73,12 +62,8 @@ namespace AirlineBookingSystem
                 }
             }
         }
-        public FlightInformation Information
-        {
-            // Returns a COPY!
-            get => new FlightInformation(_information);
-            private set => _information = value;
-        }
+        public FlightInformation InformationReference => _information;
+        public List<FlightSection> FlightSectionsReference => _flightSections;
         #endregion
 
         #region Methods
@@ -102,12 +87,31 @@ namespace AirlineBookingSystem
         {
             _information.Id = uniqueId;
         }
-        public FlightInformation ReferenceInformation => _information;
-        public List<FlightSection> ReferenceFlightSections => _flightSections;
-
         #endregion
 
         #region Help Methods
+        private void InitializeDataMembers(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate)
+        {
+            string id = null;
+            InitializeInformation(airlineName, originatingAirport, destinationAirport, flightNumber, departureDate, id);
+            FlightSections = new List<FlightSection>();
+        }
+        private void InitializeInformation(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate, string id)
+        {
+            if (originatingAirport != destinationAirport)
+            {
+                Information = new FlightInformation(airlineName, originatingAirport, destinationAirport, flightNumber, departureDate, id);
+            }
+            else
+            {
+                throw new ArgumentException("Originating Airport and Destination Airport can not be the same.");
+            }
+        }
+        private void InitializeDataMembersFrom(Flight other)
+        {
+            Information = new FlightInformation(other.Information);
+            FlightSections = other.FlightSections;
+        }
         private bool DoFlightSectionsContain(FlightSection section)
         {
             bool result = false;
@@ -123,19 +127,9 @@ namespace AirlineBookingSystem
 
             return result;
         }
-        private void InitializeInformation(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate, string id)
-        {
-            if (originatingAirport != destinationAirport)
-            {
-                Information = new FlightInformation(airlineName, originatingAirport, destinationAirport, flightNumber, departureDate, id);
-            }
-            else
-            {
-                throw new ArgumentException("Originating Airport and Destination Airport can not be the same.");
-            }
-        }
         #endregion
 
+        #region Equation Methods
         public override bool Equals(object obj)
         {
             if (obj is Flight flight)
@@ -167,5 +161,8 @@ namespace AirlineBookingSystem
             hashCode = hashCode * -1521134295 + EqualityComparer<FlightInformation>.Default.GetHashCode(Information);
             return hashCode;
         }
+        public static bool operator ==(Flight lhs, Flight rhs) => lhs.Equals(rhs);
+        public static bool operator !=(Flight lhs, Flight rhs) => !(lhs == rhs);
+        #endregion
     }
 }
