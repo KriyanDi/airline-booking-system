@@ -541,5 +541,184 @@ namespace AirlineBookingSystemTest.SystemManagerTests
             Assert.Equal(flightList1.Count, flightList2.Count);
         }
         #endregion
+
+        #region BookSeatMethodTests
+        [Fact]
+        public void BookSeat_BookASeatToUnexistingAirline_ShouldThrowExceptionTest()
+        {
+            // Arrange
+            ArgumentException expected = new ArgumentException("Airline does not exist!");
+            SystemManager system = new SystemManager();
+
+            // Act
+            ArgumentException actual = null;
+            try
+            {
+                system.BookSeat("ASD", "1234", SeatClass.BUSINESS, 5, 'A');
+            }
+            catch (ArgumentException ex)
+            {
+                actual = ex;
+            }
+
+            // Assert
+            Assert.Equal(expected.Message, actual.Message);
+        }
+
+        [Fact]
+        public void BookSeat_BookASeatToUnexistingFlight_ShouldThrowExceptionTest()
+        {
+            // Arrange
+            ArgumentException expected = new ArgumentException("Flight does not exist!");
+            SystemManager system = new SystemManager();
+
+            system.CreateAirport("AAA");
+            system.CreateAirport("BBB");
+
+            system.CreateAirline("ASD");
+
+            system.CreateFlight("ASD", "AAA", "BBB", 1972, 3, 2, "1543");
+            system.CreateFlight("ASD", "AAA", "BBB", 1972, 3, 2, "1523");
+            system.CreateFlight("ASD", "AAA", "BBB", 1972, 3, 2, "13");
+
+            // Act
+            ArgumentException actual = null;
+            try
+            {
+                system.BookSeat("ASD", "1234", SeatClass.BUSINESS, 5, 'A');
+            }
+            catch (ArgumentException ex)
+            {
+                actual = ex;
+            }
+
+            // Assert
+            Assert.Equal(expected.Message, actual.Message);
+        }
+
+        [Fact]
+        public void BookSeat_BookASeatToUnexistingSection_ShouldThrowExceptionTest()
+        {
+            // Arrange
+            ArgumentException expected = new ArgumentException($"Flight does not contain section with seat class {SeatClass.BUSINESS}!");
+            SystemManager system = new SystemManager();
+
+            system.CreateAirport("AAA");
+            system.CreateAirport("BBB");
+
+            system.CreateAirline("ASD");
+
+            system.CreateFlight("ASD", "AAA", "BBB", 1972, 3, 2, "1543");
+
+            system.CreateSection("ASD", "1543", 5, 4, SeatClass.ECONOMY);
+            system.CreateSection("ASD", "1543", 5, 4, SeatClass.FIRST);
+
+            // Act
+            ArgumentException actual = null;
+            try
+            {
+                system.BookSeat("ASD", "1543", SeatClass.BUSINESS, 5, 'A');
+            }
+            catch (ArgumentException ex)
+            {
+                actual = ex;
+            }
+
+            // Assert
+            Assert.Equal(expected.Message, actual.Message);
+        }
+
+        [Fact]
+        public void BookSeat_BookASeatThatIsBooked_ShouldThrowExceptionTest()
+        {
+            // Arrange
+            ArgumentException expected = new ArgumentException("Could not book seat on Row: 5 Col: A!");
+            SystemManager system = new SystemManager();
+
+            system.CreateAirport("AAA");
+            system.CreateAirport("BBB");
+
+            system.CreateAirline("ASD");
+
+            system.CreateFlight("ASD", "AAA", "BBB", 1992, 4, 5, "1543");
+
+            system.CreateSection("ASD", "1543", 5, 4, SeatClass.BUSINESS);
+
+            system.BookSeat("ASD", "1543", SeatClass.BUSINESS, 5, 'A');
+            
+            // Act
+            ArgumentException actual = null;
+            try
+            {
+                system.BookSeat("ASD", "1543", SeatClass.BUSINESS, 5, 'A');
+            }
+            catch (ArgumentException ex)
+            {
+                actual = ex;
+            }
+
+            // Assert
+            Assert.Equal(expected.Message, actual.Message);
+        }
+
+        [Fact]
+        public void BookSeat_BookASeatThatIsUnexisting_ShouldThrowExceptionTest()
+        {
+            // Arrange
+            ArgumentException expected = new ArgumentException("Could not book seat on Row: 5 Col: A!");
+            SystemManager system = new SystemManager();
+
+            system.CreateAirport("AAA");
+            system.CreateAirport("BBB");
+
+            system.CreateAirline("ASD");
+
+            system.CreateFlight("ASD", "AAA", "BBB", 1972, 5, 5, "1543");
+
+            system.CreateSection("ASD", "1543", 15, 5, SeatClass.BUSINESS);
+
+            // Act
+            ArgumentException actual = null;
+            try
+            {
+                system.BookSeat("ASD", "1543", SeatClass.BUSINESS, 5, 'A');
+            }
+            catch (ArgumentException ex)
+            {
+                actual = ex;
+            }
+
+            // Assert
+            Assert.Equal(expected.Message, actual.Message);
+        }
+
+        [Fact]
+        public void BookSeat_BookAValidAvailableSeat_ShouldPassTest()
+        {
+            // Arrange
+            bool expected = true;
+            SystemManager system = new SystemManager();
+
+            system.CreateAirport("AAA");
+            system.CreateAirport("BBB");
+
+            system.CreateAirline("ASD");
+
+            system.CreateFlight("ASD", "AAA", "BBB", 1972, 6, 4, "1543");
+
+            system.CreateSection("ASD", "1543", 16, 4, SeatClass.BUSINESS);
+
+            // Act
+            system.BookSeat("ASD", "1543", SeatClass.BUSINESS, 5, 'A');
+            bool actual = system
+                .GetReferenceAirlines()[0]
+                .GetReferenceFlights()[0]
+                .GetReferenceFlightSections()[0]
+                .Seats[4].IsBooked;
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+        #endregion
     }
 }
