@@ -197,10 +197,10 @@ namespace AirlineBookingSystem
             string flights = "";
             foreach (Flight flight in _flights)
             {
-                flights = flight.ToString() + "\n";
+                flights = flights + flight.ToString() + "\n";
             }
 
-            return name + "\n\n" + flights;
+            return name + "\n" + flights;
         } 
         #endregion
     }

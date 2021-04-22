@@ -173,7 +173,7 @@ namespace AirlineBookingSystem
             string flightSections = "";
             foreach (FlightSection section in _flightSections)
             {
-                flightSections = section.ToString() + "\n";
+                flightSections = flightSections + section.ToString() + "\n";
             }
 
             return information + "\n" + flightSections;
