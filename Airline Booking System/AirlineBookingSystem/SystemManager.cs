@@ -141,7 +141,28 @@ namespace AirlineBookingSystem
                 throw new ArgumentException("Airline does not exist!");
             }
         }
+        public List<Flight> FindAvailableFlights(string fromAirport, string toAirport)
+        {
+            List<Flight> availableFlights = new List<Flight>();
+            
+            if (DoesAirportExist(fromAirport))
+            {
+                if (DoesAirportExist(toAirport))
+                {
+                    SetAvailableFlights(fromAirport, toAirport, availableFlights);
+                }
+                else
+                {
+                    throw new ArgumentException($"Airport {toAirport} does not exist!");
+                }
+            }
+            else
+            {
+                throw new ArgumentException($"Airport {fromAirport} does not exist!");
+            }
 
+            return availableFlights;
+        }
         #endregion
 
         #region Help Methods
@@ -175,9 +196,23 @@ namespace AirlineBookingSystem
 
             return exists;
         }
-        private bool DoesFlightExist(string airlineName, string flightId)
+        private void SetAvailableFlights(string fromAirport, string toAirport, List<Flight> availableFlights)
         {
-            throw new NotImplementedException();
+            for (int arilineIndex = 0; arilineIndex < _airlines.Count; arilineIndex++)
+            {
+                for (int flightIndex = 0; flightIndex < _airlines[arilineIndex].Flights.Count; flightIndex++)
+                {
+                    for (int flightSectionIndex = 0; flightSectionIndex < _airlines[arilineIndex].Flights[flightIndex].FlightSections.Count; flightSectionIndex++)
+                    {
+                        if (_airlines[arilineIndex].Flights[flightIndex].Information.OriginatingAirport == fromAirport &&
+                        _airlines[arilineIndex].Flights[flightIndex].Information.DestinationAirport == toAirport &&
+                        _airlines[arilineIndex].Flights[flightIndex].FlightSections[flightSectionIndex].HasAvailableSeats())
+                        {
+                            availableFlights.Add(new Flight(_airlines[arilineIndex].Flights[flightIndex]));
+                        }
+                    }
+                }
+            }
         }
         #endregion
     }
