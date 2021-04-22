@@ -16,9 +16,9 @@ namespace AirlineBookingSystem
         #region Constructors
         public SystemManager()
         {
-            _airports = new List<Airport>();
-            _airlines = new List<Airline>();
+            InitializeDataMembers();
         }
+
         #endregion
 
         #region Properties
@@ -183,6 +183,11 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Help Methods
+        private void InitializeDataMembers()
+        {
+            _airports = new List<Airport>();
+            _airlines = new List<Airline>();
+        }
         private bool DoesAirportExist(string airportName)
         {
             bool exists = false;
