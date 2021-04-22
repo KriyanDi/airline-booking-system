@@ -95,6 +95,26 @@ namespace AirlineBookingSystem
 
             return false;
         }
+        public bool BookSeat(int row, char col)
+        {
+            for (int i = 0; i < _seats.Count; i++)
+            {
+                if (_seats[i].Id.row == row && _seats[i].Id.col == col)
+                {
+                    if (!_seats[i].IsBooked)
+                    {
+                        _seats[i].IsBooked = true;
+                        return true;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return false;
+        }
         #endregion
 
         #region Help Methods
