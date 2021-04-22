@@ -144,7 +144,7 @@ namespace AirlineBookingSystem
         public List<Flight> FindAvailableFlights(string fromAirport, string toAirport)
         {
             List<Flight> availableFlights = new List<Flight>();
-            
+
             if (DoesAirportExist(fromAirport))
             {
                 if (DoesAirportExist(toAirport))
@@ -163,6 +163,40 @@ namespace AirlineBookingSystem
 
             return availableFlights;
         }
+        public void BookSeat(string airlineName, string flightNumber, SeatClass seatClass, int row, char col)
+        {
+            int airlineId = -1;
+            int flightId = -1;
+            int sectionId = -1;
+
+            if (SetIndexWithAirlineIndexIfAirlineExists(ref airlineId, airlineName))
+            {
+                if (SetIndexWithFlightIndexIfFlightExists(ref flightId, airlineId, flightNumber))
+                {
+                    if (SetIndexWithFlightSectionIndexIfFlightSectionExists(ref sectionId, flightId, airlineId, seatClass))
+                    {
+                        if (!TryBookSeat(row, col, airlineId, flightId, sectionId))
+                        {
+                            throw new ArgumentException($"Could not book seat on Row: {row} Col: {col}!");
+                        }
+                    }
+                    else
+                    {
+                        throw new ArgumentException($"Flight does not contain section with seat class {seatClass}!");
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException("Flight does not exist!");
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Airline does not exist!");
+            }
+        }
+        public List<Airport> GetReferenceAirports() => _airports;
+        public List<Airline> GetReferenceAirlines() => _airlines;
         #endregion
 
         #region Help Methods
@@ -213,6 +247,52 @@ namespace AirlineBookingSystem
                     }
                 }
             }
+        }
+        private bool SetIndexWithAirlineIndexIfAirlineExists(ref int airlineId, string airlineName)
+        {
+            for (int i = 0; i < _airlines.Count; i++)
+            {
+                if (_airlines[i].Name == airlineName)
+                {
+                    airlineId = i;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        private bool SetIndexWithFlightIndexIfFlightExists(ref int flightId, int airlineId, string flightNumber)
+        {
+            for (int i = 0; i < _airlines[airlineId].Flights.Count; i++)
+            {
+                if (_airlines[airlineId].Flights[i].Information.FlightNumber == flightNumber)
+                {
+                    flightId = i;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        private bool SetIndexWithFlightSectionIndexIfFlightSectionExists(ref int sectionId, int flightId, int airlineId, SeatClass seatClass)
+        {
+            for (int i = 0; i < _airlines[airlineId].Flights[flightId].FlightSections.Count; i++)
+            {
+                if (_airlines[airlineId].Flights[flightId].FlightSections[i].SeatClass == seatClass)
+                {
+                    sectionId = i;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        private bool TryBookSeat(int row, char col, int airlineId, int flightId, int sectionId)
+        {
+            return _airlines[airlineId]
+                .GetReferenceFlights()[flightId]
+                .GetReferenceFlightSections()[sectionId]
+                .BookSeat(row, col);
         }
         #endregion
     }
