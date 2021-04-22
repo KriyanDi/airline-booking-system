@@ -93,7 +93,7 @@ namespace AirlineBookingSystem
                 {
                     if (DoesAirportExist(toAirport))
                     {
-                        _airlines[airlineId].AddFlight(new Flight(airlineName, fromAirport, toAirport, id, new DateTime(year, month, day)));
+                        AddNewFlight(airlineName, fromAirport, toAirport, year, month, day, id, airlineId);
                     }
                     else
                     {
@@ -110,6 +110,8 @@ namespace AirlineBookingSystem
                 throw new ArgumentException("Airline does not exist!");
             }
         }
+
+
         public void CreateSection(string airlineName, string flightId, int rows, int cols, SeatClass seatClass)
         {
             int airlineId = -1;
@@ -218,6 +220,11 @@ namespace AirlineBookingSystem
 
             return exists;
         }
+        
+        private void AddNewFlight(string airlineName, string fromAirport, string toAirport, int year, int month, int day, string id, int airlineId)
+        {
+            _airlines[airlineId].AddFlight(new Flight(airlineName, fromAirport, toAirport, id, new DateTime(year, month, day)));
+        }
 
         private bool SetIndexWithAirlineIndexIfAirlineExists(ref int airlineId, string airlineName)
         {
@@ -325,19 +332,19 @@ namespace AirlineBookingSystem
         #region Other Overridden Methods
         public override string ToString()
         {
-            string airports = "Airports: \n";
+            string airports = "";
             foreach (Airport airport in _airports)
             {
-                airports = airports.ToString() + "\n";
+                airports += airport.ToString() + "\n";
             }
 
-            string airlines = "Airlines: \n";
+            string airlines = "\n";
             foreach (Airline airline in _airlines)
             {
-                airlines = airline.ToString() + "\n\n";
+                airlines += airline.ToString() + "\n";
             }
 
-            return airports + "/n/n" + airlines;
+            return "Airlines: \n" + airports + "\n\n" + "Airlines: \n"+ airlines;
         }
         #endregion
     }
