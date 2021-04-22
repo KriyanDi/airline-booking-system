@@ -14,19 +14,10 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Constructors
-        /// <summary>
-        /// General purpouse constructor
-        /// </summary>
-        /// <param name="name"></param>
         public Airport(string name)
         {
-            Name = name;
+            InitializeDataMembers(name);
         }
-
-        /// <summary>
-        /// Copy constructor
-        /// </summary>
-        /// <param name="other"></param>
         public Airport(Airport other) : this(other.Name)
         {
         }
@@ -64,15 +55,25 @@ namespace AirlineBookingSystem
         }
         #endregion
 
+        #region Equations Methods
         public override bool Equals(object obj)
         {
             return obj is Airport airport &&
                    _name == airport.Name;
         }
-
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
+        public static bool operator ==(Airport lhs, Airport rhs) => lhs.Equals(rhs);
+        public static bool operator !=(Airport lhs, Airport rhs) => !(lhs == rhs);
+        #endregion
+        
+        #region Help Methods
+        private void InitializeDataMembers(string name)
+        {
+            Name = name;
+        } 
+        #endregion
     }
 }
