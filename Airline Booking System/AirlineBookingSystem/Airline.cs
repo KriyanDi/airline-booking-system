@@ -132,6 +132,10 @@ namespace AirlineBookingSystem
 
             return successfullyAdded;
         }
+        public List<Flight> GetReferenceFlights()
+        {
+            return _flights;
+        }
         #endregion
 
         #region Help Methods
