@@ -135,6 +135,8 @@ namespace AirlineBookingSystemTest.AirlineTests
         {
             // Arrange
             Airline expected = new Airline("TEST");
+            expected.AddFlight(new Flight("TEST1", "AAA", "BBB", "1234", new DateTime(1987, 3, 3)));
+            expected.AddFlight(new Flight("TEST2", "AAA", "BBB", "1235", new DateTime(1987, 3, 3)));
 
             // Act
             Airline actual = new Airline(expected);
