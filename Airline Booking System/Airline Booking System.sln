@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirlineBookingSystem", "AirlineBookingSystem\AirlineBookingSystem.csproj", "{29EB7C23-EC57-4CF2-B76D-668CEA25EAA9}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{3A7017E6-4F20-4C74-A72C-FD8ED7AD6F8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirlineBookingSystemTest", "AirlineBookingSystemTest\AirlineBookingSystemTest.csproj", "{2FABDD3C-8FC4-4179-840A-6F3B6B3495AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirlineBookingSystemTest", "AirlineBookingSystemTest\AirlineBookingSystemTest.csproj", "{2FABDD3C-8FC4-4179-840A-6F3B6B3495AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirlineBookingSystem", "AirlineBookingSystem\AirlineBookingSystem.csproj", "{29EB7C23-EC57-4CF2-B76D-668CEA25EAA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,14 +15,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{29EB7C23-EC57-4CF2-B76D-668CEA25EAA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{29EB7C23-EC57-4CF2-B76D-668CEA25EAA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{29EB7C23-EC57-4CF2-B76D-668CEA25EAA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{29EB7C23-EC57-4CF2-B76D-668CEA25EAA9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2FABDD3C-8FC4-4179-840A-6F3B6B3495AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2FABDD3C-8FC4-4179-840A-6F3B6B3495AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FABDD3C-8FC4-4179-840A-6F3B6B3495AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FABDD3C-8FC4-4179-840A-6F3B6B3495AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29EB7C23-EC57-4CF2-B76D-668CEA25EAA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29EB7C23-EC57-4CF2-B76D-668CEA25EAA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29EB7C23-EC57-4CF2-B76D-668CEA25EAA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29EB7C23-EC57-4CF2-B76D-668CEA25EAA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

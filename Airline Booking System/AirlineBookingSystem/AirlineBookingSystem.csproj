@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="Airline.cs" />
     <Compile Include="Airport.cs" />
+    <Compile Include="ExceptionMessages.cs" />
+    <Compile Include="OperationResult.cs" />
     <Compile Include="SystemManager.cs" />
     <Compile Include="Flight.cs" />
     <Compile Include="FlightInformation.cs" />
