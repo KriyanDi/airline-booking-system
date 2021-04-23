@@ -92,9 +92,11 @@ namespace AirlineBookingSystem
         #region Help Methods
         private void InitializeDataMembers(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate)
         {
+
             string id = null;
             InitializeInformation(airlineName, originatingAirport, destinationAirport, flightNumber, departureDate, id);
             FlightSections = new List<FlightSection>();
+
         }
         private void InitializeInformation(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate, string id)
         {
@@ -177,7 +179,7 @@ namespace AirlineBookingSystem
             }
 
             return information + "\n" + flightSections;
-        } 
+        }
         #endregion
     }
 }

@@ -9,12 +9,12 @@ namespace AirlineBookingSystem
     public class Seat
     {
         #region Fields
-        private (int row, char col) _id;
+        private (int rows, char cols) _id;
         private bool _isBooked;
         #endregion
 
         #region Constructors
-        public Seat((int row, char col) id, bool isBooked)
+        public Seat((int rows, char cols) id, bool isBooked)
         {
             InitializeDataMembers(id, isBooked);
         }
@@ -24,18 +24,14 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Properties
-        public (int row, char col) Id
+        public (int rows, char cols) Id
         {
             get => _id;
             set
             {
-                if (IsLetterBetweenAAndJ(value.col))
+                if (ValidationRules.SeatsRowsCols(value.rows, value.cols))
                 {
                     _id = value;
-                }
-                else
-                {
-                    throw new ArgumentException("Seat column should be char between A and J.");
                 }
             }
         }
@@ -47,14 +43,10 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Help Methods
-        private void InitializeDataMembers((int row, char col) id, bool isBooked)
+        private void InitializeDataMembers((int rows, char cols) id, bool isBooked)
         {
             Id = id;
             IsBooked = isBooked;
-        }
-        private static bool IsLetterBetweenAAndJ(char value)
-        {
-            return ('A' <= value) && (value <= 'J');
         }
         #endregion
 
@@ -79,7 +71,7 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Other Overridden Methods
-        public override string ToString() => $"ROW: {_id.row} COL: {_id.col} BOOKED: {_isBooked}"; 
+        public override string ToString() => $"ROW: {_id.rows} COL: {_id.cols} BOOKED: {_isBooked}";
         #endregion
     }
 }

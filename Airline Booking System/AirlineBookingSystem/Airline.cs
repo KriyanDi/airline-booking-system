@@ -32,27 +32,9 @@ namespace AirlineBookingSystem
             get => _name;
             set
             {
-                if (value != null)
+                if(ValidationRules.AirlineName(value))
                 {
-                    if (value.HasLengthMoreThanOneAndLessThanSix())
-                    {
-                        if (value.HasOnlyCapitalLettersAndNumbers())
-                        {
-                            _name = value;
-                        }
-                        else
-                        {
-                            throw new ArgumentException("Airline name should contain only capital letters and numbers.");
-                        }
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Airline name should be between 1 and 5 symbols long.");
-                    }
-                }
-                else
-                {
-                    throw new ArgumentNullException("Airline name can not be null.");
+                    _name = value;
                 }
             }
         }
@@ -122,7 +104,7 @@ namespace AirlineBookingSystem
 
             for (int i = 0; i < _flights.Count; i++)
             {
-                if (_flights[i].Information.FlightNumber == flightId)
+                if (_flights[i].InformationReference.FlightNumber == flightId)
                 {
                     _flights[i].AddFlightSection(section);
                     successfullyAdded = true;

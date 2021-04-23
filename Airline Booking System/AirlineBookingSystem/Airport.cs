@@ -29,27 +29,9 @@ namespace AirlineBookingSystem
             get => _name;
             set
             {
-                if(value != null)
+                if(ValidationRules.AirportName(value))
                 {
-                    if (value.HasLengthThree())
-                    {
-                        if (value.HasOnlyCapitalLetters())
-                        {
-                            _name = value;
-                        }
-                        else
-                        {
-                            throw new ArgumentException("Airport name should contain only capital letters.");
-                        }
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Airport name should be 3 letters long.");
-                    }
-                }
-                else
-                {
-                    throw new ArgumentNullException("Airport name can not be null.");
+                    _name = value;
                 }
             }
         }

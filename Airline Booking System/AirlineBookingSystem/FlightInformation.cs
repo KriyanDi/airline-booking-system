@@ -17,12 +17,7 @@ namespace AirlineBookingSystem
         #region Constructors
         public FlightInformation(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate, string id)
         {
-            AirlineName = airlineName;
-            OriginatingAirport = originatingAirport;
-            DestinationAirport = destinationAirport;
-            FlightNumber = flightNumber;
-            DepartureDate = departureDate;
-            Id = id;
+            InitializeDataMembers(airlineName, originatingAirport, destinationAirport, flightNumber, departureDate, id);
         }
         public FlightInformation(FlightInformation other) : this(other.AirlineName, other.OriginatingAirport, other.DestinationAirport, other.FlightNumber, other.DepartureDate, other.Id)
         {
@@ -33,17 +28,35 @@ namespace AirlineBookingSystem
         public string AirlineName
         {
             get => _airlineName;
-            private set => _airlineName = value;
+            private set
+            {
+                if (ValidationRules.AirlineName(value))
+                {
+                    _airlineName = value;
+                }
+            }
         }
         public string OriginatingAirport
         {
             get => _originatingAirport;
-            private set => _originatingAirport = value;
+            private set
+            {
+                if (ValidationRules.AirportName(value))
+                {
+                    _originatingAirport = value;
+                }
+            }
         }
         public string DestinationAirport
         {
             get => _destinationAirport;
-            private set => _destinationAirport = value;
+            private set
+            {
+                if (ValidationRules.AirportName(value))
+                {
+                    _destinationAirport = value;
+                }
+            }
         }
         public string FlightNumber
         {
@@ -88,8 +101,20 @@ namespace AirlineBookingSystem
         public static bool operator !=(FlightInformation lhs, FlightInformation rhs) => !(lhs == rhs);
         #endregion
 
+        #region Help Methods
+        private void InitializeDataMembers(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate, string id)
+        {
+            AirlineName = airlineName;
+            OriginatingAirport = originatingAirport;
+            DestinationAirport = destinationAirport;
+            FlightNumber = flightNumber;
+            DepartureDate = departureDate;
+            Id = id;
+        }
+        #endregion
+
         #region Other Overridden Methods
-        public override string ToString() => $"{_airlineName} {_originatingAirport} {_destinationAirport} {_flightNumber} {_departureDate.Date} {_id}"; 
+        public override string ToString() => $"{_airlineName} {_originatingAirport} {_destinationAirport} {_flightNumber} {_departureDate.Date} {_id}";
         #endregion
     }
 }

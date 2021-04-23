@@ -14,9 +14,9 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Constructors
-        public FlightSection(SeatClass seatClass, int row, int col)
+        public FlightSection(SeatClass seatClass, int rows, int cols)
         {
-            InitializeDataMembers(seatClass, row, col);
+            InitializeDataMembers(seatClass, rows, cols);
         }
         public FlightSection(FlightSection other)
         {
@@ -109,11 +109,11 @@ namespace AirlineBookingSystem
 
             return false;
         }
-        public bool BookSeat(int row, char col)
+        public bool BookSeat(int rows, char cols)
         {
             for (int i = 0; i < _seats.Count; i++)
             {
-                if (_seats[i].Id == (row, col))
+                if (_seats[i].Id == (rows, cols))
                 {
                     if (!_seats[i].IsBooked)
                     {
@@ -132,26 +132,26 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Help Methods
-        private void InitializeDataMembers(SeatClass seatClass, int row, int col)
+        private void InitializeDataMembers(SeatClass seatClass, int rows, int cols)
         {
             SeatClass = seatClass;
             Seats = new List<Seat>();
-            InitializeSeats(row, col);
+            InitializeSeats(rows, cols);
         }
         private void InitializeDataMembersFrom(FlightSection other)
         {
             SeatClass = other.SeatClass;
             InitializeSeats(other.Seats);
         }
-        private void InitializeSeats(int row, int col)
+        private void InitializeSeats(int rows, int cols)
         {
-            if (AreValidRowCol(row, col))
+            if (AreValidRowCol(rows, cols))
             {
-                for (int i = 0; i < row; i++)
+                for (int i = 0; i < rows; i++)
                 {
-                    for (int j = 0; j < col; j++)
+                    for (int j = 0; j < cols; j++)
                     {
-                        (int row, char col) seatId = (i + 1, Convert.ToChar(65 + (j % col)));
+                        (int rows, char cols) seatId = (i + 1, Convert.ToChar(65 + (j % cols)));
                         _seats.Add(new Seat(seatId, false));
                     }
                 }
@@ -169,11 +169,11 @@ namespace AirlineBookingSystem
                 _seats.Add(new Seat(seats[i]));
             }
         }
-        private static bool AreValidRowCol(int row, int col)
+        private static bool AreValidRowCol(int rows, int cols)
         {
-            bool isRowValid = (1 <= row && row <= 100);
+            bool isRowValid = (1 <= rows && rows <= 100);
 
-            bool isColValid = (1 <= col && col <= 10);
+            bool isColValid = (1 <= cols && cols <= 10);
 
             return isRowValid && isColValid;
         }
