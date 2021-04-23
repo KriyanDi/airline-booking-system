@@ -62,29 +62,37 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Methods
-        public void CreateAirport(string airportName)
+        public SystemManagerOperation CreateAirport(string airportName)
         {
             if (!DoesAirportExist(airportName))
             {
                 _airports.Add(new Airport(airportName));
+
+                return SystemManagerOperation.Succeded;
             }
             else
             {
-                throw new ArgumentException($"Airport {airportName} already exists!");
+                Console.WriteLine($"Error: Airport {airportName} already exists!");
+
+                return SystemManagerOperation.InvalidNameAirportExistFailure;
             }
         }
-        public void CreateAirline(string airlineName)
+        public SystemManagerOperation CreateAirline(string airlineName)
         {
             if (!DoesAirlineExist(airlineName))
             {
                 _airlines.Add(new Airline(airlineName));
+
+                return SystemManagerOperation.Succeded;
             }
             else
             {
-                throw new ArgumentException($"Airline {airlineName} already exists!");
+                Console.WriteLine($"Error: Airline {airlineName} already exists!");
+
+                return SystemManagerOperation.InvalidNameAirlineExistFailure;
             }
         }
-        public void CreateFlight(string airlineName, string fromAirport, string toAirport, int year, int month, int day, string id)
+        public SystemManagerOperation CreateFlight(string airlineName, string fromAirport, string toAirport, int year, int month, int day, string id)
         {
             int airlineId = -1;
             if (SetIndexWithAirlineIndexIfAirlineExists(ref airlineId, airlineName))
@@ -93,38 +101,59 @@ namespace AirlineBookingSystem
                 {
                     if (DoesAirportExist(toAirport))
                     {
-                        AddNewFlight(airlineName, fromAirport, toAirport, year, month, day, id, airlineId);
+                        if (AddNewFlight(airlineName, fromAirport, toAirport, year, month, day, id, airlineId) == AirlineOperation.Succeded)
+                        {
+                            return SystemManagerOperation.Succeded;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error: Flight was not added.");
+
+                            return SystemManagerOperation.AddingFlightFailure;
+                        }
                     }
                     else
                     {
-                        throw new ArgumentException("Destination Airport does not exist!");
+                        Console.WriteLine("Error: Destination Airport does not exist.");
+
+                        return SystemManagerOperation.UnexistingAirportFailure;
                     }
                 }
                 else
                 {
-                    throw new ArgumentException("Originating Airport does not exist!");
+                    Console.WriteLine("Error: Originating Airport does not exist.");
+
+                    return SystemManagerOperation.UnexistingAirportFailure;
                 }
             }
             else
             {
-                throw new ArgumentException("Airline does not exist!");
+                Console.WriteLine("Error: Airline does not exist.");
+
+                return SystemManagerOperation.UnexistingAirlineFailure;
             }
         }
-
-
-        public void CreateSection(string airlineName, string flightId, int rows, int cols, SeatClass seatClass)
+        public SystemManagerOperation CreateSection(string airlineName, string flightId, int rows, int cols, SeatClass seatClass)
         {
             int airlineId = -1;
             if (SetIndexWithAirlineIndexIfAirlineExists(ref airlineId, airlineName))
             {
-                if (!_airlines[airlineId].AddFlightSectionToFlight(new FlightSection(seatClass, rows, cols), flightId))
+                if (_airlines[airlineId].AddFlightSectionToFlight(new FlightSection(seatClass, rows, cols), flightId))
                 {
-                    throw new ArgumentException($"Airline {airlineName} does not contain such flight!");
+                    return SystemManagerOperation.Succeded;
+                }
+                else
+                {
+                    Console.WriteLine($"Airline {airlineName} does not contain such flight!");
+
+                    return SystemManagerOperation.UnexistingFlightFailure;
                 }
             }
             else
             {
-                throw new ArgumentException("Airline does not exist!");
+                Console.WriteLine("Error: Airline does not exist.");
+
+                return SystemManagerOperation.UnexistingAirlineFailure;
             }
         }
         public List<Flight> FindAvailableFlights(string fromAirport, string toAirport)
@@ -139,17 +168,17 @@ namespace AirlineBookingSystem
                 }
                 else
                 {
-                    throw new ArgumentException($"Airport {toAirport} does not exist!");
+                    Console.WriteLine($"Error: Airport {toAirport} does not exist.");
                 }
             }
             else
             {
-                throw new ArgumentException($"Airport {fromAirport} does not exist!");
+                Console.WriteLine($"Error: Airport {fromAirport} does not exist.");
             }
 
             return availableFlights;
         }
-        public void BookSeat(string airlineName, string flightNumber, SeatClass seatClass, int rows, char cols)
+        public SystemManagerOperation BookSeat(string airlineName, string flightNumber, SeatClass seatClass, int rows, char cols)
         {
             int airlineId = -1;
             int flightId = -1;
@@ -161,24 +190,36 @@ namespace AirlineBookingSystem
                 {
                     if (SetIndexWithFlightSectionIndexIfFlightSectionExists(ref sectionId, flightId, airlineId, seatClass))
                     {
-                        if (!TryBookSeat(rows, cols, airlineId, flightId, sectionId))
+                        if (TryBookSeat(rows, cols, airlineId, flightId, sectionId))
                         {
-                            throw new ArgumentException($"Could not book seat on Row: {rows} Col: {cols}!");
+                            return SystemManagerOperation.Succeded;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Could not book seat on Row: {rows} Col: {cols}!");
+                            
+                            return SystemManagerOperation.BookingSeatFailure;
                         }
                     }
                     else
                     {
-                        throw new ArgumentException($"Flight does not contain section with seat class {seatClass}!");
+                        Console.WriteLine($"Error: Flight does not contain section with seat class {seatClass}!");
+
+                        return SystemManagerOperation.UnexsistingSeatClassFailure;
                     }
                 }
                 else
                 {
-                    throw new ArgumentException("Flight does not exist!");
+                    Console.WriteLine("Error: Flight does not exist.");
+
+                    return SystemManagerOperation.UnexistingFlightFailure;
                 }
             }
             else
             {
-                throw new ArgumentException("Airline does not exist!");
+                Console.WriteLine("Error: Airline does not exist!");
+
+                return SystemManagerOperation.UnexistingAirlineFailure;
             }
         }
         public void DisplaySystemDetails() => Console.WriteLine(this.ToString());
@@ -220,10 +261,12 @@ namespace AirlineBookingSystem
 
             return exists;
         }
-        
-        private void AddNewFlight(string airlineName, string fromAirport, string toAirport, int year, int month, int day, string id, int airlineId)
+
+        private AirlineOperation AddNewFlight(string airlineName, string fromAirport, string toAirport, int year, int month, int day, string id, int airlineId)
         {
-            _airlines[airlineId].AddFlight(new Flight(airlineName, fromAirport, toAirport, id, new DateTime(year, month, day)));
+            AirlineOperation result = _airlines[airlineId].AddFlight(new Flight(airlineName, fromAirport, toAirport, id, new DateTime(year, month, day)));
+
+            return result;
         }
 
         private bool SetIndexWithAirlineIndexIfAirlineExists(ref int airlineId, string airlineName)
@@ -344,7 +387,7 @@ namespace AirlineBookingSystem
                 airlines += airline.ToString() + "\n";
             }
 
-            return "Airlines: \n" + airports + "\n\n" + "Airlines: \n"+ airlines;
+            return "Airlines: \n" + airports + "\n\n" + "Airlines: \n" + airlines;
         }
         #endregion
     }
