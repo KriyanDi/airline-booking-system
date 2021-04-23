@@ -17,27 +17,16 @@ namespace AirlineBookingSystem
         #region Constructors
         public Airline(string name)
         {
-            Name = name;
-            _flights = new List<Flight>();
+            InitializeDataMembers(name);
         }
         public Airline(Airline other) : this(other.Name)
         {
-            Flights = other.Flights;
+            InitializeDataMembersFrom(other);
         }
         #endregion
 
         #region Properties
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                if(ValidationRules.AirlineName(value))
-                {
-                    _name = value;
-                }
-            }
-        }
+        public string Name => _name;
         public List<Flight> Flights
         {
             get
@@ -76,43 +65,53 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Methods
-        public bool AddFlight(Flight flight)
+        public AirlineOperation ChangeName(string airlineName)
         {
-            Flight flightCopy = new Flight(flight);
+            AirlineOperation result = ValidationRules.AirlineName(airlineName);
 
-            flightCopy.InformationReference.Id = $"{Name}{(_flights.Count + 1):D5}";
-
-            if (_flights == null)
+            switch (result)
             {
-                _flights = new List<Flight>();
+                case AirlineOperation.Succeded:
+                    _name = airlineName;
+                    break;
+                case AirlineOperation.InvalidNameFormatFailure:
+                    Console.WriteLine("Error: Airline name should contain only capital letters and numbers.");
+                    break;
+                case AirlineOperation.InvalidNameLenghtFailure:
+                    Console.WriteLine("Error: Airline name should be between 1 and 5 symbols long.");
+                    break;
+                case AirlineOperation.InvalidNameNullFailure:
+                    Console.WriteLine("Error: Airline name can not be null.");
+                    break;
+                default:
+                    break;
             }
 
-            if (!DoesFlightMatchWithOtherFlightByFlightNumber(flight))
+            return result;
+        }
+        public AirlineOperation AddFlight(Flight flight)
+        {
+            if (ValidateNewFlight(flight) == AirlineOperation.Succeded)
             {
-                _flights.Add(new Flight(flightCopy));
+                ProceedAddingTheFlight(flight);
+
+                return AirlineOperation.Succeded;
             }
             else
             {
-                throw new ArgumentException("This Flight matches by flight number with other flight!");
+                return AirlineOperation.AddingFlightFailure;
             }
-
-            return true;
         }
         public bool AddFlightSectionToFlight(FlightSection section, string flightId)
         {
-            bool successfullyAdded = false;
-
-            for (int i = 0; i < _flights.Count; i++)
+            if (TryAddNewSectionToFlight(section, flightId) == AirlineOperation.Succeded)
             {
-                if (_flights[i].InformationReference.FlightNumber == flightId)
-                {
-                    _flights[i].AddFlightSection(section);
-                    successfullyAdded = true;
-                    break;
-                }
+                return true;
             }
-
-            return successfullyAdded;
+            else
+            {
+                return false;
+            }
         }
         #endregion
 
@@ -154,20 +153,100 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Help Methods
+        private void InitializeDataMembers(string name)
+        {
+            InitializeName(name);
+            InitializeFlights();
+        }
+        private void InitializeName(string name)
+        {
+            if (ChangeName(name) != AirlineOperation.Succeded)
+            {
+                Console.WriteLine("Airline was not created!");
+
+                throw new ArgumentException(AirlineExceptionMessages.invalidName);
+            }
+        }
+        private void InitializeFlights()
+        {
+            _flights = new List<Flight>();
+        }
+
+        private void InitializeDataMembersFrom(Airline other)
+        {
+            Flights = other.Flights;
+        }
+
+        private AirlineOperation ValidateNewFlight(Flight flight)
+        {
+            if (IsFlightAirlineMatchingWithAirlineName(flight))
+            {
+                if (!DoesFlightMatchWithOtherFlightByFlightNumber(flight))
+                {
+                    return AirlineOperation.Succeded;
+                }
+                else
+                {
+                    Console.WriteLine("This Flight matches by flight number with other flight.");
+
+                    return AirlineOperation.InvalidFlightMatchingFlighNumberFailure;
+                }
+            }
+            else
+            {
+                return AirlineOperation.InvalidAirportNotMathingAirlineFailure;
+            }
+        }
+        private bool IsFlightAirlineMatchingWithAirlineName(Flight flight)
+        {
+            bool areMatching = flight.InformationReference.AirlineName == _name;
+
+            return areMatching;
+        }
         private bool DoesFlightMatchWithOtherFlightByFlightNumber(Flight flight)
         {
-            bool match = false;
+            bool findMatch = false;
 
             foreach (Flight currentFlight in Flights)
             {
                 if (flight.Information.FlightNumber == currentFlight.Information.FlightNumber)
                 {
-                    match = true;
+                    findMatch = true;
                     break;
                 }
             }
 
-            return match;
+            return findMatch;
+        }
+        private void ProceedAddingTheFlight(Flight flight)
+        {
+            Flight flightCopy = new Flight(flight);
+
+            SetUniqueFlightIdForThisAirline(flightCopy);
+
+            _flights.Add(new Flight(flightCopy));
+        }
+        private void SetUniqueFlightIdForThisAirline(Flight flightCopy)
+        {
+            flightCopy.InformationReference.Id = $"{_name}{_flights.Count + 1:D5}";
+        }
+        private AirlineOperation TryAddNewSectionToFlight(FlightSection section, string flightId)
+        {
+            if(_flights != null)
+            {
+                for (int i = 0; i < _flights.Count; i++)
+                {
+                    if (_flights[i].InformationReference.FlightNumber == flightId)
+                    {
+                        if (_flights[i].AddFlightSection(section) == FlightOperation.Succeded)
+                        {
+                            return AirlineOperation.Succeded;
+                        }
+                    }
+                }
+            }
+            
+            return AirlineOperation.Failed;
         }
         #endregion
 
@@ -183,7 +262,7 @@ namespace AirlineBookingSystem
             }
 
             return name + "\n" + flights;
-        } 
+        }
         #endregion
     }
 }
