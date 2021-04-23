@@ -25,39 +25,9 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Properties
-        public string AirlineName
-        {
-            get => _airlineName;
-            private set
-            {
-                if (ValidationRules.AirlineName(value))
-                {
-                    _airlineName = value;
-                }
-            }
-        }
-        public string OriginatingAirport
-        {
-            get => _originatingAirport;
-            private set
-            {
-                if (ValidationRules.AirportName(value))
-                {
-                    _originatingAirport = value;
-                }
-            }
-        }
-        public string DestinationAirport
-        {
-            get => _destinationAirport;
-            private set
-            {
-                if (ValidationRules.AirportName(value))
-                {
-                    _destinationAirport = value;
-                }
-            }
-        }
+        public string AirlineName => _airlineName;
+        public string OriginatingAirport => _originatingAirport;
+        public string DestinationAirport => _destinationAirport;
         public string FlightNumber
         {
             get => _flightNumber;
@@ -72,6 +42,77 @@ namespace AirlineBookingSystem
         {
             get => _id;
             set => _id = value;
+        }
+        #endregion
+
+        #region Methods
+        public AirlineOperation ChangeAirline(string airlineName)
+        {
+            AirlineOperation result = ValidationRules.AirlineName(airlineName);
+
+            switch (result)
+            {
+                case AirlineOperation.Succeded:
+                    _airlineName = airlineName;
+                    break;
+                case AirlineOperation.InvalidNameFormatFailure:
+                    Console.WriteLine("Error: Airline name should contain only capital letters and numbers.");
+                    break;
+                case AirlineOperation.InvalidNameLenghtFailure:
+                    Console.WriteLine("Error: Airline name should be between 1 and 5 symbols long.");
+                    break;
+                case AirlineOperation.InvalidNameNullFailure:
+                    Console.WriteLine("Error: Airline name can not be null.");
+                    break;
+                default:
+                    break;
+            }
+
+            return result;
+        }
+        public AirportOperation ChangeOriginatingAirport(string airportName)
+        {
+            AirportOperation result = ValidationRules.AirportName(airportName);
+
+            switch (result)
+            {
+                case AirportOperation.Succeded:
+                    _originatingAirport = airportName;
+                    break;
+                case AirportOperation.InvalidNameLenghtFailure:
+                    Console.WriteLine("Error: Airport name should be exact 3 letters long.");
+                    break;
+                case AirportOperation.InvalidNameNullFailure:
+                    Console.WriteLine("Error: Airport name can not be null.");
+                    break;
+                case AirportOperation.InvalidNameFormatFailure:
+                    Console.WriteLine("Error: Airport name should contain only capital letters.");
+                    break;
+            }
+
+            return result;
+        }
+        public AirportOperation ChangeDestinationAirport(string airportName)
+        {
+            AirportOperation result = ValidationRules.AirportName(airportName);
+
+            switch (result)
+            {
+                case AirportOperation.Succeded:
+                    _destinationAirport = airportName;
+                    break;
+                case AirportOperation.InvalidNameLenghtFailure:
+                    Console.WriteLine("Error: Airport name should be exact 3 letters long.");
+                    break;
+                case AirportOperation.InvalidNameNullFailure:
+                    Console.WriteLine("Error: Airport name can not be null.");
+                    break;
+                case AirportOperation.InvalidNameFormatFailure:
+                    Console.WriteLine("Error: Airport name should contain only capital letters.");
+                    break;
+            }
+
+            return result;
         }
         #endregion
 
@@ -104,12 +145,39 @@ namespace AirlineBookingSystem
         #region Help Methods
         private void InitializeDataMembers(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate, string id)
         {
-            AirlineName = airlineName;
-            OriginatingAirport = originatingAirport;
-            DestinationAirport = destinationAirport;
+            InitializeAirlineName(airlineName);
+            InitializeOriginatingAirport(originatingAirport);
+            InitializeDestinationAirport(destinationAirport);
             FlightNumber = flightNumber;
             DepartureDate = departureDate;
             Id = id;
+        }
+        private void InitializeOriginatingAirport(string originatingAirport)
+        {
+            if (ChangeOriginatingAirport(originatingAirport) != AirportOperation.Succeded)
+            {
+                Console.WriteLine("Flight Information was not created!");
+
+                throw new ArgumentException(AirportExceptionMessages.invalidName);
+            }
+        }
+        private void InitializeDestinationAirport(string destinationAirport)
+        {
+            if (ChangeDestinationAirport(destinationAirport) != AirportOperation.Succeded)
+            {
+                Console.WriteLine("Flight information was not created!");
+
+                throw new ArgumentException(AirportExceptionMessages.invalidName);
+            }
+        }
+        private void InitializeAirlineName(string airlineName)
+        {
+            if (ChangeAirline(airlineName) != AirlineOperation.Succeded)
+            {
+                Console.WriteLine("Flight Information was not created!");
+
+                throw new ArgumentException(AirlineExceptionMessages.invalidName);
+            }
         }
         #endregion
 
