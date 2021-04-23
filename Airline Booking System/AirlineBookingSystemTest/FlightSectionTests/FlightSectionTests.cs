@@ -101,13 +101,13 @@ namespace AirlineBookingSystemTest.FlightSectionTests
             List<Seat> expected = new List<Seat>
             {
                 new Seat(new (1, 'A'), false),
-                new Seat(new (2, 'B'), false),
-                new Seat(new (3, 'C'), false),
-                new Seat(new (4, 'D'), false)
+                new Seat(new (1, 'B'), false),
+                new Seat(new (1, 'C'), false),
+                new Seat(new (1, 'D'), false)
             };
 
             // Act
-            FlightSection flightSection = new FlightSection(SeatClass.ECONOMY, 4, 4);
+            FlightSection flightSection = new FlightSection(SeatClass.ECONOMY, 1, 4);
             List<Seat> actual = flightSection.Seats;
 
             // Assert

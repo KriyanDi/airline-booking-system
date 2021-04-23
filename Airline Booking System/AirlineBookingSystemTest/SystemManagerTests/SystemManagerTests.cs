@@ -665,7 +665,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         public void BookSeat_BookASeatThatIsUnexisting_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Could not book seat on Row: 5 Col: A!");
+            ArgumentException expected = new ArgumentException("Could not book seat on Row: 5 Col: B!");
             SystemManager system = new SystemManager();
 
             system.CreateAirport("AAA");
@@ -675,13 +675,13 @@ namespace AirlineBookingSystemTest.SystemManagerTests
 
             system.CreateFlight("ASD", "AAA", "BBB", 1972, 5, 5, "1543");
 
-            system.CreateSection("ASD", "1543", 15, 5, SeatClass.BUSINESS);
+            system.CreateSection("ASD", "1543", 3, 2, SeatClass.BUSINESS);
 
             // Act
             ArgumentException actual = null;
             try
             {
-                system.BookSeat("ASD", "1543", SeatClass.BUSINESS, 5, 'A');
+                system.BookSeat("ASD", "1543", SeatClass.BUSINESS, 5, 'B');
             }
             catch (ArgumentException ex)
             {
@@ -706,15 +706,15 @@ namespace AirlineBookingSystemTest.SystemManagerTests
 
             system.CreateFlight("ASD", "AAA", "BBB", 1972, 6, 4, "1543");
 
-            system.CreateSection("ASD", "1543", 16, 4, SeatClass.BUSINESS);
+            system.CreateSection("ASD", "1543", 4, 4, SeatClass.BUSINESS);
 
             // Act
-            system.BookSeat("ASD", "1543", SeatClass.BUSINESS, 5, 'A');
+            system.BookSeat("ASD", "1543", SeatClass.BUSINESS, 2, 'B');
             bool actual = system
                 .AirlinesReference[0]
                 .FlightsReference[0]
                 .FlightSectionsReference[0]
-                .Seats[4].IsBooked;
+                .Seats[5].IsBooked;
 
             // Assert
             Assert.Equal(expected, actual);
