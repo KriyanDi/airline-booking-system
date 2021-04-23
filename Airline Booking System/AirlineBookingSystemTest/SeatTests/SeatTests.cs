@@ -14,11 +14,11 @@ namespace AirlineBookingSystemTest.SeatTests
         public void Constructor_ValidSeat_ShouldPassTest()
         {
             // Arrange
-            (int row, char col) expectedId = (123, 'B');
+            (int rows, char cols) expectedId = (12, 'B');
             bool expectedIsBooked = false;
 
             // Act
-            Seat actual = new Seat((123, 'B'), false);
+            Seat actual = new Seat((12, 'B'), false);
 
             // Assert
             Assert.Equal(expectedId, actual.Id);
@@ -29,7 +29,28 @@ namespace AirlineBookingSystemTest.SeatTests
         public void Constructor_InvalidSeatColumn_ShouldThrowException()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Seat column should be char between A and J.");
+            ArgumentException expected = new ArgumentException($"Seat column should be char between {ValidationRules.MIN_COLS_LETTER} and {ValidationRules.MAX_COLS_LETTER}.");
+
+            // Act
+            ArgumentException actual = null;
+            try
+            {
+                Seat seat = new Seat((13, 'Y'), true);
+            }
+            catch (ArgumentException ex)
+            {
+                actual = ex;
+            }
+
+            // Assert
+            Assert.Equal(expected.Message, actual.Message);
+        }
+
+        [Fact]
+        public void Constructor_InvalidSeatRow_ShouldThrowException()
+        {
+            // Arrange
+            ArgumentException expected = new ArgumentException($"Seat row should be number between {ValidationRules.MIN_ROWS} and {ValidationRules.MAX_ROWS}.");
 
             // Act
             ArgumentException actual = null;
@@ -45,6 +66,5 @@ namespace AirlineBookingSystemTest.SeatTests
             // Assert
             Assert.Equal(expected.Message, actual.Message);
         }
-        
     }
 }
