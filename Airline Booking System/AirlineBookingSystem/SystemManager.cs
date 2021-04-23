@@ -149,7 +149,7 @@ namespace AirlineBookingSystem
 
             return availableFlights;
         }
-        public void BookSeat(string airlineName, string flightNumber, SeatClass seatClass, int row, char col)
+        public void BookSeat(string airlineName, string flightNumber, SeatClass seatClass, int rows, char cols)
         {
             int airlineId = -1;
             int flightId = -1;
@@ -161,9 +161,9 @@ namespace AirlineBookingSystem
                 {
                     if (SetIndexWithFlightSectionIndexIfFlightSectionExists(ref sectionId, flightId, airlineId, seatClass))
                     {
-                        if (!TryBookSeat(row, col, airlineId, flightId, sectionId))
+                        if (!TryBookSeat(rows, cols, airlineId, flightId, sectionId))
                         {
-                            throw new ArgumentException($"Could not book seat on Row: {row} Col: {col}!");
+                            throw new ArgumentException($"Could not book seat on Row: {rows} Col: {cols}!");
                         }
                     }
                     else
@@ -265,12 +265,12 @@ namespace AirlineBookingSystem
 
             return false;
         }
-        private bool TryBookSeat(int row, char col, int airlineId, int flightId, int sectionId)
+        private bool TryBookSeat(int rows, char cols, int airlineId, int flightId, int sectionId)
         {
             return _airlines[airlineId]
                 .FlightsReference[flightId]
                 .FlightSectionsReference[sectionId]
-                .BookSeat(row, col);
+                .BookSeat(rows, cols);
         }
 
         private void SetAvailableFlights(string fromAirport, string toAirport, List<Flight> availableFlights)
