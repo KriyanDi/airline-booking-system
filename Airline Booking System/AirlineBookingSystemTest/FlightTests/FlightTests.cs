@@ -102,7 +102,7 @@ namespace AirlineBookingSystemTest.FlightTests
         }
 
         [Fact]
-        public void AddFlightSection_AddingTwoExactFlightSections_ShouldThrowExceptionTest()
+        public void AddFlightSection_AddingTwoExactFlightSections_ShouldPassTest()
         {
             // Arrange 
             FlightOperation expected = FlightOperation.InvalidSectionAlreadyExistsFailure;

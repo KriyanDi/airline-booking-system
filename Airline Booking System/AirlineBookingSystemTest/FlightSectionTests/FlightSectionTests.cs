@@ -11,7 +11,7 @@ namespace AirlineBookingSystemTest.FlightSectionTests
     public class FlightSectionTests
     {
         [Fact]
-        public void Constructor_InvalidRowAboveOnehundred_ShouldThrowException()
+        public void Constructor_InvalidRowAboveOnehundred_ShoulPassTest()
         {
             // Arrange
             ArgumentException expected = new ArgumentException("Row or Col are invalid.");
@@ -32,7 +32,7 @@ namespace AirlineBookingSystemTest.FlightSectionTests
         }
 
         [Fact]
-        public void Constructor_InvalidRowZero_ShouldThrowException()
+        public void Constructor_InvalidRowZero_ShouldPassTest()
         {
             // Arrange
             ArgumentException expected = new ArgumentException("Row or Col are invalid.");
@@ -53,7 +53,7 @@ namespace AirlineBookingSystemTest.FlightSectionTests
         }
 
         [Fact]
-        public void Constructor_InvalidColAboveTen_ShouldThrowException()
+        public void Constructor_InvalidColAboveTen_ShouldPassTest()
         {
             // Arrange
             ArgumentException expected = new ArgumentException("Row or Col are invalid.");
@@ -74,7 +74,7 @@ namespace AirlineBookingSystemTest.FlightSectionTests
         }
 
         [Fact]
-        public void Constructor_InvalidColUnderZero_ShouldThrowException()
+        public void Constructor_InvalidColUnderZero_ShouldPassTest()
         {
             // Arrange
             ArgumentException expected = new ArgumentException("Row or Col are invalid.");
@@ -95,7 +95,7 @@ namespace AirlineBookingSystemTest.FlightSectionTests
         }
 
         [Fact]
-        public void Constructor_InitializeSeats_ShouldPass()
+        public void Constructor_InitializeSeats_ShouldPassTest()
         {
             // Arrange
             List<Seat> expected = new List<Seat>
@@ -115,7 +115,7 @@ namespace AirlineBookingSystemTest.FlightSectionTests
         }
 
         [Fact]
-        public void HasAvailableSeats_ListWithAvailableSeats_ShouldPass()
+        public void HasAvailableSeats_ListWithAvailableSeats_ShouldPassTest()
         {
             // Arrange
             bool expected = true;
@@ -129,7 +129,7 @@ namespace AirlineBookingSystemTest.FlightSectionTests
         }
 
         [Fact]
-        public void HasAvailableSeats_ListWithUnavailableSeats_ShouldPass()
+        public void HasAvailableSeats_ListWithUnavailableSeats_ShouldPassTest()
         {
             // Arrange
             bool expected = false;

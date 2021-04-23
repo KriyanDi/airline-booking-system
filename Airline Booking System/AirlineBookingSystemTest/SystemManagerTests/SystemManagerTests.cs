@@ -168,7 +168,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         }
 
         [Fact]
-        public void CreateAirport_AddingAlreadyExistingAirport_ShouldThrowExceptionTest()
+        public void CreateAirport_AddingAlreadyExistingAirport_ShouldPassTest()
         {
             // Arrange
             SystemManager manager = new SystemManager();
@@ -234,7 +234,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         }
 
         [Fact]
-        public void CreateAirline_AddingAirlineThatAlreadyExist_ShouldThrowExceptionTest()
+        public void CreateAirline_AddingAirlineThatAlreadyExist_ShouldPassTest()
         {
             // Arrange
             SystemManagerOperation expected = SystemManagerOperation.InvalidNameAirlineExistFailure;
@@ -251,7 +251,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
 
         #region CreateFlightMethodTests
         [Fact]
-        public void CreateFlight_CreatingFlightWithUnexistingAirline_ShouldThrowExceptionTest()
+        public void CreateFlight_CreatingFlightWithUnexistingAirline_ShouldPassTest()
         {
             // Arrange
             SystemManagerOperation expected = SystemManagerOperation.UnexistingAirlineFailure;
@@ -265,7 +265,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         }
 
         [Fact]
-        public void CreateFlight_CreatingFlightWithUnexistingOriginatingAirport_ShouldThrowExceptionTest()
+        public void CreateFlight_CreatingFlightWithUnexistingOriginatingAirport_ShouldPassTest()
         {
             // Arrange
             SystemManagerOperation expected = SystemManagerOperation.UnexistingAirportFailure;
@@ -280,7 +280,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         }
 
         [Fact]
-        public void CreateFlight_CreatingFlightWithUnexistingDestinationAirport_ShouldThrowExceptionTest()
+        public void CreateFlight_CreatingFlightWithUnexistingDestinationAirport_ShouldPassTest()
         {
             // Arrange
             SystemManagerOperation expected = SystemManagerOperation.UnexistingAirportFailure;
@@ -320,7 +320,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
 
         #region CreateSectionMethodTests
         [Fact]
-        public void CreateSection_CreateSectionForUnexistingAirline_ShouldThrowExceptionTest()
+        public void CreateSection_CreateSectionForUnexistingAirline_ShouldPassTest()
         {
             // Arrange
             SystemManagerOperation expected = SystemManagerOperation.UnexistingAirlineFailure;
@@ -334,7 +334,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         }
 
         [Fact]
-        public void CreateSection_CreateSectionForUnexistingFlight_ShouldThrowExceptionTest()
+        public void CreateSection_CreateSectionForUnexistingFlight_ShouldPassTest()
         {
             // Arrange
             SystemManagerOperation expected = SystemManagerOperation.UnexistingFlightFailure;
@@ -371,7 +371,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
 
         #region FindAvailableFlightsMethodTests
         [Fact]
-        public void FindAvailableFlights_ForUnexistingOriginatingAirport_ShouldThrowExceptionTest()
+        public void FindAvailableFlights_ForUnexistingOriginatingAirport_ShouldPassTest()
         {
             // Arrange
             List<Flight> expected = new List<Flight>();
@@ -385,7 +385,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         }
 
         [Fact]
-        public void FindAvailableFlights_ForUnexistingDestinationAirport_ShouldThrowExceptionTest()
+        public void FindAvailableFlights_ForUnexistingDestinationAirport_ShouldPassTest()
         {
             // Arrange
             List<Flight> expected = new List<Flight>();
@@ -473,7 +473,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
 
         #region BookSeatMethodTests
         [Fact]
-        public void BookSeat_BookASeatToUnexistingAirline_ShouldThrowExceptionTest()
+        public void BookSeat_BookASeatToUnexistingAirline_ShouldPassTest()
         {
             // Arrange
             SystemManagerOperation expected = SystemManagerOperation.UnexistingAirlineFailure;
@@ -487,7 +487,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         }
 
         [Fact]
-        public void BookSeat_BookASeatToUnexistingFlight_ShouldThrowExceptionTest()
+        public void BookSeat_BookASeatToUnexistingFlight_ShouldPassTest()
         {
             // Arrange
             SystemManagerOperation expected = SystemManagerOperation.UnexistingFlightFailure;
@@ -510,7 +510,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         }
 
         [Fact]
-        public void BookSeat_BookASeatToUnexistingSection_ShouldThrowExceptionTest()
+        public void BookSeat_BookASeatToUnexistingSection_ShouldPassTest()
         {
             // Arrange
             SystemManagerOperation expected = SystemManagerOperation.UnexsistingSeatClassFailure;
@@ -559,7 +559,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         }
 
         [Fact]
-        public void BookSeat_BookASeatThatIsUnexisting_ShouldThrowExceptionTest()
+        public void BookSeat_BookASeatThatIsUnexisting_ShouldPassTest()
         {
             // Arrange
             SystemManagerOperation expected = SystemManagerOperation.BookingSeatFailure;

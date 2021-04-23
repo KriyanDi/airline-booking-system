@@ -148,7 +148,7 @@ namespace AirlineBookingSystemTest.AirlineTests
         }
 
         [Fact]
-        public void NameProperty_NullName_ShouldThrowExceptionTest()
+        public void NameProperty_NullName_ShouldPassTest()
         {
             // Arrange
             string nullString = null;
@@ -164,7 +164,7 @@ namespace AirlineBookingSystemTest.AirlineTests
         }
 
         [Fact]
-        public void NameProperty_EmptyName_ShouldThrowExceptionTest()
+        public void NameProperty_EmptyName_ShouldPassTest()
         {
             // Arrange
             Airline airline = new Airline("AS234");
@@ -179,7 +179,7 @@ namespace AirlineBookingSystemTest.AirlineTests
         }
 
         [Fact]
-        public void NameProperty_LessThanSixLetterNameWithOtherSymbols_ShouldThrowExceptionTest()
+        public void NameProperty_LessThanSixLetterNameWithOtherSymbols_ShouldPassTest()
         {
             // Arrange
             Airline airline = new Airline("AS234");
@@ -194,7 +194,7 @@ namespace AirlineBookingSystemTest.AirlineTests
         }
 
         [Fact]
-        public void NameProperty_LessThanSixLetterNameWithNumbersAndSmallLetters_ShouldThrowExceptionTest()
+        public void NameProperty_LessThanSixLetterNameWithNumbersAndSmallLetters_ShouldPassTest()
         {
             // Arrange
             Airline airline = new Airline("AS234");
@@ -244,7 +244,7 @@ namespace AirlineBookingSystemTest.AirlineTests
         }
 
         [Fact]
-        public void AddFlight_AddingTwoDifferentFlightButWithSameFlightNumber_ShouldThrowExceptionTest()
+        public void AddFlight_AddingTwoDifferentFlightButWithSameFlightNumber_ShouldPassTest()
         {
             // Arrange
             AirlineOperation expected = AirlineOperation.AddingFlightFailure;

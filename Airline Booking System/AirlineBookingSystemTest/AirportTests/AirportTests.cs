@@ -184,7 +184,7 @@ namespace AirlineBookingSystemTest
         }
 
         [Fact]
-        public void NamePropertySetter_LongerThanThreeLettersName_ShouldThrowExceptionTest()
+        public void NamePropertySetter_LongerThanThreeLettersName_ShouldPassTest()
         {
             // Arrange
             Airport airport = new Airport("OFK");
@@ -198,7 +198,7 @@ namespace AirlineBookingSystemTest
         }
 
         [Fact]
-        public void NamePropertySetter_ShorterThanThreeLettersName_ShouldThrowExceptionTest()
+        public void NamePropertySetter_ShorterThanThreeLettersName_ShouldPassTest()
         {
             // Arrange
             Airport airport = new Airport("ASD");
@@ -212,7 +212,7 @@ namespace AirlineBookingSystemTest
         }
 
         [Fact]
-        public void NamePropertySetter_NullStringName_ShouldThrowExceptionTest()
+        public void NamePropertySetter_NullStringName_ShouldPassTest()
         {
             // Arrange
             string nullString = null;
@@ -227,7 +227,7 @@ namespace AirlineBookingSystemTest
         }
 
         [Fact]
-        public void NamePropertySetter_EmptyStringName_ShouldThrowExceptionTest()
+        public void NamePropertySetter_EmptyStringName_ShouldPassTest()
         {
             // Arrange
             Airport airport = new Airport("OFK");
@@ -241,7 +241,7 @@ namespace AirlineBookingSystemTest
         }
 
         [Fact]
-        public void NamePropertySetter_ThreeLetterStringWithNumbersAndLettersName_ShouldThrowExceptionTest()
+        public void NamePropertySetter_ThreeLetterStringWithNumbersAndLettersName_ShouldPassTest()
         {
             // Arrange
             Airport airport = new Airport("OFK");
@@ -255,7 +255,7 @@ namespace AirlineBookingSystemTest
         }
 
         [Fact]
-        public void NamePropertySetter_ThreeLetterStringWithOnlyNumbersName_ShouldThrowExceptionTest()
+        public void NamePropertySetter_ThreeLetterStringWithOnlyNumbersName_ShouldPassTest()
         {
             // Arrange
             Airport airport = new Airport("ASD");
@@ -269,7 +269,7 @@ namespace AirlineBookingSystemTest
         }
 
         [Fact]
-        public void NamePropertySetter_ThreeLetterStringWithSmallLettersName_ShouldThrowExceptionTest()
+        public void NamePropertySetter_ThreeLetterStringWithSmallLettersName_ShouldPassTest()
         {
             // Arrange
             Airport airport = new Airport("ASD");
