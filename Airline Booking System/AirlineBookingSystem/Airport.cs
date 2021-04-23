@@ -24,16 +24,31 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Properties
-        public string Name
+        public string Name => _name;
+        #endregion
+
+        #region Methods
+        public AirportOperation ChangeName(string airportName)
         {
-            get => _name;
-            set
+            AirportOperation result = ValidationRules.AirportName(airportName);
+
+            switch (result)
             {
-                if(ValidationRules.AirportName(value))
-                {
-                    _name = value;
-                }
+                case AirportOperation.Succeded:
+                    _name = airportName;
+                    break;
+                case AirportOperation.InvalidNameLenghtFailure:
+                    Console.WriteLine("Error: Airport name should be exact 3 letters long.");
+                    break;
+                case AirportOperation.InvalidNameNullFailure:
+                    Console.WriteLine("Error: Airport name can not be null.");
+                    break;
+                case AirportOperation.InvalidNameFormatFailure:
+                    Console.WriteLine("Error: Airport name should contain only capital letters.");
+                    break;
             }
+
+            return result;
         }
         #endregion
 
@@ -54,7 +69,16 @@ namespace AirlineBookingSystem
         #region Help Methods
         private void InitializeDataMembers(string name)
         {
-            Name = name;
+            InitializeName(name);
+        }
+        private void InitializeName(string name)
+        {
+            if (ChangeName(name) != AirportOperation.Succeded)
+            {
+                Console.WriteLine("Airport was not created!");
+
+                throw new ArgumentException(AirportExceptionMessages.invalidName);
+            }
         }
         #endregion
 
