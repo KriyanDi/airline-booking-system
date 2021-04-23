@@ -47,7 +47,6 @@ namespace AirlineBookingSystem
 
                 return flightSectionsCopy;
             }
-
             set
             {
                 if (value != null)
