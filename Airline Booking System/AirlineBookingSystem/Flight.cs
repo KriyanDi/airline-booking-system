@@ -66,20 +66,17 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Methods
-        public void AddFlightSection(FlightSection section)
+        public FlightOperation AddFlightSection(FlightSection section)
         {
-            if (_flightSections == null)
-            {
-                _flightSections = new List<FlightSection>();
-                _flightSections.Add(new FlightSection(section));
-            }
-            else if (!DoFlightSectionsContain(section))
+            if (!DoFlightSectionsContain(section))
             {
                 _flightSections.Add(new FlightSection(section));
+
+                return FlightOperation.Succeded;
             }
             else
             {
-                throw new ArgumentException("This flight section already exist! Can store only one of each kind of sections.");
+                return FlightOperation.InvalidSectionAlreadyExistsFailure;
             }
         }
         public void ChangeFlightInformationId(string uniqueId)
@@ -91,38 +88,64 @@ namespace AirlineBookingSystem
         #region Help Methods
         private void InitializeDataMembers(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate)
         {
-
-            string id = null;
-            InitializeInformation(airlineName, originatingAirport, destinationAirport, flightNumber, departureDate, id);
-            FlightSections = new List<FlightSection>();
-
+            InitializeInformation(airlineName, originatingAirport, destinationAirport, flightNumber, departureDate, string.Empty);
+            InitializeFlightSections();
         }
         private void InitializeInformation(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate, string id)
         {
-            if (originatingAirport != destinationAirport)
+            ValidateAirlineAndAirports(airlineName, originatingAirport, destinationAirport);
+
+            Information = new FlightInformation(airlineName, originatingAirport, destinationAirport, flightNumber, departureDate, id);
+        }
+        private static void ValidateAirlineAndAirports(string airlineName, string originatingAirport, string destinationAirport)
+        {
+            if (ValidationRules.AirlineName(airlineName) != AirlineOperation.Succeded)
             {
-                Information = new FlightInformation(airlineName, originatingAirport, destinationAirport, flightNumber, departureDate, id);
+                Console.WriteLine("Flight was not created!");
+
+                throw new ArgumentException(AirlineExceptionMessages.invalidName);
             }
-            else
+            else if (ValidationRules.AirportName(originatingAirport) != AirportOperation.Succeded)
             {
-                throw new ArgumentException("Originating Airport and Destination Airport can not be the same.");
+                Console.WriteLine("Flight was not created!");
+
+                throw new ArgumentException(AirportExceptionMessages.invalidName);
             }
+            else if (ValidationRules.AirportName(destinationAirport) != AirportOperation.Succeded)
+            {
+                Console.WriteLine("Flight was not created!");
+
+                throw new ArgumentException(AirportExceptionMessages.invalidName);
+            }
+            else if (originatingAirport == destinationAirport)
+            {
+                throw new ArgumentException(FlightExceptionMessages.invalidMatchingOriginatingDestinationAirports);
+            }
+        }
+
+        private void InitializeFlightSections()
+        {
+            FlightSections = new List<FlightSection>();
         }
         private void InitializeDataMembersFrom(Flight other)
         {
             Information = new FlightInformation(other.Information);
             FlightSections = other.FlightSections;
         }
+
         private bool DoFlightSectionsContain(FlightSection section)
         {
             bool result = false;
 
-            for (int i = 0; i < _flightSections.Count; i++)
+            if (_flightSections != null)
             {
-                if (_flightSections[i].SeatClass == section.SeatClass)
+                for (int i = 0; i < _flightSections.Count; i++)
                 {
-                    result = true;
-                    break;
+                    if (_flightSections[i].SeatClass == section.SeatClass)
+                    {
+                        result = true;
+                        break;
+                    }
                 }
             }
 
