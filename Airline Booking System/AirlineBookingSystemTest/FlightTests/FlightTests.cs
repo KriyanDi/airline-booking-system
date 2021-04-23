@@ -10,7 +10,7 @@ namespace AirlineBookingSystemTest.FlightTests
 {
     public class FlightTests
     {
-        private FlightInformation info = new FlightInformation("AAAA", "QWE", "RTY", "123456789", new DateTime(2021, 5, 3), null);
+        private FlightInformation info = new FlightInformation("AAAA", "QWE", "RTY", "123456789", new DateTime(2021, 5, 3), String.Empty);
         private FlightSection section1 = new FlightSection(SeatClass.BUSINESS, 45, 6);
         private FlightSection section2 = new FlightSection(SeatClass.ECONOMY, 45, 6);
         private FlightSection section3 = new FlightSection(SeatClass.FIRST, 45, 6);
@@ -37,7 +37,7 @@ namespace AirlineBookingSystemTest.FlightTests
         public void Constuctor_MakingObjectWithTheSameAirportForOrginiateAndDestination_ShouldThrowException()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Originating Airport and Destination Airport can not be the same.");
+            ArgumentException expected = new ArgumentException(FlightExceptionMessages.invalidMatchingOriginatingDestinationAirports);
 
             // Act
             ArgumentException actual = null;
@@ -69,7 +69,7 @@ namespace AirlineBookingSystemTest.FlightTests
             bool HasSameSequentialElements = true;
             for (int i = 0; i < flightCopy.FlightSections.Count; i++)
             {
-                if(flight.FlightSections[i] != flightCopy.FlightSections[i])
+                if (flight.FlightSections[i] != flightCopy.FlightSections[i])
                 {
                     HasSameSequentialElements = false;
                     break;
@@ -105,24 +105,15 @@ namespace AirlineBookingSystemTest.FlightTests
         public void AddFlightSection_AddingTwoExactFlightSections_ShouldThrowExceptionTest()
         {
             // Arrange 
-            ArgumentException expected = new ArgumentException("This flight section already exist! Can store only one of each kind of sections.");
-
-            // Act
-            ArgumentException actual = null;
+            FlightOperation expected = FlightOperation.InvalidSectionAlreadyExistsFailure;
             Flight flight = new Flight(info.AirlineName, info.OriginatingAirport, info.DestinationAirport, info.FlightNumber, info.DepartureDate);
             flight.AddFlightSection(section1);
 
-            try
-            {
-                flight.AddFlightSection(section1);
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            // Act
+            FlightOperation actual = flight.AddFlightSection(section1);
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
     }
 }

@@ -15,15 +15,15 @@ namespace AirlineBookingSystemTest.AirlineTests
         {
             // Arrange
             string nullString = null;
-            ArgumentNullException expected = new ArgumentNullException("Airline name can not be null.");
+            ArgumentException expected = new ArgumentException(AirlineExceptionMessages.invalidName);
 
             // Act
-            ArgumentNullException actual = null;
+            ArgumentException actual = null;
             try
             {
                 Airline airline = new Airline(nullString);
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentException ex)
             {
                 actual = ex;
             }
@@ -36,7 +36,7 @@ namespace AirlineBookingSystemTest.AirlineTests
         public void Constructor_EmptyName_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Airline name should be between 1 and 5 symbols long.");
+            ArgumentException expected = new ArgumentException(AirlineExceptionMessages.invalidName);
 
             // Act
             ArgumentException actual = null;
@@ -57,7 +57,7 @@ namespace AirlineBookingSystemTest.AirlineTests
         public void Constructor_LessThanSixLetterNameWithOtherSymbols_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Airline name should contain only capital letters and numbers.");
+            ArgumentException expected = new ArgumentException(AirlineExceptionMessages.invalidName);
 
             // Act
             ArgumentException actual = null;
@@ -78,7 +78,7 @@ namespace AirlineBookingSystemTest.AirlineTests
         public void Constructor_LessThanSixLetterNameWithNumbersAndSmallLetters_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Airline name should contain only capital letters and numbers.");
+            ArgumentException expected = new ArgumentException(AirlineExceptionMessages.invalidName);
 
             // Act
             ArgumentException actual = null;
@@ -113,7 +113,7 @@ namespace AirlineBookingSystemTest.AirlineTests
         public void Constructor_MoreThanSixLetterName_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Airline name should be between 1 and 5 symbols long.");
+            ArgumentException expected = new ArgumentException(AirlineExceptionMessages.invalidName);
 
             // Act
             ArgumentException actual = null;
@@ -135,14 +135,16 @@ namespace AirlineBookingSystemTest.AirlineTests
         {
             // Arrange
             Airline expected = new Airline("TEST");
-            expected.AddFlight(new Flight("TEST1", "AAA", "BBB", "1234", new DateTime(1987, 3, 3)));
-            expected.AddFlight(new Flight("TEST2", "AAA", "BBB", "1235", new DateTime(1987, 3, 3)));
+            expected.AddFlight(new Flight("TEST", "AAA", "BBB", "1234", new DateTime(1987, 3, 3)));
+            expected.AddFlight(new Flight("TEST", "AAA", "BBB", "1235", new DateTime(1987, 3, 3)));
 
             // Act
             Airline actual = new Airline(expected);
 
             // Assert
             Assert.Equal(expected.Name, actual.Name);
+            Assert.Equal(expected.Flights[0], actual.Flights[0]);
+            Assert.Equal(expected.Flights[1], actual.Flights[1]);
         }
 
         [Fact]
@@ -150,22 +152,15 @@ namespace AirlineBookingSystemTest.AirlineTests
         {
             // Arrange
             string nullString = null;
-            Airline airline = new Airline("AS123");
-            ArgumentNullException expected = new ArgumentNullException("Airline name can not be null.");
+            Airline airline = new Airline("AS234");
+            string expected = "AS234";
 
             // Act
-            ArgumentNullException actual = null;
-            try
-            {
-                airline.Name = nullString;
-            }
-            catch (ArgumentNullException ex)
-            {
-                actual = ex;
-            }
+            airline.ChangeName(nullString);
+            string actual = airline.Name;
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -173,96 +168,68 @@ namespace AirlineBookingSystemTest.AirlineTests
         {
             // Arrange
             Airline airline = new Airline("AS234");
-            ArgumentException expected = new ArgumentException("Airline name should be between 1 and 5 symbols long.");
+            string expected = "AS234";
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                airline.Name = "";
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            airline.ChangeName("");
+            string actual = airline.Name;
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void NameProperty_LessThanSixLetterNameWithOtherSymbols_ShouldThrowExceptionTest()
         {
             // Arrange
-            Airline airline = new Airline("AS123");
-            ArgumentException expected = new ArgumentException("Airline name should contain only capital letters and numbers.");
+            Airline airline = new Airline("AS234");
+            string expected = "AS234";
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                airline.Name = "AA_@";
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            airline.ChangeName("AA_@");
+            string actual = airline.Name;
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void NameProperty_LessThanSixLetterNameWithNumbersAndSmallLetters_ShouldThrowExceptionTest()
         {
             // Arrange
-            Airline airline = new Airline("123AS");
-            ArgumentException expected = new ArgumentException("Airline name should contain only capital letters and numbers.");
+            Airline airline = new Airline("AS234");
+            string expected = "AS234";
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                airline.Name = "123sd";
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            airline.ChangeName("123sd");
+            string actual = airline.Name;
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void NameProperty_MoreThanSixLetterName_ShouldThrowExceptionTest()
         {
             // Arrange
-            Airline airline = new Airline("SAAS");
-            ArgumentException expected = new ArgumentException("Airline name should be between 1 and 5 symbols long.");
+            Airline airline = new Airline("AS234");
+            string expected = "AS234";
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                airline.Name = "123asdss";
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            airline.ChangeName("123asdss");
+            string actual = airline.Name;
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void AddFlight_AddingThreeFlights_ShouldPassTest()
         {
             // Arrange
-            Flight flight1 = new Flight("ASD", "QWE", "RTY", "143222", new DateTime(1992, 3, 3));
-            Flight flight2 = new Flight("ASD", "QWE", "RTY", "123221", new DateTime(1992, 3, 3));
-            Flight flight3 = new Flight("ASD", "QWE", "RTY", "143220", new DateTime(1992, 3, 3));
+            Flight flight1 = new Flight("DELTA", "QWE", "RTY", "143222", new DateTime(1992, 3, 3));
+            Flight flight2 = new Flight("DELTA", "QWE", "RTY", "123221", new DateTime(1992, 3, 3));
+            Flight flight3 = new Flight("DELTA", "QWE", "RTY", "143220", new DateTime(1992, 3, 3));
 
             Airline airline = new Airline("DELTA");
 
@@ -280,23 +247,30 @@ namespace AirlineBookingSystemTest.AirlineTests
         public void AddFlight_AddingTwoDifferentFlightButWithSameFlightNumber_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("This Flight matches by flight number with other flight!");
-            Airline airline = new Airline("TEST");
+            AirlineOperation expected = AirlineOperation.AddingFlightFailure;
+            Airline airline = new Airline("QWE");
             airline.AddFlight(new Flight("QWE", "WER", "ERT", "13243", new DateTime(3002, 3, 2)));
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                 airline.AddFlight(new Flight("QWE", "RRR", "TTT", "13243", new DateTime(3000, 3, 2)));
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            AirlineOperation actual = airline.AddFlight(new Flight("QWE", "RRR", "TTT", "13243", new DateTime(3000, 3, 2)));
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void AddFlightSectionToFlight_AddingFlightSectionToExistingFlight_ShouldPassTest()
+        {
+            // Arrange
+            bool expected = true;
+            Airline airline = new Airline("SSS");
+            airline.AddFlight(new Flight("SSS", "DDD", "AAA", "1234", new DateTime(1999, 2, 3)));
+
+            // Act
+            bool actual = airline.AddFlightSectionToFlight(new FlightSection(SeatClass.ECONOMY, 5, 5), "1234");
+
+            // Assert
+            Assert.Equal(expected, actual);
         }
 
         [Fact]

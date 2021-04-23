@@ -62,7 +62,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         {
             // Arrange
             SystemManager manager = new SystemManager();
-            ArgumentException expected = new ArgumentException("Airport name should be 3 letters long.");
+            ArgumentException expected = new ArgumentException(AirportExceptionMessages.invalidName);
 
             // Act
             ArgumentException actual = null;
@@ -84,7 +84,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         {
             // Arrange
             SystemManager manager = new SystemManager();
-            ArgumentException expected = new ArgumentException("Airport name should be 3 letters long.");
+            ArgumentException expected = new ArgumentException(AirportExceptionMessages.invalidName);
 
             // Act
             ArgumentException actual = null;
@@ -106,7 +106,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         {
             // Arrange
             SystemManager manager = new SystemManager();
-            ArgumentException expected = new ArgumentException("Airport name should be 3 letters long.");
+            ArgumentException expected = new ArgumentException(AirportExceptionMessages.invalidName);
 
             // Act
             ArgumentException actual = null;
@@ -128,15 +128,15 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         {
             // Arrange
             SystemManager manager = new SystemManager();
-            ArgumentNullException expected = new ArgumentNullException("Airport name can not be null.");
+            ArgumentException expected = new ArgumentException(AirportExceptionMessages.invalidName);
             string airportName = null;
             // Act
-            ArgumentNullException actual = null;
+            ArgumentException actual = null;
             try
             {
                 manager.CreateAirport(airportName);
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentException ex)
             {
                 actual = ex;
             }
@@ -150,7 +150,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         {
             // Arrange
             SystemManager manager = new SystemManager();
-            ArgumentException expected = new ArgumentException("Airport name should contain only capital letters.");
+            ArgumentException expected = new ArgumentException(AirportExceptionMessages.invalidName);
 
             // Act
             ArgumentException actual = null;
@@ -175,21 +175,13 @@ namespace AirlineBookingSystemTest.SystemManagerTests
             manager.CreateAirport("QWE");
             manager.CreateAirport("ASD");
             manager.CreateAirport("YUI");
-            ArgumentException expected = new ArgumentException("Airport YUI already exists!");
+            SystemManagerOperation expected = SystemManagerOperation.InvalidNameAirportExistFailure;
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                manager.CreateAirport("YUI");
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            SystemManagerOperation actual = manager.CreateAirport("YUI");
 
             // Assert
-            Assert.Equal(actual.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
@@ -245,23 +237,15 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         public void CreateAirline_AddingAirlineThatAlreadyExist_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException($"Airline QWES already exists!");
+            SystemManagerOperation expected = SystemManagerOperation.InvalidNameAirlineExistFailure;
             SystemManager manager = new SystemManager();
             manager.CreateAirline("QWES");
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                manager.CreateAirline("QWES");
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            SystemManagerOperation actual = manager.CreateAirline("QWES");
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
@@ -270,69 +254,45 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         public void CreateFlight_CreatingFlightWithUnexistingAirline_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Airline does not exist!");
+            SystemManagerOperation expected = SystemManagerOperation.UnexistingAirlineFailure;
             SystemManager systemManager = new SystemManager();
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                systemManager.CreateFlight("ASD", "SSS", "TTT", 1982, 2, 3, "1234");
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            SystemManagerOperation actual = systemManager.CreateFlight("ASD", "SSS", "TTT", 1982, 2, 3, "1234");
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void CreateFlight_CreatingFlightWithUnexistingOriginatingAirport_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Originating Airport does not exist!");
+            SystemManagerOperation expected = SystemManagerOperation.UnexistingAirportFailure;
             SystemManager systemManager = new SystemManager();
             systemManager.CreateAirline("ASD");
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                systemManager.CreateFlight("ASD", "SSS", "TTT", 1982, 2, 3, "1234");
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            SystemManagerOperation actual = systemManager.CreateFlight("ASD", "SSS", "TTT", 1982, 2, 3, "1234");
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void CreateFlight_CreatingFlightWithUnexistingDestinationAirport_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Destination Airport does not exist!");
+            SystemManagerOperation expected = SystemManagerOperation.UnexistingAirportFailure;
             SystemManager systemManager = new SystemManager();
             systemManager.CreateAirline("ASD");
             systemManager.CreateAirport("SSS");
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                systemManager.CreateFlight("ASD", "SSS", "TTT", 1982, 2, 3, "1234");
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            SystemManagerOperation actual = systemManager.CreateFlight("ASD", "SSS", "TTT", 1982, 2, 3, "1234");
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -363,45 +323,29 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         public void CreateSection_CreateSectionForUnexistingAirline_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Airline does not exist!");
+            SystemManagerOperation expected = SystemManagerOperation.UnexistingAirlineFailure;
             SystemManager systemManager = new SystemManager();
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                systemManager.CreateSection("QWE", "1234", 4, 5, SeatClass.ECONOMY);
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            SystemManagerOperation actual = systemManager.CreateSection("QWE", "1234", 4, 5, SeatClass.ECONOMY);
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void CreateSection_CreateSectionForUnexistingFlight_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Airline QWE does not contain such flight!");
+            SystemManagerOperation expected = SystemManagerOperation.UnexistingFlightFailure;
             SystemManager systemManager = new SystemManager();
             systemManager.CreateAirline("QWE");
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                systemManager.CreateSection("QWE", "1234", 4, 5, SeatClass.ECONOMY);
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
-
+            SystemManagerOperation actual = systemManager.CreateSection("QWE", "1234", 4, 5, SeatClass.ECONOMY);
+            
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -547,29 +491,21 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         public void BookSeat_BookASeatToUnexistingAirline_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Airline does not exist!");
+            SystemManagerOperation expected = SystemManagerOperation.UnexistingAirlineFailure;
             SystemManager system = new SystemManager();
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                system.BookSeat("ASD", "1234", SeatClass.BUSINESS, 5, 'A');
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            SystemManagerOperation actual = system.BookSeat("ASD", "1234", SeatClass.BUSINESS, 5, 'A');
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void BookSeat_BookASeatToUnexistingFlight_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Flight does not exist!");
+            SystemManagerOperation expected = SystemManagerOperation.UnexistingFlightFailure;
             SystemManager system = new SystemManager();
 
             system.CreateAirport("AAA");
@@ -582,25 +518,17 @@ namespace AirlineBookingSystemTest.SystemManagerTests
             system.CreateFlight("ASD", "AAA", "BBB", 1972, 3, 2, "13");
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                system.BookSeat("ASD", "1234", SeatClass.BUSINESS, 5, 'A');
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            SystemManagerOperation actual = system.BookSeat("ASD", "1234", SeatClass.BUSINESS, 5, 'A');
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void BookSeat_BookASeatToUnexistingSection_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException($"Flight does not contain section with seat class {SeatClass.BUSINESS}!");
+            SystemManagerOperation expected = SystemManagerOperation.UnexsistingSeatClassFailure;
             SystemManager system = new SystemManager();
 
             system.CreateAirport("AAA");
@@ -614,25 +542,17 @@ namespace AirlineBookingSystemTest.SystemManagerTests
             system.CreateSection("ASD", "1543", 5, 4, SeatClass.FIRST);
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                system.BookSeat("ASD", "1543", SeatClass.BUSINESS, 5, 'A');
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            SystemManagerOperation actual = system.BookSeat("ASD", "1543", SeatClass.BUSINESS, 5, 'A');
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
-        public void BookSeat_BookASeatThatIsBooked_ShouldThrowExceptionTest()
+        public void BookSeat_BookASeatThatIsBooked_ShouldPassTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Could not book seat on Row: 5 Col: A!");
+            SystemManagerOperation expected = SystemManagerOperation.BookingSeatFailure;
             SystemManager system = new SystemManager();
 
             system.CreateAirport("AAA");
@@ -647,25 +567,17 @@ namespace AirlineBookingSystemTest.SystemManagerTests
             system.BookSeat("ASD", "1543", SeatClass.BUSINESS, 5, 'A');
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                system.BookSeat("ASD", "1543", SeatClass.BUSINESS, 5, 'A');
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            SystemManagerOperation actual = system.BookSeat("ASD", "1543", SeatClass.BUSINESS, 5, 'A');
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void BookSeat_BookASeatThatIsUnexisting_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Could not book seat on Row: 5 Col: B!");
+            SystemManagerOperation expected = SystemManagerOperation.BookingSeatFailure;
             SystemManager system = new SystemManager();
 
             system.CreateAirport("AAA");
@@ -678,18 +590,10 @@ namespace AirlineBookingSystemTest.SystemManagerTests
             system.CreateSection("ASD", "1543", 3, 2, SeatClass.BUSINESS);
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                system.BookSeat("ASD", "1543", SeatClass.BUSINESS, 5, 'B');
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            SystemManagerOperation actual = system.BookSeat("ASD", "1543", SeatClass.BUSINESS, 5, 'B');
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -797,7 +701,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
             {
                 Console.WriteLine(ex.Message);
             }
-            
+
             res.CreateAirline("FRONT");
 
             try
@@ -861,7 +765,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
 
             try
             {
-                 res.BookSeat("DELTA", "123", SeatClass.ECONOMY, 1, 'B');
+                res.BookSeat("DELTA", "123", SeatClass.ECONOMY, 1, 'B');
             }
             catch (ArgumentException ex)
             {

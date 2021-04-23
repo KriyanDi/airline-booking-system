@@ -1,6 +1,7 @@
 using AirlineBookingSystem;
 using System;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace AirlineBookingSystemTest
 {
@@ -10,13 +11,13 @@ namespace AirlineBookingSystemTest
         public void Constructor_LongerThanThreeLettersName_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Airport name should be 3 letters long.");
+            ArgumentException expected = new ArgumentException(AirportExceptionMessages.invalidName);
 
             // Act
             ArgumentException actual = null;
             try
             {
-                Airport airport = new Airport("aaasssddd");
+                Airport airport = new Airport("AAAA");
             }
             catch (ArgumentException ex)
             {
@@ -31,7 +32,7 @@ namespace AirlineBookingSystemTest
         public void Constructor_ShorterThanThreeLettersName_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Airport name should be 3 letters long.");
+            ArgumentException expected = new ArgumentException(AirportExceptionMessages.invalidName);
 
             // Act
             ArgumentException actual = null;
@@ -53,15 +54,15 @@ namespace AirlineBookingSystemTest
         {
             // Arrange
             string nullString = null;
-            ArgumentNullException expected = new ArgumentNullException("Airport name can not be null.");
+            ArgumentException expected = new ArgumentException(AirportExceptionMessages.invalidName);
 
             // Act
-            ArgumentNullException actual = null;
+            ArgumentException actual = null;
             try
             {
                 Airport airport = new Airport(nullString);
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentException ex)
             {
                 actual = ex;
             }
@@ -74,7 +75,7 @@ namespace AirlineBookingSystemTest
         public void Constructor_EmptyStringName_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Airport name should be 3 letters long.");
+            ArgumentException expected = new ArgumentException(AirportExceptionMessages.invalidName);
 
             // Act
             ArgumentException actual = null;
@@ -95,7 +96,7 @@ namespace AirlineBookingSystemTest
         public void Constructor_ThreeLetterStringWithNumbersAndLettersName_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Airport name should contain only capital letters.");
+            ArgumentException expected = new ArgumentException(AirportExceptionMessages.invalidName);
 
             // Act
             ArgumentException actual = null;
@@ -116,7 +117,7 @@ namespace AirlineBookingSystemTest
         public void Constructor_ThreeLetterStringWithOnlyNumbersName_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Airport name should contain only capital letters.");
+            ArgumentException expected = new ArgumentException(AirportExceptionMessages.invalidName);
 
             // Act
             ArgumentException actual = null;
@@ -137,7 +138,7 @@ namespace AirlineBookingSystemTest
         public void Constructor_ThreeLetterStringWithSmallLettersName_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Airport name should contain only capital letters.");
+            ArgumentException expected = new ArgumentException(AirportExceptionMessages.invalidName);
 
             // Act
             ArgumentException actual = null;
@@ -187,21 +188,13 @@ namespace AirlineBookingSystemTest
         {
             // Arrange
             Airport airport = new Airport("OFK");
-            ArgumentException expected = new ArgumentException("Airport name should be 3 letters long.");
+            AirportOperation expected = AirportOperation.InvalidNameLenghtFailure;
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                airport.Name = "aaasssddd";
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            AirportOperation actual = airport.ChangeName("aaasssddd");
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -209,21 +202,13 @@ namespace AirlineBookingSystemTest
         {
             // Arrange
             Airport airport = new Airport("ASD");
-            ArgumentException expected = new ArgumentException("Airport name should be 3 letters long.");
+            AirportOperation expected = AirportOperation.InvalidNameLenghtFailure;
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                airport.Name = "aa";
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
-
+            AirportOperation actual = airport.ChangeName("AA");
+            
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -232,21 +217,13 @@ namespace AirlineBookingSystemTest
             // Arrange
             string nullString = null;
             Airport airport = new Airport("ASD");
-            ArgumentNullException expected = new ArgumentNullException("Airport name can not be null.");
+            AirportOperation expected = AirportOperation.InvalidNameNullFailure;
 
             // Act
-            ArgumentNullException actual = null;
-            try
-            {
-                airport.Name = nullString;
-            }
-            catch (ArgumentNullException ex)
-            {
-                actual = ex;
-            }
-
+            AirportOperation actual = airport.ChangeName(nullString);
+           
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -254,21 +231,13 @@ namespace AirlineBookingSystemTest
         {
             // Arrange
             Airport airport = new Airport("OFK");
-            ArgumentException expected = new ArgumentException("Airport name should be 3 letters long.");
+            AirportOperation expected = AirportOperation.InvalidNameLenghtFailure;
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                airport.Name = "";
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            AirportOperation actual = airport.ChangeName("");
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -276,21 +245,13 @@ namespace AirlineBookingSystemTest
         {
             // Arrange
             Airport airport = new Airport("OFK");
-            ArgumentException expected = new ArgumentException("Airport name should contain only capital letters.");
+            AirportOperation expected = AirportOperation.InvalidNameFormatFailure;
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                airport.Name = "A21";
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            AirportOperation actual = airport.ChangeName("A21");
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -298,21 +259,13 @@ namespace AirlineBookingSystemTest
         {
             // Arrange
             Airport airport = new Airport("ASD");
-            ArgumentException expected = new ArgumentException("Airport name should contain only capital letters.");
+            AirportOperation expected = AirportOperation.InvalidNameFormatFailure;
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                airport.Name = "123";
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
-
+            AirportOperation actual = airport.ChangeName("123");
+            
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -320,21 +273,13 @@ namespace AirlineBookingSystemTest
         {
             // Arrange
             Airport airport = new Airport("ASD");
-            ArgumentException expected = new ArgumentException("Airport name should contain only capital letters.");
+            AirportOperation expected = AirportOperation.InvalidNameFormatFailure;
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                airport.Name = "aso";
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
-
+            AirportOperation actual = airport.ChangeName("asd");
+          
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -345,7 +290,7 @@ namespace AirlineBookingSystemTest
             string expected = "SDS";
 
             // Act
-            airport.Name = "SDS";
+            airport.ChangeName("SDS");
             string actual = airport.Name;
 
             // Assert
