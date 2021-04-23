@@ -16,14 +16,11 @@ namespace AirlineBookingSystem
         #region Constructors
         public FlightSection(SeatClass seatClass, int row, int col)
         {
-            SeatClass = seatClass;
-            Seats = new List<Seat>();
-            InitializeSeats(row, col);
+            InitializeDataMembers(seatClass, row, col);
         }
         public FlightSection(FlightSection other)
         {
-            SeatClass = other.SeatClass;
-            InitializeSeats(other.Seats);
+            InitializeDataMembersFrom(other);
         }
         #endregion
 
@@ -71,7 +68,7 @@ namespace AirlineBookingSystem
                 int available = 0;
                 for (int i = 0; i < _seats.Count; i++)
                 {
-                    if(_seats[i].IsBooked)
+                    if(!_seats[i].IsBooked)
                     {
                         available += 1;
                     }
@@ -135,14 +132,28 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Help Methods
+        private void InitializeDataMembers(SeatClass seatClass, int row, int col)
+        {
+            SeatClass = seatClass;
+            Seats = new List<Seat>();
+            InitializeSeats(row, col);
+        }
+        private void InitializeDataMembersFrom(FlightSection other)
+        {
+            SeatClass = other.SeatClass;
+            InitializeSeats(other.Seats);
+        }
         private void InitializeSeats(int row, int col)
         {
             if (AreValidRowCol(row, col))
             {
                 for (int i = 0; i < row; i++)
                 {
-                    (int row, char col) seatId = (i + 1, Convert.ToChar(65 + (i % col)));
-                    _seats.Add(new Seat(seatId, false));
+                    for (int j = 0; j < col; j++)
+                    {
+                        (int row, char col) seatId = (i + 1, Convert.ToChar(65 + (j % col)));
+                        _seats.Add(new Seat(seatId, false));
+                    }
                 }
             }
             else
