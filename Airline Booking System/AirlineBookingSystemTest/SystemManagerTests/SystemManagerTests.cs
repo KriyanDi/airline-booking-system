@@ -374,45 +374,30 @@ namespace AirlineBookingSystemTest.SystemManagerTests
         public void FindAvailableFlights_ForUnexistingOriginatingAirport_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Airport DES does not exist!");
+            List<Flight> expected = new List<Flight>();
             SystemManager system = new SystemManager();
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                system.FindAvailableFlights("DES", "SED");
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            List<Flight> actual = system.FindAvailableFlights("DES", "SED");
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void FindAvailableFlights_ForUnexistingDestinationAirport_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException("Airport SED does not exist!");
+            List<Flight> expected = new List<Flight>();
             SystemManager system = new SystemManager();
             system.CreateAirport("DES");
 
             // Act
-            ArgumentException actual = null;
-            try
-            {
-                system.FindAvailableFlights("DES", "SED");
-            }
-            catch (ArgumentException ex)
-            {
-                actual = ex;
-            }
+            List<Flight> actual = system.FindAvailableFlights("DES", "SED");
+
 
             // Assert
-            Assert.Equal(expected.Message, actual.Message);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
