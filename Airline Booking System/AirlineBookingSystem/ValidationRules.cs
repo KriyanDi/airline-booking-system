@@ -18,7 +18,7 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Methods
-        public static bool AirportName(string airportName)
+        public static AirportOperation AirportName(string airportName)
         {
             if (airportName != null)
             {
@@ -26,24 +26,24 @@ namespace AirlineBookingSystem
                 {
                     if (airportName.HasOnlyCapitalLetters())
                     {
-                        return true;
+                        return AirportOperation.Succeded;
                     }
                     else
                     {
-                        throw new ArgumentException("Airport name should contain only capital letters.");
+                        return AirportOperation.InvalidNameFormatFailure;
                     }
                 }
                 else
                 {
-                    throw new ArgumentException("Airport name should be 3 letters long.");
+                    return AirportOperation.InvalidNameLenghtFailure;
                 }
             }
             else
             {
-                throw new ArgumentNullException("Airport name can not be null.");
+                return AirportOperation.InvalidNameNullFailure;
             }
         }
-        public static bool AirlineName(string airlineName)
+        public static AirlineOperation AirlineName(string airlineName)
         {
             if (airlineName != null)
             {
@@ -51,21 +51,21 @@ namespace AirlineBookingSystem
                 {
                     if (airlineName.HasOnlyCapitalLettersAndNumbers())
                     {
-                        return true;
+                        return AirlineOperation.Succeded;
                     }
                     else
                     {
-                        throw new ArgumentException("Airline name should contain only capital letters and numbers.");
+                        return AirlineOperation.InvalidNameFormatFailure;
                     }
                 }
                 else
                 {
-                    throw new ArgumentException("Airline name should be between 1 and 5 symbols long.");
+                    return AirlineOperation.InvalidNameLenghtFailure;
                 }
             }
             else
             {
-                throw new ArgumentNullException("Airline name can not be null.");
+                return AirlineOperation.InvalidNameNullFailure;
             }
         }
         public static bool SeatsRowsNumber(int rowNumber)
