@@ -22,7 +22,7 @@ namespace AirlineBookingSystem
         }
         public Airline(Airline other) : this(other.Name)
         {
-            _flights = other.Flights;
+            Flights = other.Flights;
         }
         #endregion
 
