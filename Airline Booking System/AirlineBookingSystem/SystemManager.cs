@@ -144,7 +144,7 @@ namespace AirlineBookingSystem
                 }
                 else
                 {
-                    Console.WriteLine($"Airline {airlineName} does not contain such flight!");
+                    Console.WriteLine($"Error: Airline {airlineName} does not contain such flight!");
 
                     return SystemManagerOperation.UnexistingFlightFailure;
                 }
@@ -196,7 +196,7 @@ namespace AirlineBookingSystem
                         }
                         else
                         {
-                            Console.WriteLine($"Could not book seat on Row: {rows} Col: {cols}!");
+                            Console.WriteLine($"Error: Could not book seat on Row: {rows} Col: {cols}!");
                             
                             return SystemManagerOperation.BookingSeatFailure;
                         }
@@ -381,13 +381,13 @@ namespace AirlineBookingSystem
                 airports += airport.ToString() + "\n";
             }
 
-            string airlines = "\n";
+            string airlines = "";
             foreach (Airline airline in _airlines)
             {
                 airlines += airline.ToString() + "\n";
             }
 
-            return "Airlines: \n" + airports + "\n\n" + "Airlines: \n" + airlines;
+            return "Airlines: \n" + airports + "\n" + "Airlines: \n" + airlines;
         }
         #endregion
     }
