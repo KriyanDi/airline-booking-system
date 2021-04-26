@@ -85,7 +85,12 @@ namespace AirlineBookingSystem
 
             res.DisplaySystemDetails();
 
-            res.FindAvailableFlights("DEN", "LON");
+            Console.WriteLine("Available Flights:");
+            List<Flight> availableFlights = res.FindAvailableFlights("DEN", "LON");
+            foreach (Flight flight in availableFlights)
+            {
+                Console.WriteLine(flight);
+            }
 
             // Book seats
             res.BookSeat("DELTA", "123", SeatClass.BUSINESS, 1, 'A');
@@ -95,7 +100,12 @@ namespace AirlineBookingSystem
 
             res.DisplaySystemDetails();
 
-            res.FindAvailableFlights("DEN", "LON");
+            Console.WriteLine("Available Flights:");
+            availableFlights = res.FindAvailableFlights("DEN", "LON");
+            foreach (Flight flight in availableFlights)
+            {
+                Console.WriteLine(flight);
+            }
         }
 
         private static void PrintAvailableFlights(List<Flight> availableFlightsList)
