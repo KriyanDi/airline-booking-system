@@ -83,8 +83,6 @@ namespace AirlineBookingSystem
                 case AirlineOperation.InvalidNameNullFailure:
                     Console.WriteLine("Error: Airline name can not be null.");
                     break;
-                default:
-                    break;
             }
 
             return result;
@@ -187,7 +185,7 @@ namespace AirlineBookingSystem
                 }
                 else
                 {
-                    Console.WriteLine("This Flight matches by flight number with other flight.");
+                    Console.WriteLine("Error: This Flight matches by flight number with other flight.");
 
                     return AirlineOperation.InvalidFlightMatchingFlighNumberFailure;
                 }
