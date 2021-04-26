@@ -45,6 +45,17 @@ namespace AirlineBookingSystem
         InvalidSectionAlreadyExistsFailure
     }
 
+    public enum SeatOperation
+    {
+        // Basic
+        Succeded,
+        Failed,
+
+        // Rows Cols
+        InvalidSeatRowsFailure,
+        InvalidSeatColsFailure
+    }
+
     public enum SystemManagerOperation
     {
         // Basic
