@@ -68,41 +68,77 @@ namespace AirlineBookingSystem
                 return AirlineOperation.InvalidNameNullFailure;
             }
         }
-        public static bool SeatsRowsNumber(int rowNumber)
+        public static SeatOperation SeatsRowsNumber(int rowNumber)
         {
             if (MIN_ROWS <= rowNumber && rowNumber <= MAX_ROWS)
             {
-                return true;
+                return SeatOperation.Succeded;
             }
             else
             {
-                throw new ArgumentException($"Seat row should be number between {MIN_ROWS} and {MAX_ROWS}.");
+                return SeatOperation.InvalidSeatRowsFailure;
             }
         }
-        public static bool SeatsColsLetter(char colLetter)
+        public static SeatOperation SeatsColsLetter(char colLetter)
         {
             if (MIN_COLS_LETTER <= colLetter && colLetter <= MAX_COLS_LETTER)
             {
-                return true;
+                return SeatOperation.Succeded;
             }
             else
             {
-                throw new ArgumentException($"Seat column should be char between {MIN_COLS_LETTER} and {MAX_COLS_LETTER}.");
+                return SeatOperation.InvalidSeatColsFailure;
             }
         }
-        public static bool SeatsColsNumber(int colNumber)
+        public static SeatOperation SeatsColsNumber(int colNumber)
         {
             if (MIN_COLS < colNumber && colNumber <= MAX_COLS)
             {
-                return true;
+                return SeatOperation.Succeded;
             }
             else
             {
-                throw new ArgumentException($"Seat column should be char between {MIN_COLS} and {MIN_COLS}.");
+                Console.WriteLine($"Seat column should be char between {MIN_COLS} and {MIN_COLS}.");
+
+                return SeatOperation.InvalidSeatColsFailure;
             }
         }
-        public static bool SeatsRowsCols(int rows, char cols) => SeatsRowsNumber(rows) && SeatsColsLetter(cols);
-        public static bool SeatsRowsCols(int rows, int cols) => SeatsRowsNumber(rows) && SeatsColsNumber(cols);
+        public static SeatOperation SeatsRowsCols((int rows, char cols) seats)
+        {
+            if (SeatsRowsNumber(seats.rows) == SeatOperation.Succeded)
+            {
+                if (SeatsColsLetter(seats.cols) == SeatOperation.Succeded)
+                {
+                    return SeatOperation.Succeded;
+                }
+                else
+                {
+                    return SeatOperation.InvalidSeatColsFailure;
+                }
+            }
+            else
+            {
+                return SeatOperation.InvalidSeatRowsFailure;
+            }
+        }
+        public static SeatOperation SeatsRowsCols(int rows, int cols)
+        { 
+            if (SeatsRowsNumber(rows) == SeatOperation.Succeded)
+            {
+                if (SeatsColsNumber(cols) == SeatOperation.Succeded)
+                {
+                    return SeatOperation.Succeded;
+                }
+                else
+                {
+                    return SeatOperation.InvalidSeatColsFailure;
+                }
+            }
+            else
+            {
+                return SeatOperation.InvalidSeatRowsFailure;
+            }
+        }
         #endregion
     }
 }
