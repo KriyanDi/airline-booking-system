@@ -46,20 +46,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Airline.cs" />
-    <Compile Include="Airport.cs" />
-    <Compile Include="ExceptionMessages.cs" />
-    <Compile Include="OperationResult.cs" />
-    <Compile Include="SystemManager.cs" />
-    <Compile Include="Flight.cs" />
-    <Compile Include="FlightInformation.cs" />
-    <Compile Include="FlightSection.cs" />
-    <Compile Include="SeatClass.cs" />
-    <Compile Include="Seat.cs" />
-    <Compile Include="StringExtension.cs" />
+    <Compile Include="Airlines\Airline.cs" />
+    <Compile Include="Airlines\AirlineExceptionMessages.cs" />
+    <Compile Include="Airlines\AirlineOperation.cs" />
+    <Compile Include="Airports\Airport.cs" />
+    <Compile Include="Airports\AirportExceptionMessages.cs" />
+    <Compile Include="Airports\AirportOperation.cs" />
+    <Compile Include="Flights\FlightExceptionMessages.cs" />
+    <Compile Include="Flights\FlightOperation.cs" />
+    <Compile Include="Seats\SeatExceptionMessages.cs" />
+    <Compile Include="SystemManagers\SystemManagerOperation.cs" />
+    <Compile Include="SystemManagers\SystemManager.cs" />
+    <Compile Include="Flights\Flight.cs" />
+    <Compile Include="Flights\FlightInformation.cs" />
+    <Compile Include="Flights\FlightSection.cs" />
+    <Compile Include="Seats\SeatClass.cs" />
+    <Compile Include="Seats\Seat.cs" />
+    <Compile Include="Additional\StringExtension.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValidationRules.cs" />
+    <Compile Include="Additional\ValidationRules.cs" />
+    <Compile Include="SystemManagers\SystemManagerExceptionMessages.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
