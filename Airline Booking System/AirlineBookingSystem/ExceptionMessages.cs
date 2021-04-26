@@ -20,6 +20,11 @@ namespace AirlineBookingSystem
     {
         public static string invalidMatchingOriginatingDestinationAirports = "Matching Originating And Destination Airport!";
     }
+    public class SeatExceptionMessages
+    {
+        public static string invalidSeatsRows = "Invalid Seats Rows!";
+        public static string invalidSeatsCols = "Invalid Seats Cols!";
+    }
 
     public class SystemManagerExceptionMessages
     {
