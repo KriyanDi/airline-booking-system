@@ -76,6 +76,8 @@ namespace AirlineBookingSystem
             }
             else
             {
+                Console.WriteLine("Error: Such section already exists.");
+
                 return FlightOperation.InvalidSectionAlreadyExistsFailure;
             }
         }
