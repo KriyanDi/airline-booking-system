@@ -55,6 +55,7 @@
     <Compile Include="Flights\FlightExceptionMessages.cs" />
     <Compile Include="Flights\FlightOperation.cs" />
     <Compile Include="Seats\SeatExceptionMessages.cs" />
+    <Compile Include="Seats\SeatOperation.cs" />
     <Compile Include="SystemManagers\SystemManagerOperation.cs" />
     <Compile Include="SystemManagers\SystemManager.cs" />
     <Compile Include="Flights\Flight.cs" />

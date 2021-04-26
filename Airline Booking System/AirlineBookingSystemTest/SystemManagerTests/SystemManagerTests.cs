@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AirlineBookingSystem;
+using AirlineBookingSystem.Airports;
+using AirlineBookingSystem.Seats;
 using Xunit;
 
 namespace AirlineBookingSystemTest.SystemManagerTests

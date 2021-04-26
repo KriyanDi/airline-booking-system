@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using AirlineBookingSystem;
+using AirlineBookingSystem.Flights;
 
 namespace AirlineBookingSystemTest.FlightTests
 {
