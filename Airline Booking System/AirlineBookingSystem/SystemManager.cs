@@ -340,7 +340,10 @@ namespace AirlineBookingSystem
             {
                 if (CanFlightBeAddedToAvailableFlightsList(fromAirport, toAirport, airlineIndex, flightIndex, flightSectionIndex))
                 {
-                    availableFlights.Add(new Flight(_airlines[airlineIndex].Flights[flightIndex]));
+                    if(!availableFlights.Contains(_airlines[airlineIndex].Flights[flightIndex]))
+                    {
+                        availableFlights.Add(new Flight(_airlines[airlineIndex].Flights[flightIndex]));
+                    }
                 }
             }
         }
