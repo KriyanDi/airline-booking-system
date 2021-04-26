@@ -25,7 +25,7 @@ namespace AirlineBookingSystem
 
             try
             {
-                res.CreateAirport("DE"); //invalid - too short
+                res.CreateAirport("DE"); //invalid 
             }
             catch (ArgumentException ex)
             {
@@ -33,66 +33,33 @@ namespace AirlineBookingSystem
             }
 
             res.CreateAirport("DEH");
-
-            try
-            {
-                res.CreateAirport("DEN"); //invalid - already exists
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
+            res.CreateAirport("DEN"); //invalid
             res.CreateAirport("NCE");
 
             try
             {
-                res.CreateAirport("TRIord9"); //invalid - too long
+                res.CreateAirport("TRIord9"); //invalid
             }
             catch (ArgumentException ex)
             {
                 Console.WriteLine(ex.Message);
             }
 
-            try
-            {
-                res.CreateAirport("DEN"); //invalid - already exists
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            res.CreateAirport("DEN"); //invalid
 
             //Create airlines
             res.CreateAirline("DELTA");
             res.CreateAirline("AMER");
             res.CreateAirline("JET");
 
-            try
-            {
-                res.CreateAirline("DELTA"); //invalid - already exists
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
+            res.CreateAirline("DELTA"); //invalid
             res.CreateAirline("SWEST");
-
-            try
-            {
-                res.CreateAirline("AMER"); //invalid - already exists
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
+            res.CreateAirline("AMER"); //invalid
             res.CreateAirline("FRONT");
 
             try
             {
-                res.CreateAirline("FRONTIER"); //invalid - too long
+                res.CreateAirline("FRONTIER"); //invalid
             }
             catch (ArgumentException ex)
             {
@@ -102,68 +69,33 @@ namespace AirlineBookingSystem
             //Create flights
             res.CreateFlight("DELTA", "DEN", "LON", 2009, 10, 10, "123");
             res.CreateFlight("DELTA", "DEN", "DEH", 2009, 8, 8, "567");
-
-            try
-            {
-                res.CreateFlight("DELTA", "DEN", "NCE", 2010, 9, 8, "567"); //invalid - matches with another flight's flight number in the same airline
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
+            res.CreateFlight("DELTA", "DEN", "NCE", 2010, 9, 8, "567"); //invalid
             res.CreateFlight("JET", "LON", "DEN", 2009, 5, 7, "123");
+            res.CreateFlight("AMER", "DEN", "LON", 2010, 10, 1, "123");
             res.CreateFlight("JET", "DEN", "LON", 2010, 6, 10, "786");
             res.CreateFlight("JET", "DEN", "LON", 2009, 1, 12, "909");
-            res.CreateFlight("AMER", "DEN", "LON", 2010, 10, 1, "123");
 
             //Create sections
             res.CreateSection("JET", "123", 2, 2, SeatClass.ECONOMY);
-
-            try
-            {
-                res.CreateSection("JET", "123", 1, 3, SeatClass.ECONOMY); //invalid - such seat class section already exist
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
+            res.CreateSection("JET", "123", 1, 3, SeatClass.ECONOMY); //invalid
             res.CreateSection("JET", "123", 2, 3, SeatClass.FIRST);
             res.CreateSection("DELTA", "123", 1, 1, SeatClass.BUSINESS);
             res.CreateSection("DELTA", "123", 1, 2, SeatClass.ECONOMY);
-
-            try
-            {
-                res.CreateSection("SWSERTT", "123", 5, 5, SeatClass.ECONOMY); //invalid - such airline does not exist
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            res.CreateSection("SWSERTT", "123", 5, 5, SeatClass.ECONOMY); //invalid
 
             res.DisplaySystemDetails();
 
-            // available flights
-            PrintAvailableFlights(res.FindAvailableFlights("DEN", "LON"));
+            res.FindAvailableFlights("DEN", "LON");
 
+            // Book seats
             res.BookSeat("DELTA", "123", SeatClass.BUSINESS, 1, 'A');
             res.BookSeat("DELTA", "123", SeatClass.ECONOMY, 1, 'A');
             res.BookSeat("DELTA", "123", SeatClass.ECONOMY, 1, 'B');
-
-            try
-            {
-                res.BookSeat("DELTA", "123", SeatClass.BUSINESS, 1, 'A'); //already booked
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            res.BookSeat("DELTA", "123", SeatClass.BUSINESS, 1, 'A'); //already booked
 
             res.DisplaySystemDetails();
 
-            // available flights
-            PrintAvailableFlights(res.FindAvailableFlights("DEN", "LON"));
+            res.FindAvailableFlights("DEN", "LON");
         }
 
         private static void PrintAvailableFlights(List<Flight> availableFlightsList)
