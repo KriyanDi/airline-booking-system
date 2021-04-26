@@ -29,7 +29,7 @@ namespace AirlineBookingSystemTest.SeatTests
         public void Constructor_InvalidSeatColumn_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException($"Seat column should be char between {ValidationRules.MIN_COLS_LETTER} and {ValidationRules.MAX_COLS_LETTER}.");
+            ArgumentException expected = new ArgumentException(SeatExceptionMessages.invalidSeatsCols);
 
             // Act
             ArgumentException actual = null;
@@ -50,7 +50,7 @@ namespace AirlineBookingSystemTest.SeatTests
         public void Constructor_InvalidSeatRow_ShouldThrowExceptionTest()
         {
             // Arrange
-            ArgumentException expected = new ArgumentException($"Seat row should be number between {ValidationRules.MIN_ROWS} and {ValidationRules.MAX_ROWS}.");
+            ArgumentException expected = new ArgumentException(SeatExceptionMessages.invalidSeatsRows);
 
             // Act
             ArgumentException actual = null;
