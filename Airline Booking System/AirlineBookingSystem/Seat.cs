@@ -27,13 +27,6 @@ namespace AirlineBookingSystem
         public (int rows, char cols) Id
         {
             get => _id;
-            set
-            {
-                if (ValidationRules.SeatsRowsCols(value.rows, value.cols))
-                {
-                    _id = value;
-                }
-            }
         }
         public bool IsBooked
         {
@@ -42,10 +35,50 @@ namespace AirlineBookingSystem
         }
         #endregion
 
+        #region Methods
+        public SeatOperation ChangeId((int rows, char cols) id)
+        {
+            SeatOperation result = ValidationRules.SeatsRowsCols(id);
+
+            switch (result)
+            {
+                case SeatOperation.Succeded:
+                    _id = id;
+                    break;
+                case SeatOperation.InvalidSeatRowsFailure:
+                    Console.WriteLine($"Error: Seat row should be number between {ValidationRules.MIN_ROWS} and {ValidationRules.MAX_ROWS}.");
+                    break;
+                case SeatOperation.InvalidSeatColsFailure:
+                    Console.WriteLine($"Error: Seat column should be char between {ValidationRules.MIN_COLS_LETTER} and {ValidationRules.MAX_COLS_LETTER}.");
+                    break;
+            }
+
+            return result;
+        }
+        #endregion
+
         #region Help Methods
         private void InitializeDataMembers((int rows, char cols) id, bool isBooked)
         {
-            Id = id;
+            InitializeSeat(id);
+            InitializeIsBooked(isBooked);
+        }
+        private void InitializeSeat((int rows, char cols) id)
+        {
+            SeatOperation result = ChangeId(id);
+
+            switch (result)
+            {
+                case SeatOperation.InvalidSeatRowsFailure:
+                    Console.WriteLine("Seat was not created");
+                    throw new ArgumentException(SeatExceptionMessages.invalidSeatsRows);
+                case SeatOperation.InvalidSeatColsFailure:
+                    Console.WriteLine("Seat was not created");
+                    throw new ArgumentException(SeatExceptionMessages.invalidSeatsCols);
+            }
+        }
+        private void InitializeIsBooked(bool isBooked)
+        {
             IsBooked = isBooked;
         }
         #endregion
