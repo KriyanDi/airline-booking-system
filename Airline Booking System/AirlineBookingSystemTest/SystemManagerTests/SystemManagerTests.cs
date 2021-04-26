@@ -343,7 +343,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
 
             // Act
             SystemManagerOperation actual = systemManager.CreateSection("QWE", "1234", 4, 5, SeatClass.ECONOMY);
-            
+
             // Assert
             Assert.Equal(expected, actual);
         }
@@ -624,7 +624,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
 
             try
             {
-                res.CreateAirport("DE"); //invalid
+                res.CreateAirport("DE"); //invalid 
             }
             catch (ArgumentException ex)
             {
@@ -632,16 +632,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
             }
 
             res.CreateAirport("DEH");
-
-            try
-            {
-                res.CreateAirport("DEN"); //invalid
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
+            res.CreateAirport("DEN"); //invalid
             res.CreateAirport("NCE");
 
             try
@@ -653,40 +644,16 @@ namespace AirlineBookingSystemTest.SystemManagerTests
                 Console.WriteLine(ex.Message);
             }
 
-            try
-            {
-                res.CreateAirport("DEN"); //invalid
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            res.CreateAirport("DEN"); //invalid
 
             //Create airlines
             res.CreateAirline("DELTA");
             res.CreateAirline("AMER");
             res.CreateAirline("JET");
 
-            try
-            {
-                res.CreateAirline("DELTA"); //invalid
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
+            res.CreateAirline("DELTA"); //invalid
             res.CreateAirline("SWEST");
-
-            try
-            {
-                res.CreateAirline("AMER"); //invalid
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
+            res.CreateAirline("AMER"); //invalid
             res.CreateAirline("FRONT");
 
             try
@@ -701,16 +668,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
             //Create flights
             res.CreateFlight("DELTA", "DEN", "LON", 2009, 10, 10, "123");
             res.CreateFlight("DELTA", "DEN", "DEH", 2009, 8, 8, "567");
-
-            try
-            {
-                res.CreateFlight("DELTA", "DEN", "NCE", 2010, 9, 8, "567"); //invalid
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
+            res.CreateFlight("DELTA", "DEN", "NCE", 2010, 9, 8, "567"); //invalid
             res.CreateFlight("JET", "LON", "DEN", 2009, 5, 7, "123");
             res.CreateFlight("AMER", "DEN", "LON", 2010, 10, 1, "123");
             res.CreateFlight("JET", "DEN", "LON", 2010, 6, 10, "786");
@@ -718,55 +676,24 @@ namespace AirlineBookingSystemTest.SystemManagerTests
 
             //Create sections
             res.CreateSection("JET", "123", 2, 2, SeatClass.ECONOMY);
-
-            try
-            {
-                res.CreateSection("JET", "123", 1, 3, SeatClass.ECONOMY); //invalid
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
+            res.CreateSection("JET", "123", 1, 3, SeatClass.ECONOMY); //invalid
             res.CreateSection("JET", "123", 2, 3, SeatClass.FIRST);
             res.CreateSection("DELTA", "123", 1, 1, SeatClass.BUSINESS);
             res.CreateSection("DELTA", "123", 1, 2, SeatClass.ECONOMY);
-
-            try
-            {
-                res.CreateSection("SWSERTT", "123", 5, 5, SeatClass.ECONOMY); //invalid
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            res.CreateSection("SWSERTT", "123", 5, 5, SeatClass.ECONOMY); //invalid
 
             res.DisplaySystemDetails();
 
             res.FindAvailableFlights("DEN", "LON");
 
+            // Book seats
             res.BookSeat("DELTA", "123", SeatClass.BUSINESS, 1, 'A');
             res.BookSeat("DELTA", "123", SeatClass.ECONOMY, 1, 'A');
-
-            try
-            {
-                res.BookSeat("DELTA", "123", SeatClass.ECONOMY, 1, 'B');
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            try
-            {
-                res.BookSeat("DELTA", "123", SeatClass.BUSINESS, 1, 'A'); //already booked
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
+            res.BookSeat("DELTA", "123", SeatClass.ECONOMY, 1, 'B');
+            res.BookSeat("DELTA", "123", SeatClass.BUSINESS, 1, 'A'); //already booked
+           
             res.DisplaySystemDetails();
+
             res.FindAvailableFlights("DEN", "LON");
         }
         #endregion
