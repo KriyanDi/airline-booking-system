@@ -6,53 +6,31 @@ using System.Threading.Tasks;
 
 namespace AirlineBookingSystem.Additional
 {
-    public enum AirportOperation
+    public enum ValidationOperation
     {
         // Basic
         Succeded,
         Failed,
 
-        // Airport Name
+        // Airport Airline Name
         InvalidNameLenghtFailure,
         InvalidNameNullFailure,
-        InvalidNameFormatFailure
-    }
-    public enum AirlineOperation
-    {
-        // Basic
-        Succeded,
-        Failed,
-
-        // Airline Name
         InvalidNameFormatFailure,
-        InvalidNameLenghtFailure,
-        InvalidNameNullFailure,
 
         // Flight
         InvalidFlightMatchingFlighNumberFailure,
         InvalidAirportNotMathingAirlineFailure,
-        AddingFlightFailure
-    }
-    public enum FlightOperation
-    {
-        // Basic
-        Succeded,
-        Failed,
+        AddingFlightFailure,
 
         // Sections in Flight
-        InvalidSectionAlreadyExistsFailure
-        InvalidFlightNumberContainsNotOnlyNumbersFailure
-    }
-    public enum SeatOperation
-    {
-        // Basic
-        Succeded,
-        Failed,
+        InvalidSectionAlreadyExistsFailure,
+        InvalidFlightNumberContainsNotOnlyNumbersFailure,
 
         // Rows Cols
         InvalidSeatRowsFailure,
-        InvalidSeatColsFailure
+        InvalidSeatColsFailure,
     }
+   
     public enum SystemManagerOperation
     {
         // Basic
