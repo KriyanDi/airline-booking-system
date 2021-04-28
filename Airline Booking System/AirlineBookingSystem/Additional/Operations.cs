@@ -61,6 +61,7 @@ namespace AirlineBookingSystem.Additional
         InvalidAirportFormatFailure,
         InvalidAirlineFormatFailure,
         InvalidFlightIdFormatFailure,
-        InvalidRowsColsFailure
+        InvalidRowsColsFailure,
+        InvalidFlightSectionEmptyFailure
     }
 }
