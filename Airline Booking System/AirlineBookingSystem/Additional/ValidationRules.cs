@@ -1,12 +1,5 @@
-﻿using AirlineBookingSystem.Airlines;
-using AirlineBookingSystem.Airports;
-using AirlineBookingSystem.Flights;
-using AirlineBookingSystem.Seats;
+﻿using AirlineBookingSystem.Additional;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AirlineBookingSystem
 {
@@ -143,15 +136,15 @@ namespace AirlineBookingSystem
                 return SeatOperation.InvalidSeatRowsFailure;
             }
         }
-        public static FlightInformationOperation FlightNumber(string flightNumber)
+        public static FlightOperation FlightNumber(string flightNumber)
         {
             if(flightNumber.HasOnlyNumbers())
             {
-                return FlightInformationOperation.Succeded;
+                return FlightOperation.Succeded;
             }
             else
             {
-                return FlightInformationOperation.InvalidFlightNumberContainsNotOnlyNumbersFailure;
+                return FlightOperation.InvalidFlightNumberContainsNotOnlyNumbersFailure;
             }
         }
         #endregion
