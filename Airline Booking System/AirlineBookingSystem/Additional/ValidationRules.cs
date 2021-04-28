@@ -27,16 +27,22 @@ namespace AirlineBookingSystem
                     }
                     else
                     {
+                        Console.WriteLine("Error: Airport should contain only capital letters.");
+
                         return ValidationOperation.InvalidNameFormatFailure;
                     }
                 }
                 else
                 {
+                    Console.WriteLine("Error: Airport should be exact three letters long.");
+
                     return ValidationOperation.InvalidNameLenghtFailure;
                 }
             }
             else
             {
+                Console.WriteLine("Error: Airport can not be null.");
+
                 return ValidationOperation.InvalidNameNullFailure;
             }
         }
@@ -52,16 +58,22 @@ namespace AirlineBookingSystem
                     }
                     else
                     {
+                        Console.WriteLine("Error: Airline should contain only capital letters and numbers.");
+
                         return ValidationOperation.InvalidNameFormatFailure;
                     }
                 }
                 else
                 {
+                    Console.WriteLine("Error: Airline should be exact three symbols long.");
+
                     return ValidationOperation.InvalidNameLenghtFailure;
                 }
             }
             else
             {
+                Console.WriteLine("Error: Airline can not be null.");
+
                 return ValidationOperation.InvalidNameNullFailure;
             }
         }
@@ -73,6 +85,8 @@ namespace AirlineBookingSystem
             }
             else
             {
+                Console.WriteLine($"Error: Seat rows should be between {MIN_ROWS} and {MAX_ROWS}");
+
                 return ValidationOperation.InvalidSeatRowsFailure;
             }
         }
@@ -84,6 +98,8 @@ namespace AirlineBookingSystem
             }
             else
             {
+                Console.WriteLine($"Error: Seat cols should be between {MIN_COLS_LETTER} and {MAX_COLS_LETTER}");
+
                 return ValidationOperation.InvalidSeatColsFailure;
             }
         }
@@ -95,7 +111,7 @@ namespace AirlineBookingSystem
             }
             else
             {
-                Console.WriteLine($"Seat column should be char between {MIN_COLS} and {MIN_COLS}.");
+                Console.WriteLine($"Error: Seat cols should be char between {MIN_COLS} and {MIN_COLS}.");
 
                 return ValidationOperation.InvalidSeatColsFailure;
             }
@@ -144,6 +160,8 @@ namespace AirlineBookingSystem
             }
             else
             {
+                Console.WriteLine("Error: Flight number should contain only numbers.");
+
                 return ValidationOperation.InvalidFlightNumberContainsNotOnlyNumbersFailure;
             }
         }
