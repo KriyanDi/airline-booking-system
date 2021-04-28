@@ -22,29 +22,11 @@ namespace AirlineBookingSystem
             res.CreateAirport("DFW");
             res.CreateAirport("LON");
             res.CreateAirport("JPN");
-
-            try
-            {
-                res.CreateAirport("DE"); //invalid 
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
+            res.CreateAirport("DE"); //invalid 
             res.CreateAirport("DEH");
             res.CreateAirport("DEN"); //invalid
             res.CreateAirport("NCE");
-
-            try
-            {
-                res.CreateAirport("TRIord9"); //invalid
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
+            res.CreateAirport("TRIord9"); //invalid
             res.CreateAirport("DEN"); //invalid
 
             //Create airlines
@@ -56,15 +38,7 @@ namespace AirlineBookingSystem
             res.CreateAirline("SWEST");
             res.CreateAirline("AMER"); //invalid
             res.CreateAirline("FRONT");
-
-            try
-            {
-                res.CreateAirline("FRONTIER"); //invalid
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            res.CreateAirline("FRONTIER"); //invalid
 
             //Create flights
             res.CreateFlight("DELTA", "DEN", "LON", 2009, 10, 10, "123");
