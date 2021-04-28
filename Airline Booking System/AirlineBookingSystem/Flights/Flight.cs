@@ -11,151 +11,29 @@ namespace AirlineBookingSystem
 {
     public class Flight
     {
-        #region Fields
-        private FlightInformation _information;
-        private List<FlightSection> _flightSections;
-        #endregion
-
         #region Constructors
         public Flight(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate)
         {
-            InitializeDataMembers(airlineName, originatingAirport, destinationAirport, flightNumber, departureDate);
+            AirlineName = airlineName;
+            OriginatingAirport = originatingAirport;
+            DestinationAirport = destinationAirport;
+            FlightNumber = flightNumber;
+            DepartureDate = departureDate;
+            Id = "";
         }
-        public Flight(Flight other)
+        public Flight(Flight other) : this(other.AirlineName, other.OriginatingAirport, other.DestinationAirport, other.FlightNumber, other.DepartureDate)
         {
-            InitializeDataMembersFrom(other);
+            
         }
         #endregion
 
         #region Properties
-        public FlightInformation Information
-        {
-            get => new FlightInformation(_information);
-            private set => _information = value;
-        }
-        public List<FlightSection> FlightSections
-        {
-            get
-            {
-                List<FlightSection> flightSectionsCopy = null;
-
-                if (_flightSections != null)
-                {
-                    flightSectionsCopy = new List<FlightSection>();
-                    for (int i = 0; i < _flightSections.Count; i++)
-                    {
-                        flightSectionsCopy.Add(new FlightSection(_flightSections[i]));
-                    }
-                }
-
-                return flightSectionsCopy;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    List<FlightSection> flightSectionsCopy = new List<FlightSection>();
-                    for (int i = 0; i < value.Count; i++)
-                    {
-                        flightSectionsCopy.Add(new FlightSection(value[i]));
-                    }
-
-                    _flightSections = flightSectionsCopy;
-                }
-            }
-        }
-        public FlightInformation InformationReference => _information;
-        public List<FlightSection> FlightSectionsReference => _flightSections;
-        #endregion
-
-        #region Methods
-        public FlightOperation AddFlightSection(FlightSection section)
-        {
-            if (!DoFlightSectionsContain(section))
-            {
-                _flightSections.Add(new FlightSection(section));
-
-                return FlightOperation.Succeded;
-            }
-            else
-            {
-                Console.WriteLine("Error: Such section already exists.");
-
-                return FlightOperation.InvalidSectionAlreadyExistsFailure;
-            }
-        }
-        public void ChangeFlightInformationId(string uniqueId)
-        {
-            _information.Id = uniqueId;
-        }
-        #endregion
-
-        #region Help Methods
-        private void InitializeDataMembers(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate)
-        {
-            InitializeInformation(airlineName, originatingAirport, destinationAirport, flightNumber, departureDate, string.Empty);
-            InitializeFlightSections();
-        }
-        private void InitializeInformation(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate, string id)
-        {
-            ValidateAirlineAndAirports(airlineName, originatingAirport, destinationAirport);
-
-            Information = new FlightInformation(airlineName, originatingAirport, destinationAirport, flightNumber, departureDate, id);
-        }
-        private static void ValidateAirlineAndAirports(string airlineName, string originatingAirport, string destinationAirport)
-        {
-            if (ValidationRules.AirlineName(airlineName) != AirlineOperation.Succeded)
-            {
-                Console.WriteLine("Flight was not created!");
-
-                throw new ArgumentException(AirlineExceptionMessages.invalidName);
-            }
-            else if (ValidationRules.AirportName(originatingAirport) != AirportOperation.Succeded)
-            {
-                Console.WriteLine("Flight was not created!");
-
-                throw new ArgumentException(AirportExceptionMessages.invalidName);
-            }
-            else if (ValidationRules.AirportName(destinationAirport) != AirportOperation.Succeded)
-            {
-                Console.WriteLine("Flight was not created!");
-
-                throw new ArgumentException(AirportExceptionMessages.invalidName);
-            }
-            else if (originatingAirport == destinationAirport)
-            {
-                throw new ArgumentException(FlightExceptionMessages.invalidMatchingOriginatingDestinationAirports);
-            }
-        }
-
-        private void InitializeFlightSections()
-        {
-            FlightSections = new List<FlightSection>();
-        }
-        private void InitializeDataMembersFrom(Flight other)
-        {
-            Information = new FlightInformation(other.Information);
-            FlightSections = other.FlightSections;
-        }
-
-        private bool DoFlightSectionsContain(FlightSection section)
-        {
-            bool result = false;
-
-            if (_flightSections != null)
-            {
-                for (int i = 0; i < _flightSections.Count; i++)
-                {
-                    if (_flightSections[i].SeatClass == section.SeatClass)
-                    {
-                        result = true;
-                        break;
-                    }
-                }
-            }
-
-            return result;
-        }
+        public string AirlineName { get; set; }
+        public string OriginatingAirport { get; set; }
+        public string DestinationAirport { get; set; }
+        public string FlightNumber { get; set; }
+        public DateTime DepartureDate { get; set; }
+        public string Id { get; set; }
         #endregion
 
         #region Equation Methods
@@ -195,18 +73,7 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Other Overridden Methods
-        public override string ToString()
-        {
-            string information = $"{_information}";
-
-            string flightSections = "";
-            foreach (FlightSection section in _flightSections)
-            {
-                flightSections = flightSections + section.ToString() + "\n";
-            }
-
-            return information + "\n" + flightSections;
-        }
+        public override string ToString() => $"{AirlineName} {OriginatingAirport} {DestinationAirport} {FlightNumber} {DepartureDate} {Id}";
         #endregion
     }
 }
