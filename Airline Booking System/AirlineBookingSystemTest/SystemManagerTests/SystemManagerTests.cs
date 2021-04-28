@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AirlineBookingSystem;
-using AirlineBookingSystem.Airports;
-using AirlineBookingSystem.Seats;
 using Xunit;
 
 namespace AirlineBookingSystemTest.SystemManagerTests
@@ -686,7 +682,12 @@ namespace AirlineBookingSystemTest.SystemManagerTests
 
             res.DisplaySystemDetails();
 
-            res.FindAvailableFlights("DEN", "LON");
+            Console.WriteLine("");
+            var list = res.FindAvailableFlights("DEN", "LON");
+            foreach (var item in list)
+            {
+                Console.WriteLine(item);
+            }
 
             // Book seats
             res.BookSeat("DELTA", "123", SeatClass.BUSINESS, 1, 'A');
