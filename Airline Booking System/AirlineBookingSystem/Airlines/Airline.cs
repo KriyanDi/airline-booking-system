@@ -1,13 +1,4 @@
-﻿using AirlineBookingSystem.Airlines;
-using AirlineBookingSystem.Flights;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-
-namespace AirlineBookingSystem
+﻿namespace AirlineBookingSystem
 {
     public class Airline
     {
