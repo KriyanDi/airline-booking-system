@@ -56,5 +56,11 @@ namespace AirlineBookingSystem.Additional
 
         // Seat
         BookingSeatFailure,
+
+        // Invalid argument
+        InvalidAirportFormatFailure,
+        InvalidAirlineFormatFailure,
+        InvalidFlightIdFormatFailure,
+        InvalidRowsColsFailure
     }
 }
