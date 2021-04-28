@@ -1,5 +1,6 @@
 ﻿using AirlineBookingSystem.Airlines;
 using AirlineBookingSystem.Airports;
+using AirlineBookingSystem.Flights;
 using System;
 using System.Collections.Generic;
 
@@ -116,6 +117,23 @@ namespace AirlineBookingSystem
 
             return result;
         }
+
+        public FlightInformationOperation ChangeFlighNumber(string flightNumber)
+        {
+            FlightInformationOperation result = ValidationRules.FlightNumber(flightNumber);
+
+            switch (result)
+            {
+                case FlightInformationOperation.Succeded:
+                    _flightNumber = flightNumber;
+                    break;
+                case FlightInformationOperation.InvalidFlightNumberContainsNotOnlyNumbersFailure:
+                    Console.WriteLine("Error: Flight number should contain only numbers");
+                    break;
+            }
+
+            return result;
+        }
         #endregion
 
         #region Equation Methods
@@ -150,10 +168,21 @@ namespace AirlineBookingSystem
             InitializeAirlineName(airlineName);
             InitializeOriginatingAirport(originatingAirport);
             InitializeDestinationAirport(destinationAirport);
-            FlightNumber = flightNumber;
+            InitializeFlightNumber(flightNumber);
             DepartureDate = departureDate;
             Id = id;
         }
+
+        private void InitializeFlightNumber(string flightNumber)
+        {
+            if (ChangeFlighNumber(flightNumber) != FlightInformationOperation.Succeded)
+            {
+                Console.WriteLine("Flight Information was not created!");
+
+                throw new ArgumentException(FlightInformationExceptionMessages.invalidFlightNumber);
+            }
+        }
+
         private void InitializeOriginatingAirport(string originatingAirport)
         {
             if (ChangeOriginatingAirport(originatingAirport) != AirportOperation.Succeded)
