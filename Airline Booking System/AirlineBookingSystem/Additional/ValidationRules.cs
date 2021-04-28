@@ -15,7 +15,7 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Methods
-        public static AirportOperation AirportName(string airportName)
+        public static ValidationOperation AirportName(string airportName)
         {
             if (airportName != null)
             {
@@ -23,24 +23,24 @@ namespace AirlineBookingSystem
                 {
                     if (airportName.HasOnlyCapitalLetters())
                     {
-                        return AirportOperation.Succeded;
+                        return ValidationOperation.Succeded;
                     }
                     else
                     {
-                        return AirportOperation.InvalidNameFormatFailure;
+                        return ValidationOperation.InvalidNameFormatFailure;
                     }
                 }
                 else
                 {
-                    return AirportOperation.InvalidNameLenghtFailure;
+                    return ValidationOperation.InvalidNameLenghtFailure;
                 }
             }
             else
             {
-                return AirportOperation.InvalidNameNullFailure;
+                return ValidationOperation.InvalidNameNullFailure;
             }
         }
-        public static AirlineOperation AirlineName(string airlineName)
+        public static ValidationOperation AirlineName(string airlineName)
         {
             if (airlineName != null)
             {
@@ -48,103 +48,103 @@ namespace AirlineBookingSystem
                 {
                     if (airlineName.HasOnlyCapitalLettersAndNumbers())
                     {
-                        return AirlineOperation.Succeded;
+                        return ValidationOperation.Succeded;
                     }
                     else
                     {
-                        return AirlineOperation.InvalidNameFormatFailure;
+                        return ValidationOperation.InvalidNameFormatFailure;
                     }
                 }
                 else
                 {
-                    return AirlineOperation.InvalidNameLenghtFailure;
+                    return ValidationOperation.InvalidNameLenghtFailure;
                 }
             }
             else
             {
-                return AirlineOperation.InvalidNameNullFailure;
+                return ValidationOperation.InvalidNameNullFailure;
             }
         }
-        public static SeatOperation SeatsRowsNumber(int rowNumber)
+        public static ValidationOperation SeatsRowsNumber(int rowNumber)
         {
             if (MIN_ROWS <= rowNumber && rowNumber <= MAX_ROWS)
             {
-                return SeatOperation.Succeded;
+                return ValidationOperation.Succeded;
             }
             else
             {
-                return SeatOperation.InvalidSeatRowsFailure;
+                return ValidationOperation.InvalidSeatRowsFailure;
             }
         }
-        public static SeatOperation SeatsColsLetter(char colLetter)
+        public static ValidationOperation SeatsColsLetter(char colLetter)
         {
             if (MIN_COLS_LETTER <= colLetter && colLetter <= MAX_COLS_LETTER)
             {
-                return SeatOperation.Succeded;
+                return ValidationOperation.Succeded;
             }
             else
             {
-                return SeatOperation.InvalidSeatColsFailure;
+                return ValidationOperation.InvalidSeatColsFailure;
             }
         }
-        public static SeatOperation SeatsColsNumber(int colNumber)
+        public static ValidationOperation SeatsColsNumber(int colNumber)
         {
             if (MIN_COLS < colNumber && colNumber <= MAX_COLS)
             {
-                return SeatOperation.Succeded;
+                return ValidationOperation.Succeded;
             }
             else
             {
                 Console.WriteLine($"Seat column should be char between {MIN_COLS} and {MIN_COLS}.");
 
-                return SeatOperation.InvalidSeatColsFailure;
+                return ValidationOperation.InvalidSeatColsFailure;
             }
         }
-        public static SeatOperation SeatsRowsCols((int rows, char cols) seats)
+        public static ValidationOperation SeatsRowsCols((int rows, char cols) seats)
         {
-            if (SeatsRowsNumber(seats.rows) == SeatOperation.Succeded)
+            if (SeatsRowsNumber(seats.rows) == ValidationOperation.Succeded)
             {
-                if (SeatsColsLetter(seats.cols) == SeatOperation.Succeded)
+                if (SeatsColsLetter(seats.cols) == ValidationOperation.Succeded)
                 {
-                    return SeatOperation.Succeded;
+                    return ValidationOperation.Succeded;
                 }
                 else
                 {
-                    return SeatOperation.InvalidSeatColsFailure;
+                    return ValidationOperation.InvalidSeatColsFailure;
                 }
             }
             else
             {
-                return SeatOperation.InvalidSeatRowsFailure;
+                return ValidationOperation.InvalidSeatRowsFailure;
             }
         }
-        public static SeatOperation SeatsRowsCols(int rows, int cols)
+        public static ValidationOperation SeatsRowsCols(int rows, int cols)
         { 
-            if (SeatsRowsNumber(rows) == SeatOperation.Succeded)
+            if (SeatsRowsNumber(rows) == ValidationOperation.Succeded)
             {
-                if (SeatsColsNumber(cols) == SeatOperation.Succeded)
+                if (SeatsColsNumber(cols) == ValidationOperation.Succeded)
                 {
-                    return SeatOperation.Succeded;
+                    return ValidationOperation.Succeded;
                 }
                 else
                 {
-                    return SeatOperation.InvalidSeatColsFailure;
+                    return ValidationOperation.InvalidSeatColsFailure;
                 }
             }
             else
             {
-                return SeatOperation.InvalidSeatRowsFailure;
+                return ValidationOperation.InvalidSeatRowsFailure;
             }
         }
-        public static FlightOperation FlightNumber(string flightNumber)
+        public static ValidationOperation FlightNumber(string flightNumber)
         {
             if(flightNumber.HasOnlyNumbers())
             {
-                return FlightOperation.Succeded;
+                return ValidationOperation.Succeded;
             }
             else
             {
-                return FlightOperation.InvalidFlightNumberContainsNotOnlyNumbersFailure;
+                return ValidationOperation.InvalidFlightNumberContainsNotOnlyNumbersFailure;
             }
         }
         #endregion
