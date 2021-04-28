@@ -111,7 +111,7 @@ namespace AirlineBookingSystem
             }
             else
             {
-                Console.WriteLine($"Error: Seat cols should be char between {MIN_COLS} and {MIN_COLS}.");
+                Console.WriteLine($"Error: Seat cols should be number between {MIN_COLS} and {MAX_COLS}.");
 
                 return ValidationOperation.InvalidSeatColsFailure;
             }
