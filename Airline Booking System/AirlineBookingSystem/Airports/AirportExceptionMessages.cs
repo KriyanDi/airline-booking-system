@@ -10,5 +10,4 @@ namespace AirlineBookingSystem.Airports
     {
         public static string invalidName = "Invalid Airport Name!";
     }
-
 }
