@@ -1,5 +1,6 @@
 ﻿using AirlineBookingSystem.Airlines;
 using AirlineBookingSystem.Airports;
+using AirlineBookingSystem.Flights;
 using AirlineBookingSystem.Seats;
 using System;
 using System.Collections.Generic;
@@ -140,6 +141,17 @@ namespace AirlineBookingSystem
             else
             {
                 return SeatOperation.InvalidSeatRowsFailure;
+            }
+        }
+        public static FlightInformationOperation FlightNumber(string flightNumber)
+        {
+            if(flightNumber.HasOnlyNumbers())
+            {
+                return FlightInformationOperation.Succeded;
+            }
+            else
+            {
+                return FlightInformationOperation.InvalidFlightNumberContainsNotOnlyNumbersFailure;
             }
         }
         #endregion
