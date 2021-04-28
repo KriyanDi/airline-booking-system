@@ -1,11 +1,6 @@
-﻿using AirlineBookingSystem.Airlines;
-using AirlineBookingSystem.Airports;
-using AirlineBookingSystem.Flights;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AirlineBookingSystem
 {
@@ -23,7 +18,7 @@ namespace AirlineBookingSystem
         }
         public Flight(Flight other) : this(other.AirlineName, other.OriginatingAirport, other.DestinationAirport, other.FlightNumber, other.DepartureDate)
         {
-            
+
         }
         #endregion
 
@@ -39,34 +34,17 @@ namespace AirlineBookingSystem
         #region Equation Methods
         public override bool Equals(object obj)
         {
-            if (obj is Flight flight)
-            {
-                bool areFlightSectionsExact = true;
-                for (int i = 0; i < _flightSections.Count; i++)
-                {
-                    if (!_flightSections[i].Equals(flight.FlightSections[i]))
-                    {
-                        areFlightSectionsExact = false;
-                        break;
-                    }
-                }
-
-                return _information.Equals(flight.Information) &&
-                       areFlightSectionsExact;
-            }
-            else
-            {
-                return false;
-            }
+            return obj is Flight flight &&
+                AirlineName == flight.AirlineName &&
+                OriginatingAirport == flight.OriginatingAirport &&
+                DestinationAirport == flight.DestinationAirport &&
+                FlightNumber == flight.FlightNumber &&
+                DepartureDate == flight.DepartureDate &&
+                Id == flight.Id;
         }
         public override int GetHashCode()
         {
-            int hashCode = -479622268;
-            hashCode = hashCode * -1521134295 + EqualityComparer<FlightInformation>.Default.GetHashCode(_information);
-            hashCode = hashCode * -1521134295 + EqualityComparer<List<FlightSection>>.Default.GetHashCode(_flightSections);
-            hashCode = hashCode * -1521134295 + EqualityComparer<List<FlightSection>>.Default.GetHashCode(FlightSections);
-            hashCode = hashCode * -1521134295 + EqualityComparer<FlightInformation>.Default.GetHashCode(Information);
-            return hashCode;
+            return base.GetHashCode();
         }
         public static bool operator ==(Flight lhs, Flight rhs) => lhs.Equals(rhs);
         public static bool operator !=(Flight lhs, Flight rhs) => !(lhs == rhs);
