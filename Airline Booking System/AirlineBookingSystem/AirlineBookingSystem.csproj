@@ -53,6 +53,8 @@
     <Compile Include="Airports\AirportExceptionMessages.cs" />
     <Compile Include="Airports\AirportOperation.cs" />
     <Compile Include="Flights\FlightExceptionMessages.cs" />
+    <Compile Include="Flights\FlightInformationExceptionMessages.cs" />
+    <Compile Include="Flights\FlightInformationOperation.cs" />
     <Compile Include="Flights\FlightOperation.cs" />
     <Compile Include="Seats\SeatExceptionMessages.cs" />
     <Compile Include="Seats\SeatOperation.cs" />
