@@ -28,45 +28,19 @@ namespace AirlineBookingSystem
         #region Equation Methods
         public override bool Equals(object obj)
         {
-            if (obj is Airline airline)
-            {
-                bool areFlightsExact = true;
-                for (int i = 0; i < _flights.Count; i++)
-                {
-                    if (!_flights[i].Equals(airline.Flights[i]))
-                    {
-                        areFlightsExact = false;
-                        break;
-                    }
-                }
-
-                return _name == airline._name &&
-                      _flights.Count == airline.Flights.Count &&
-                      areFlightsExact;
-            }
-            else
-            {
-                return false;
-            }
+            return (obj is Airline airline) &&
+                Name == airline.Name;
         }
         public override int GetHashCode()
         {
-            int hashCode = 1536774888;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(_name);
-            hashCode = hashCode * -1521134295 + EqualityComparer<List<Flight>>.Default.GetHashCode(_flights);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
-            hashCode = hashCode * -1521134295 + EqualityComparer<List<Flight>>.Default.GetHashCode(Flights);
-            return hashCode;
+            return base.GetHashCode();
         }
         public static bool operator ==(Airline lhs, Airline rhs) => lhs.Equals(rhs);
         public static bool operator !=(Airline lhs, Airline rhs) => !(lhs == rhs);
         #endregion
 
         #region Other Overridden Method
-        public override string ToString()
-        {
-            return $"{Name}";
-        }
+        public override string ToString() => $"{Name}";
         #endregion
     }
 }
