@@ -60,6 +60,7 @@
     <Compile Include="Additional\ValidationRules.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="AirlineBookingSystemClassDiagram.cd" />
     <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

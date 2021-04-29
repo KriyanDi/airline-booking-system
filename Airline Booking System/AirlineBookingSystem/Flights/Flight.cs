@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace AirlineBookingSystem
 {
@@ -19,7 +17,7 @@ namespace AirlineBookingSystem
         {
 
         }
-     
+
         public string AirlineName { get; set; }
         public string OriginatingAirport { get; set; }
         public string DestinationAirport { get; set; }

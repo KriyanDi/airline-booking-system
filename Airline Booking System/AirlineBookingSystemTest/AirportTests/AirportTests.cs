@@ -205,7 +205,7 @@ namespace AirlineBookingSystemTest
 
             // Act
             AirportOperation actual = airport.ChangeName("AA");
-            
+
             // Assert
             Assert.Equal(expected, actual);
         }
@@ -220,7 +220,7 @@ namespace AirlineBookingSystemTest
 
             // Act
             AirportOperation actual = airport.ChangeName(nullString);
-           
+
             // Assert
             Assert.Equal(expected, actual);
         }
@@ -262,7 +262,7 @@ namespace AirlineBookingSystemTest
 
             // Act
             AirportOperation actual = airport.ChangeName("123");
-            
+
             // Assert
             Assert.Equal(expected, actual);
         }
@@ -276,7 +276,7 @@ namespace AirlineBookingSystemTest
 
             // Act
             AirportOperation actual = airport.ChangeName("asd");
-          
+
             // Assert
             Assert.Equal(expected, actual);
         }

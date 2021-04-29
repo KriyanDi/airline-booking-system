@@ -1,7 +1,7 @@
 ﻿namespace AirlineBookingSystem
 {
     public class Seat
-    { 
+    {
         public Seat((int rows, char cols) id, bool isBooked)
         {
             Id = id;

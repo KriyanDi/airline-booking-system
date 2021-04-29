@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AirlineBookingSystem.Additional
+﻿namespace AirlineBookingSystem.Additional
 {
     public enum ValidationOperation
     {
@@ -30,7 +24,7 @@ namespace AirlineBookingSystem.Additional
         InvalidSeatRowsFailure,
         InvalidSeatColsFailure,
     }
-   
+
     public enum SystemManagerOperation
     {
         // Basic

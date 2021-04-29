@@ -9,7 +9,7 @@
         public Airport(Airport other) : this(other.Name)
         {
         }
-       
+
         public string Name { get; set; }
 
         public override bool Equals(object obj)

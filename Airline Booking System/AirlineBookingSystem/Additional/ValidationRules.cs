@@ -3,7 +3,7 @@ using System;
 
 namespace AirlineBookingSystem
 {
-    public static class  ValidationRules
+    public static class ValidationRules
     {
         #region Fields
         public const int MAX_ROWS = 100;
@@ -135,7 +135,7 @@ namespace AirlineBookingSystem
             }
         }
         public static ValidationOperation SeatsRowsCols(int rows, int cols)
-        { 
+        {
             if (SeatsRowsNumber(rows) == ValidationOperation.Succeded)
             {
                 if (SeatsColsNumber(cols) == ValidationOperation.Succeded)
@@ -154,7 +154,7 @@ namespace AirlineBookingSystem
         }
         public static ValidationOperation FlightNumber(string flightNumber)
         {
-            if(flightNumber.HasOnlyNumbers())
+            if (flightNumber.HasOnlyNumbers())
             {
                 return ValidationOperation.Succeded;
             }

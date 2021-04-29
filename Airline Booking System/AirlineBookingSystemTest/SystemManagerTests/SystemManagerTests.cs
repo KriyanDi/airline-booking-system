@@ -1,7 +1,7 @@
-﻿using System;
+﻿using AirlineBookingSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using AirlineBookingSystem;
 using Xunit;
 
 namespace AirlineBookingSystemTest.SystemManagerTests
@@ -694,7 +694,7 @@ namespace AirlineBookingSystemTest.SystemManagerTests
             res.BookSeat("DELTA", "123", SeatClass.ECONOMY, 1, 'A');
             res.BookSeat("DELTA", "123", SeatClass.ECONOMY, 1, 'B');
             res.BookSeat("DELTA", "123", SeatClass.BUSINESS, 1, 'A'); //already booked
-           
+
             res.DisplaySystemDetails();
 
             res.FindAvailableFlights("DEN", "LON");

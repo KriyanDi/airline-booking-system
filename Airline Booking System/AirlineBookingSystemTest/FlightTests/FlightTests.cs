@@ -1,7 +1,7 @@
-﻿using System;
+﻿using AirlineBookingSystem;
+using System;
 using System.Linq;
 using Xunit;
-using AirlineBookingSystem;
 
 namespace AirlineBookingSystemTest.FlightTests
 {
