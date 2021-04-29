@@ -196,7 +196,14 @@ namespace AirlineBookingSystem
                 return SystemManagerOperation.UnexistingFlightFailure;
             }
 
-            if (!_flightSections.ContainsKey(flightNumber))
+            if (_flights.ContainsKey(flightNumber) && _flights[flightNumber].AirlineName != airlineName)
+            {
+                Console.WriteLine("Error: Flight does not exist.");
+
+                return SystemManagerOperation.UnexistingFlightFailure;
+            }
+
+            if (_flightSections.ContainsKey(flightNumber) && _flightSections[flightNumber].Count == 0)
             {
                 Console.WriteLine($"Error: Flight does not contain any sections.");
 
