@@ -1,8 +1,7 @@
 ﻿namespace AirlineBookingSystem
 {
     public class Seat
-    {
-        #region Constructors
+    { 
         public Seat((int rows, char cols) id, bool isBooked)
         {
             Id = id;
@@ -11,14 +10,10 @@
         public Seat(Seat other) : this(other.Id, other.IsBooked)
         {
         }
-        #endregion
 
-        #region Properties
         public (int rows, char cols) Id { get; set; }
         public bool IsBooked { get; set; }
-        #endregion
 
-        #region Equation Methods
         public override bool Equals(object obj)
         {
             return obj is Seat seat &&
@@ -34,10 +29,7 @@
         }
         public static bool operator ==(Seat lhs, Seat rhs) => lhs.Equals(rhs);
         public static bool operator !=(Seat lhs, Seat rhs) => !(lhs == rhs);
-        #endregion
 
-        #region Other Overridden Methods
         public override string ToString() => $"ROW: {Id.rows} COL: {Id.cols} BOOKED: {IsBooked}";
-        #endregion
     }
 }
