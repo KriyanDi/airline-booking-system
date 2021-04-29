@@ -6,7 +6,6 @@ namespace AirlineBookingSystem
 {
     public class Flight
     {
-        #region Constructors
         public Flight(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate)
         {
             AirlineName = airlineName;
@@ -20,18 +19,14 @@ namespace AirlineBookingSystem
         {
 
         }
-        #endregion
-
-        #region Properties
+     
         public string AirlineName { get; set; }
         public string OriginatingAirport { get; set; }
         public string DestinationAirport { get; set; }
         public string FlightNumber { get; set; }
         public DateTime DepartureDate { get; set; }
         public string Id { get; set; }
-        #endregion
 
-        #region Equation Methods
         public override bool Equals(object obj)
         {
             return obj is Flight flight &&
@@ -48,10 +43,7 @@ namespace AirlineBookingSystem
         }
         public static bool operator ==(Flight lhs, Flight rhs) => lhs.Equals(rhs);
         public static bool operator !=(Flight lhs, Flight rhs) => !(lhs == rhs);
-        #endregion
 
-        #region Other Overridden Methods
         public override string ToString() => $"{AirlineName} {OriginatingAirport} {DestinationAirport} {FlightNumber} {DepartureDate} {Id}";
-        #endregion
     }
 }
