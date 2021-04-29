@@ -16,7 +16,10 @@ namespace AirlineBookingSystem
         #region Constructors
         public SystemManager()
         {
-            InitializeDataMembers();
+            _airports = new Dictionary<string, Airport>();
+            _airlines = new Dictionary<string, Airline>();
+            _flights = new Dictionary<string, Flight>();
+            _flightSections = new Dictionary<string, List<FlightSection>>();
         }
         #endregion
 
@@ -218,16 +221,6 @@ namespace AirlineBookingSystem
             }
         }
         public void DisplaySystemDetails() => Console.WriteLine(this.ToString());
-        #endregion
-
-        #region Help Methods
-        private void InitializeDataMembers()
-        {
-            _airports = new Dictionary<string, Airport>();
-            _airlines = new Dictionary<string, Airline>();
-            _flights = new Dictionary<string, Flight>();
-            _flightSections = new Dictionary<string, List<FlightSection>>();
-        }
         #endregion
 
         #region Other Overridden Methods
