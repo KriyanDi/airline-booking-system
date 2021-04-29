@@ -107,10 +107,6 @@ namespace AirlineBookingSystem
             {
                 return SystemManagerOperation.InvalidRowsColsFailure;
             }
-            if (ValidationRules.FlightNumber(flightId) != ValidationOperation.Succeded)
-            {
-                return SystemManagerOperation.InvalidFlightIdFormatFailure;
-            }
 
             if (!_airlines.ContainsKey(airlineName))
             {
@@ -126,11 +122,11 @@ namespace AirlineBookingSystem
                 return SystemManagerOperation.UnexistingFlightFailure;
             }
 
-            if (!_flightSections.ContainsKey(flightId))
+            if (_flights.ContainsKey(flightId) && _flights[flightId].AirlineName != airlineName)
             {
-                Console.WriteLine("Error: Flight does not have flight sections.");
+                Console.WriteLine($"Error: Airline {airlineName} does not contain such flight!");
 
-                return SystemManagerOperation.InvalidFlightSectionEmptyFailure;
+                return SystemManagerOperation.UnexistingFlightFailure;
             }
 
             if (!_flightSections[flightId].Exists(flightSection => flightSection.SeatClass == seatClass))
