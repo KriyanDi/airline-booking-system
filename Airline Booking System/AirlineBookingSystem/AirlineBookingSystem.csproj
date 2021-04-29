@@ -49,6 +49,7 @@
     <Compile Include="Additional\Operations.cs" />
     <Compile Include="Airlines\Airline.cs" />
     <Compile Include="Airports\Airport.cs" />
+    <Compile Include="SystemManagers\FactAttribute.cs" />
     <Compile Include="SystemManagers\SystemManager.cs" />
     <Compile Include="Flights\Flight.cs" />
     <Compile Include="Flights\FlightSection.cs" />

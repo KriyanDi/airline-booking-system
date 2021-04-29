@@ -44,9 +44,10 @@
         UnexistingFlightFailure,
 
         // Section
-        UnexsistingSectionFailure,
+        ExsistingSectionFailure,
         UnexsistingSeatClassFailure,
         InvalidSectionExistsFailure,
+        InvalidSectionDoesNotExist,
 
         // Seat
         BookingSeatFailure,

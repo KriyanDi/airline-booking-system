@@ -105,7 +105,7 @@ namespace AirlineBookingSystem
         }
         public static ValidationOperation SeatsColsNumber(int colNumber)
         {
-            if (MIN_COLS < colNumber && colNumber <= MAX_COLS)
+            if (MIN_COLS <= colNumber && colNumber <= MAX_COLS)
             {
                 return ValidationOperation.Succeded;
             }
