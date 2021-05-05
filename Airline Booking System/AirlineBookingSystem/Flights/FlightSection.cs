@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AirlineBookingSystem.Additional;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +17,7 @@ namespace AirlineBookingSystem
 
         #region Properties
         public SeatClass SeatClass { get; set; }
+        [SeatSection]
         public List<Seat> Seats { get; set; }
         public int CountAvailableSeats => Seats.Count(seat => !seat.IsBooked);
         public int CountOccupiedSeats => Seats.Count - CountAvailableSeats;

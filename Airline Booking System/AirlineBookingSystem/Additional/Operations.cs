@@ -22,13 +22,15 @@
     {
         // Basic
         Succeded,
+        Failed,
 
         // Create
-        InvalidNameAirportExistFailure,
+        AirportNameExistFailure,
         InvalidNameAirlineExistFailure,
 
         //Flight
         InvalidFlightNumberExistsFailure,
+        InvalidFlightNumberFormatFailure,
 
         // Data
         UnexistingAirportFailure,
@@ -38,6 +40,7 @@
         // Section
         ExsistingSectionFailure,
         UnexsistingSeatClassFailure,
+        SectionParametersFailure,
 
         // Seat
         BookingSeatFailure,

@@ -20,7 +20,7 @@ namespace AirlineBookingSystem
         public string OriginatingAirport { get; set; }
         public string DestinationAirport { get; set; }
         public string FlightNumber { get; set; }
-        public Dictionary<SeatClass,FlightSection> FlightSections { get; set; }
+        public Dictionary<SeatClass, FlightSection> FlightSections { get; set; }
         public DateTime DepartureDate { get; set; }
         public string Id { get; set; }
 
