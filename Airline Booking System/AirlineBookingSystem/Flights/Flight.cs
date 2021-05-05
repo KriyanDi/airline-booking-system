@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AirlineBookingSystem
 {
@@ -10,17 +11,16 @@ namespace AirlineBookingSystem
             OriginatingAirport = originatingAirport;
             DestinationAirport = destinationAirport;
             FlightNumber = flightNumber;
+            FlightSections = new Dictionary<SeatClass, FlightSection>();
             DepartureDate = departureDate;
             Id = "";
-        }
-        public Flight(Flight other) : this(other.AirlineName, other.OriginatingAirport, other.DestinationAirport, other.FlightNumber, other.DepartureDate)
-        {
         }
 
         public string AirlineName { get; set; }
         public string OriginatingAirport { get; set; }
         public string DestinationAirport { get; set; }
         public string FlightNumber { get; set; }
+        public Dictionary<SeatClass,FlightSection> FlightSections { get; set; }
         public DateTime DepartureDate { get; set; }
         public string Id { get; set; }
 

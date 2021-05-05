@@ -10,7 +10,6 @@ namespace AirlineBookingSystem
         private Dictionary<string, Airport> _airports;
         private Dictionary<string, Airline> _airlines;
         private Dictionary<string, Flight> _flights;
-        private Dictionary<string, List<FlightSection>> _flightSections;
         #endregion
 
         #region Constructors
@@ -19,7 +18,6 @@ namespace AirlineBookingSystem
             _airports = new Dictionary<string, Airport>();
             _airlines = new Dictionary<string, Airline>();
             _flights = new Dictionary<string, Flight>();
-            _flightSections = new Dictionary<string, List<FlightSection>>();
         }
         #endregion
 
@@ -90,7 +88,6 @@ namespace AirlineBookingSystem
             if (!_flights.ContainsKey(id))
             {
                 _flights.Add(id, new Flight(airlineName, fromAirport, toAirport, id, new DateTime(year, month, day)));
-                _flightSections.Add(id, new List<FlightSection>());
 
                 return SystemManagerOperation.Succeded;
             }
@@ -129,9 +126,9 @@ namespace AirlineBookingSystem
                 return SystemManagerOperation.UnexistingFlightFailure;
             }
 
-            if (!_flightSections[flightId].Exists(flightSection => flightSection.SeatClass == seatClass))
+            if (!_flights[flightId].FlightSections.ContainsKey(seatClass))
             {
-                _flightSections[flightId].Add(new FlightSection(seatClass, rows, cols));
+                _flights[flightId].FlightSections.Add(seatClass,new FlightSection(seatClass, rows, cols));
 
                 return SystemManagerOperation.Succeded;
             }
@@ -139,36 +136,38 @@ namespace AirlineBookingSystem
             {
                 Console.WriteLine($"Error: Flight contain section {seatClass}!");
 
-                return SystemManagerOperation.InvalidSectionExistsFailure;
+                return SystemManagerOperation.ExsistingSectionFailure;
             }
         }
-        public List<Flight> FindAvailableFlights(string fromAirport, string toAirport)
+        public List<Flight> FindAvailableFlights(string originatingAirport, string destionationAirport)
         {
             List<Flight> availableFlights = new List<Flight>();
 
-            if (!_airports.ContainsKey(fromAirport))
+            if (!_airports.ContainsKey(originatingAirport))
             {
-                Console.WriteLine($"Error: Airport {fromAirport} does not exist.");
+                Console.WriteLine($"Error: Airport {originatingAirport} does not exist.");
 
                 return availableFlights;
             }
 
-            if (!_airports.ContainsKey(toAirport))
+            if (!_airports.ContainsKey(destionationAirport))
             {
-                Console.WriteLine($"Error: Airport {toAirport} does not exist.");
+                Console.WriteLine($"Error: Airport {destionationAirport} does not exist.");
 
                 return availableFlights;
             }
 
-            foreach (var flight in _flights)
+            foreach (var flight in _flights.Values)
             {
-                if (flight.Value.OriginatingAirport == fromAirport &&
-                    flight.Value.DestinationAirport == toAirport &&
-                    _flightSections.ContainsKey(flight.Key))
+                if (flight.OriginatingAirport == originatingAirport && flight.DestinationAirport == destionationAirport )
                 {
-                    if (_flightSections[flight.Key].Exists(flightSection => flightSection.HasAvailableSeats()))
+                    foreach (FlightSection section in flight.FlightSections.Values)
                     {
-                        availableFlights.Add(flight.Value);
+                        if(section.HasAvailableSeats())
+                        {
+                            availableFlights.Add(flight);
+                            break;
+                        }
                     }
                 }
             }
@@ -203,15 +202,15 @@ namespace AirlineBookingSystem
                 return SystemManagerOperation.UnexistingFlightFailure;
             }
 
-            if (_flightSections.ContainsKey(flightNumber) && _flightSections[flightNumber].Count == 0)
+            if (_flights[flightNumber].FlightSections.Count == 0)
             {
                 Console.WriteLine($"Error: Flight does not contain any sections.");
 
                 return SystemManagerOperation.UnexsistingSeatClassFailure;
             }
 
-            if (_flightSections[flightNumber].Exists(flightNum => flightNum.SeatClass == seatClass) &&
-                _flightSections[flightNumber].Find(flightNum => flightNum.SeatClass == seatClass).BookSeat(rows, cols))
+            if (_flights[flightNumber].FlightSections.ContainsKey(seatClass) &&
+                _flights[flightNumber].FlightSections[seatClass].BookSeat(rows, cols))
             {
 
                 return SystemManagerOperation.Succeded;
@@ -247,20 +246,7 @@ namespace AirlineBookingSystem
                 flightsAll += flight.ToString() + "\n";
             }
 
-            string flightSectionsAll = "";
-            foreach (var flightSection in _flightSections)
-            {
-                string flightNumber = $"{flightSection.Key}";
-                string sections = "";
-                foreach (FlightSection section in flightSection.Value)
-                {
-                    sections += section.ToString() + "\n";
-                }
-
-                flightSectionsAll += flightNumber + "\n" + sections + "\n";
-            }
-
-            return "System Details: \n\n" + "Airports: \n" + airportsAll + "\n" + "Airlines: \n" + airlinesAll + "\n" + "Flights: \n" + flightsAll + "\n" + "Flight Sections: \n" + flightSectionsAll;
+            return "System Details: \n\n" + "Airports: \n" + airportsAll + "\n" + "Airlines: \n" + airlinesAll + "\n" + "Flights: \n" + flightsAll + "\n";
         }
         #endregion
     }
