@@ -1,23 +1,5 @@
 ﻿namespace AirlineBookingSystem.Additional
 {
-    public enum ValidationOperation
-    {
-        // Basic
-        Succeded,
-
-        // Airport Airline Name
-        InvalidNameLenghtFailure,
-        InvalidNameNullFailure,
-        InvalidNameFormatFailure,
-
-        // Sections in Flight
-        InvalidFlightNumberContainsNotOnlyNumbersFailure,
-
-        // Rows Cols
-        InvalidSeatRowsFailure,
-        InvalidSeatColsFailure,
-    }
-
     public enum SystemManagerOperation
     {
         // Basic
@@ -30,7 +12,7 @@
 
         //Flight
         InvalidFlightNumberExistsFailure,
-        InvalidFlightNumberFormatFailure,
+        InvalidFlightDetailsFailure,
 
         // Data
         UnexistingAirportFailure,
