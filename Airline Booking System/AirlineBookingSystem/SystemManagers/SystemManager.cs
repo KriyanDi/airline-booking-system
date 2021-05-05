@@ -23,95 +23,95 @@ namespace AirlineBookingSystem
         #endregion
 
         #region Methods
-        public SystemManagerOperation CreateAirport(string airportName)
+        public OperationResult CreateAirport(string airportName)
         {
             switch (_airports.ContainsKey(airportName))
             {
                 case true:
                     {
                         Console.WriteLine($"Error: Airport {airportName} already exists!");
-                        return SystemManagerOperation.AirportNameExistFailure;
+                        return OperationResult.AirportNameExistFailure;
                     }
                 case false:
                     {
                         _airports.Add(airportName, new Airport(airportName));
-                        return SystemManagerOperation.Succeded;
+                        return OperationResult.Succeded;
                     }
-                default: return SystemManagerOperation.Failed;
+                default: return OperationResult.Failed;
             }
         }
-        public SystemManagerOperation CreateAirline(string airlineName)
+        public OperationResult CreateAirline(string airlineName)
         {
             switch (_airlines.ContainsKey(airlineName))
             {
                 case true:
                     {
                         Console.WriteLine($"Error: Airline {airlineName} already exists!");
-                        return SystemManagerOperation.InvalidNameAirlineExistFailure;
+                        return OperationResult.InvalidNameAirlineExistFailure;
                     }
                 case false:
                     {
                         _airlines.Add(airlineName, new Airline(airlineName));
-                        return SystemManagerOperation.Succeded;
+                        return OperationResult.Succeded;
                     }
-                default: return SystemManagerOperation.Failed;
+                default: return OperationResult.Failed;
             }
         }
 
-        public SystemManagerOperation CreateFlight(string airlineName, string fromAirport, string toAirport, int year, int month, int day, string id)
+        public OperationResult CreateFlight(string airlineName, string fromAirport, string toAirport, int year, int month, int day, string id)
         {
             if (!_airlines.ContainsKey(airlineName))
             {
                 Console.WriteLine("Error: Airline does not exist.");
-                return SystemManagerOperation.UnexistingAirlineFailure;
+                return OperationResult.UnexistingAirlineFailure;
             }
 
             if (!_airports.ContainsKey(fromAirport) || !_airports.ContainsKey(toAirport))
             {
                 Console.WriteLine("Error: Unexisting Airport.");
-                return SystemManagerOperation.UnexistingAirportFailure;
+                return OperationResult.UnexistingAirportFailure;
             }
 
             if (!_flights.ContainsKey(id))
             {
                 _flights.Add(id, new Flight(airlineName, fromAirport, toAirport, id, new DateTime(year, month, day)));
-                return SystemManagerOperation.Succeded;
+                return OperationResult.Succeded;
             }
             else
             {
                 Console.WriteLine("Error: Flight with such flight number number exists.");
-                return SystemManagerOperation.InvalidFlightNumberExistsFailure;
+                return OperationResult.InvalidFlightNumberExistsFailure;
             }
         }
-        public SystemManagerOperation CreateSection(string airlineName, string flightId, int rows, int cols, SeatClass seatClass)
+        public OperationResult CreateSection(string airlineName, string flightId, int rows, int cols, SeatClass seatClass)
         {
             if (!_airlines.ContainsKey(airlineName))
             {
                 Console.WriteLine("Error: Airline does not exist.");
-                return SystemManagerOperation.UnexistingAirlineFailure;
+                return OperationResult.UnexistingAirlineFailure;
             }
 
             if (!_flights.ContainsKey(flightId))
             {
                 Console.WriteLine($"Error: Airline {airlineName} does not contain such flight!");
-                return SystemManagerOperation.UnexistingFlightFailure;
+                return OperationResult.UnexistingFlightFailure;
             }
 
             if (_flights.ContainsKey(flightId) && _flights[flightId].AirlineName != airlineName)
             {
                 Console.WriteLine($"Error: Airline {airlineName} does not contain such flight!");
-                return SystemManagerOperation.UnexistingFlightFailure;
+                return OperationResult.UnexistingFlightFailure;
             }
 
             if (!_flights[flightId].FlightSections.ContainsKey(seatClass))
             {
                 _flights[flightId].FlightSections.Add(seatClass, new FlightSection(seatClass, rows, cols));
-                return SystemManagerOperation.Succeded;
+                return OperationResult.Succeded;
             }
             else
             {
                 Console.WriteLine($"Error: Flight contain section {seatClass}!");
-                return SystemManagerOperation.ExsistingSectionFailure;
+                return OperationResult.ExsistingSectionFailure;
             }
         }
 
@@ -148,41 +148,41 @@ namespace AirlineBookingSystem
 
             return availableFlights;
         }
-        public SystemManagerOperation BookSeat(string airlineName, string flightNumber, SeatClass seatClass, int rows, char cols)
+        public OperationResult BookSeat(string airlineName, string flightNumber, SeatClass seatClass, int rows, char cols)
         {
             if (!_airlines.ContainsKey(airlineName))
             {
                 Console.WriteLine("Error: Airline does not exist!");
-                return SystemManagerOperation.UnexistingAirlineFailure;
+                return OperationResult.UnexistingAirlineFailure;
             }
 
             if (!_flights.ContainsKey(flightNumber))
             {
                 Console.WriteLine("Error: Flight does not exist.");
-                return SystemManagerOperation.UnexistingFlightFailure;
+                return OperationResult.UnexistingFlightFailure;
             }
 
             if (_flights.ContainsKey(flightNumber) && _flights[flightNumber].AirlineName != airlineName)
             {
                 Console.WriteLine("Error: Flight does not exist.");
-                return SystemManagerOperation.UnexistingFlightFailure;
+                return OperationResult.UnexistingFlightFailure;
             }
 
             if (_flights[flightNumber].FlightSections.Count == 0)
             {
                 Console.WriteLine($"Error: Flight does not contain any sections.");
-                return SystemManagerOperation.UnexsistingSeatClassFailure;
+                return OperationResult.UnexsistingSeatClassFailure;
             }
 
             if (_flights[flightNumber].FlightSections.ContainsKey(seatClass) &&
                 _flights[flightNumber].FlightSections[seatClass].BookSeat(rows, cols))
             {
-                return SystemManagerOperation.Succeded;
+                return OperationResult.Succeded;
             }
             else
             {
                 Console.WriteLine("Error: Could not book seat.");
-                return SystemManagerOperation.BookingSeatFailure;
+                return OperationResult.BookingSeatFailure;
             }
         }
         public void DisplaySystemDetails() => Console.WriteLine(this.ToString());

@@ -4,10 +4,7 @@ namespace AirlineBookingSystem
 {
     public class Airline
     {
-        public Airline(string name)
-        {
-            Name = name;
-        }
+        public Airline(string name) => Name = name;
 
         [AirlineName]
         public string Name { get; set; }

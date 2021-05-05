@@ -1,6 +1,6 @@
 ﻿namespace AirlineBookingSystem.Additional
 {
-    public enum SystemManagerOperation
+    public enum OperationResult
     {
         // Basic
         Succeded,

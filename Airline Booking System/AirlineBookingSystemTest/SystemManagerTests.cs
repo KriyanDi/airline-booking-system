@@ -14,11 +14,11 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateAirport_ShortName_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.InvalidAirportFormatFailure;
+            OperationResult expected = OperationResult.InvalidAirportFormatFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
 
             // Act
-            SystemManagerOperation actual = sys.CreateAirport("AA");
+            OperationResult actual = sys.CreateAirport("AA");
 
             // Assert
             Assert.Equal(expected, actual);
@@ -28,11 +28,11 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateAirport_LongName_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.InvalidAirportFormatFailure;
+            OperationResult expected = OperationResult.InvalidAirportFormatFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
 
             // Act
-            SystemManagerOperation actual = sys.CreateAirport("AA");
+            OperationResult actual = sys.CreateAirport("AA");
 
             // Assert
             Assert.Equal(expected, actual);
@@ -42,12 +42,12 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateAirport_NullName_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.InvalidAirportFormatFailure;
+            OperationResult expected = OperationResult.InvalidAirportFormatFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             string strNull = null;
 
             // Act
-            SystemManagerOperation actual = sys.CreateAirport(strNull);
+            OperationResult actual = sys.CreateAirport(strNull);
 
             // Assert
             Assert.Equal(expected, actual);
@@ -57,11 +57,11 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateAirport_ContainNumbers_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.InvalidAirportFormatFailure;
+            OperationResult expected = OperationResult.InvalidAirportFormatFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
 
             // Act
-            SystemManagerOperation actual = sys.CreateAirport("A32");
+            OperationResult actual = sys.CreateAirport("A32");
 
             // Assert
             Assert.Equal(expected, actual);
@@ -71,11 +71,11 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateAirport_Valid_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.Succeded;
+            OperationResult expected = OperationResult.Succeded;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
 
             // Act
-            SystemManagerOperation actual = sys.CreateAirport("ASD");
+            OperationResult actual = sys.CreateAirport("ASD");
 
             // Assert
             Assert.Equal(expected, actual);
@@ -85,12 +85,12 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateAirport_ExistingAirport_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.AirportNameExistFailure;
+            OperationResult expected = OperationResult.AirportNameExistFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirport("ASD");
 
             // Act
-            SystemManagerOperation actual = sys.CreateAirport("ASD");
+            OperationResult actual = sys.CreateAirport("ASD");
 
             // Assert
             Assert.Equal(expected, actual);
@@ -102,11 +102,11 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateAirline_ShortName_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.InvalidAirlineFormatFailure;
+            OperationResult expected = OperationResult.InvalidAirlineFormatFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
 
             // Act
-            SystemManagerOperation actual = sys.CreateAirline("");
+            OperationResult actual = sys.CreateAirline("");
 
             // Assert
             Assert.Equal(expected, actual);
@@ -116,11 +116,11 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateAirline_LongName_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.InvalidAirlineFormatFailure;
+            OperationResult expected = OperationResult.InvalidAirlineFormatFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
 
             // Act
-            SystemManagerOperation actual = sys.CreateAirline("AAABBB");
+            OperationResult actual = sys.CreateAirline("AAABBB");
 
             // Assert
             Assert.Equal(expected, actual);
@@ -130,12 +130,12 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateAirline_NullName_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.InvalidAirlineFormatFailure;
+            OperationResult expected = OperationResult.InvalidAirlineFormatFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             string strNull = null;
 
             // Act
-            SystemManagerOperation actual = sys.CreateAirline(strNull);
+            OperationResult actual = sys.CreateAirline(strNull);
 
             // Assert
             Assert.Equal(expected, actual);
@@ -145,11 +145,11 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateAirline_Valid_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.Succeded;
+            OperationResult expected = OperationResult.Succeded;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
 
             // Act
-            SystemManagerOperation actual = sys.CreateAirline("A342");
+            OperationResult actual = sys.CreateAirline("A342");
 
             // Assert
             Assert.Equal(expected, actual);
@@ -159,11 +159,11 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateAirline_ContainsOtherSymbols_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.InvalidAirlineFormatFailure;
+            OperationResult expected = OperationResult.InvalidAirlineFormatFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
 
             // Act
-            SystemManagerOperation actual = sys.CreateAirline("A$42");
+            OperationResult actual = sys.CreateAirline("A$42");
 
             // Assert
             Assert.Equal(expected, actual);
@@ -173,12 +173,12 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateAirline_ExistingAirline_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.InvalidNameAirlineExistFailure;
+            OperationResult expected = OperationResult.InvalidNameAirlineExistFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("ASD");
 
             // Act
-            SystemManagerOperation actual = sys.CreateAirline("ASD");
+            OperationResult actual = sys.CreateAirline("ASD");
 
             // Assert
             Assert.Equal(expected, actual);
@@ -190,11 +190,11 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateFlight_UnexistingAirline_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.UnexistingAirlineFailure;
+            OperationResult expected = OperationResult.UnexistingAirlineFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
 
             // Act
-            SystemManagerOperation actual = sys.CreateFlight("ASD", "BBB", "AAA", 1, 1, 1, "1");
+            OperationResult actual = sys.CreateFlight("ASD", "BBB", "AAA", 1, 1, 1, "1");
 
             // Assert
             Assert.Equal(expected, actual);
@@ -204,12 +204,12 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateFlight_UnexistingOriginatingAirport_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.UnexistingAirportFailure;
+            OperationResult expected = OperationResult.UnexistingAirportFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("ASD");
 
             // Act
-            SystemManagerOperation actual = sys.CreateFlight("ASD", "AWW", "WWA", 1998, 1, 1, "1");
+            OperationResult actual = sys.CreateFlight("ASD", "AWW", "WWA", 1998, 1, 1, "1");
 
             // Assert
             Assert.Equal(expected, actual);
@@ -219,13 +219,13 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateFlight_UnexistingDestinationAirport_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.UnexistingAirportFailure;
+            OperationResult expected = OperationResult.UnexistingAirportFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("ASD");
             sys.CreateAirport("AWW");
 
             // Act
-            SystemManagerOperation actual = sys.CreateFlight("ASD", "AWW", "WAA", 1, 1, 1, "1");
+            OperationResult actual = sys.CreateFlight("ASD", "AWW", "WAA", 1, 1, 1, "1");
 
             // Assert
             Assert.Equal(expected, actual);
@@ -235,7 +235,7 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateFlight_ExistingFlightNumber_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.InvalidFlightNumberExistsFailure;
+            OperationResult expected = OperationResult.InvalidFlightNumberExistsFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("ASD");
             sys.CreateAirline("FDS");
@@ -244,7 +244,7 @@ namespace AirlineBookingSystem.SystemManagers
             sys.CreateFlight("ASD", "AWW", "WAA", 2000, 1, 1, "1234");
 
             // Act
-            SystemManagerOperation actual = sys.CreateFlight("FDS", "AWW", "WAA", 1, 1, 1, "1234");
+            OperationResult actual = sys.CreateFlight("FDS", "AWW", "WAA", 1, 1, 1, "1234");
 
             // Assert
             Assert.Equal(expected, actual);
@@ -254,14 +254,14 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateFlight_Valid_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.Succeded;
+            OperationResult expected = OperationResult.Succeded;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("ASD");
             sys.CreateAirport("AWW");
             sys.CreateAirport("WAA");
 
             // Act
-            SystemManagerOperation actual = sys.CreateFlight("ASD", "AWW", "WAA", 2001, 1, 1, "1");
+            OperationResult actual = sys.CreateFlight("ASD", "AWW", "WAA", 2001, 1, 1, "1");
 
             // Assert
             Assert.Equal(expected, actual);
@@ -273,7 +273,7 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateSection_InvalidRows_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.SectionParametersFailure;
+            OperationResult expected = OperationResult.SectionParametersFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("ASD");
             sys.CreateAirport("AWW");
@@ -281,7 +281,7 @@ namespace AirlineBookingSystem.SystemManagers
             sys.CreateFlight("ASD", "AWW", "WAA", 2001, 1, 1, "1234");
 
             // Act
-            SystemManagerOperation actual = sys.CreateSection("ASD", "1234", 101, 1, SeatClass.FIRST);
+            OperationResult actual = sys.CreateSection("ASD", "1234", 101, 1, SeatClass.FIRST);
 
             // Assert
             Assert.Equal(expected, actual);
@@ -291,7 +291,7 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateSection_InvalidCols_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.SectionParametersFailure;
+            OperationResult expected = OperationResult.SectionParametersFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("ASD");
             sys.CreateAirport("AWW");
@@ -299,7 +299,7 @@ namespace AirlineBookingSystem.SystemManagers
             sys.CreateFlight("ASD", "AWW", "WAA", 2001, 1, 1, "1234");
 
             // Act
-            SystemManagerOperation actual = sys.CreateSection("ASD", "1234", 10, 15, SeatClass.FIRST);
+            OperationResult actual = sys.CreateSection("ASD", "1234", 10, 15, SeatClass.FIRST);
 
             // Assert
             Assert.Equal(expected, actual);
@@ -309,7 +309,7 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateSection_UnexistingAirline_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.UnexistingAirlineFailure;
+            OperationResult expected = OperationResult.UnexistingAirlineFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("ASD");
             sys.CreateAirport("AWW");
@@ -317,7 +317,7 @@ namespace AirlineBookingSystem.SystemManagers
             sys.CreateFlight("ASD", "AWW", "WAA", 2001, 1, 1, "1234");
 
             // Act
-            SystemManagerOperation actual = sys.CreateSection("ASD1", "1234", 10, 5, SeatClass.FIRST);
+            OperationResult actual = sys.CreateSection("ASD1", "1234", 10, 5, SeatClass.FIRST);
 
             // Assert
             Assert.Equal(expected, actual);
@@ -327,7 +327,7 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateSection_UnexistingFlight_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.UnexistingFlightFailure;
+            OperationResult expected = OperationResult.UnexistingFlightFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("ASD");
             sys.CreateAirline("DDD");
@@ -336,7 +336,7 @@ namespace AirlineBookingSystem.SystemManagers
             sys.CreateFlight("DDD", "AWW", "WAA", 2001, 1, 1, "1234");
 
             // Act
-            SystemManagerOperation actual = sys.CreateSection("ASD", "1234", 10, 5, SeatClass.FIRST);
+            OperationResult actual = sys.CreateSection("ASD", "1234", 10, 5, SeatClass.FIRST);
 
             // Assert
             Assert.Equal(expected, actual);
@@ -346,7 +346,7 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateSection_ExistingFlightSection_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.ExsistingSectionFailure;
+            OperationResult expected = OperationResult.ExsistingSectionFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("ASD");
             sys.CreateAirport("AWW");
@@ -355,7 +355,7 @@ namespace AirlineBookingSystem.SystemManagers
             sys.CreateSection("ASD", "1234", 10, 5, SeatClass.FIRST);
 
             // Act
-            SystemManagerOperation actual = sys.CreateSection("ASD", "1234", 10, 5, SeatClass.FIRST);
+            OperationResult actual = sys.CreateSection("ASD", "1234", 10, 5, SeatClass.FIRST);
 
             // Assert
             Assert.Equal(expected, actual);
@@ -365,7 +365,7 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateSection_Valid_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.Succeded;
+            OperationResult expected = OperationResult.Succeded;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("ASD");
             sys.CreateAirport("AWW");
@@ -374,7 +374,7 @@ namespace AirlineBookingSystem.SystemManagers
             sys.CreateSection("ASD", "1234", 10, 5, SeatClass.FIRST);
 
             // Act
-            SystemManagerOperation actual = sys.CreateSection("ASD", "1234", 10, 5, SeatClass.BUSINESS);
+            OperationResult actual = sys.CreateSection("ASD", "1234", 10, 5, SeatClass.BUSINESS);
 
             // Assert
             Assert.Equal(expected, actual);
@@ -484,7 +484,7 @@ namespace AirlineBookingSystem.SystemManagers
         public void BookSeat_InvalidRows_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.BookingSeatFailure;
+            OperationResult expected = OperationResult.BookingSeatFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("AAA");
             sys.CreateAirport("ASD");
@@ -493,7 +493,7 @@ namespace AirlineBookingSystem.SystemManagers
             sys.CreateSection("AAA", "1234", 12, 2, SeatClass.BUSINESS);
 
             // Act
-            SystemManagerOperation actual = sys.BookSeat("AAA", "1234", SeatClass.BUSINESS, 1000, 'A');
+            OperationResult actual = sys.BookSeat("AAA", "1234", SeatClass.BUSINESS, 1000, 'A');
 
             // Assert
             Assert.Equal(expected, actual);
@@ -503,7 +503,7 @@ namespace AirlineBookingSystem.SystemManagers
         public void BookSeat_InvalidCols_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.BookingSeatFailure;
+            OperationResult expected = OperationResult.BookingSeatFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("AAA");
             sys.CreateAirport("ASD");
@@ -512,7 +512,7 @@ namespace AirlineBookingSystem.SystemManagers
             sys.CreateSection("AAA", "1234", 12, 2, SeatClass.BUSINESS);
 
             // Act
-            SystemManagerOperation actual = sys.BookSeat("AAA", "1234", SeatClass.BUSINESS, 10, 'K');
+            OperationResult actual = sys.BookSeat("AAA", "1234", SeatClass.BUSINESS, 10, 'K');
 
             // Assert
             Assert.Equal(expected, actual);
@@ -522,11 +522,11 @@ namespace AirlineBookingSystem.SystemManagers
         public void BookSeat_UnexistingAirline_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.UnexistingAirlineFailure;
+            OperationResult expected = OperationResult.UnexistingAirlineFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
 
             // Act
-            SystemManagerOperation actual = sys.BookSeat("AAA", "1234", SeatClass.BUSINESS, 10, 'D');
+            OperationResult actual = sys.BookSeat("AAA", "1234", SeatClass.BUSINESS, 10, 'D');
 
             // Assert
             Assert.Equal(expected, actual);
@@ -536,12 +536,12 @@ namespace AirlineBookingSystem.SystemManagers
         public void BookSeat_UnexistingFlight_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.UnexistingFlightFailure;
+            OperationResult expected = OperationResult.UnexistingFlightFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("AAA");
 
             // Act
-            SystemManagerOperation actual = sys.BookSeat("AAA", "1234", SeatClass.BUSINESS, 10, 'D');
+            OperationResult actual = sys.BookSeat("AAA", "1234", SeatClass.BUSINESS, 10, 'D');
 
             // Assert
             Assert.Equal(expected, actual);
@@ -551,7 +551,7 @@ namespace AirlineBookingSystem.SystemManagers
         public void BookSeat_UnexistingFlightForAirline_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.UnexistingFlightFailure;
+            OperationResult expected = OperationResult.UnexistingFlightFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("AAA");
             sys.CreateAirline("BBB");
@@ -560,7 +560,7 @@ namespace AirlineBookingSystem.SystemManagers
             sys.CreateFlight("AAA", "ASD", "DFG", 1998, 2, 3, "1234");
 
             // Act
-            SystemManagerOperation actual = sys.BookSeat("BBB", "1234", SeatClass.BUSINESS, 10, 'D');
+            OperationResult actual = sys.BookSeat("BBB", "1234", SeatClass.BUSINESS, 10, 'D');
 
             // Assert
             Assert.Equal(expected, actual);
@@ -570,7 +570,7 @@ namespace AirlineBookingSystem.SystemManagers
         public void BookSeat_UnexistingFlightSection_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.UnexsistingSeatClassFailure;
+            OperationResult expected = OperationResult.UnexsistingSeatClassFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("AAA");
             sys.CreateAirport("ASD");
@@ -578,7 +578,7 @@ namespace AirlineBookingSystem.SystemManagers
             sys.CreateFlight("AAA", "ASD", "DFG", 1998, 2, 3, "1234");
 
             // Act
-            SystemManagerOperation actual = sys.BookSeat("AAA", "1234", SeatClass.BUSINESS, 10, 'D');
+            OperationResult actual = sys.BookSeat("AAA", "1234", SeatClass.BUSINESS, 10, 'D');
 
             // Assert
             Assert.Equal(expected, actual);
@@ -588,7 +588,7 @@ namespace AirlineBookingSystem.SystemManagers
         public void BookSeat_Valid_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.Succeded;
+            OperationResult expected = OperationResult.Succeded;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("AAA");
             sys.CreateAirport("ASD");
@@ -597,7 +597,7 @@ namespace AirlineBookingSystem.SystemManagers
             sys.CreateSection("AAA", "1234", 1, 2, SeatClass.FIRST);
 
             // Act
-            SystemManagerOperation actual = sys.BookSeat("AAA", "1234", SeatClass.FIRST, 1, 'A');
+            OperationResult actual = sys.BookSeat("AAA", "1234", SeatClass.FIRST, 1, 'A');
 
             // Assert
             Assert.Equal(expected, actual);
@@ -607,7 +607,7 @@ namespace AirlineBookingSystem.SystemManagers
         public void BookSeat_BookBookedSeat_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.BookingSeatFailure;
+            OperationResult expected = OperationResult.BookingSeatFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("AAA");
             sys.CreateAirport("ASD");
@@ -617,7 +617,7 @@ namespace AirlineBookingSystem.SystemManagers
             sys.BookSeat("AAA", "1234", SeatClass.FIRST, 1, 'A');
 
             // Act
-            SystemManagerOperation actual = sys.BookSeat("AAA", "1234", SeatClass.FIRST, 1, 'A');
+            OperationResult actual = sys.BookSeat("AAA", "1234", SeatClass.FIRST, 1, 'A');
 
             // Assert
             Assert.Equal(expected, actual);

@@ -12,12 +12,9 @@ namespace AirlineBookingSystem.SystemManagers
     {
         private ISystemManageable _systemManager;
 
-        public SystemManagerValidationDecorator(ISystemManageable systemManager)
-        {
-            _systemManager = systemManager;
-        }
+        public SystemManagerValidationDecorator(ISystemManageable systemManager) => _systemManager = systemManager;
 
-        public SystemManagerOperation CreateAirport(string airportName)
+        public OperationResult CreateAirport(string airportName)
         {
             Airport airport = new Airport(airportName);
 
@@ -29,10 +26,10 @@ namespace AirlineBookingSystem.SystemManagers
             else
             {
                 validationResult.ForEach(el => Console.WriteLine(el));
-                return SystemManagerOperation.InvalidAirportFormatFailure;
+                return OperationResult.InvalidAirportFormatFailure;
             }
         }
-        public SystemManagerOperation CreateAirline(string airlineName)
+        public OperationResult CreateAirline(string airlineName)
         {
             Airline airline = new Airline(airlineName);
 
@@ -44,10 +41,10 @@ namespace AirlineBookingSystem.SystemManagers
             else
             {
                 validationResult.ForEach(el => Console.WriteLine(el));
-                return SystemManagerOperation.InvalidAirlineFormatFailure;
+                return OperationResult.InvalidAirlineFormatFailure;
             }
         }
-        public SystemManagerOperation CreateFlight(string airlineName, string fromAirport, string toAirport, int year, int month, int day, string id)
+        public OperationResult CreateFlight(string airlineName, string fromAirport, string toAirport, int year, int month, int day, string id)
         {
             Flight flight = new Flight(airlineName, fromAirport, toAirport, id, new DateTime(year, month, day));
 
@@ -59,10 +56,10 @@ namespace AirlineBookingSystem.SystemManagers
             else
             {
                 validationResult.ForEach(el => Console.WriteLine(el));
-                return SystemManagerOperation.InvalidFlightDetailsFailure;
+                return OperationResult.InvalidFlightDetailsFailure;
             }
         }
-        public SystemManagerOperation CreateSection(string airlineName, string flightId, int rows, int cols, SeatClass seatClass)
+        public OperationResult CreateSection(string airlineName, string flightId, int rows, int cols, SeatClass seatClass)
         {
             FlightSection section = new FlightSection(seatClass, rows, cols);
 
@@ -74,14 +71,14 @@ namespace AirlineBookingSystem.SystemManagers
             else
             {
                 validationResult.ForEach(el => Console.WriteLine(el.ErrorMessage));
-                return SystemManagerOperation.SectionParametersFailure;
+                return OperationResult.SectionParametersFailure;
             }
         }
         public List<Flight> FindAvailableFlights(string originatingAirport, string destionationAirport)
         {
             return _systemManager.FindAvailableFlights(originatingAirport, destionationAirport);
         }
-        public SystemManagerOperation BookSeat(string airlineName, string flightNumber, SeatClass seatClass, int rows, char cols)
+        public OperationResult BookSeat(string airlineName, string flightNumber, SeatClass seatClass, int rows, char cols)
         {
             return _systemManager.BookSeat(airlineName, flightNumber, seatClass, rows, cols);
         }
