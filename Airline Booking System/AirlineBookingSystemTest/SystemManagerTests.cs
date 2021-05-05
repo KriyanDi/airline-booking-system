@@ -344,7 +344,7 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateSection_ExistingFlightSection_ShouldPassTest()
         {
             // Arrange
-            SystemManagerOperation expected = SystemManagerOperation.InvalidSectionExistsFailure;
+            SystemManagerOperation expected = SystemManagerOperation.ExsistingSectionFailure;
             SystemManager sys = new SystemManager();
             sys.CreateAirline("ASD");
             sys.CreateAirport("AWW");
