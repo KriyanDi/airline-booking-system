@@ -1,18 +1,17 @@
-﻿using System;
+﻿using AirlineBookingSystem.SystemManagers;
+using System;
 using System.Collections.Generic;
 
 namespace AirlineBookingSystem
 {
     class Program
     {
-        static void Main(string[] args)
-        {
-            RunProgram();
-        }
+        static void Main(string[] args) => RunProgram();
 
         private static void RunProgram()
         {
-            SystemManager res = new SystemManager();
+            SystemManager systemManager = new SystemManager();
+            SystemManagerValidationDecorator res = new SystemManagerValidationDecorator(systemManager);
 
             //Create airports
             res.CreateAirport("DEN");
@@ -56,12 +55,7 @@ namespace AirlineBookingSystem
 
             res.DisplaySystemDetails();
 
-            Console.WriteLine("Available Flights:");
-            List<Flight> availableFlights = res.FindAvailableFlights("DEN", "LON");
-            foreach (Flight flight in availableFlights)
-            {
-                Console.WriteLine(flight);
-            }
+            PrintAvailableFlights(res.FindAvailableFlights("DEN", "LON"));
 
             // Book seats
             res.BookSeat("DELTA", "123", SeatClass.BUSINESS, 1, 'A');
@@ -71,12 +65,7 @@ namespace AirlineBookingSystem
 
             res.DisplaySystemDetails();
 
-            Console.WriteLine("Available Flights:");
-            availableFlights = res.FindAvailableFlights("DEN", "LON");
-            foreach (Flight flight in availableFlights)
-            {
-                Console.WriteLine(flight);
-            }
+            PrintAvailableFlights(res.FindAvailableFlights("DEN", "LON"));
         }
 
         private static void PrintAvailableFlights(List<Flight> availableFlightsList)
