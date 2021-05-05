@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AirlineBookingSystem.SystemManagers
 {
-    class SystemManagerValidationDecorator : ISystemManageable
+    public class SystemManagerValidationDecorator : ISystemManageable
     {
         private ISystemManageable _systemManager;
 
@@ -16,11 +16,13 @@ namespace AirlineBookingSystem.SystemManagers
         {
             _systemManager = systemManager;
         }
-        
-        public SystemManagerOperation CreateAirport([AirportName] string airportName)
+
+        public SystemManagerOperation CreateAirport(string airportName)
         {
+            Airport airport = new Airport(airportName);
+
             var validationResult = new List<ValidationResult>();
-            if (Validator.TryValidateObject(airportName, new ValidationContext(airportName), validationResult))
+            if (Validator.TryValidateObject(airport, new ValidationContext(airport), validationResult, true))
             {
                 return _systemManager.CreateAirport(airportName);
             }
@@ -30,10 +32,12 @@ namespace AirlineBookingSystem.SystemManagers
                 return SystemManagerOperation.InvalidAirportFormatFailure;
             }
         }
-        public SystemManagerOperation CreateAirline([AirlineName] string airlineName)
+        public SystemManagerOperation CreateAirline(string airlineName)
         {
+            Airline airline = new Airline(airlineName);
+
             var validationResult = new List<ValidationResult>();
-            if (Validator.TryValidateObject(airlineName, new ValidationContext(airlineName), validationResult))
+            if (Validator.TryValidateObject(airline, new ValidationContext(airline), validationResult,true))
             {
                 return _systemManager.CreateAirline(airlineName);
             }
@@ -43,17 +47,19 @@ namespace AirlineBookingSystem.SystemManagers
                 return SystemManagerOperation.InvalidAirlineFormatFailure;
             }
         }
-        public SystemManagerOperation CreateFlight(string airlineName, string fromAirport, string toAirport, int year, int month, int day, [FlightNumber] string id)
+        public SystemManagerOperation CreateFlight(string airlineName, string fromAirport, string toAirport, int year, int month, int day, string id)
         {
+            Flight flight = new Flight(airlineName, fromAirport, toAirport, id, new DateTime(year, month, day));
+
             var validationResult = new List<ValidationResult>();
-            if (Validator.TryValidateObject(id, new ValidationContext(id), validationResult))
+            if (Validator.TryValidateObject(flight, new ValidationContext(flight), validationResult, true))
             {
                 return _systemManager.CreateFlight(airlineName, fromAirport, toAirport, year, month, day, id);
             }
             else
             {
                 validationResult.ForEach(el => Console.WriteLine(el));
-                return SystemManagerOperation.InvalidFlightNumberFormatFailure;
+                return SystemManagerOperation.InvalidFlightDetailsFailure;
             }
         }
         public SystemManagerOperation CreateSection(string airlineName, string flightId, int rows, int cols, SeatClass seatClass)
@@ -63,7 +69,7 @@ namespace AirlineBookingSystem.SystemManagers
             var validationResult = new List<ValidationResult>();
             if (Validator.TryValidateObject(section, new ValidationContext(section), validationResult, true))
             {
-               return _systemManager.CreateSection(airlineName, flightId, rows, cols, seatClass);
+                return _systemManager.CreateSection(airlineName, flightId, rows, cols, seatClass);
             }
             else
             {
