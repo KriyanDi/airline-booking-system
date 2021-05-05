@@ -4,20 +4,13 @@
     {
         // Basic
         Succeded,
-        Failed,
 
         // Airport Airline Name
         InvalidNameLenghtFailure,
         InvalidNameNullFailure,
         InvalidNameFormatFailure,
 
-        // Flight
-        InvalidFlightMatchingFlighNumberFailure,
-        InvalidAirportNotMathingAirlineFailure,
-        AddingFlightFailure,
-
         // Sections in Flight
-        InvalidSectionAlreadyExistsFailure,
         InvalidFlightNumberContainsNotOnlyNumbersFailure,
 
         // Rows Cols
@@ -29,7 +22,6 @@
     {
         // Basic
         Succeded,
-        Failed,
 
         // Create
         InvalidNameAirportExistFailure,
@@ -46,8 +38,6 @@
         // Section
         ExsistingSectionFailure,
         UnexsistingSeatClassFailure,
-        InvalidSectionExistsFailure,
-        InvalidSectionDoesNotExist,
 
         // Seat
         BookingSeatFailure,
@@ -55,8 +45,6 @@
         // Invalid argument
         InvalidAirportFormatFailure,
         InvalidAirlineFormatFailure,
-        InvalidFlightIdFormatFailure,
-        InvalidRowsColsFailure,
-        InvalidFlightSectionEmptyFailure
+        InvalidRowsColsFailure
     }
 }
