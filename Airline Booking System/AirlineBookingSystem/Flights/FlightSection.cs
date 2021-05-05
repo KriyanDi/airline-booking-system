@@ -12,11 +12,6 @@ namespace AirlineBookingSystem
             SeatClass = seatClass;
             InitializeSeats(rows, cols);
         }
-        public FlightSection(FlightSection other)
-        {
-            SeatClass = other.SeatClass;
-            InitializeSeatsFrom(other.Seats);
-        }
         #endregion
 
         #region Properties
@@ -28,20 +23,6 @@ namespace AirlineBookingSystem
 
         #region Methods
         public bool HasAvailableSeats() => Seats.Any(seat => !seat.IsBooked);
-        public bool BookSeat()
-        {
-            for (int i = 0; i < Seats.Count; i++)
-            {
-                if (!Seats[i].IsBooked)
-                {
-                    Seats[i].IsBooked = true;
-
-                    return true;
-                }
-            }
-
-            return false;
-        }
         public bool BookSeat(int rows, char cols)
         {
             for (int i = 0; i < Seats.Count; i++)
@@ -75,15 +56,6 @@ namespace AirlineBookingSystem
                 {
                     Seats.Add(new Seat((i + 1, Convert.ToChar(65 + (j % cols))), false));
                 }
-            }
-        }
-        private void InitializeSeatsFrom(List<Seat> seats)
-        {
-            Seats = new List<Seat>();
-
-            for (int i = 0; i < seats.Count; i++)
-            {
-                Seats.Add(new Seat(seats[i]));
             }
         }
         #endregion

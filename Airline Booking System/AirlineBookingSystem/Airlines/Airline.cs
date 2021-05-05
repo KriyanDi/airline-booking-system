@@ -6,9 +6,6 @@
         {
             Name = name;
         }
-        public Airline(Airline other) : this(other.Name)
-        {
-        }
 
         public string Name { get; set; }
 

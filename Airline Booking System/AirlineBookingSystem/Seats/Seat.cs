@@ -7,9 +7,6 @@
             Id = id;
             IsBooked = isBooked;
         }
-        public Seat(Seat other) : this(other.Id, other.IsBooked)
-        {
-        }
 
         public (int rows, char cols) Id { get; set; }
         public bool IsBooked { get; set; }

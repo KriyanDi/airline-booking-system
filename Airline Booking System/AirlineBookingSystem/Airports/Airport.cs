@@ -6,9 +6,6 @@
         {
             Name = name;
         }
-        public Airport(Airport other) : this(other.Name)
-        {
-        }
 
         public string Name { get; set; }
 
