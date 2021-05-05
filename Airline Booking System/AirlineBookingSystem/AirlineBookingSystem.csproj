@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Additional\Operations.cs" />
+    <Compile Include="Additional\ValidationAttributes.cs" />
     <Compile Include="Airlines\Airline.cs" />
     <Compile Include="Airports\Airport.cs" />
     <Compile Include="SystemManagers\SystemManager.cs" />
