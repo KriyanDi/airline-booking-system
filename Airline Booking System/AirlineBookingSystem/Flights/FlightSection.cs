@@ -88,24 +88,6 @@ namespace AirlineBookingSystem
         }
         #endregion
 
-        #region Equation Methods
-        public override bool Equals(object obj)
-        {
-            return obj is FlightSection flight &&
-                SeatClass == flight.SeatClass &&
-                Seats == flight.Seats;
-        }
-        public override int GetHashCode()
-        {
-            int hashCode = -1440401887;
-            hashCode = hashCode * -1521134295 + SeatClass.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<List<Seat>>.Default.GetHashCode(Seats);
-            return hashCode;
-        }
-        public static bool operator ==(FlightSection lhs, FlightSection rhs) => lhs.Equals(rhs);
-        public static bool operator !=(FlightSection lhs, FlightSection rhs) => !(lhs == rhs);
-        #endregion
-
         #region Other Overridden Methods
         public override string ToString() => $"{SeatClass} ALL: {Seats.Count} AVLBL: {CountAvailableSeats} OCCPD: {CountOccupiedSeats}";
         #endregion
