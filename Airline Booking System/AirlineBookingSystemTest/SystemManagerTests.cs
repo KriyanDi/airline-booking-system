@@ -77,7 +77,7 @@ namespace AirlineBookingSystem.SystemManagers
 
             // Assert
             Assert.Equal(expected, actual);
-        } 
+        }
 
         [Fact]
         public void CreateAirport_ExistingAirport_ShouldPassTest()
@@ -107,7 +107,7 @@ namespace AirlineBookingSystem.SystemManagers
             SystemManagerOperation actual = sys.CreateAirline("");
 
             // Assert
-            Assert.Equal(expected,actual);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -463,7 +463,17 @@ namespace AirlineBookingSystem.SystemManagers
             List<Flight> actual = sys.FindAvailableFlights("ASD", "DDD");
 
             // Assert
-            Assert.Equal(expected, actual);
+            Assert.True(expected.Count == actual.Count);
+
+            for (int i = 0; i < actual.Count; i++)
+            {
+                Assert.True(expected[i].AirlineName == actual[i].AirlineName &&
+                    expected[i].OriginatingAirport == actual[i].OriginatingAirport &&
+                    expected[i].DestinationAirport == actual[i].DestinationAirport &&
+                    expected[i].FlightNumber == actual[i].FlightNumber &&
+                    expected[i].DepartureDate == actual[i].DepartureDate &&
+                    expected[i].Id == actual[i].Id) ;
+            }
         }
         #endregion
 
