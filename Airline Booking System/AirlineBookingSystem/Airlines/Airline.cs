@@ -1,4 +1,6 @@
-﻿namespace AirlineBookingSystem
+﻿using AirlineBookingSystem.Additional;
+
+namespace AirlineBookingSystem
 {
     public class Airline
     {
@@ -7,6 +9,7 @@
             Name = name;
         }
 
+        [AirlineName]
         public string Name { get; set; }
 
         public override string ToString() => $"{Name}";
