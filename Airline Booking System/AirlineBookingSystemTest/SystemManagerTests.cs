@@ -173,7 +173,7 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateAirline_ExistingAirline_ShouldPassTest()
         {
             // Arrange
-            OperationResult expected = OperationResult.InvalidNameAirlineExistFailure;
+            OperationResult expected = OperationResult.AirlineNameExistsFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("ASD");
 
@@ -235,7 +235,7 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateFlight_ExistingFlightNumber_ShouldPassTest()
         {
             // Arrange
-            OperationResult expected = OperationResult.InvalidFlightNumberExistsFailure;
+            OperationResult expected = OperationResult.FlightNumberExistsFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("ASD");
             sys.CreateAirline("FDS");
@@ -346,7 +346,7 @@ namespace AirlineBookingSystem.SystemManagers
         public void CreateSection_ExistingFlightSection_ShouldPassTest()
         {
             // Arrange
-            OperationResult expected = OperationResult.ExsistingSectionFailure;
+            OperationResult expected = OperationResult.SectionExistsFailure;
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
             sys.CreateAirline("ASD");
             sys.CreateAirport("AWW");
