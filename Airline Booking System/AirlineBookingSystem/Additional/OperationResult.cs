@@ -8,10 +8,10 @@
 
         // Create
         AirportNameExistFailure,
-        InvalidNameAirlineExistFailure,
+        AirlineNameExistsFailure,
 
-        //Flight
-        InvalidFlightNumberExistsFailure,
+        // Flight
+        FlightNumberExistsFailure,
         InvalidFlightDetailsFailure,
 
         // Data
@@ -20,7 +20,7 @@
         UnexistingFlightFailure,
 
         // Section
-        ExsistingSectionFailure,
+        SectionExistsFailure,
         UnexsistingSeatClassFailure,
         SectionParametersFailure,
 
@@ -30,6 +30,5 @@
         // Invalid argument
         InvalidAirportFormatFailure,
         InvalidAirlineFormatFailure,
-        InvalidRowsColsFailure
     }
 }
