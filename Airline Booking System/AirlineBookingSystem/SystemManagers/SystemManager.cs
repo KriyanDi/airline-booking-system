@@ -7,22 +7,18 @@ namespace AirlineBookingSystem
 {
     public class SystemManager : ISystemManageable
     {
-        #region Fields
         private Dictionary<string, Airport> _airports;
         private Dictionary<string, Airline> _airlines;
         private Dictionary<string, Flight> _flights;
-        #endregion
 
-        #region Constructors
         public SystemManager()
         {
             _airports = new Dictionary<string, Airport>();
             _airlines = new Dictionary<string, Airline>();
             _flights = new Dictionary<string, Flight>();
-        }
-        #endregion
+        }    
 
-        #region Methods
+        
         public OperationResult CreateAirport(string airportName)
         {
             switch (_airports.ContainsKey(airportName))
@@ -57,7 +53,6 @@ namespace AirlineBookingSystem
                 default: return OperationResult.Failed;
             }
         }
-
         public OperationResult CreateFlight(string airlineName, string fromAirport, string toAirport, int year, int month, int day, string id)
         {
             if (!_airlines.ContainsKey(airlineName))
@@ -114,7 +109,6 @@ namespace AirlineBookingSystem
                 return OperationResult.ExsistingSectionFailure;
             }
         }
-
         public List<Flight> FindAvailableFlights(string originatingAirport, string destionationAirport)
         {
             List<Flight> availableFlights = new List<Flight>();
@@ -186,9 +180,7 @@ namespace AirlineBookingSystem
             }
         }
         public void DisplaySystemDetails() => Console.WriteLine(this.ToString());
-        #endregion
-
-        #region Other Overridden Methods
+        
         public override string ToString()
         {
             string airportsAll = "";
@@ -211,6 +203,5 @@ namespace AirlineBookingSystem
 
             return "System Details: \n\n" + "Airports: \n" + airportsAll + "\n" + "Airlines: \n" + airlinesAll + "\n" + "Flights: \n" + flightsAll + "\n";
         }
-        #endregion
     }
 }
