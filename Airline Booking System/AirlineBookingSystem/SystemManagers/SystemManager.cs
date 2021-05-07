@@ -42,7 +42,7 @@ namespace AirlineBookingSystem
                 case true:
                     {
                         Console.WriteLine($"Error: Airline {airlineName} already exists!");
-                        return OperationResult.InvalidNameAirlineExistFailure;
+                        return OperationResult.AirlineNameExistsFailure;
                     }
                 case false:
                     {
@@ -74,7 +74,7 @@ namespace AirlineBookingSystem
             else
             {
                 Console.WriteLine("Error: Flight with such flight number number exists.");
-                return OperationResult.InvalidFlightNumberExistsFailure;
+                return OperationResult.FlightNumberExistsFailure;
             }
         }
         public OperationResult CreateSection(string airlineName, string flightId, int rows, int cols, SeatClass seatClass)
@@ -105,7 +105,7 @@ namespace AirlineBookingSystem
             else
             {
                 Console.WriteLine($"Error: Flight contain section {seatClass}!");
-                return OperationResult.ExsistingSectionFailure;
+                return OperationResult.SectionExistsFailure;
             }
         }
         public List<Flight> FindAvailableFlights(string originatingAirport, string destionationAirport)
