@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AirlineBookingSystem.SystemManagers
 {
@@ -34,7 +31,7 @@ namespace AirlineBookingSystem.SystemManagers
             Airline airline = new Airline(airlineName);
 
             var validationResult = new List<ValidationResult>();
-            if (Validator.TryValidateObject(airline, new ValidationContext(airline), validationResult,true))
+            if (Validator.TryValidateObject(airline, new ValidationContext(airline), validationResult, true))
             {
                 return _systemManager.CreateAirline(airlineName);
             }

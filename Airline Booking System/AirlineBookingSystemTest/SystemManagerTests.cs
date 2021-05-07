@@ -1,7 +1,7 @@
 ﻿using AirlineBookingSystem.Additional;
+using System;
 using System.Collections.Generic;
 using Xunit;
-using System;
 
 namespace AirlineBookingSystem.SystemManagers
 {
@@ -32,7 +32,7 @@ namespace AirlineBookingSystem.SystemManagers
             SystemManagerValidationDecorator sys = new SystemManagerValidationDecorator(sm);
 
             // Act
-            OperationResult actual = sys.CreateAirport("AA");
+            OperationResult actual = sys.CreateAirport("AAAAA");
 
             // Assert
             Assert.Equal(expected, actual);
@@ -473,8 +473,7 @@ namespace AirlineBookingSystem.SystemManagers
                     expected[i].OriginatingAirport == actual[i].OriginatingAirport &&
                     expected[i].DestinationAirport == actual[i].DestinationAirport &&
                     expected[i].FlightNumber == actual[i].FlightNumber &&
-                    expected[i].DepartureDate == actual[i].DepartureDate &&
-                    expected[i].Id == actual[i].Id) ;
+                    expected[i].DepartureDate == actual[i].DepartureDate);
             }
         }
         #endregion

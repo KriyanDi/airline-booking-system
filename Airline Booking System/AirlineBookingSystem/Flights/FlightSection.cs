@@ -1,18 +1,16 @@
 ﻿using AirlineBookingSystem.Additional;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace AirlineBookingSystem
 {
     public class FlightSection
     {
-       public FlightSection(SeatClass seatClass, int rows, int cols)
+        public FlightSection(SeatClass seatClass, int rows, int cols)
         {
             SeatClass = seatClass;
             InitializeSeats(rows, cols);
         }
-       
+
         public SeatClass SeatClass { get; set; }
         [SeatSection]
         public Seat[,] Seats { get; set; }

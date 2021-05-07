@@ -1,7 +1,6 @@
 ﻿using AirlineBookingSystem.Additional;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace AirlineBookingSystem
 {
@@ -16,8 +15,8 @@ namespace AirlineBookingSystem
             _airports = new Dictionary<string, Airport>();
             _airlines = new Dictionary<string, Airline>();
             _flights = new Dictionary<string, Flight>();
-        }    
-        
+        }
+
         public OperationResult CreateAirport(string airportName)
         {
             switch (_airports.ContainsKey(airportName))
@@ -179,7 +178,7 @@ namespace AirlineBookingSystem
             }
         }
         public void DisplaySystemDetails() => Console.WriteLine(this.ToString());
-        
+
         public override string ToString()
         {
             string airportsAll = "";
