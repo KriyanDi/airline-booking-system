@@ -4,8 +4,15 @@ namespace AirlineBookingSystem
 {
     public class Airport
     {
-        public Airport(string name) => Name = name;
+        private static int _counter;
 
+        public Airport(string name)
+        {
+            Name = name;
+            Id = _counter++;
+        }
+
+        public int Id { get; set; }
         [AirportName]
         public string Name { get; set; }
 

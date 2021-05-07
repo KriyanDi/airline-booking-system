@@ -6,6 +6,8 @@ namespace AirlineBookingSystem
 {
     public class Flight
     {
+        private static int _counter;
+
         public Flight(string airlineName, string originatingAirport, string destinationAirport, string flightNumber, DateTime departureDate)
         {
             AirlineName = airlineName;
@@ -14,9 +16,10 @@ namespace AirlineBookingSystem
             FlightNumber = flightNumber;
             FlightSections = new Dictionary<SeatClass, FlightSection>();
             DepartureDate = departureDate;
-            Id = "";
+            Id = _counter++;
         }
-        
+
+        public int Id { get; set; }
         [AirlineName]
         public string AirlineName { get; set; }
         [AirportName]
@@ -27,7 +30,6 @@ namespace AirlineBookingSystem
         public string FlightNumber { get; set; }
         public Dictionary<SeatClass, FlightSection> FlightSections { get; set; }
         public DateTime DepartureDate { get; set; }
-        public string Id { get; set; }
 
         public override string ToString() => $"{AirlineName} {OriginatingAirport} {DestinationAirport} {FlightNumber} {DepartureDate} {Id}";
     }
