@@ -7,15 +7,12 @@ namespace AirlineBookingSystem
 {
     public class FlightSection
     {
-        #region Constructors
-        public FlightSection(SeatClass seatClass, int rows, int cols)
+       public FlightSection(SeatClass seatClass, int rows, int cols)
         {
             SeatClass = seatClass;
             InitializeSeats(rows, cols);
         }
-        #endregion
-
-        #region Properties
+       
         public SeatClass SeatClass { get; set; }
         [SeatSection]
         public Seat[,] Seats { get; set; }
@@ -40,9 +37,7 @@ namespace AirlineBookingSystem
             }
         }
         public int CountOccupiedSeats => Seats.Length - CountAvailableSeats;
-        #endregion
 
-        #region Methods
         public bool HasAvailableSeats()
         {
             for (int i = 0; i < Seats.GetLength(0); i++)
@@ -78,9 +73,7 @@ namespace AirlineBookingSystem
                 return false;
             }
         }
-        #endregion
 
-        #region Help Methods
         private void InitializeSeats(int rows, int cols)
         {
             Seats = new Seat[rows, cols];
@@ -93,10 +86,7 @@ namespace AirlineBookingSystem
                 }
             }
         }
-        #endregion
 
-        #region Other Overridden Methods
         public override string ToString() => $"{SeatClass} ALL: {Seats.Length} AVLBL: {CountAvailableSeats} OCCPD: {CountOccupiedSeats}";
-        #endregion
     }
 }

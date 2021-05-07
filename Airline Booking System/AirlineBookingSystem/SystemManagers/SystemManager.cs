@@ -17,7 +17,6 @@ namespace AirlineBookingSystem
             _airlines = new Dictionary<string, Airline>();
             _flights = new Dictionary<string, Flight>();
         }    
-
         
         public OperationResult CreateAirport(string airportName)
         {
