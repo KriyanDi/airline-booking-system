@@ -28,7 +28,7 @@ namespace AirlineBookingSystem
                     }
                 case false:
                     {
-                        _airports.Add(airport.Name, new Airport(airport));
+                        _airports.Add(airport.Name, airport);
                         return OperationResult.Succeded;
                     }
                 default: return OperationResult.Failed;
@@ -45,7 +45,7 @@ namespace AirlineBookingSystem
                     }
                 case false:
                     {
-                        _airlines.Add(airline.Name, new Airline(airline));
+                        _airlines.Add(airline.Name, airline);
                         return OperationResult.Succeded;
                     }
                 default: return OperationResult.Failed;
@@ -67,7 +67,7 @@ namespace AirlineBookingSystem
 
             if (!_flights.ContainsKey(flight.FlightNumber))
             {
-                _flights.Add(flight.FlightNumber, new Flight(flight));
+                _flights.Add(flight.FlightNumber, flight);
                 return OperationResult.Succeded;
             }
             else
@@ -98,7 +98,7 @@ namespace AirlineBookingSystem
 
             if (!_flights[flightId].FlightSections.ContainsKey(section.SeatClass))
             {
-                _flights[flightId].FlightSections.Add(section.SeatClass, new FlightSection(section));
+                _flights[flightId].FlightSections.Add(section.SeatClass, section);
                 return OperationResult.Succeded;
             }
             else
