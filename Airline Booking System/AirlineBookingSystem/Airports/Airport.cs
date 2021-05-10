@@ -11,6 +11,7 @@ namespace AirlineBookingSystem
             Name = name;
             Id = _counter++;
         }
+        public Airport(Airport other) : this(other.Name) { }
 
         public int Id { get; set; }
         [AirportName]

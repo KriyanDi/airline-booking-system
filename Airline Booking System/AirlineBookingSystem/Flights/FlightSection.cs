@@ -10,6 +10,7 @@ namespace AirlineBookingSystem
             SeatClass = seatClass;
             InitializeSeats(rows, cols);
         }
+        public FlightSection(FlightSection other) : this(other.SeatClass, other.Seats.GetLength(0), other.Seats.GetLength(1)) { }
 
         public SeatClass SeatClass { get; set; }
         [SeatSection]

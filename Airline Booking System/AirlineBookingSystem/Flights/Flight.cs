@@ -18,6 +18,7 @@ namespace AirlineBookingSystem
             DepartureDate = departureDate;
             Id = _counter++;
         }
+        public Flight(Flight other) : this(other.AirlineName, other.OriginatingAirport, other.DestinationAirport, other.FlightNumber, other.DepartureDate) { }
 
         public int Id { get; set; }
         [AirlineName]
