@@ -5,57 +5,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AirlineBookingSystem.SystemManagers
 {
-    public class SystemManagerValidationDecorator : ISystemManageable
+    public class SystemManagerValidationDecorator : ISystemManageableExtend
     {
         private ISystemManageable _systemManager;
 
         public SystemManagerValidationDecorator(ISystemManageable systemManager) => _systemManager = systemManager;
 
-        public OperationResult CreateAirport(string airportName)
-        {
-            Airport airport = new Airport(airportName);
-
-            var validationResult = new List<ValidationResult>();
-            if (Validator.TryValidateObject(airport, new ValidationContext(airport), validationResult, true))
-            {
-                return _systemManager.CreateAirport(airportName);
-            }
-            else
-            {
-                validationResult.ForEach(el => Console.WriteLine(el));
-                return OperationResult.InvalidAirportFormatFailure;
-            }
-        }
-        public OperationResult CreateAirline(string airlineName)
-        {
-            Airline airline = new Airline(airlineName);
-
-            var validationResult = new List<ValidationResult>();
-            if (Validator.TryValidateObject(airline, new ValidationContext(airline), validationResult, true))
-            {
-                return _systemManager.CreateAirline(airlineName);
-            }
-            else
-            {
-                validationResult.ForEach(el => Console.WriteLine(el));
-                return OperationResult.InvalidAirlineFormatFailure;
-            }
-        }
-        public OperationResult CreateFlight(string airlineName, string fromAirport, string toAirport, int year, int month, int day, string id)
-        {
-            Flight flight = new Flight(airlineName, fromAirport, toAirport, id, new DateTime(year, month, day));
-
-            var validationResult = new List<ValidationResult>();
-            if (Validator.TryValidateObject(flight, new ValidationContext(flight), validationResult, true))
-            {
-                return _systemManager.CreateFlight(airlineName, fromAirport, toAirport, year, month, day, id);
-            }
-            else
-            {
-                validationResult.ForEach(el => Console.WriteLine(el));
-                return OperationResult.InvalidFlightDetailsFailure;
-            }
-        }
+        public OperationResult CreateAirport(string airportName) => Validation(new Airport(airportName), _systemManager.CreateAirport, OperationResult.InvalidAirportFormatFailure);
+        public OperationResult CreateAirline(string airlineName) => Validation(new Airline(airlineName), _systemManager.CreateAirline, OperationResult.InvalidAirlineFormatFailure);
+        public OperationResult CreateFlight(string airlineName, string fromAirport, string toAirport, int year, int month, int day, string id) => Validation(new Flight(airlineName, fromAirport, toAirport, id, new DateTime(year, month, day)), _systemManager.CreateFlight, OperationResult.InvalidFlightDetailsFailure);
         public OperationResult CreateSection(string airlineName, string flightId, int rows, int cols, SeatClass seatClass)
         {
             FlightSection section = new FlightSection(seatClass, rows, cols);
@@ -63,25 +21,37 @@ namespace AirlineBookingSystem.SystemManagers
             var validationResult = new List<ValidationResult>();
             if (Validator.TryValidateObject(section, new ValidationContext(section), validationResult, true))
             {
-                return _systemManager.CreateSection(airlineName, flightId, rows, cols, seatClass);
+                return _systemManager.CreateSection(airlineName, flightId, section);
             }
             else
             {
-                validationResult.ForEach(el => Console.WriteLine(el.ErrorMessage));
+                validationResult.ForEach(el => Console.WriteLine(el));
                 return OperationResult.SectionParametersFailure;
             }
         }
-        public List<Flight> FindAvailableFlights(string originatingAirport, string destionationAirport)
+        public List<Flight> FindAvailableFlights(string originatingAirport, string destionationAirport) => _systemManager.FindAvailableFlights(originatingAirport, destionationAirport);
+        public OperationResult BookSeat(string airlineName, string flightNumber, SeatClass seatClass, int rows, char cols) => _systemManager.BookSeat(airlineName, flightNumber, seatClass, rows, cols);
+        public void DisplaySystemDetails() => _systemManager.DisplaySystemDetails();
+
+        private OperationResult Validation<T>(T obj, Func<T, OperationResult> function, OperationResult errorCode)
         {
-            return _systemManager.FindAvailableFlights(originatingAirport, destionationAirport);
+            var validationResult = new List<ValidationResult>();
+            if (Validator.TryValidateObject(obj, new ValidationContext(obj), validationResult, true))
+            {
+                return function.Invoke(obj);
+            }
+            else
+            {
+                validationResult.ForEach(el => Console.WriteLine(el));
+                return errorCode;
+            }
         }
-        public OperationResult BookSeat(string airlineName, string flightNumber, SeatClass seatClass, int rows, char cols)
-        {
-            return _systemManager.BookSeat(airlineName, flightNumber, seatClass, rows, cols);
-        }
-        public void DisplaySystemDetails()
-        {
-            _systemManager.DisplaySystemDetails();
-        }
+
+        #region Not Implemented
+        public OperationResult CreateAirport(Airport airport) => throw new NotImplementedException();
+        public OperationResult CreateAirline(Airline airline) => throw new NotImplementedException();
+        public OperationResult CreateFlight(Flight flight) => throw new NotImplementedException();
+        public OperationResult CreateSection(string airlineName, string flightId, FlightSection section) => throw new NotImplementedException();
+        #endregion
     }
 }
