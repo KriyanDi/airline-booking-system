@@ -1,23 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="AirlineBookingSystem.Airline">
-    <Position X="2.25" Y="0.5" Width="1.5" />
+  <Class Name="AirlineBookingSystem.Additional.AirportName">
+    <Position X="2.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Additional\ValidationAttributes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AirlineBookingSystem.Additional.AirlineName">
+    <Position X="0.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Additional\ValidationAttributes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AirlineBookingSystem.Additional.FlightNumber">
+    <Position X="4" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Additional\ValidationAttributes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AirlineBookingSystem.Additional.SeatSection">
+    <Position X="5.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Additional\ValidationAttributes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AirlineBookingSystem.Airline">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAEAA=</HashCode>
       <FileName>Airlines\Airline.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AirlineBookingSystem.Airport">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAEAA=</HashCode>
       <FileName>Airports\Airport.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AirlineBookingSystem.Flight">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACEAAAAAIAAAAEIAAAAAAAACQAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACEAAAAAIAAAAEIAAAAAAAACQAAAAAAAAAAAAAEAA=</HashCode>
       <FileName>Flights\Flight.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -29,39 +57,54 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AirlineBookingSystem.Seat">
-    <Position X="5.75" Y="4.5" Width="1.5" />
+    <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAIAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Seats\Seat.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AirlineBookingSystem.SystemManager">
-    <Position X="7.5" Y="0.5" Width="1.5" />
+  <Class Name="AirlineBookingSystem.SystemManager" BaseTypeListCollapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>RAAAIAgAAAoAAAAEAAAAAgAAhAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>SystemManagers\SystemManager.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Enum Name="AirlineBookingSystem.Additional.ValidationOperation">
-    <Position X="9.25" Y="4.5" Width="1.5" />
+  <Class Name="AirlineBookingSystem.SystemManagers.SystemManagerValidationDecorator" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACAAAAAggAAAAABAIAAAAAAAAAAAAAAABQAAAAAAAAA=</HashCode>
-      <FileName>Additional\Operations.cs</FileName>
+      <HashCode>BAAAICgAAAoAAAAAACAAAAAAhAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SystemManagers\SystemManagerValidationDecorator.cs</FileName>
     </TypeIdentifier>
-  </Enum>
-  <Enum Name="AirlineBookingSystem.Additional.SystemManagerOperation">
-    <Position X="7.5" Y="4.5" Width="1.5" />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="AirlineBookingSystem.ISystemManageable">
+    <Position X="9.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAgAAAAEhAAAAACAIAAAABEAgAAAAIACABAAAAARAAA=</HashCode>
-      <FileName>Additional\Operations.cs</FileName>
+      <HashCode>BAAAIAgAAAoAAAAAAAAAAAAAhAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SystemManagers\ISystemManageable.cs</FileName>
     </TypeIdentifier>
-  </Enum>
+  </Interface>
+  <Interface Name="AirlineBookingSystem.SystemManagers.ISystemManageableExtend">
+    <Position X="9.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAoAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SystemManagers\ISystemManageableExtend.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Enum Name="AirlineBookingSystem.SeatClass">
-    <Position X="5.75" Y="7.5" Width="1.5" />
+    <Position X="7.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQAAAAA=</HashCode>
       <FileName>Flights\SeatClass.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AirlineBookingSystem.Additional.OperationResult">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SAgAQAAEBgAAAAAAIIAAAAkAgAAAAAACABAAAAABAAA=</HashCode>
+      <FileName>Additional\OperationResult.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
