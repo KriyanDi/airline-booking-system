@@ -47,20 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Additional\OperationResult.cs" />
-    <Compile Include="Additional\ValidationAttributes.cs" />
-    <Compile Include="Airlines\Airline.cs" />
-    <Compile Include="Airports\Airport.cs" />
-    <Compile Include="SystemManagers\ISystemManageable.cs" />
-    <Compile Include="SystemManagers\ISystemManageableExtend.cs" />
-    <Compile Include="SystemManagers\SystemManager.cs" />
-    <Compile Include="Flights\Flight.cs" />
-    <Compile Include="Flights\FlightSection.cs" />
-    <Compile Include="Flights\SeatClass.cs" />
-    <Compile Include="Seats\Seat.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SystemManagers\SystemManagerValidationDecorator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AirlineBookingSystemClassDiagram.cd" />
