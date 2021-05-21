@@ -38,18 +38,14 @@ namespace AirlineBookingSystem
 
         public bool HasAvailableSeats()
         {
-            for (int i = 0; i < Seats.GetLength(0); i++)
+            if(CountAvailableSeats > 0)
             {
-                for (int j = 0; j < Seats.GetLength(1); j++)
-                {
-                    if (!Seats[i, j].IsBooked)
-                    {
-                        return true;
-                    }
-                }
+                return true;
             }
-
-            return false;
+            else
+            {
+                return false;
+            }
         }
         public bool BookSeat(int rows, char cols)
         {

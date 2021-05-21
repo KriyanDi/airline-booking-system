@@ -11,7 +11,7 @@ namespace AirlineBookingSystem.SystemManagers
 
         public SystemManagerValidationDecorator(ISystemManageable systemManager) => _systemManager = systemManager;
 
-        public OperationResult CreateAirport(string airportName) => Validation(new Airport(airportName), _systemManager.CreateAirport, OperationResult.InvalidAirportFormatFailure);
+        public OperationResult CreateAirport([AirportName]string airportName) => Validation(new Airport(airportName), _systemManager.CreateAirport, OperationResult.InvalidAirportFormatFailure);
 
         public OperationResult CreateAirline(string airlineName) => Validation(new Airline(airlineName), _systemManager.CreateAirline, OperationResult.InvalidAirlineFormatFailure);
 
@@ -38,7 +38,7 @@ namespace AirlineBookingSystem.SystemManagers
         public OperationResult BookSeat(string airlineName, string flightNumber, SeatClass seatClass, int rows, char cols) => _systemManager.BookSeat(airlineName, flightNumber, seatClass, rows, cols);
 
         public void DisplaySystemDetails() => _systemManager.DisplaySystemDetails();
-
+        
         private OperationResult Validation<T>(T obj, Func<T, OperationResult> function, OperationResult errorCode)
         {
             var validationResult = new List<ValidationResult>();
