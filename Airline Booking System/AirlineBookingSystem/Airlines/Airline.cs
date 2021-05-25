@@ -10,13 +10,13 @@ namespace AirlineBookingSystem
         {
             Id = _counter++;
             Name = airlineName;
-            if(!ValidateObject.TryValidate(this)) throw new ValidationException("Invalid Airline");
+            if (!ValidateObject.TryValidate(this)) throw new ValidationException("Invalid Airline");
         }
 
         public int Id { get; set; }
 
         [RegularExpression(@"^[A-Z0-9]{1,5}$", ErrorMessage = "Error: Airline name should be with more than zero and less than six alphanumeric capital symbols long.")]
         public string Name { get; set; }
-        public override string ToString() => $"{Name}";
+        public override string ToString() => $"[{Name}]";
     }
 }

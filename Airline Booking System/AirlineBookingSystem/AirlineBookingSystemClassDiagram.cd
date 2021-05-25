@@ -4,49 +4,49 @@
     <Position X="7.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAEAA=</HashCode>
-      <FileName>Airport.cs</FileName>
+      <FileName>Airports\Airport.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AirlineBookingSystem.Airline">
     <Position X="9.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAEAA=</HashCode>
-      <FileName>Airline.cs</FileName>
+      <FileName>Airlines\Airline.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AirlineBookingSystem.Flight">
     <Position X="11.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACEAAAAAIAAAAAIAAAAAAAACQAAAAAAAAAAAAAEAA=</HashCode>
-      <FileName>Flight.cs</FileName>
+      <HashCode>AAACEAAAAAIAAAAEIAAAAAAAACQAABAAAAAAAAAAEAA=</HashCode>
+      <FileName>Flights\Flight.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AirlineBookingSystem.FlightSection">
     <Position X="13" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAACAAAAAAAAgCAAAACFAAAABAAAAAAAAAAAAA=</HashCode>
-      <FileName>FlightSection.cs</FileName>
+      <HashCode>AAAAAAAACAAAAAAEAgCAAAACFAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Flights\FlightSection.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AirlineBookingSystem.Seat">
     <Position X="13" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Seat.cs</FileName>
+      <FileName>Flights\Seat.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AirlineBookingSystem.DataBase">
     <Position X="6" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAARAAAAAAAAAAAAAQAAAAAAIAAAAAAAAAA=</HashCode>
-      <FileName>DataBase.cs</FileName>
+      <FileName>SystemManager\DataBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AirlineBookingSystem.SystemManager">
     <Position X="0.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>SystemManager.cs</FileName>
+      <HashCode>BAAAIAgAAAoEAAAAAAAAAAAAhAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SystemManager\SystemManager.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -54,42 +54,42 @@
     <Position X="14.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
-      <FileName>ValidateObject.cs</FileName>
+      <FileName>Validation\ValidateObject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="AirlineBookingSystem.ICreateComponent">
     <Position X="0.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAAAAAAAoAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ICreateComponent.cs</FileName>
+      <FileName>Interface\ICreateComponent.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="AirlineBookingSystem.IModifyData">
     <Position X="2.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>IModifyData.cs</FileName>
+      <FileName>Interface\IModifyData.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="AirlineBookingSystem.IRetrieveInformation">
     <Position X="4.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>IRetrieveInformation.cs</FileName>
+      <FileName>Interface\IRetrieveInformation.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="AirlineBookingSystem.ISystemManageable">
     <Position X="0.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ISystemManageable.cs</FileName>
+      <FileName>Interface\ISystemManageable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="AirlineBookingSystem.SeatClass">
     <Position X="13" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQAAAAA=</HashCode>
-      <FileName>SeatClass.cs</FileName>
+      <FileName>Flights\SeatClass.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

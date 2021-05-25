@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AirlineBookingSystem
 {
@@ -11,13 +10,13 @@ namespace AirlineBookingSystem
         {
             Id = _counter++;
             Name = airportName;
-            if(!ValidateObject.TryValidate(this)) throw new ValidationException("Invalid Airport");
+            if (!ValidateObject.TryValidate(this)) throw new ValidationException("Invalid Airport");
         }
 
         public int Id { get; set; }
 
         [RegularExpression(@"^[A-Z]{3}$", ErrorMessage = "Error: Airport name should be exact three capital letters long.")]
         public string Name { get; set; }
-        public override string ToString() => $"{Name}";
+        public override string ToString() => $"[{Name}]";
     }
 }
