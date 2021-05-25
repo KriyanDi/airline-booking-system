@@ -34,7 +34,7 @@ namespace AirlineBookingSystem
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"Book Seat: {ex.Message}");
                 return false;
             }
         }
@@ -50,6 +50,6 @@ namespace AirlineBookingSystem
                 }
             }
         }
-        public override string ToString() => $"{SeatClass} Booked:{Booked} Capacity:{Capacity}";
+        public override string ToString() => $"[{SeatClass} Capacity:{Capacity} Booked:{Booked}]";
     }
 }

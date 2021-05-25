@@ -17,6 +17,7 @@ namespace AirlineBookingSystem
             FlightNumber = flightNumber;
             FlightSections = new Dictionary<SeatClass, FlightSection>();
             DepartureDate = departureDate;
+            if (!ValidateObject.TryValidate(this)) throw new ValidationException("Invalid Flight");
         }
 
         public int Id { get; set; }
@@ -30,5 +31,26 @@ namespace AirlineBookingSystem
         public string FlightNumber { get; set; }
         public Dictionary<SeatClass, FlightSection> FlightSections { get; set; }
         public DateTime DepartureDate { get; set; }
+
+        public bool HasAvailableSeats()
+        {
+            foreach (var flightSection in FlightSections.Values)
+            {
+                if (flightSection.HasAvailableSeats())
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public override string ToString()
+        {
+            string sections = "\n";
+            foreach (var section in FlightSections) sections = sections + '\t' + section.Value.ToString() + "\n";
+
+            return $"\n{AirlineName} {OriginatingAirport} {DestinationAirport} {FlightNumber} {DepartureDate} {sections}";
+        }
     }
 }
