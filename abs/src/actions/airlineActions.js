@@ -5,7 +5,7 @@ let counter = 0;
 export const createAirline = (name) => ({
   type: AIRLINE.ADD_AIRLINE,
   payload: {
-    name: name,
+    name,
     id: ++counter,
   },
 });
