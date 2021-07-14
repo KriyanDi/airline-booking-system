@@ -1,8 +1,8 @@
 import React from "react";
-import WrapAddFieldListViewer from "./common/WrapAddFieldListViewer";
+import WrapAddFieldListViewer from "../_common/WrapAddFieldListViewer";
 import { connect } from "react-redux";
-import { selectAirlineList } from "../selectors";
-import { createAirline, deleteAirline } from "../actions/airlineActions";
+import { selectAirlineList } from "../../selectors";
+import { createAirline, deleteAirline } from "../../actions/airlineActions";
 
 const AddAirline = (props) => {
   return (

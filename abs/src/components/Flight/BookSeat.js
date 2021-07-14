@@ -1,9 +1,9 @@
 import React from "react";
-import DropdownWithLabel from "./common/DropdownWithLabel";
-import TextInputWithLabel from "./common/TextInputWithLabel";
+import DropdownWithLabel from "../_common/DropdownWithLabel";
+import TextInputWithLabel from "../_common/TextInputWithLabel";
 import { connect } from "react-redux";
-import { selectAirportList, selectAirlineList } from "../selectors";
-import { SEATCLASS } from "../constants";
+import { selectAirportList, selectAirlineList } from "../../selectors";
+import { SEATCLASS } from "../../constants";
 
 const BookSeat = (props) => {
   return (
