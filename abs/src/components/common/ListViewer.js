@@ -13,7 +13,7 @@ const ListViewer = ({ list, objectName, onClick }) => {
                     <div
                       className="ui red button"
                       onClick={() => {
-                        onClick(el.name, el.id);
+                        onClick(el.id);
                       }}
                     >
                       Delete
