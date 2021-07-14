@@ -1,11 +1,13 @@
 import React from "react";
 import Dropdown from "./Dropdown";
 
-const DropdownWithLabel = ({ label }) => {
+const DropdownWithLabel = ({ label, list }) => {
+  console.log("DROP with");
+  console.log(list);
   return (
     <div className="field">
       <label>{label}</label>
-      <Dropdown />
+      <Dropdown list={list} />
     </div>
   );
 };
