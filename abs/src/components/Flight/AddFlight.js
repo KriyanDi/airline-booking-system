@@ -1,9 +1,7 @@
 import React from "react";
 import DropdownWithLabel from "../_common/DropdownWithLabel";
-import TextInputWithLabel from "../_common/TextInputWithLabel";
 import { connect } from "react-redux";
-import { selectAirportList, selectAirlineList } from "../../selectors";
-import { SEATCLASS } from "../../constants";
+import { selectAirportList, selectAirlineList } from "../../utils/selectors";
 import AddSection from "./AddSection";
 
 const AddFlight = (props) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import WrapAddFieldListViewer from "../_common/WrapAddFieldListViewer";
 import { connect } from "react-redux";
-import { selectAirportList } from "../../selectors";
+import { selectAirportList } from "../../utils/selectors";
 import { createAirport, deleteAirport } from "../../actions/airportActions";
 
 const AddAirport = (props) => {

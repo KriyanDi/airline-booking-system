@@ -1,5 +1,5 @@
 import React from "react";
-import { SEATCLASS } from "../../constants";
+import { SEATCLASS } from "../../utils/constants";
 import DropdownWithLabel from "../_common/DropdownWithLabel";
 import TextInputWithLabel from "../_common/TextInputWithLabel";
 
