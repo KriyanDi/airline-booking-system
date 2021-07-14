@@ -5,7 +5,7 @@ import TextInputWithLabel from "./common/TextInputWithLabel";
 const BookSeat = (props) => {
   return (
     <div className="ui form field segment container">
-      <h4 class="ui dividing header">Manage Book Seats</h4>
+      <h4 className="ui dividing header">Manage Book Seats</h4>
       <div className="three fields">
         <DropdownWithLabel label="Airline Name:" />
         <DropdownWithLabel label="Flight Number:" />
