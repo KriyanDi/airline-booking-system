@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const AddField = ({ objectName, buttonName, onClick }) => {
   const [value, setValue] = useState("");
 
-  const onClickHandled = () => {
+  const onClickHandler = () => {
     onClick(value);
     setValue("");
   };
@@ -20,7 +20,7 @@ const AddField = ({ objectName, buttonName, onClick }) => {
         />
         <button
           className="ui button"
-          onClick={value ? () => onClickHandled() : () => {}}
+          onClick={value ? () => onClickHandler() : () => {}}
         >{`Add ${buttonName}`}</button>
       </div>
     </div>
