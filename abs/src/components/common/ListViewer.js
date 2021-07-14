@@ -19,7 +19,9 @@ const ListViewer = ({ list, objectName, onClick }) => {
                       Delete
                     </div>
                   </div>
-                  <div className="content">🏡 {el.name}</div>
+                  <div className="content">
+                    {objectName === "Airport" ? "🏡" : "✈️"} {el.name}
+                  </div>
                 </div>
               );
             })
