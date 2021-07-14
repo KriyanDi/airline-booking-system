@@ -1,0 +1,5 @@
+export const SEATCLASS = {
+  FIRST: "FIRST",
+  BUSINESS: "BUSINESS",
+  ECONOMY: "ECONOMY",
+};
