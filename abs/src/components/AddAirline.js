@@ -1,8 +1,16 @@
 import React from "react";
-import AddField from "./common/AddField";
+import WrapAddFieldListViewer from "./common/WrapAddFieldListViewer";
 
 const AddAirline = (props) => {
-  return <AddField objectName="Airline" buttonName="Airline" />;
+  return (
+    <WrapAddFieldListViewer
+      objectName="Airline"
+      buttonName="Airline"
+      onAddClick={() => {}}
+      onDeleteClick={() => {}}
+      list={{}}
+    />
+  );
 };
 
 export default AddAirline;
