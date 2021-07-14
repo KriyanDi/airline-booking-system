@@ -1,8 +1,8 @@
 import React from "react";
-import AddAirline from "./components/AddAirline";
-import AddAirport from "./components/AddAirport";
-import AddFlight from "./components/AddFlight";
-import BookSeat from "./components/BookSeat";
+import AddAirline from "./components/Airline/AddAirline";
+import AddAirport from "./components/Airport/AddAirport";
+import AddFlight from "./components/Flight/AddFlight";
+import BookSeat from "./components/Flight/BookSeat";
 
 import { Provider } from "react-redux";
 import store from "./store";
