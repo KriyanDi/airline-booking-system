@@ -2,15 +2,15 @@ import React from "react";
 
 const Dropdown = ({ defaultName, list }) => {
   return (
-    <div class="ui selection dropdown">
+    <div className="ui selection dropdown">
       <input type="hidden" name={defaultName} />
-      <i class="dropdown icon"></i>
-      <div class="default text">{defaultName}</div>
-      <div class="menu">
+      <i className="dropdown icon"></i>
+      <div className="default text">{defaultName}</div>
+      <div className="menu">
         {list && list.length
           ? list.map((el) => {
               return (
-                <div key={`${el.name}${el.id}`} class="item">
+                <div key={`${el.name}${el.id}`} className="item">
                   {el.name}
                 </div>
               );
