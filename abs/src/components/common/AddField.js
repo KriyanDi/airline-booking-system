@@ -2,6 +2,12 @@ import React, { useState } from "react";
 
 const AddField = ({ objectName, buttonName, onClick }) => {
   const [value, setValue] = useState("");
+
+  const onClickHandled = () => {
+    onClick(value);
+    setValue("");
+  };
+
   return (
     <div className="ui form field =">
       <h4 className="ui dividing header">Manage {objectName}</h4>
@@ -14,10 +20,7 @@ const AddField = ({ objectName, buttonName, onClick }) => {
         />
         <button
           className="ui button"
-          onClick={() => {
-            onClick(value);
-            setValue("");
-          }}
+          onClick={value ? () => onClickHandled() : () => {}}
         >{`Add ${buttonName}`}</button>
       </div>
     </div>
