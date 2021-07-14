@@ -10,10 +10,9 @@ export const createAirport = (name) => ({
   },
 });
 
-export const deleteAirport = (name, id) => ({
+export const deleteAirport = (id) => ({
   type: AIRPORT.DELETE_AIRPORT,
   payload: {
-    name,
     id,
   },
 });
