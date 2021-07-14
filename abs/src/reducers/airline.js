@@ -8,8 +8,8 @@ export default function airlineReducer(state = initialState, action) {
   switch (action.type) {
     case AIRLINE.ADD_AIRLINE:
       let copyAirlinesAdd = new Map(state.airlines).set(action.payload.id, {
-        id: action.payload.id,
         name: action.payload.name,
+        id: action.payload.id,
       });
       return {
         ...state,
