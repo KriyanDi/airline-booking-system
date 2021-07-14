@@ -1,16 +1,26 @@
 import React from "react";
 import WrapAddFieldListViewer from "./common/WrapAddFieldListViewer";
+import { connect } from "react-redux";
+import { selectAirlineList } from "../selectors";
+import { createAirline, deleteAirline } from "../actions/airlineActions";
 
 const AddAirline = (props) => {
   return (
     <WrapAddFieldListViewer
       objectName="Airline"
       buttonName="Airline"
-      onAddClick={() => {}}
-      onDeleteClick={() => {}}
-      list={{}}
+      onAddClick={props.createAirline}
+      onDeleteClick={props.deleteAirline}
+      list={props.airlines}
     />
   );
 };
 
-export default AddAirline;
+const mapStateToProps = (state) => {
+  const airlines = selectAirlineList(state);
+  return { airlines };
+};
+
+export default connect(mapStateToProps, { createAirline, deleteAirline })(
+  AddAirline
+);
