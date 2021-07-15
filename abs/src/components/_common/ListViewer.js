@@ -3,6 +3,7 @@ import React from "react";
 const contentResult = (objectName, el) => {
   if (objectName === "Airport") return `🏡 ${el.name}`;
   else if (objectName === "Airline") return `✈️ ${el.name}`;
+  else if (objectName === "Flight Id") return `📋 ${el.name}`;
   else return `${el}`;
 };
 
