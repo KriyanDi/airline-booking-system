@@ -1,14 +1,14 @@
 import { FLIGHT } from "./actionTypes";
 
-export const createFlight = (airline, from, to, seatClass, cols, rows) => ({
+let counter = 0;
+
+export const createFlight = (airline, from, to) => ({
   type: FLIGHT.ADD_FLIGHT,
   payload: {
     airline,
     from,
     to,
-    seatClass,
-    cols,
-    rows,
+    id: ++counter,
   },
 });
 
