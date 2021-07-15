@@ -19,15 +19,16 @@ const setSeats = (rows, cols) => {
 export default function flightReducer(state = initialState, action) {
   switch (action.type) {
     case FLIGHT.ADD_FLIGHT:
-      const { airline, from, to, seatClass, id } = action.payload;
+      const { airline, from, to, id } = action.payload;
 
       let flightId = `${airline}${from}${to}${id}`;
       let copyFlightsAdd = new Map(state.flights).set(id, {
+        flightId: flightId,
         airline,
         from,
         to,
         seatClasses: [],
-        id: flightId,
+        id: id,
       });
       return {
         ...state,
@@ -37,6 +38,7 @@ export default function flightReducer(state = initialState, action) {
     case FLIGHT.DELETE_FLIGHT:
       let deleteFlightId = action.payload.id;
       let copyFlightsDelete = new Map(state.flights);
+      copyFlightsDelete.delete(deleteFlightId);
       return {
         ...state,
         flights: copyFlightsDelete,
