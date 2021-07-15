@@ -1,5 +1,11 @@
 import React from "react";
 
+const contentResult = (objectName, el) => {
+  if (objectName === "Airport") return `🏡 ${el.name}`;
+  else if (objectName === "Airline") return `✈️ ${el.name}`;
+  else return `${el}`;
+};
+
 const ListViewer = ({ list, objectName, onClick }) => {
   return (
     <div className="ui segment">
@@ -19,9 +25,7 @@ const ListViewer = ({ list, objectName, onClick }) => {
                       Delete
                     </div>
                   </div>
-                  <div className="content">
-                    {objectName === "Airport" ? "🏡" : "✈️"} {el.name}
-                  </div>
+                  <div className="content">{contentResult(objectName, el)}</div>
                 </div>
               );
             })
