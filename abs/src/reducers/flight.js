@@ -16,7 +16,7 @@ const setSeats = (rows, cols) => {
   return seats;
 };
 
-export default function flightReducer(state, action) {
+export default function flightReducer(state = initialState, action) {
   switch (action.type) {
     case FLIGHT.ADD_FLIGHT:
       const { airline, from, to, seatClass, id } = action.payload;
@@ -54,7 +54,7 @@ export default function flightReducer(state, action) {
             seats: setSeats(action.payload.rows, action.payload.cols),
             rows: action.payload.rows,
             cols: action.payload.cols,
-            maxCapacity: rows * cols,
+            maxCapacity: action.payload.rows * action.payload.cols,
             currentCapacity: 0,
           },
         ],
@@ -72,9 +72,10 @@ export default function flightReducer(state, action) {
         ...state,
         flights: copyFlightsDeleteSection,
       };
-    
-    case: FLIGHT.BOOK_SEAT:
-    case: FLIGHT.UNBOOK_SEAT:
-    default: return state;
+
+    case FLIGHT.BOOK_SEAT:
+    case FLIGHT.UNBOOK_SEAT:
+    default:
+      return state;
   }
 }
