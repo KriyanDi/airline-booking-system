@@ -1,16 +1,23 @@
 import React from "react";
 
-const Dropdown = ({ defaultName, list }) => {
-  console.log(list);
+const Dropdown = ({ list, onChange }) => {
   return (
-    <select class="ui search dropdown">
-      {list && list.length ? (
-        list.map((el) => {
-          return <option value={el}>{el}</option>;
-        })
-      ) : (
-        <option value="">empty</option>
-      )}
+    <select
+      className="ui search dropdown"
+      onChange={(event) => {
+        onChange(event.target.value);
+      }}
+    >
+      <option value=""></option>
+      {list && list.length
+        ? list.map((el) => {
+            return (
+              <option key={el} value={el}>
+                {el}
+              </option>
+            );
+          })
+        : null}
     </select>
   );
 };
