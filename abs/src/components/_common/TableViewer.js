@@ -5,7 +5,7 @@ const setTableHead = (list) =>
     ? list.map((el, index) => <th key={index}>{el.toUpperCase()}</th>)
     : null;
 
-const setTableContent = (content, onClick) =>
+const setTableContent = (content, onDelete) =>
   content && content.length
     ? content.map((el, index) => (
         <tr key={index}>
@@ -15,7 +15,7 @@ const setTableContent = (content, onClick) =>
               <div
                 className="ui red button"
                 onClick={() => {
-                  onClick(el.id);
+                  onDelete(el);
                 }}
               >
                 Delete
@@ -33,7 +33,7 @@ const setRowContent = (data) => {
 
 const getObjectKeys = (object) => (object ? Object.keys(object) : null);
 
-const TableViewer = ({ content, onClick }) => {
+const TableViewer = ({ content, onDelete }) => {
   let keys = content ? getObjectKeys(content[0]) : null;
 
   return (
@@ -44,7 +44,7 @@ const TableViewer = ({ content, onClick }) => {
           <th key="button" className="right aligned"></th>
         </tr>
       </thead>
-      <tbody>{setTableContent(content, onClick)}</tbody>
+      <tbody>{setTableContent(content, onDelete)}</tbody>
     </table>
   );
 };
