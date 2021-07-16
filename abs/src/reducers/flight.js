@@ -8,7 +8,7 @@ const setSeats = (rows, cols) => {
   let seats = new Map();
 
   for (let i = 1; i <= rows; i++) {
-    for (let j = 0; j < cols; j++) {
+    for (let j = 0; j <= cols; j++) {
       seats.set(i + j, { isBooked: false });
     }
   }
@@ -24,11 +24,11 @@ export default function flightReducer(state = initialState, action) {
       let flightId = `${airline}${from}${to}${id}`;
       let copyFlightsAdd = new Map(state.flights).set(id, {
         flightId: flightId,
+        id: id,
         airline,
         from,
         to,
         seatClasses: [],
-        id: id,
       });
       return {
         ...state,
@@ -38,7 +38,9 @@ export default function flightReducer(state = initialState, action) {
     case FLIGHT.DELETE_FLIGHT:
       let deleteFlightId = action.payload.id;
       let copyFlightsDelete = new Map(state.flights);
+
       copyFlightsDelete.delete(deleteFlightId);
+
       return {
         ...state,
         flights: copyFlightsDelete,
@@ -46,22 +48,22 @@ export default function flightReducer(state = initialState, action) {
 
     case FLIGHT.ADD_SECTION:
       let copyFlightsSection = new Map(state.flights);
-      let addSectionTo = copyFlightsSection.get(action.payload.id);
-      addSectionTo = {
-        ...addSectionTo,
-        seatClasses: [
-          ...addSectionTo.seatClasses,
-          {
-            seatClass: action.payload.seatClass,
-            seats: setSeats(action.payload.rows, action.payload.cols),
-            rows: action.payload.rows,
-            cols: action.payload.cols,
-            maxCapacity: action.payload.rows * action.payload.cols,
-            currentCapacity: 0,
-          },
-        ],
-      };
-      copyFlightsSection.set(action.payload.id, addSectionTo);
+      let flight = copyFlightsSection.get(action.payload.id);
+
+      console.log("ADD SECTION");
+      console.log(flight.seatClasses);
+      flight.seatClasses.push({
+        id: flight.flightId,
+        seatClass: action.payload.seatClass,
+        seats: "seats", //fix this
+        rows: action.payload.rows,
+        cols: action.payload.cols,
+        maxCapacity: action.payload.rows * action.payload.cols,
+        currentCapacity: 0,
+      });
+
+      copyFlightsSection.set(action.payload.id, flight);
+
       return {
         ...state,
         flights: copyFlightsSection,
