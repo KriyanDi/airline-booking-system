@@ -10,18 +10,20 @@ const setTableContent = (content, onDelete) =>
     ? content.map((el, index) => (
         <tr key={index}>
           {setRowContent(el)}
-          <td key={index} className="right aligned">
-            <div className="right floated content">
-              <div
-                className="ui red button"
-                onClick={() => {
-                  onDelete(el);
-                }}
-              >
-                Delete
+          {onDelete !== undefined ? (
+            <td key={index} className="right aligned">
+              <div className="right floated content">
+                <div
+                  className="ui red button"
+                  onClick={() => {
+                    onDelete(el);
+                  }}
+                >
+                  Delete
+                </div>
               </div>
-            </div>
-          </td>
+            </td>
+          ) : null}
         </tr>
       ))
     : null;
