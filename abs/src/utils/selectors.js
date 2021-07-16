@@ -13,8 +13,11 @@ export const selectFlightList = (store) =>
     ? Array.from(store.flightReducer.flights.values())
     : [];
 
-export const selectFlightById = (store, id) =>
-  selectAirlineList(store).Find((el) => el.id === id);
+export const selectFlightIds = (store) =>
+  selectFlightList(store).map((el) => el.flightId);
+
+export const selectFlightByFlightId = (store, flightId) =>
+  selectFlightList(store).find((el) => el.flightId === flightId);
 
 export const selectFlightSeatClasses = (store, id) =>
-  selectFlightById(store, id).seatClasses;
+  selectFlightByFlightId(store, id).seatClasses;
