@@ -5,9 +5,11 @@ import {
   selectAirportList,
   selectAirlineList,
   selectFlightList,
+  selectFlightIds,
 } from "../../utils/selectors";
 import { createFlight, deleteFlight } from "../../actions/flightsActions";
 import TableViewer from "../_common/TableViewer";
+import AddSection from "./AddSection";
 
 const AddFlight = (props) => {
   const [airline, setAirline] = useState("");
@@ -50,8 +52,16 @@ const AddFlight = (props) => {
 
       <div className="ui segment">
         <h4 className="ui dividing grey header">Flights</h4>
-        <TableViewer content={props.flights} onClick={props.deleteFlight} />
+        <TableViewer
+          content={props.flights.map((el) => ({
+            ...el,
+            seatClasses: el.seatClasses.length,
+          }))}
+          onClick={props.deleteFlight}
+        />
       </div>
+
+      <AddSection flightIds={props.flightIds} />
     </div>
   );
 };
@@ -60,10 +70,12 @@ const mapStateToProps = (state) => {
   const airports = selectAirportList(state).map((el) => el.name);
   const airlines = selectAirlineList(state).map((el) => el.name);
   const flights = selectFlightList(state);
+  const flightIds = selectFlightIds(state);
 
-  return { airports, airlines, flights };
+  return { airports, airlines, flights, flightIds };
 };
 
-export default connect(mapStateToProps, { createFlight, deleteFlight })(
-  AddFlight
-);
+export default connect(mapStateToProps, {
+  createFlight,
+  deleteFlight,
+})(AddFlight);
