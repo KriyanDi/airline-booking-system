@@ -7,10 +7,10 @@ const setTableHead = (list) =>
 
 const setTableContent = (content, onClick) =>
   content && content.length
-    ? content.map((el) => (
-        <tr>
+    ? content.map((el, index) => (
+        <tr key={index}>
           {setRowContent(el)}
-          <td className="right aligned">
+          <td key={index} className="right aligned">
             <div className="right floated content">
               <div
                 className="ui red button"
@@ -28,7 +28,7 @@ const setTableContent = (content, onClick) =>
 
 const setRowContent = (data) => {
   let keys = Object.keys(data);
-  return keys.map((key) => <td>{data[`${key}`]}</td>);
+  return keys.map((key, index) => <td key={index}>{data[`${key}`]}</td>);
 };
 
 const getObjectKeys = (object) => (object ? Object.keys(object) : null);
@@ -39,7 +39,7 @@ const TableViewer = ({ content, onClick }) => {
   return (
     <table className="ui unstackable table">
       <thead>
-        <tr>
+        <tr key="head">
           {setTableHead(keys)}
           <th key="button" className="right aligned"></th>
         </tr>
