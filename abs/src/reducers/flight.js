@@ -19,6 +19,7 @@ const initialState = {
 export default function flightReducer(state = initialState, action) {
   let flightsCopy = new Map(state.flights);
   let { payload } = action;
+  let flight = {};
 
   switch (action.type) {
     case FLIGHT.ADD_FLIGHT:
@@ -49,7 +50,7 @@ export default function flightReducer(state = initialState, action) {
       };
 
     case FLIGHT.ADD_SECTION:
-      let flight = flightsCopy.get(payload.id);
+      flight = flightsCopy.get(payload.id);
 
       flight.seatClasses.push({
         id: flight.flightId,
@@ -69,6 +70,19 @@ export default function flightReducer(state = initialState, action) {
       };
 
     case FLIGHT.DELETE_SECTION:
+      flight = flightsCopy.get(payload.id);
+
+      flight.seatClasses = flight.seatClasses.filter(
+        (el) => el.seatClass !== payload.seatClass
+      );
+
+      flightsCopy.set(payload.id, flight);
+
+      return {
+        ...state,
+        flights: flightsCopy,
+      };
+
     case FLIGHT.BOOK_SEAT:
     case FLIGHT.UNBOOK_SEAT:
     default:
