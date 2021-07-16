@@ -15,6 +15,7 @@ import {
   createSection,
   deleteSection,
 } from "../../actions/flightsActions";
+import SearchFlight from "./SearchFlight";
 
 const ManageFlights = (props) => {
   return (
@@ -32,6 +33,7 @@ const ManageFlights = (props) => {
         deleteSection={props.deleteSection}
       />
       <BookSeat />
+      <SearchFlight airports={props.airports} flights={props.flights} />
     </div>
   );
 };
