@@ -18,11 +18,7 @@ export const selectFlights = (store) =>
 
 // Returns array of flightIds from the store
 export const selectFlightIds = (store) =>
-  selectFlights(store).map((el) => {
-    console.log("SELECTORS");
-    console.log(el);
-    return el.flightId ? el.flightId : "EMPTY";
-  });
+  selectFlights(store).map((el) => el.flightId);
 
 // Returns flight by given flightId
 export const selectFlightByFlightId = (store, flightId) =>
