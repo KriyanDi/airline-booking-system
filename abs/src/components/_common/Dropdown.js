@@ -10,9 +10,9 @@ const Dropdown = ({ list, onChange }) => {
     >
       <option value=""></option>
       {list && list.length
-        ? list.map((el) => {
+        ? list.map((el, index) => {
             return (
-              <option key={el} value={el}>
+              <option key={index} value={el}>
                 {el}
               </option>
             );

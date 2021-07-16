@@ -1,27 +1,28 @@
 import React, { useState } from "react";
 
-const AddField = ({ objectName, buttonName, onClick }) => {
-  const [value, setValue] = useState("");
+const AddField = ({ objectName, buttonName, onAdd }) => {
+  const [inputValue, setInputValue] = useState("");
 
-  const onClickHandler = () => {
-    onClick(value);
-    setValue("");
+  const onAddHandler = () => {
+    onAdd(inputValue);
+    setInputValue("");
   };
 
   return (
     <div className="ui form field =">
-      <h4 className="ui dividing header">Manage {objectName}</h4>
       <div className="ui action input">
         <input
           type="text"
+          value={inputValue}
           placeholder={`${objectName} ...`}
-          onChange={(event) => setValue(event.target.value)}
-          value={value}
+          onChange={(event) => setInputValue(event.target.value)}
         />
         <button
           className="ui button"
-          onClick={value ? () => onClickHandler() : () => {}}
-        >{`Add ${buttonName}`}</button>
+          onClick={inputValue ? () => onAddHandler() : () => {}}
+        >
+          {buttonName}
+        </button>
       </div>
     </div>
   );

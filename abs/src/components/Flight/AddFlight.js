@@ -1,15 +1,6 @@
 import React, { useState } from "react";
 import DropdownWithLabel from "../_common/DropdownWithLabel";
-import { connect } from "react-redux";
-import {
-  selectAirportList,
-  selectAirlineList,
-  selectFlightList,
-  selectFlightIds,
-} from "../../utils/selectors";
-import { createFlight, deleteFlight } from "../../actions/flightsActions";
 import TableViewer from "../_common/TableViewer";
-import AddSection from "./AddSection";
 
 const AddFlight = (props) => {
   const [airline, setAirline] = useState("");
@@ -17,10 +8,12 @@ const AddFlight = (props) => {
   const [to, setTo] = useState("");
 
   return (
-    <div className="ui form field segment container">
+    <>
       <h4 className="ui dividing header">Manage Flights</h4>
+
       <div className="ui segment">
         <h5 className="ui dividing header">Add Flights</h5>
+
         <div className="three fields">
           <DropdownWithLabel
             label="Airline Name:"
@@ -38,6 +31,7 @@ const AddFlight = (props) => {
             onChange={setTo}
           />
         </div>
+
         <button
           className="ui button"
           onClick={() => {
@@ -48,34 +42,20 @@ const AddFlight = (props) => {
         >
           Add Flight
         </button>
-      </div>
 
-      <div className="ui segment">
-        <h4 className="ui dividing grey header">Flights</h4>
-        <TableViewer
-          content={props.flights.map((el) => ({
-            ...el,
-            seatClasses: el.seatClasses.length,
-          }))}
-          onClick={props.deleteFlight}
-        />
+        <div className="ui segment">
+          <h4 className="ui dividing grey header">Flights</h4>
+          <TableViewer
+            content={props.flights.map((el) => ({
+              ...el,
+              seatClasses: el.seatClasses.length,
+            }))}
+            onClick={props.deleteFlight}
+          />
+        </div>
       </div>
-
-      <AddSection flightIds={props.flightIds} />
-    </div>
+    </>
   );
 };
 
-const mapStateToProps = (state) => {
-  const airports = selectAirportList(state).map((el) => el.name);
-  const airlines = selectAirlineList(state).map((el) => el.name);
-  const flights = selectFlightList(state);
-  const flightIds = selectFlightIds(state);
-
-  return { airports, airlines, flights, flightIds };
-};
-
-export default connect(mapStateToProps, {
-  createFlight,
-  deleteFlight,
-})(AddFlight);
+export default AddFlight;

@@ -1,15 +1,15 @@
 import React from "react";
 
-const tableHeadList = (list) =>
+const setTableHead = (list) =>
   list && list.length
     ? list.map((el, index) => <th key={index}>{el.toUpperCase()}</th>)
     : null;
 
-const tableContentList = (content, onClick) =>
+const setTableContent = (content, onClick) =>
   content && content.length
     ? content.map((el) => (
         <tr>
-          {tableRowContent(el)}
+          {setRowContent(el)}
           <td className="right aligned">
             <div className="right floated content">
               <div
@@ -26,7 +26,7 @@ const tableContentList = (content, onClick) =>
       ))
     : null;
 
-const tableRowContent = (data) => {
+const setRowContent = (data) => {
   let keys = Object.keys(data);
   return keys.map((key) => <td>{data[`${key}`]}</td>);
 };
@@ -40,11 +40,11 @@ const TableViewer = ({ content, onClick }) => {
     <table className="ui unstackable table">
       <thead>
         <tr>
-          {tableHeadList(keys)}
+          {setTableHead(keys)}
           <th key="button" className="right aligned"></th>
         </tr>
       </thead>
-      <tbody>{tableContentList(content, onClick)}</tbody>
+      <tbody>{setTableContent(content, onClick)}</tbody>
     </table>
   );
 };

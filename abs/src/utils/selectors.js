@@ -1,23 +1,33 @@
-export const selectAirportList = (store) =>
+// Returns array of airports from the store
+export const selectAirports = (store) =>
   store && store.airportReducer
     ? Array.from(store.airportReducer.airports.values())
     : [];
 
-export const selectAirlineList = (store) =>
+// Returns array of airlines from the store
+export const selectAirlines = (store) =>
   store && store.airlineReducer
     ? Array.from(store.airlineReducer.airlines.values())
     : [];
 
-export const selectFlightList = (store) =>
+// Returns array of flights from the store
+export const selectFlights = (store) =>
   store && store.flightReducer
     ? Array.from(store.flightReducer.flights.values())
     : [];
 
+// Returns array of flightIds from the store
 export const selectFlightIds = (store) =>
-  selectFlightList(store).map((el) => el.flightId);
+  selectFlights(store).map((el) => {
+    console.log("SELECTORS");
+    console.log(el);
+    return el.flightId ? el.flightId : "EMPTY";
+  });
 
+// Returns flight by given flightId
 export const selectFlightByFlightId = (store, flightId) =>
-  selectFlightList(store).find((el) => el.flightId === flightId);
+  selectFlights(store).find((el) => el.flightId === flightId);
 
+// Returns array of seat classes of flight by given flightId
 export const selectFlightSeatClasses = (store, id) =>
   selectFlightByFlightId(store, id).seatClasses;

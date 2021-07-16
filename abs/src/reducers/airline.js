@@ -5,22 +5,27 @@ const initialState = {
 };
 
 export default function airlineReducer(state = initialState, action) {
+  let airlinesCopy = new Map(state.airlines);
+  let { payload } = action;
+
   switch (action.type) {
     case AIRLINE.ADD_AIRLINE:
-      let copyAirlinesAdd = new Map(state.airlines).set(action.payload.id, {
-        name: action.payload.name,
-        id: action.payload.id,
+      airlinesCopy.set(payload.id, {
+        name: payload.name,
+        id: payload.id,
       });
+
       return {
         ...state,
-        airlines: copyAirlinesAdd,
+        airlines: airlinesCopy,
       };
+
     case AIRLINE.DELETE_AIRLINE:
-      let copyAirlinesDelete = new Map(state.airlines);
-      copyAirlinesDelete.delete(action.payload.id);
+      airlinesCopy.delete(payload.id);
+
       return {
         ...state,
-        airlines: copyAirlinesDelete,
+        airlines: airlinesCopy,
       };
     default:
       return state;

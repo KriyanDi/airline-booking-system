@@ -5,22 +5,27 @@ const initialState = {
 };
 
 export default function airportReducer(state = initialState, action) {
+  let airportsCopy = new Map(state.airports);
+  let { payload } = action;
+
   switch (action.type) {
     case AIRPORT.ADD_AIRPORT:
-      let copyAirportsAdd = new Map(state.airports).set(action.payload.id, {
-        name: action.payload.name,
-        id: action.payload.id,
+      airportsCopy.set(payload.id, {
+        name: payload.name,
+        id: payload.id,
       });
+
       return {
         ...state,
-        airports: copyAirportsAdd,
+        airports: airportsCopy,
       };
+
     case AIRPORT.DELETE_AIRPORT:
-      let copyAirportsDelete = new Map(state.airports);
-      copyAirportsDelete.delete(action.payload.id);
+      airportsCopy.delete(payload.id);
+
       return {
         ...state,
-        airports: copyAirportsDelete,
+        airports: airportsCopy,
       };
     default:
       return state;

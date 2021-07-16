@@ -4,79 +4,71 @@ const initialState = {
   flights: new Map(),
 };
 
-const setSeats = (rows, cols) => {
-  let seats = new Map();
+// const setSeats = (rows, cols) => {
+//   let seats = new Map();
 
-  for (let i = 1; i <= rows; i++) {
-    for (let j = 0; j <= cols; j++) {
-      seats.set(i + j, { isBooked: false });
-    }
-  }
+//   for (let i = 1; i <= rows; i++) {
+//     for (let j = 0; j <= cols; j++) {
+//       seats.set(i + j, { isBooked: false });
+//     }
+//   }
 
-  return seats;
-};
+//   return seats;
+// };
 
 export default function flightReducer(state = initialState, action) {
+  let flightsCopy = new Map(state.flights);
+  let { payload } = action;
+
   switch (action.type) {
     case FLIGHT.ADD_FLIGHT:
-      const { airline, from, to, id } = action.payload;
+      // Creates unique flightId
+      let flightId = `${payload.airline}${payload.from}${payload.to}${payload.id}`;
 
-      let flightId = `${airline}${from}${to}${id}`;
-      let copyFlightsAdd = new Map(state.flights).set(id, {
+      // Adds new flight to the copy of flights from the store
+      flightsCopy.set(payload.id, {
         flightId: flightId,
-        id: id,
-        airline,
-        from,
-        to,
+        id: payload.id,
+        airline: payload.airline,
+        from: payload.from,
+        to: payload.to,
         seatClasses: [],
       });
+
       return {
         ...state,
-        flights: copyFlightsAdd,
+        flights: flightsCopy,
       };
 
     case FLIGHT.DELETE_FLIGHT:
-      let deleteFlightId = action.payload.id;
-      let copyFlightsDelete = new Map(state.flights);
-
-      copyFlightsDelete.delete(deleteFlightId);
+      flightsCopy.delete(payload.id);
 
       return {
         ...state,
-        flights: copyFlightsDelete,
+        flights: flightsCopy,
       };
 
     case FLIGHT.ADD_SECTION:
-      let copyFlightsSection = new Map(state.flights);
-      let flight = copyFlightsSection.get(action.payload.id);
+      let flight = flightsCopy.get(payload.id);
 
-      console.log("ADD SECTION");
-      console.log(flight.seatClasses);
       flight.seatClasses.push({
         id: flight.flightId,
-        seatClass: action.payload.seatClass,
+        seatClass: payload.seatClass,
         seats: "seats", //fix this
-        rows: action.payload.rows,
-        cols: action.payload.cols,
-        maxCapacity: action.payload.rows * action.payload.cols,
+        rows: payload.rows,
+        cols: payload.cols,
+        maxCapacity: payload.rows * payload.cols,
         currentCapacity: 0,
       });
 
-      copyFlightsSection.set(action.payload.id, flight);
+      flightsCopy.set(payload.id, flight);
 
       return {
         ...state,
-        flights: copyFlightsSection,
+        flights: flightsCopy,
       };
 
     case FLIGHT.DELETE_SECTION:
-      let copyFlightsDeleteSection = new Map(state.flights);
-      copyFlightsDeleteSection.delete(action.payload.id);
-      return {
-        ...state,
-        flights: copyFlightsDeleteSection,
-      };
-
     case FLIGHT.BOOK_SEAT:
     case FLIGHT.UNBOOK_SEAT:
     default:
