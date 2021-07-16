@@ -50,7 +50,7 @@ const AddFlight = (props) => {
               ...el,
               seatClasses: el.seatClasses.length,
             }))}
-            onClick={props.deleteFlight}
+            onDelete={(el) => props.deleteFlight(el.id)}
           />
         </div>
       </div>
