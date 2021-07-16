@@ -65,7 +65,7 @@ const AddSection = (props) => {
         <h4 className="ui dividing grey header">Section For Selected Flight</h4>
         <TableViewer
           content={flight ? flight.seatClasses : null}
-          onClick={props.deleteSection}
+          onDelete={(el) => props.deleteSection(flight.id, el.seatClass)}
         />
       </div>
     </div>
