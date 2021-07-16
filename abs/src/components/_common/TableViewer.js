@@ -2,7 +2,7 @@ import React from "react";
 
 const tableHeadList = (list) =>
   list && list.length
-    ? list.map((el) => <th key={el.id}>{el.toUpperCase()}</th>)
+    ? list.map((el, index) => <th key={index}>{el.toUpperCase()}</th>)
     : null;
 
 const tableContentList = (content, onClick) =>
