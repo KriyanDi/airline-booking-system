@@ -32,7 +32,7 @@ const ListViewer = ({ list, objectName, onDelete }) => {
       <div className="ui middle aligned divided list">
         {list && list.length
           ? list.map((el) => {
-              return createListItemWithDeleteButton(objectName, el);
+              return createListItemWithDeleteButton(objectName, el, onDelete);
             })
           : null}
       </div>
