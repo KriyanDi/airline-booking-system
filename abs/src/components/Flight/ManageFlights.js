@@ -8,12 +8,15 @@ import {
   selectAirlines,
   selectFlights,
   selectFlightIds,
+  selectFlightByFlightId,
 } from "../../utils/selectors";
 import {
   createFlight,
   deleteFlight,
   createSection,
   deleteSection,
+  bookSeat,
+  unbookSeat,
 } from "../../actions/flightsActions";
 import SearchFlight from "./SearchFlight";
 
@@ -29,10 +32,17 @@ const ManageFlights = (props) => {
       />
       <AddSection
         flightIds={props.flightIds}
+        getFlightById={props.getFlightById}
         createSection={props.createSection}
         deleteSection={props.deleteSection}
       />
-      <BookSeat airlines={props.airlines} flightIds={props.flightIds} />
+      <BookSeat
+        airlines={props.airlines}
+        flightIds={props.flightIds}
+        getFlightById={props.getFlightById}
+        onBook={props.bookSeat}
+        onUnbook={props.unbookSeat}
+      />
       <SearchFlight airports={props.airports} flights={props.flights} />
     </div>
   );
@@ -44,7 +54,10 @@ const mapStateToProps = (state) => {
   const flights = selectFlights(state);
   const flightIds = selectFlightIds(state);
 
-  return { airports, airlines, flights, flightIds };
+  const getFlightById = (flightId) =>
+    flightId !== "" ? selectFlightByFlightId(state, flightId) : null;
+
+  return { airports, airlines, flights, flightIds, getFlightById };
 };
 
 export default connect(mapStateToProps, {
@@ -52,4 +65,6 @@ export default connect(mapStateToProps, {
   deleteFlight,
   createSection,
   deleteSection,
+  bookSeat,
+  unbookSeat,
 })(ManageFlights);
