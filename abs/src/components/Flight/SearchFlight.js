@@ -14,7 +14,7 @@ const SearchFlight = (props) => {
 
     return searchedFlights.map((el) => ({
       ...el,
-      seatClasses: el.seatClasses.length,
+      seatClasses: el.seatClasses.size,
     }));
   };
 
