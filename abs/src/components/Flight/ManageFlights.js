@@ -32,7 +32,7 @@ const ManageFlights = (props) => {
         createSection={props.createSection}
         deleteSection={props.deleteSection}
       />
-      <BookSeat />
+      <BookSeat airlines={props.airlines} flightIds={props.flightIds} />
       <SearchFlight airports={props.airports} flights={props.flights} />
     </div>
   );
