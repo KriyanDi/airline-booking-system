@@ -22,10 +22,11 @@ const setSeats = (rows, cols) => {
 
 export default function flightReducer(state = initialState, action) {
   let flightsCopy = new Map(state.flights);
-  let { payload } = action;
   let flight = {};
   let seatClassCopy = {};
   let seatCopy = {};
+
+  let { payload } = action;
 
   switch (action.type) {
     case FLIGHT.ADD_FLIGHT:
