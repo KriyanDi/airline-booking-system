@@ -66,7 +66,8 @@ const BookSeat = (props) => {
           flightId !== "" &&
           seatClass !== "" &&
           row !== null &&
-          col !== null
+          col !== null &&
+          props.getFlightById(flightId) !== undefined
             ? () => {
                 let flight = props.getFlightById(flightId);
                 return props.onBook(
