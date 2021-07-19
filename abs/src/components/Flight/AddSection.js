@@ -53,7 +53,7 @@ const AddSection = (props) => {
       <button
         className="ui button"
         onClick={
-          flight !== null
+          flight !== null && rows !== 0 && cols !== 0 && seatClass !== ""
             ? () => props.createSection(flight.id, seatClass, rows, cols)
             : () => {}
         }
@@ -62,7 +62,9 @@ const AddSection = (props) => {
       </button>
 
       <div className="ui segment">
-        <h4 className="ui dividing grey header">Section For Selected Flight</h4>
+        <h4 className="ui dividing grey header">
+          All Seat Classes For Selected Flight
+        </h4>
         <TableViewer
           content={flight ? flight.seatClasses : null}
           onDelete={(el) => props.deleteSection(flight.id, el.seatClass)}
@@ -73,7 +75,8 @@ const AddSection = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  const getFlightById = (flightId) => selectFlightByFlightId(state, flightId);
+  const getFlightById = (flightId) =>
+    flightId !== "" ? selectFlightByFlightId(state, flightId) : null;
 
   return { getFlightById };
 };
