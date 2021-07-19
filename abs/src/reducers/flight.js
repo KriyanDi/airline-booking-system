@@ -1,25 +1,31 @@
-import { FLIGHT } from "../actions/actionTypes";
+import { AIRLINE, AIRPORT, FLIGHT } from "../actions/actionTypes";
 
 const initialState = {
   flights: new Map(),
 };
 
-// const setSeats = (rows, cols) => {
-//   let seats = new Map();
+const setSeats = (rows, cols) => {
+  let seats = new Map();
 
-//   for (let i = 1; i <= rows; i++) {
-//     for (let j = 0; j <= cols; j++) {
-//       seats.set(i + j, { isBooked: false });
-//     }
-//   }
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      console.log(i + j);
+      seats.set(`${i + 1}${String.fromCharCode(65 + j)}`, {
+        seat: `${i + 1} ${String.fromCharCode(65 + j)}`,
+        isBooked: "false",
+      });
+    }
+  }
 
-//   return seats;
-// };
+  return seats;
+};
 
 export default function flightReducer(state = initialState, action) {
   let flightsCopy = new Map(state.flights);
   let { payload } = action;
   let flight = {};
+  let seatClassCopy = {};
+  let seatCopy = {};
 
   switch (action.type) {
     case FLIGHT.ADD_FLIGHT:
@@ -33,7 +39,7 @@ export default function flightReducer(state = initialState, action) {
         airline: payload.airline,
         from: payload.from,
         to: payload.to,
-        seatClasses: [],
+        seatClasses: new Map(),
       });
 
       return {
@@ -52,15 +58,18 @@ export default function flightReducer(state = initialState, action) {
     case FLIGHT.ADD_SECTION:
       flight = flightsCopy.get(payload.id);
 
-      flight.seatClasses.push({
-        id: flight.flightId,
+      flight.seatClasses.set(payload.seatClass, {
         seatClass: payload.seatClass,
-        seats: "seats", //fix this
+        seats: setSeats(payload.rows, payload.cols),
+        id: flight.flightId,
         rows: payload.rows,
         cols: payload.cols,
         maxCapacity: payload.rows * payload.cols,
         currentCapacity: 0,
       });
+
+      console.log("SEATS");
+      console.log(flight.seatClasses.get(payload.seatClass));
 
       flightsCopy.set(payload.id, flight);
 
@@ -72,9 +81,7 @@ export default function flightReducer(state = initialState, action) {
     case FLIGHT.DELETE_SECTION:
       flight = flightsCopy.get(payload.id);
 
-      flight.seatClasses = flight.seatClasses.filter(
-        (el) => el.seatClass !== payload.seatClass
-      );
+      flight.seatClasses.delete(payload.seatClass);
 
       flightsCopy.set(payload.id, flight);
 
@@ -83,8 +90,53 @@ export default function flightReducer(state = initialState, action) {
         flights: flightsCopy,
       };
 
+    // case AIRPORT.DELETE_AIRPORT:
+    //   for (let key of flightsCopy.keys()) {
+    //     let tmpFlight = flightsCopy.get(key);
+    //     if (tmpFlight.from === payload.name || tmpFlight.to === payload.name) {
+    //       flightsCopy.delete(key);
+    //     }
+    //   }
+
+    //   return {
+    //     ...state,
+    //     flights: flightsCopy,
+    //   };
+
+    // case AIRLINE.DELETE_AIRLINE:
+    //   for (let key of flightsCopy.keys()) {
+    //     let tmpFlight = flightsCopy.get(key);
+    //     if (tmpFlight.airline === payload.name) {
+    //       flightsCopy.delete(key);
+    //     }
+    //   }
+
+    //   return {
+    //     ...state,
+    //     flights: flightsCopy,
+    //   };
+
     case FLIGHT.BOOK_SEAT:
+      flight = flightsCopy.get(payload.id);
+
+      seatClassCopy = flight.seatClasses.get(payload.seatClass);
+
+      seatCopy = seatClassCopy.seats.get(payload.seatId);
+      seatCopy = { ...seatCopy, isBooked: true };
+
+      seatClassCopy.seats.set(payload.seatId, seatCopy);
+
+      flight.seatClasses.set(payload.seatClass, seatClassCopy);
+
+      flightsCopy.set(payload.id, flight);
+
+      return {
+        ...state,
+        flights: flightsCopy,
+      };
+
     case FLIGHT.UNBOOK_SEAT:
+
     default:
       return state;
   }
