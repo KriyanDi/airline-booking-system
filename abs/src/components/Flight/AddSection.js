@@ -15,6 +15,11 @@ const AddSection = (props) => {
     setFlight(props.getFlightById(value));
   };
 
+  const AddNewSectionHandler = () => {
+    if (flight.seatClasses.get(seatClass) === undefined)
+      props.createSection(flight.id, seatClass, rows, cols);
+  };
+
   const header = "Add Section To Flight";
 
   return (
@@ -51,14 +56,7 @@ const AddSection = (props) => {
         className="ui button"
         onClick={
           flight !== null && rows !== 0 && cols !== 0 && seatClass !== ""
-            ? () => {
-                if (
-                  flight.seatClasses.find(
-                    (el) => el.seatClass === seatClass
-                  ) === undefined
-                )
-                  props.createSection(flight.id, seatClass, rows, cols);
-              }
+            ? () => AddNewSectionHandler()
             : () => {}
         }
       >
@@ -70,7 +68,15 @@ const AddSection = (props) => {
           All Seat Classes For Selected Flight
         </h4>
         <TableViewer
-          content={flight ? flight.seatClasses : null}
+          content={
+            flight
+              ? Array.from(flight.seatClasses.values()).map((el) => {
+                  let elCopy = { ...el };
+                  delete elCopy.seats;
+                  return elCopy;
+                })
+              : null
+          }
           onDelete={(el) => props.deleteSection(flight.id, el.seatClass)}
         />
       </div>
