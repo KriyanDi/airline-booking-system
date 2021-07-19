@@ -1,7 +1,12 @@
 import { AIRPORT } from "../actions/actionTypes";
 
 const initialState = {
-  airports: new Map(),
+  airports: new Map()
+    .set(100, { name: "DTC", id: 100 })
+    .set(101, { name: "BGN", id: 101 })
+    .set(102, { name: "UTS", id: 102 })
+    .set(103, { name: "WEQ", id: 103 })
+    .set(104, { name: "POS", id: 104 }),
 };
 
 export default function airportReducer(state = initialState, action) {
