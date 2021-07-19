@@ -48,7 +48,7 @@ const AddFlight = (props) => {
           <TableViewer
             content={props.flights.map((el) => ({
               ...el,
-              seatClasses: el.seatClasses.length,
+              seatClasses: el.seatClasses.size,
             }))}
             onDelete={(el) => props.deleteFlight(el.id)}
           />
