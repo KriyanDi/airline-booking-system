@@ -3,9 +3,6 @@ import { SEATCLASS } from "../../utils/constants";
 import DropdownWithLabel from "../_common/DropdownWithLabel";
 import TextInputWithLabel from "../_common/TextInputWithLabel";
 import TableViewer from "../_common/TableViewer";
-import { createSection, deleteSection } from "../../actions/flightsActions";
-import { selectFlightByFlightId } from "../../utils/selectors";
-import { connect } from "react-redux";
 import Dropdown from "../_common/Dropdown";
 
 const AddSection = (props) => {
@@ -54,7 +51,14 @@ const AddSection = (props) => {
         className="ui button"
         onClick={
           flight !== null && rows !== 0 && cols !== 0 && seatClass !== ""
-            ? () => props.createSection(flight.id, seatClass, rows, cols)
+            ? () => {
+                if (
+                  flight.seatClasses.find(
+                    (el) => el.seatClass === seatClass
+                  ) === undefined
+                )
+                  props.createSection(flight.id, seatClass, rows, cols);
+              }
             : () => {}
         }
       >
@@ -74,13 +78,4 @@ const AddSection = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  const getFlightById = (flightId) =>
-    flightId !== "" ? selectFlightByFlightId(state, flightId) : null;
-
-  return { getFlightById };
-};
-
-export default connect(mapStateToProps, { createSection, deleteSection })(
-  AddSection
-);
+export default AddSection;
