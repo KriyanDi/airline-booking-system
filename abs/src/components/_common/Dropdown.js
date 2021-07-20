@@ -1,6 +1,9 @@
 import React from "react";
 
 const Dropdown = ({ list, onChange, setDefault, setSetDefault }) => {
+  setDefault = setDefault === undefined ? false : setDefault;
+  setSetDefault = setSetDefault === undefined ? (el) => {} : setSetDefault;
+
   return (
     <select
       className="ui search dropdown"
