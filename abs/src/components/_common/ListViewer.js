@@ -14,7 +14,7 @@ const createListItemWithDeleteButton = (objectName, el, onDelete) => {
         <div
           className="ui red button"
           onClick={() => {
-            onDelete(el.name, el.id);
+            onDelete(el);
           }}
         >
           Delete
