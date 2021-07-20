@@ -88,25 +88,6 @@ export default function flightReducer(state = initialState, action) {
         flights: flightsCopy,
       };
 
-    case FLIGHT.BOOK_SEAT:
-      flight = flightsCopy.get(payload.id);
-
-      seatClassCopy = flight.seatClasses.get(payload.seatClass);
-
-      seatCopy = seatClassCopy.seats.get(payload.seatId);
-      seatCopy = { ...seatCopy, isBooked: true };
-
-      seatClassCopy.seats.set(payload.seatId, seatCopy);
-
-      flight.seatClasses.set(payload.seatClass, seatClassCopy);
-
-      flightsCopy.set(payload.id, flight);
-
-      return {
-        ...state,
-        flights: flightsCopy,
-      };
-
     case FLIGHT.DELETE_FLIGHTS_ON_DELETED_AIRPORT:
       flightsCopy = new Map(state.flights);
 
@@ -137,8 +118,28 @@ export default function flightReducer(state = initialState, action) {
         flights: flightsCopy,
       };
 
-    case FLIGHT.UNBOOK_SEAT:
+    case FLIGHT.BOOK_SEAT:
+      console.log("BOOKING PLS");
+      flight = flightsCopy.get(payload.id);
 
+      seatClassCopy = flight.seatClasses.get(payload.seatClass);
+
+      seatCopy = seatClassCopy.seats.get(payload.seatId);
+
+      seatCopy = { ...seatCopy, isBooked: true };
+
+      seatClassCopy.seats.set(payload.seatId, seatCopy);
+
+      flight.seatClasses.set(payload.seatClass, seatClassCopy);
+
+      flightsCopy.set(payload.id, flight);
+
+      return {
+        ...state,
+        flights: flightsCopy,
+      };
+
+    case FLIGHT.UNBOOK_SEAT:
     default:
       return state;
   }
