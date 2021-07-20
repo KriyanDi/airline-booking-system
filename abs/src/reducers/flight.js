@@ -119,20 +119,22 @@ export default function flightReducer(state = initialState, action) {
       };
 
     case FLIGHT.BOOK_SEAT:
-      console.log("BOOKING PLS");
       flight = flightsCopy.get(payload.id);
 
       seatClassCopy = flight.seatClasses.get(payload.seatClass);
 
       seatCopy = seatClassCopy.seats.get(payload.seatId);
 
-      seatCopy = { ...seatCopy, isBooked: true };
+      if (seatCopy.isBooked === "false") {
+        seatCopy = { ...seatCopy, isBooked: "true" };
 
-      seatClassCopy.seats.set(payload.seatId, seatCopy);
+        seatClassCopy.seats.set(payload.seatId, seatCopy);
+        seatClassCopy.currentCapacity++;
 
-      flight.seatClasses.set(payload.seatClass, seatClassCopy);
+        flight.seatClasses.set(payload.seatClass, seatClassCopy);
 
-      flightsCopy.set(payload.id, flight);
+        flightsCopy.set(payload.id, flight);
+      }
 
       return {
         ...state,
