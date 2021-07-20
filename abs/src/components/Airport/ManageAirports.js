@@ -1,29 +1,24 @@
 import React from "react";
-import AddField from "../_common/AddField";
-import ListViewer from "../_common/ListViewer";
 import { connect } from "react-redux";
 import { selectAirports } from "../../utils/selectors";
 import { createAirport, deleteAirport } from "../../actions/airportActions";
+import { deleteFlightsOnDeletedAirport } from "../../actions/flightsActions";
+import AddDeleteInputListControl from "../_common/AddDeleteInputListControl";
 
 const ManageAirports = (props) => {
-  const objectName = "Airports";
-  const buttonName = `Add ${objectName}`;
+  const onAirportDeleteHandler = (el) => {
+    props.deleteAirport(el.id);
+    props.deleteFlightsOnDeletedAirport(el.name);
+  };
 
   return (
-    <div className="ui segment container">
-      <h4 className="ui dividing header">Manage {objectName}</h4>
-      <AddField
-        objectName={objectName}
-        buttonName={buttonName}
-        onAdd={props.createAirport}
-      />
-
-      <ListViewer
-        list={props.airports}
-        objectName={objectName}
-        onDelete={props.deleteAirport}
-      />
-    </div>
+    <AddDeleteInputListControl
+      objectName="Airports"
+      buttonName="Airport"
+      onAdd={props.createAirport}
+      onDelete={onAirportDeleteHandler}
+      list={props.airports}
+    />
   );
 };
 
@@ -32,6 +27,8 @@ const mapStateToProps = (state) => {
   return { airports };
 };
 
-export default connect(mapStateToProps, { createAirport, deleteAirport })(
-  ManageAirports
-);
+export default connect(mapStateToProps, {
+  createAirport,
+  deleteAirport,
+  deleteFlightsOnDeletedAirport,
+})(ManageAirports);
