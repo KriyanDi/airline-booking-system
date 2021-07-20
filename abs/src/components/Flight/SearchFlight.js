@@ -6,8 +6,6 @@ const SearchFlight = (props) => {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
 
-  const [setDefault, setSetDefault] = useState(false);
-
   const createSearchContent = (from, to, list) => {
     let searchedFlights =
       list && list.length
