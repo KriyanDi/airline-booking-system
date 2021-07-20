@@ -6,10 +6,15 @@ const SearchFlight = (props) => {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
 
+  const [setDefault, setSetDefault] = useState(false);
+
   const createSearchContent = (from, to, list) => {
     let searchedFlights =
       list && list.length
-        ? list.filter((el) => el.from === from && el.to === to)
+        ? list.filter(
+            (el) =>
+              (el.from === from || from === "") && (el.to === to || to === "")
+          )
         : [];
 
     return searchedFlights.map((el) => ({
