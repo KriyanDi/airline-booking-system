@@ -5,7 +5,7 @@ const Dropdown = ({ list, onChange, setDefault, setSetDefault }) => {
     <select
       className="ui search dropdown"
       onChange={(event) => {
-        onChange(event.target.value);
+        onChange(event.target.value ? event.target.value : "");
         setSetDefault(false);
       }}
     >
