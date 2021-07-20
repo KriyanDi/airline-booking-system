@@ -13,6 +13,8 @@ export default function airportReducer(state = initialState, action) {
   let airportsCopy = new Map(state.airports);
   let { payload } = action;
 
+  console.log(state);
+
   switch (action.type) {
     case AIRPORT.ADD_AIRPORT:
       airportsCopy.set(payload.id, {
@@ -26,11 +28,23 @@ export default function airportReducer(state = initialState, action) {
       };
 
     case AIRPORT.DELETE_AIRPORT:
+      // delete airport from airports
       airportsCopy.delete(payload.id);
+
+      // delete flights that contain that airport
+      let flightsCopy = new Map(state.flights);
+
+      for (let key of flightsCopy.keys()) {
+        let tmpFlight = flightsCopy.get(key);
+        if (tmpFlight.from === payload.name || tmpFlight.to === payload.name) {
+          flightsCopy.delete(key);
+        }
+      }
 
       return {
         ...state,
         airports: airportsCopy,
+        flights: flightsCopy,
       };
     default:
       return state;

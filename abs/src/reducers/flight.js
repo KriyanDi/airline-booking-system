@@ -69,9 +69,6 @@ export default function flightReducer(state = initialState, action) {
         currentCapacity: 0,
       });
 
-      console.log("SEATS");
-      console.log(flight.seatClasses.get(payload.seatClass));
-
       flightsCopy.set(payload.id, flight);
 
       return {
@@ -90,32 +87,6 @@ export default function flightReducer(state = initialState, action) {
         ...state,
         flights: flightsCopy,
       };
-
-    // case AIRPORT.DELETE_AIRPORT:
-    //   for (let key of flightsCopy.keys()) {
-    //     let tmpFlight = flightsCopy.get(key);
-    //     if (tmpFlight.from === payload.name || tmpFlight.to === payload.name) {
-    //       flightsCopy.delete(key);
-    //     }
-    //   }
-
-    //   return {
-    //     ...state,
-    //     flights: flightsCopy,
-    //   };
-
-    // case AIRLINE.DELETE_AIRLINE:
-    //   for (let key of flightsCopy.keys()) {
-    //     let tmpFlight = flightsCopy.get(key);
-    //     if (tmpFlight.airline === payload.name) {
-    //       flightsCopy.delete(key);
-    //     }
-    //   }
-
-    //   return {
-    //     ...state,
-    //     flights: flightsCopy,
-    //   };
 
     case FLIGHT.BOOK_SEAT:
       flight = flightsCopy.get(payload.id);
