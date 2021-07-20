@@ -10,10 +10,9 @@ export const createAirline = (name) => ({
   },
 });
 
-export const deleteAirline = (name, id) => ({
+export const deleteAirline = (id) => ({
   type: AIRLINE.DELETE_AIRLINE,
   payload: {
-    name,
     id,
   },
 });
