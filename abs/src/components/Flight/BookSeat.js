@@ -78,18 +78,14 @@ const BookSeat = (props) => {
       <div className="two fields">
         <DropdownWithLabel
           label="Number of Rows:"
-          list={
-            flightId !== "" && seatClass !== ""
-              ? rowsList(selectRowsForFlightSection(flightId, seatClass))
-              : []
-          }
+          list={rowsList(props.findRows(flightId, seatClass))}
           onChange={setRow}
           setDefault={setDefault}
           setSetDefault={setSetDefault}
         />
         <DropdownWithLabel
           label="Number of Cols:"
-          list={colsListNumber(selectColsForFlightSection(flightId, seatClass))}
+          list={colsListNumber(props.findCols(flightId, seatClass))}
           onChange={setCol}
           setDefault={setDefault}
           setSetDefault={setSetDefault}
