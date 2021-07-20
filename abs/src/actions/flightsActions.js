@@ -2,12 +2,13 @@ import { FLIGHT } from "./actionTypes";
 
 let counter = 0;
 
-export const createFlight = (airline, from, to) => ({
+export const createFlight = (airline, from, to, date) => ({
   type: FLIGHT.ADD_FLIGHT,
   payload: {
     airline,
     from,
     to,
+    date,
     id: ++counter,
   },
 });
@@ -16,6 +17,20 @@ export const deleteFlight = (id) => ({
   type: FLIGHT.DELETE_FLIGHT,
   payload: {
     id,
+  },
+});
+
+export const deleteFlightsOnDeletedAirport = (name) => ({
+  type: FLIGHT.DELETE_FLIGHTS_ON_DELETED_AIRPORT,
+  payload: {
+    name,
+  },
+});
+
+export const deleteFlightsOnDeletedAirline = (name) => ({
+  type: FLIGHT.DELETE_FLIGHTS_ON_DELETED_AIRLINE,
+  payload: {
+    name,
   },
 });
 
