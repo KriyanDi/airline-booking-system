@@ -42,6 +42,8 @@ const ManageFlights = (props) => {
         getFlightById={props.getFlightById}
         onBook={props.bookSeat}
         onUnbook={props.unbookSeat}
+        findCols={props.getColsForFlightSection}
+        findRows={props.getRowsForFlightSection}
       />
       <SearchFlight airports={props.airports} flights={props.flights} />
     </div>
@@ -57,7 +59,27 @@ const mapStateToProps = (state) => {
   const getFlightById = (flightId) =>
     flightId !== "" ? selectFlightByFlightId(state, flightId) : null;
 
-  return { airports, airlines, flights, flightIds, getFlightById };
+  const getColsForFlightSection = (flightId, seatClass) => {
+    let flight = selectFlightByFlightId(state, flightId);
+    let section = flight ? flight.seatClasses.get(seatClass) : {};
+    return section ? section.cols : 0;
+  };
+
+  const getRowsForFlightSection = (flightId, seatClass) => {
+    let flight = selectFlightByFlightId(state, flightId);
+    let section = flight ? flight.seatClasses.get(seatClass) : {};
+    return section ? section.rows : 0;
+  };
+
+  return {
+    airports,
+    airlines,
+    flights,
+    flightIds,
+    getFlightById,
+    getColsForFlightSection,
+    getRowsForFlightSection,
+  };
 };
 
 export default connect(mapStateToProps, {
