@@ -20,8 +20,6 @@ const setSeats = (rows, cols) => {
 };
 
 export default function flightReducer(state = initialState, action) {
-  console.log(state);
-
   let flightsCopy = new Map(state.flights);
   let flight = {};
   let seatClassCopy = {};
