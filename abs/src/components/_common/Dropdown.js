@@ -1,14 +1,15 @@
 import React from "react";
 
-const Dropdown = ({ list, onChange }) => {
+const Dropdown = ({ list, onChange, setDefault, setSetDefault }) => {
   return (
     <select
       className="ui search dropdown"
       onChange={(event) => {
         onChange(event.target.value);
+        setSetDefault(false);
       }}
     >
-      <option value=""></option>
+      <option selected={setDefault ? "selected" : ""} value=""></option>
       {list && list.length
         ? list.map((el, index) => {
             return (

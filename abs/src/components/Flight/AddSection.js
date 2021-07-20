@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { SEATCLASS } from "../../utils/constants";
 import DropdownWithLabel from "../_common/DropdownWithLabel";
-import TextInputWithLabel from "../_common/TextInputWithLabel";
 import TableViewer from "../_common/TableViewer";
 import Dropdown from "../_common/Dropdown";
+import { rowsList, colsList } from "../../utils/constants";
 
 const AddSection = (props) => {
   const [seatClass, setSeatClass] = useState("");
@@ -11,8 +11,18 @@ const AddSection = (props) => {
   const [cols, setCols] = useState(0);
   const [flight, setFlight] = useState(null);
 
-  const FlightIdChangeHandler = (value) => {
-    setFlight(props.getFlightById(value));
+  const [setDefault, setSetDefault] = useState(false);
+
+  const resetValues = () => {
+    setSeatClass("");
+    setRows(0);
+    setCols(0);
+    setFlight(null);
+    setSetDefault(true);
+  };
+
+  const FlightIdChangeHandler = (flightId) => {
+    setFlight(props.getFlightById(flightId));
   };
 
   const AddNewSectionHandler = () => {
@@ -21,6 +31,9 @@ const AddSection = (props) => {
   };
 
   const header = "Add Section To Flight";
+
+  let isAddSectionEnabled =
+    flight !== null && rows !== 0 && cols !== 0 && seatClass !== "";
 
   return (
     <div className="ui segment">
@@ -31,6 +44,8 @@ const AddSection = (props) => {
           label="Flight Id:"
           list={props.flightIds}
           onChange={FlightIdChangeHandler}
+          setDefault={false}
+          setSetDefault={setSetDefault}
         />
       </div>
 
@@ -39,26 +54,31 @@ const AddSection = (props) => {
           label="Section:"
           list={Object.keys(SEATCLASS)}
           onChange={setSeatClass}
+          setDefault={setDefault}
+          setSetDefault={setSetDefault}
         />
-        <TextInputWithLabel
-          label={"Number of Rows:"}
-          placeholder={"Rows ..."}
+        <DropdownWithLabel
+          label="Number of Rows:"
+          list={rowsList()}
           onChange={setRows}
+          setDefault={setDefault}
+          setSetDefault={setSetDefault}
         />
-        <TextInputWithLabel
-          label={"Number of Cols:"}
-          placeholder={"Cols ..."}
+        <DropdownWithLabel
+          label="Number of Cols:"
+          list={colsList()}
           onChange={setCols}
+          setDefault={setDefault}
+          setSetDefault={setSetDefault}
         />
       </div>
 
       <button
-        className="ui button"
-        onClick={
-          flight !== null && rows !== 0 && cols !== 0 && seatClass !== ""
-            ? () => AddNewSectionHandler()
-            : () => {}
-        }
+        className={`ui ${isAddSectionEnabled ? "" : "disabled"} button`}
+        onClick={() => {
+          AddNewSectionHandler(flight.id, seatClass, rows, cols);
+          resetValues();
+        }}
       >
         Add Section
       </button>

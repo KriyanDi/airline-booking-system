@@ -8,6 +8,8 @@ const AddField = ({ objectName, buttonName, onAdd }) => {
     setInputValue("");
   };
 
+  let isAddInputValueEnabled = inputValue ? "" : "disabled";
+
   return (
     <div className="ui form field =">
       <div className="ui action input">
@@ -18,8 +20,8 @@ const AddField = ({ objectName, buttonName, onAdd }) => {
           onChange={(event) => setInputValue(event.target.value)}
         />
         <button
-          className="ui button"
-          onClick={inputValue ? () => onAddHandler() : () => {}}
+          className={`ui ${isAddInputValueEnabled} button`}
+          onClick={() => onAddHandler()}
         >
           {buttonName}
         </button>
