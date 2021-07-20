@@ -6,6 +6,8 @@ import Dropdown from "../_common/Dropdown";
 import { rowsList, colsList } from "../../utils/constants";
 
 const AddSection = (props) => {
+  const header = "Add Section To Flight";
+
   const [seatClass, setSeatClass] = useState("");
   const [rows, setRows] = useState(0);
   const [cols, setCols] = useState(0);
@@ -17,7 +19,6 @@ const AddSection = (props) => {
     setSeatClass("");
     setRows(0);
     setCols(0);
-    setFlight(null);
     setSetDefault(true);
   };
 
@@ -30,7 +31,20 @@ const AddSection = (props) => {
       props.createSection(flight.id, seatClass, rows, cols);
   };
 
-  const header = "Add Section To Flight";
+  const ExtractAvailableSeatClasses = () => {
+    let seatClasses = Object.keys(SEATCLASS);
+    console.log(seatClasses);
+
+    let currentSeatClasses = flight
+      ? Array.from(flight.seatClasses.keys())
+      : [];
+
+    let availableseatClasses = seatClasses.filter(
+      (el) => !currentSeatClasses.includes(el)
+    );
+
+    return availableseatClasses;
+  };
 
   let isAddSectionEnabled =
     flight !== null && rows !== 0 && cols !== 0 && seatClass !== "";
@@ -44,15 +58,13 @@ const AddSection = (props) => {
           label="Flight Id:"
           list={props.flightIds}
           onChange={FlightIdChangeHandler}
-          setDefault={false}
-          setSetDefault={setSetDefault}
         />
       </div>
 
       <div className="three fields">
         <DropdownWithLabel
           label="Section:"
-          list={Object.keys(SEATCLASS)}
+          list={ExtractAvailableSeatClasses()}
           onChange={setSeatClass}
           setDefault={setDefault}
           setSetDefault={setSetDefault}
