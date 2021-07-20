@@ -9,7 +9,6 @@ const setSeats = (rows, cols) => {
 
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
-      console.log(i + j);
       seats.set(`${i + 1}${String.fromCharCode(65 + j)}`, {
         seat: `${i + 1} ${String.fromCharCode(65 + j)}`,
         isBooked: "false",
@@ -21,6 +20,8 @@ const setSeats = (rows, cols) => {
 };
 
 export default function flightReducer(state = initialState, action) {
+  console.log(state);
+
   let flightsCopy = new Map(state.flights);
   let flight = {};
   let seatClassCopy = {};
@@ -41,6 +42,7 @@ export default function flightReducer(state = initialState, action) {
         from: payload.from,
         to: payload.to,
         seatClasses: new Map(),
+        date: payload.date.toDateString(),
       });
 
       return {
@@ -101,6 +103,36 @@ export default function flightReducer(state = initialState, action) {
       flight.seatClasses.set(payload.seatClass, seatClassCopy);
 
       flightsCopy.set(payload.id, flight);
+
+      return {
+        ...state,
+        flights: flightsCopy,
+      };
+
+    case FLIGHT.DELETE_FLIGHTS_ON_DELETED_AIRPORT:
+      flightsCopy = new Map(state.flights);
+
+      for (let key of flightsCopy.keys()) {
+        let tmpFlight = flightsCopy.get(key);
+        if (tmpFlight.from === payload.name || tmpFlight.to === payload.name) {
+          flightsCopy.delete(key);
+        }
+      }
+
+      return {
+        ...state,
+        flights: flightsCopy,
+      };
+
+    case FLIGHT.DELETE_FLIGHTS_ON_DELETED_AIRLINE:
+      flightsCopy = new Map(state.flights);
+
+      for (let key of flightsCopy.keys()) {
+        let tmpFlight = flightsCopy.get(key);
+        if (tmpFlight.airline === payload.name) {
+          flightsCopy.delete(key);
+        }
+      }
 
       return {
         ...state,

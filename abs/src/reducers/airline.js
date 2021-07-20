@@ -26,23 +26,11 @@ export default function airlineReducer(state = initialState, action) {
       };
 
     case AIRLINE.DELETE_AIRLINE:
-      // delete airline from airlines
       airlinesCopy.delete(payload.id);
-
-      // delete flights that contain that airline
-      let flightsCopy = new Map(state.flights);
-
-      for (let key of flightsCopy.keys()) {
-        let tmpFlight = flightsCopy.get(key);
-        if (tmpFlight.airline === payload.name) {
-          flightsCopy.delete(key);
-        }
-      }
 
       return {
         ...state,
         airlines: airlinesCopy,
-        flights: flightsCopy,
       };
     default:
       return state;
