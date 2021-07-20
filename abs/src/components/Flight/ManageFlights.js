@@ -63,8 +63,10 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   createFlight,
   deleteFlight,
+
   createSection,
   deleteSection,
+
   bookSeat,
   unbookSeat,
 })(ManageFlights);
