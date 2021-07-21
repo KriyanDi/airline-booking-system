@@ -11,7 +11,7 @@ export const createAirport = (name: string): Action<AIRPORT, IAirport> => ({
   },
 });
 
-export const deleteAIrport = (id: number): Action<AIRPORT, IAirport> => ({
+export const deleteAirport = (id: number): Action<AIRPORT, IAirport> => ({
   type: "DELETE_AIRPORT",
   payload: {
     id: id,
