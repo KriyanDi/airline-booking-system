@@ -17,7 +17,7 @@ export interface ISeatClasses {
   currOcuppation: number;
 }
 
-type SEATCLASS = "FIRST" | "BUSINESS" | "ECONOMY";
+export type SEATCLASS = "FIRST" | "BUSINESS" | "ECONOMY";
 
 export interface ISeat {
   seatId: string;
