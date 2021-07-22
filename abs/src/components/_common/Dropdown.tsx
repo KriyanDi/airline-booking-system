@@ -3,7 +3,7 @@ import React, { ChangeEvent } from "react";
 interface DropdownProps {
   label: string;
   list: any[];
-  onChange(event: string): void; //fix this type
+  onChange(event: any): any; //fix this type
   defaultOption?: boolean;
   setDefaultOption?(value: boolean): void;
 }
@@ -18,7 +18,7 @@ const Dropdown = ({ label, list, onChange, defaultOption, setDefaultOption }: Dr
         className="ui search dropdown"
         onChange={(event) => {
           onChange(event.target.value ? event.target.value : "");
-          setDefaultOption ? setDefaultOption(false) : (value: string) => {};
+          if (setDefaultOption !== undefined) setDefaultOption(false);
         }}
       >
         <option selected={defaultOption} value=""></option>
