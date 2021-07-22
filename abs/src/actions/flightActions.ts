@@ -1,10 +1,15 @@
 import { Action, FLIGHT } from "../interfaces/actionTypes";
-import { IFlight, ISeatClasses, SEATCLASS } from "../interfaces/flightModel";
+import { IFlight, SEATCLASS } from "../interfaces/flightModel";
 
 let counter = 0;
 
 // FLIGHT
-export const createFlight = (airline: string, from: string, to: string, date: Date): Action<FLIGHT, IFlight> => ({
+export const createFlight = (
+  airline: string,
+  from: string,
+  to: string,
+  date: Date
+): Action<FLIGHT, IFlight> => ({
   type: "ADD_FLIGHT",
   payload: {
     id: counter++,
@@ -22,14 +27,14 @@ export const deleteFlight = (id: number): Action<FLIGHT, { id: number }> => ({
   },
 });
 
-export const deleteFlightsOnDeleteAirprot = (name: string): Action<FLIGHT, { name: string }> => ({
+export const deleteFlightsOnDeletedAirport = (name: string): Action<FLIGHT, { name: string }> => ({
   type: "DELETE_FLIGHTS_ON_DELETED_AIRLINE",
   payload: {
     name: name,
   },
 });
 
-export const deleteFlightsOnDeleteAirline = (name: string): Action<FLIGHT, { name: string }> => ({
+export const deleteFlightsOnDeletedAirline = (name: string): Action<FLIGHT, { name: string }> => ({
   type: "DELETE_FLIGHTS_ON_DELETED_AIRLINE",
   payload: {
     name: name,
@@ -52,7 +57,10 @@ export const createSection = (
   },
 });
 
-export const deleteSection = (id: number, seatClass: SEATCLASS): Action<FLIGHT, { id: number; seatClass: SEATCLASS }> => ({
+export const deleteSection = (
+  id: number,
+  seatClass: SEATCLASS
+): Action<FLIGHT, { id: number; seatClass: SEATCLASS }> => ({
   type: "DELETE_SECTION",
   payload: {
     id: id,
@@ -61,7 +69,11 @@ export const deleteSection = (id: number, seatClass: SEATCLASS): Action<FLIGHT, 
 });
 
 //BOOK SEAT
-export const bookSeat = (id: number, seatClass: SEATCLASS, seatId: string): Action<FLIGHT, { id: number; seatClass: SEATCLASS; seatId: string }> => ({
+export const bookSeat = (
+  id: number,
+  seatClass: SEATCLASS,
+  seatId: string
+): Action<FLIGHT, { id: number; seatClass: SEATCLASS; seatId: string }> => ({
   type: "BOOK_SEAT",
   payload: {
     id: id,
