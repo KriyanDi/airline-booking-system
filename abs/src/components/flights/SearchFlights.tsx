@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IFlight } from "../../interfaces/flightModel";
-import store from "../../store";
+import store from "../../_redux/store";
 import Dropdown from "../_common/Dropdown";
 import TableViewer from "../_common/TableViewer";
 import { selectAirports, selectFlights } from "../../utils/selectors";
@@ -16,7 +16,8 @@ const SearchFlight = (props: SearchFlightProps) => {
   const [to, setTo] = useState<string>("");
 
   const createSearchContent = (from: string, to: string, list: IFlight[]) => {
-    let searchedFlights = list && list.length ? list.filter((el) => (el.from === from || from === "") && (el.to === to || to === "")) : [];
+    let searchedFlights =
+      list && list.length ? list.filter((el) => (el.from === from || from === "") && (el.to === to || to === "")) : [];
 
     return searchedFlights.map((el) => ({
       ...el,
