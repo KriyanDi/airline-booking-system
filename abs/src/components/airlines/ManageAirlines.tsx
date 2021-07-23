@@ -5,8 +5,8 @@ import ManageElement from "../_common/ManageElement";
 import { connect } from "react-redux";
 
 import { selectAirlines } from "../../utils/selectors";
-import { createAirline, deleteAirline } from "../../actions/airlineActions";
-import { deleteFlightsOnDeletedAirline } from "../../actions/flightActions";
+import { createAirline, deleteAirline } from "../../_redux/actions/airlineActions";
+import { deleteFlightsOnDeletedAirline } from "../../_redux/actions/flightActions";
 
 interface ManageAirlinesProps {
   airlines: any[];
