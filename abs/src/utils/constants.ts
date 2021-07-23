@@ -48,7 +48,7 @@ export const colsList = () => {
   return _cols;
 };
 
-export const colsListNumber = (number: number) => {
+export const colsListChar = (number: number) => {
   let _cols = [];
 
   for (let i = 0; i < number; i++) {
