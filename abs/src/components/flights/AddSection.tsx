@@ -1,9 +1,9 @@
-import store from "../../store";
+import store from "../../_redux/store";
 import Dropdown from "../_common/Dropdown";
 import TableViewer from "../_common/TableViewer";
 import { IFlight, SEATCLASS } from "../../interfaces/flightModel";
 import { connect } from "react-redux";
-import { createSection, deleteSection } from "../../actions/flightActions";
+import { createSection, deleteSection } from "../../_redux/actions/flightActions";
 import { selectFlightIds, selectFlightByFlightId } from "../../utils/selectors";
 import { colsList, rowsList } from "../../utils/constants";
 import { useState } from "react";
@@ -35,7 +35,12 @@ const AddSection = (props: AddSectionProps) => {
   };
 
   const AddNewSectionHandler = () => {
-    if (flight !== null && flight!.seatClasses !== undefined && seatClass !== null && flight.seatClasses.get(seatClass) === undefined) {
+    if (
+      flight !== null &&
+      flight!.seatClasses !== undefined &&
+      seatClass !== null &&
+      flight.seatClasses.get(seatClass) === undefined
+    ) {
       props.createSection(flight.id!, seatClass, rows, cols);
     }
   };
@@ -70,8 +75,20 @@ const AddSection = (props: AddSectionProps) => {
           defaultOption={defaultOption}
           setDefaultOption={setDefaultOption}
         />
-        <Dropdown label="Number of Rows:" list={rowsList()} onChange={setRows} defaultOption={defaultOption} setDefaultOption={setDefaultOption} />
-        <Dropdown label="Number of Cols:" list={colsList()} onChange={setCols} defaultOption={defaultOption} setDefaultOption={setDefaultOption} />
+        <Dropdown
+          label="Number of Rows:"
+          list={rowsList()}
+          onChange={setRows}
+          defaultOption={defaultOption}
+          setDefaultOption={setDefaultOption}
+        />
+        <Dropdown
+          label="Number of Cols:"
+          list={colsList()}
+          onChange={setCols}
+          defaultOption={defaultOption}
+          setDefaultOption={setDefaultOption}
+        />
       </div>
 
       <button
