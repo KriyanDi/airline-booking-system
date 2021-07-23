@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Dropdown from "../_common/Dropdown";
 import TableViewer from "../_common/TableViewer";
-import store from "../../store";
+import store from "../../_redux/store";
 import { connect } from "react-redux";
-import { createFlight, deleteFlight } from "../../actions/flightActions";
+import { createFlight, deleteFlight } from "../../_redux/actions/flightActions";
 import { selectAirlines, selectAirports, selectFlights } from "../../utils/selectors";
 import { years, months, days } from "../../utils/constants";
 
