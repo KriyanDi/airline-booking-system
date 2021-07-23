@@ -4,7 +4,7 @@ import ManageAirlines from "./components/airlines/ManageAirlines";
 import ManageFlights from "./components/flights/ManageFlights";
 
 import { Provider } from "react-redux";
-import store from "./store";
+import store from "./_redux/store";
 
 const App = () => {
   return (
