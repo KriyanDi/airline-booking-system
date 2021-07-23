@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import store from "../../store";
+import store from "../../_redux/store";
 import Dropdown from "../_common/Dropdown";
 import { connect } from "react-redux";
 import { IFlight, ISeatClasses, SEATCLASS } from "../../interfaces/flightModel";
 import { selectFlightIds, selectAirports, selectFlightByFlightId } from "../../utils/selectors";
-import { colsListNumber, rowsList } from "../../utils/constants";
+import { colsListChar, rowsList } from "../../utils/constants";
 import ShowSeats from "./ShowSeats";
-import { bookSeat } from "../../actions/flightActions";
+import { bookSeat } from "../../_redux/actions/flightActions";
 
 interface BookSeatProps {
   airports: string[];
@@ -26,16 +26,18 @@ const BookSeat = (props: BookSeatProps) => {
   const [defaultOption, setDefaultOption] = useState(false);
 
   const extractSeatClasses = (flight: IFlight) =>
-    flight !== undefined && flight.seatClasses !== undefined ? Array.from(flight.seatClasses.keys()) : [];
+    flight !== null && flight.seatClasses !== undefined ? Array.from(flight.seatClasses.keys()) : [];
 
-  const extractSeats = (flightId: string): any => {
-    let flight = props.getFlightById(flightId);
-    if (flight) {
-      let section: ISeatClasses | undefined = flight.seatClasses!.get(seatClass!);
-      return section?.seats?.values();
+  const extractSeats = (flightId: string) => {
+    if (flightId && flightId !== "") {
+      let flight = props.getFlightById(flightId);
+      if (flight) {
+        let section = flight.seatClasses!.get(seatClass!);
+        return section.seats.values();
+      }
     }
 
-    return [];
+    return null;
   };
 
   const resetValues = () => {
@@ -52,7 +54,11 @@ const BookSeat = (props: BookSeatProps) => {
 
       <div className="two fields">
         <Dropdown label="Flight Id:" list={props.flightIds} onChange={setFlightId} />
-        <Dropdown label="Seat class:" list={extractSeatClasses(props.getFlightById(flightId))} onChange={setSeatClass} />
+        <Dropdown
+          label="Seat class:"
+          list={extractSeatClasses(props.getFlightById(flightId))}
+          onChange={setSeatClass}
+        />
       </div>
 
       <div className="two fields">
@@ -65,7 +71,7 @@ const BookSeat = (props: BookSeatProps) => {
         />
         <Dropdown
           label="Number of Cols:"
-          list={colsListNumber(props.getColsForFlightSection(flightId, seatClass))}
+          list={colsListChar(props.getColsForFlightSection(flightId, seatClass))}
           onChange={setCol}
           defaultOption={defaultOption}
           setDefaultOption={setDefaultOption}
@@ -91,7 +97,8 @@ const BookSeat = (props: BookSeatProps) => {
 const mapStateToProps = (state: typeof store) => {
   const airports = selectAirports(state).map((el: any) => el.name);
   const flightIds = selectFlightIds(state);
-  const getFlightById = (flightId: string): IFlight | null => (flightId !== "" ? selectFlightByFlightId(state, flightId) : null);
+  const getFlightById = (flightId: string): IFlight | null =>
+    flightId !== "" ? selectFlightByFlightId(state, flightId) : null;
 
   const getColsForFlightSection = (flightId: string, seatClass: SEATCLASS) => {
     let flight = selectFlightByFlightId(state, flightId);
