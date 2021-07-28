@@ -1,41 +1,36 @@
 import React, { useState } from "react";
 import Dropdown from "../_common/Dropdown";
 import TableViewer from "../_common/TableViewer";
-import store from "../../_redux/store";
+import { RootState } from "../../_redux/store";
 import { connect } from "react-redux";
-import { createFlight, deleteFlight } from "../../_redux/actions/flightActions";
+import { createFlight, deleteFlight } from "../../_redux/slices/flightsSlice";
 import { selectAirlines, selectAirports, selectFlights } from "../../utils/selectors";
 import { years, months, days } from "../../utils/constants";
-
-interface AddFlightProps {
-  airports: any[];
-  airlines: any[];
-  flights: any[];
-  createFlight(airline: string, from: string, to: string, date: Date): void;
-  deleteFlight(id: number): void;
-}
+import { AddFlightProps, FlightInfo } from "../../interfaces/propsInterfaces";
+import { IFlight } from "../../interfaces/flightModel";
 
 const AddFlight = (props: AddFlightProps) => {
-  const [airline, setAirline] = useState<string>("");
-  const [from, setFrom] = useState<string>("");
-  const [to, setTo] = useState<string>("");
-
-  const [day, setDay] = useState<number | null>(null);
-  const [month, setMonth] = useState<number | null>(null);
-  const [year, setYear] = useState<number | null>(null);
+  const [flightInfo, setFlightInfo] = useState<FlightInfo>({
+    airline: "",
+    from: "",
+    to: "",
+    day: undefined,
+    month: undefined,
+    year: undefined,
+  });
 
   const [defaultOption, setDefaultOption] = useState<boolean>(false);
 
   let isAddFlightButtonEnabled =
-    airline !== "" && from !== "" && to !== "" && day !== null && month !== null && year !== null;
+    flightInfo.airline !== "" &&
+    flightInfo.from !== "" &&
+    flightInfo.to !== "" &&
+    flightInfo.day !== undefined &&
+    flightInfo.month !== undefined &&
+    flightInfo.year !== undefined;
 
   const resetValues = () => {
-    setAirline("");
-    setFrom("");
-    setTo("");
-    setDay(null);
-    setMonth(null);
-    setYear(null);
+    setFlightInfo({ airline: "", from: "", to: "", day: undefined, month: undefined, year: undefined });
     setDefaultOption(true);
   };
 
@@ -52,21 +47,21 @@ const AddFlight = (props: AddFlightProps) => {
           <Dropdown
             label="Airline Name:"
             list={props.airlines}
-            onChange={setAirline}
+            onChange={(value) => setFlightInfo({ ...flightInfo, airline: value })}
             defaultOption={defaultOption}
             setDefaultOption={setDefaultOption}
           />
           <Dropdown
             label="From Airport:"
             list={props.airports}
-            onChange={setFrom}
+            onChange={(value) => setFlightInfo({ ...flightInfo, from: value })}
             defaultOption={defaultOption}
             setDefaultOption={setDefaultOption}
           />
           <Dropdown
             label="Destination Airport:"
             list={props.airports}
-            onChange={setTo}
+            onChange={(value) => setFlightInfo({ ...flightInfo, to: value })}
             defaultOption={defaultOption}
             setDefaultOption={setDefaultOption}
           />
@@ -77,21 +72,21 @@ const AddFlight = (props: AddFlightProps) => {
           <Dropdown
             label="Day:"
             list={days()}
-            onChange={setDay}
+            onChange={(value) => setFlightInfo({ ...flightInfo, day: value })}
             defaultOption={defaultOption}
             setDefaultOption={setDefaultOption}
           />
           <Dropdown
             label="Month:"
             list={months()}
-            onChange={setMonth}
+            onChange={(value) => setFlightInfo({ ...flightInfo, month: value })}
             defaultOption={defaultOption}
             setDefaultOption={setDefaultOption}
           />
           <Dropdown
             label="Year:"
             list={years()}
-            onChange={setYear}
+            onChange={(value) => setFlightInfo({ ...flightInfo, year: value })}
             defaultOption={defaultOption}
             setDefaultOption={setDefaultOption}
           />
@@ -101,7 +96,12 @@ const AddFlight = (props: AddFlightProps) => {
         <button
           className={`ui ${isAddFlightButtonEnabled ? "" : "disabled"} button`}
           onClick={() => {
-            props.createFlight(airline, from, to, new Date(year!, month!, day!));
+            props.createFlight({
+              airline: flightInfo.airline,
+              from: flightInfo.from,
+              to: flightInfo.to,
+              date: new Date(flightInfo.year!, flightInfo.month!, flightInfo.day!),
+            });
             resetValues();
           }}
         >
@@ -112,11 +112,14 @@ const AddFlight = (props: AddFlightProps) => {
         <div className="ui segment">
           <h4 className="ui dividing grey header">Flights</h4>
           <TableViewer
-            content={props.flights.map((el) => ({
-              ...el,
-              seatClasses: el.seatClasses.size,
-            }))}
-            onDelete={(el: { id: number }) => props.deleteFlight(el.id)}
+            content={props.flights.map((el) => {
+              return {
+                ...el,
+                seatClasses: el.seatClasses.size,
+                date: `${el.date.getDay()}/${el.date.getMonth()}/${el.date.getFullYear()}`,
+              };
+            })}
+            onDelete={(el) => props.deleteFlight({ id: el.id })}
           />
         </div>
       </div>
@@ -124,10 +127,10 @@ const AddFlight = (props: AddFlightProps) => {
   );
 };
 
-const mapStateToProps = (state: typeof store) => {
-  const airports = selectAirports(state).map((el: any) => el.name);
-  const airlines = selectAirlines(state).map((el: any) => el.name);
-  const flights = selectFlights(state);
+const mapStateToProps = (state: RootState) => {
+  const airports: string[] = selectAirports(state).map((el: any) => el.name);
+  const airlines: string[] = selectAirlines(state).map((el: any) => el.name);
+  const flights: IFlight[] = selectFlights(state);
 
   return { airports, airlines, flights };
 };
