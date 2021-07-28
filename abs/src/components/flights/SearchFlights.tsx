@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { IFlight } from "../../interfaces/flightModel";
-import store from "../../_redux/store";
+import store, { RootState } from "../../_redux/store";
 import Dropdown from "../_common/Dropdown";
 import TableViewer from "../_common/TableViewer";
 import { selectAirports, selectFlights } from "../../utils/selectors";
 import { connect } from "react-redux";
-
-interface SearchFlightProps {
-  airports: any[];
-  flights: any[];
-}
+import { SearchFlightProps } from "../../interfaces/propsInterfaces";
 
 const SearchFlight = (props: SearchFlightProps) => {
   const [from, setFrom] = useState<string>("");
@@ -21,7 +17,8 @@ const SearchFlight = (props: SearchFlightProps) => {
 
     return searchedFlights.map((el) => ({
       ...el,
-      seatClasses: el.seatClasses?.size,
+      seatClasses: el.seatClasses.size,
+      date: `${el.date.getDay()}/${el.date.getMonth()}/${el.date.getFullYear()}`,
     }));
   };
 
@@ -44,9 +41,9 @@ const SearchFlight = (props: SearchFlightProps) => {
   );
 };
 
-const mapStateToProps = (state: typeof store) => {
-  const airports = selectAirports(state).map((el: any) => el.name);
-  const flights = selectFlights(state);
+const mapStateToProps = (state: RootState) => {
+  const airports: string[] = selectAirports(state).map((el: any) => el.name);
+  const flights: IFlight[] = selectFlights(state);
 
   return { airports, flights };
 };
