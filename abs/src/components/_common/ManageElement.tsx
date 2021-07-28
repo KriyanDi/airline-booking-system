@@ -5,8 +5,8 @@ import ListViewer from "../_common/ListViewer";
 interface ManageElementProps {
   elementName: string;
   list: any[];
-  onAdd(name: string): void;
-  onDelete(el: any): void;
+  onAdd: any;
+  onDelete: any;
 }
 
 const ManageElement = ({ elementName, list, onAdd, onDelete }: ManageElementProps) => {
