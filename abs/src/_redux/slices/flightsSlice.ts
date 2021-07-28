@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IFlight } from "../../interfaces/flightModel";
+import { SEATSTATE } from "../../utils/constants";
 
 let counter = 0;
 
@@ -10,7 +11,7 @@ const setSeats = (rows: number, cols: number) => {
     for (let j = 0; j < cols; j++) {
       seats.set(`${i + 1}${String.fromCharCode(65 + j)}`, {
         seat: `${i + 1} ${String.fromCharCode(65 + j)}`,
-        isBooked: "false",
+        isBooked: SEATSTATE.NOT_BOOKED,
       });
     }
   }
@@ -129,21 +130,10 @@ export const flightsSlice = createSlice({
     bookSeat: (state, action: PayloadAction<{ id: number; seatClass: string; seatId: string }>) => {
       let { payload } = action;
 
-      let flight = state.flights.get(payload.id);
-      let seatClass = flight?.seatClasses.get(payload.seatClass);
-      let seat = seatClass!.seats!.get(payload.seatId);
-
-      if (seat?.isBooked === false && seatClass !== undefined && flight !== undefined) {
-        seat = { ...seat, isBooked: true };
-
-        seatClass.seats!.set(payload.seatId, seat);
-
-        seatClass.currOcuppation++;
-
-        flight.seatClasses.set(payload.seatClass, seatClass);
-
-        state.flights.set(payload.id, flight);
-      }
+      state?.flights
+        ?.get(payload.id)
+        ?.seatClasses?.get(payload.seatClass)
+        ?.seats?.set(payload.seatId, { seatId: payload.seatId, isBooked: SEATSTATE.BOOKED });
 
       return state;
     },
