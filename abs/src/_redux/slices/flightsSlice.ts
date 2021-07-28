@@ -95,20 +95,14 @@ export const flightsSlice = createSlice({
     createSection: (state, action: PayloadAction<{ id: number; seatClass: string; rows: number; cols: number }>) => {
       let { payload } = action;
 
-      let flight = state.flights.get(payload.id);
-
-      if (flight?.seatClasses !== undefined) {
-        flight.seatClasses.set(payload.seatClass, {
-          seatClass: payload.seatClass,
-          seats: setSeats(payload.rows, payload.cols),
-          rows: payload.rows,
-          cols: payload.cols,
-          maxCapacity: payload.rows * payload.cols,
-          currOcuppation: 0,
-        });
-
-        state.flights.set(payload.id, flight);
-      }
+      state.flights.get(payload.id)?.seatClasses?.set(payload.seatClass, {
+        seatClass: payload.seatClass,
+        seats: setSeats(payload.rows, payload.cols),
+        rows: payload.rows,
+        cols: payload.cols,
+        maxCapacity: payload.rows * payload.cols,
+        currOcuppation: 0,
+      });
 
       return state;
     },
