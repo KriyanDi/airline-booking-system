@@ -1,11 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IFlight } from "../../interfaces/flightModel";
 
-export const SEATCLASS = {
-  FIRST: "FIRST",
-  BUSINESS: "BUSINESS",
-  ECONOMY: "ECONOMY",
-};
+let counter = 0;
 
 const setSeats = (rows: number, cols: number) => {
   let seats = new Map();
@@ -37,7 +33,6 @@ export const flightsSlice = createSlice({
     createFlight: (
       state,
       action: PayloadAction<{
-        id: number;
         airline: string;
         from: string;
         to: string;
@@ -45,14 +40,15 @@ export const flightsSlice = createSlice({
       }>
     ) => {
       let { payload } = action;
+      let id = counter++;
 
       // Creates unique flightId
-      let flightId = `${payload.airline}${payload.from}${payload.to}${payload.id}`;
+      let flightId = `${payload.airline}${payload.from}${payload.to}${id}`;
 
       // Adds new flight to the copy of flights from the store
-      state.flights.set(payload.id, {
+      state.flights.set(id, {
         flightId: flightId,
-        id: payload.id,
+        id: id,
         airline: payload.airline,
         from: payload.from,
         to: payload.to,
@@ -60,17 +56,13 @@ export const flightsSlice = createSlice({
         date: payload.date,
       });
 
-      return {
-        ...state,
-      };
+      return state;
     },
 
     deleteFlight: (state, action: PayloadAction<{ id: number }>) => {
       state.flights.delete(action.payload.id);
 
-      return {
-        ...state,
-      };
+      return state;
     },
 
     deleteFlightsOnDeletedAirport: (state, action: PayloadAction<{ name: string }>) => {
@@ -83,9 +75,7 @@ export const flightsSlice = createSlice({
         }
       }
 
-      return {
-        ...state,
-      };
+      return state;
     },
 
     deleteFlightsOnDeletedAirline: (state, action: PayloadAction<{ name: string }>) => {
@@ -98,9 +88,7 @@ export const flightsSlice = createSlice({
         }
       }
 
-      return {
-        ...state,
-      };
+      return state;
     },
 
     createSection: (state, action: PayloadAction<{ id: number; seatClass: string; rows: number; cols: number }>) => {
@@ -121,9 +109,7 @@ export const flightsSlice = createSlice({
         state.flights.set(payload.id, flight);
       }
 
-      return {
-        ...state,
-      };
+      return state;
     },
 
     deleteSection: (state, action: PayloadAction<{ id: number; seatClass: string }>) => {
@@ -137,9 +123,7 @@ export const flightsSlice = createSlice({
         state.flights.set(payload.id, flight);
       }
 
-      return {
-        ...state,
-      };
+      return state;
     },
 
     bookSeat: (state, action: PayloadAction<{ id: number; seatClass: string; seatId: string }>) => {
@@ -147,12 +131,12 @@ export const flightsSlice = createSlice({
 
       let flight = state.flights.get(payload.id);
       let seatClass = flight?.seatClasses.get(payload.seatClass);
-      let seat = seatClass?.seats.get(payload.seatId);
+      let seat = seatClass!.seats!.get(payload.seatId);
 
       if (seat?.isBooked === false && seatClass !== undefined && flight !== undefined) {
         seat = { ...seat, isBooked: true };
 
-        seatClass.seats.set(payload.seatId, seat);
+        seatClass.seats!.set(payload.seatId, seat);
 
         seatClass.currOcuppation++;
 
@@ -161,9 +145,7 @@ export const flightsSlice = createSlice({
         state.flights.set(payload.id, flight);
       }
 
-      return {
-        ...state,
-      };
+      return state;
     },
   },
 });
