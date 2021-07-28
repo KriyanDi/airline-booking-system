@@ -4,6 +4,11 @@ export const SEATCLASS = {
   ECONOMY: "ECONOMY",
 };
 
+export const SEATSTATE = {
+  BOOKED: "BOOKED",
+  NOT_BOOKED: "NOT BOOKED",
+};
+
 export const years = () => {
   let _years = [];
 
