@@ -1,39 +1,33 @@
 import React from "react";
-import { IAirline } from "../../interfaces/airlineModel";
 import ManageElement from "../_common/ManageElement";
-
 import { connect } from "react-redux";
-
 import { selectAirlines } from "../../utils/selectors";
-import { createAirline, deleteAirline } from "../../_redux/actions/airlineActions";
-import { deleteFlightsOnDeletedAirline } from "../../_redux/actions/flightActions";
-
-interface ManageAirlinesProps {
-  airlines: any[];
-  createAirline(name: string): void;
-  deleteAirline(id: number): void;
-  deleteFlightsOnDeletedAirline(name: string | undefined): void;
-}
+import { IAirline } from "../../interfaces/airlineModel";
+import { ManageAirlinesProps } from "../../interfaces/propsInterfaces";
+import { createAirline, deleteAirline } from "../../_redux/slices/airlinesSlice";
+import { deleteFlightsOnDeletedAirline } from "../../_redux/slices/flightsSlice";
+import { RootState } from "../../_redux/store";
 
 const ManageAirlines = (props: ManageAirlinesProps) => {
   const onAirlineDeleteHandler = (el: IAirline) => {
-    props.deleteAirline(el.id);
-    props.deleteFlightsOnDeletedAirline(el.name);
+    props.deleteAirline({ id: el.id });
+    props.deleteFlightsOnDeletedAirline({ name: el.name });
   };
 
   return (
     <ManageElement
       elementName="Airlines"
-      list={props.airlines}
+      list={props.airlineValues}
       onAdd={props.createAirline}
       onDelete={onAirlineDeleteHandler}
     />
   );
 };
 
-const mapStateToProps = (state: any) => {
-  const airlines = selectAirlines(state);
-  return { airlines };
+const mapStateToProps = (state: RootState) => {
+  let airlineValues = selectAirlines(state);
+
+  return { airlineValues };
 };
 
 export default connect(mapStateToProps, {
