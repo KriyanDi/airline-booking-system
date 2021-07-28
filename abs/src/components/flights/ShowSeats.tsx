@@ -4,17 +4,20 @@ import TableViewer from "../_common/TableViewer";
 
 const ShowSeats = (props: ShowSeatsProps) => {
   const createSeatsContent = () => {
-    console.log("SEATS");
     if (props.seats !== undefined) {
-      console.log(props.seats!.values());
       let seats = Array.from(props.seats.values());
       return <TableViewer content={seats} />;
     }
 
-    return null;
+    return undefined;
   };
 
-  return <div className="ui segment">{createSeatsContent()}</div>;
+  return (
+    <div className="ui segment">
+      <h4 className="ui dividing header">{props.title}</h4>
+      {createSeatsContent()}
+    </div>
+  );
 };
 
 export default ShowSeats;
