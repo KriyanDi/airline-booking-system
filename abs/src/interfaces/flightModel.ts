@@ -19,5 +19,5 @@ export interface ISeatClasses {
 
 export interface ISeat {
   seatId: string;
-  isBooked: boolean;
+  isBooked: string;
 }
