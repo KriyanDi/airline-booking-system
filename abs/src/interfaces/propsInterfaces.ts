@@ -105,4 +105,5 @@ export interface BookSeatProps {
 
 export interface ShowSeatsProps {
   seats: Map<string, ISeat> | undefined;
+  title: string;
 }
