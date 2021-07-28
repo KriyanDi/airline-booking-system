@@ -1,21 +1,13 @@
 import React, { useState } from "react";
-import store from "../../_redux/store";
+import { RootState } from "../../_redux/store";
 import Dropdown from "../_common/Dropdown";
 import { connect } from "react-redux";
-import { IFlight, ISeatClasses, SEATCLASS } from "../../interfaces/flightModel";
+import { IFlight } from "../../interfaces/flightModel";
 import { selectFlightIds, selectAirports, selectFlightByFlightId } from "../../utils/selectors";
 import { colsListChar, rowsList } from "../../utils/constants";
 import ShowSeats from "./ShowSeats";
-import { bookSeat } from "../../_redux/actions/flightActions";
-
-interface BookSeatProps {
-  airports: string[];
-  flightIds: string[];
-  bookSeat(id: number, seatClass: string, seatId: string): void;
-  getFlightById(flightId: string): any;
-  getColsForFlightSection(flightId: string, seatClass: string): number;
-  getRowsForFlightSection(flightId: string, seatClass: string): number;
-}
+import { bookSeat } from "../../_redux/slices/flightsSlice";
+import { BookSeatProps } from "../../interfaces/propsInterfaces";
 
 const BookSeat = (props: BookSeatProps) => {
   const [flightId, setFlightId] = useState<string>("");
@@ -26,18 +18,18 @@ const BookSeat = (props: BookSeatProps) => {
   const [defaultOption, setDefaultOption] = useState(false);
 
   const extractSeatClasses = (flight: IFlight) =>
-    flight !== null && flight.seatClasses !== undefined ? Array.from(flight.seatClasses.keys()) : [];
+    flight !== undefined && flight.seatClasses !== undefined ? Array.from(flight.seatClasses.keys()) : [];
 
   const extractSeats = (flightId: string) => {
     if (flightId && flightId !== "") {
       let flight = props.getFlightById(flightId);
       if (flight) {
-        let section = flight.seatClasses!.get(seatClass!);
-        return section.seats.values();
+        let section = flight.seatClasses?.get(seatClass!);
+        return section ? section.seats.values() : undefined;
       }
     }
 
-    return null;
+    return undefined;
   };
 
   const resetValues = () => {
@@ -82,7 +74,7 @@ const BookSeat = (props: BookSeatProps) => {
         className={`ui ${isBookSeatButtonEnabled ? "" : "disabled"} button`}
         onClick={() => {
           let flight = props.getFlightById(flightId);
-          props.bookSeat(flight?.id, seatClass, `${row}${col}`);
+          props.bookSeat({ id: flight?.id, seatClass: seatClass, seatId: `${row}${col}` });
           resetValues();
         }}
       >
@@ -94,21 +86,21 @@ const BookSeat = (props: BookSeatProps) => {
   );
 };
 
-const mapStateToProps = (state: typeof store) => {
-  const airports = selectAirports(state).map((el: any) => el.name);
-  const flightIds = selectFlightIds(state);
-  const getFlightById = (flightId: string): IFlight | null =>
-    flightId !== "" ? selectFlightByFlightId(state, flightId) : null;
+const mapStateToProps = (state: RootState) => {
+  const airports: string[] = selectAirports(state).map((el: any) => el.name);
+  const flightIds: string[] = selectFlightIds(state);
+  const getFlightById = (flightId: string): IFlight | undefined =>
+    flightId !== "" ? selectFlightByFlightId(state, flightId) : undefined;
 
-  const getColsForFlightSection = (flightId: string, seatClass: SEATCLASS) => {
+  const getColsForFlightSection = (flightId: string, seatClass: string) => {
     let flight = selectFlightByFlightId(state, flightId);
-    let section = flight ? flight.seatClasses.get(seatClass) : {};
+    let section = flight ? flight.seatClasses.get(seatClass) : undefined;
     return section ? section.cols : 0;
   };
 
-  const getRowsForFlightSection = (flightId: string, seatClass: SEATCLASS) => {
+  const getRowsForFlightSection = (flightId: string, seatClass: string) => {
     let flight = selectFlightByFlightId(state, flightId);
-    let section = flight ? flight.seatClasses.get(seatClass) : {};
+    let section = flight ? flight.seatClasses.get(seatClass) : undefined;
     return section ? section.rows : 0;
   };
 
