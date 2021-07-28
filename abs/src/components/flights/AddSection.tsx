@@ -1,32 +1,26 @@
-import store from "../../_redux/store";
+import store, { RootState } from "../../_redux/store";
 import Dropdown from "../_common/Dropdown";
 import TableViewer from "../_common/TableViewer";
-import { IFlight, SEATCLASS } from "../../interfaces/flightModel";
+import { IFlight } from "../../interfaces/flightModel";
 import { connect } from "react-redux";
-import { createSection, deleteSection } from "../../_redux/actions/flightActions";
+import { createSection, deleteSection } from "../../_redux/slices/flightsSlice";
 import { selectFlightIds, selectFlightByFlightId } from "../../utils/selectors";
 import { colsList, rowsList } from "../../utils/constants";
 import { useState } from "react";
-
-interface AddSectionProps {
-  flightIds: string[];
-  getFlightById(flightId: string): IFlight;
-  createSection(id: number, seatClass: SEATCLASS, rows: number, cols: number): void;
-  deleteSection(id: number, seatClass: SEATCLASS): void;
-}
+import { AddSectionProps } from "../../interfaces/propsInterfaces";
 
 const AddSection = (props: AddSectionProps) => {
-  const [seatClass, setSeatClass] = useState<SEATCLASS | null>(null);
-  const [rows, setRows] = useState<number>(0);
-  const [cols, setCols] = useState<number>(0);
-  const [flight, setFlight] = useState<IFlight | null>(null);
+  const [flight, setFlight] = useState<IFlight | undefined>(undefined);
+  const [sectionInfo, setSectionInfo] = useState<{
+    seatClass: string;
+    rows: number;
+    cols: number;
+  }>({ seatClass: "", rows: 0, cols: 0 });
 
   const [defaultOption, setDefaultOption] = useState(false);
 
   const resetValues = () => {
-    setSeatClass(null);
-    setRows(0);
-    setCols(0);
+    setSectionInfo({ seatClass: "", rows: 0, cols: 0 });
     setDefaultOption(true);
   };
 
@@ -35,14 +29,12 @@ const AddSection = (props: AddSectionProps) => {
   };
 
   const AddNewSectionHandler = () => {
-    if (
-      flight !== null &&
-      flight!.seatClasses !== undefined &&
-      seatClass !== null &&
-      flight.seatClasses.get(seatClass) === undefined
-    ) {
-      props.createSection(flight.id!, seatClass, rows, cols);
-    }
+    props.createSection({
+      id: flight!.id,
+      seatClass: sectionInfo.seatClass,
+      rows: sectionInfo.rows,
+      cols: sectionInfo.cols,
+    });
   };
 
   const ExtractAvailableSeatClasses = () => {
@@ -55,7 +47,8 @@ const AddSection = (props: AddSectionProps) => {
     return availableseatClasses;
   };
 
-  let isAddSectionEnabled = flight !== null && rows !== 0 && cols !== 0 && seatClass !== null;
+  let isAddSectionEnabled =
+    flight !== undefined && sectionInfo.rows !== 0 && sectionInfo.cols !== 0 && sectionInfo.seatClass !== "";
 
   return (
     <div className="ui segment">
@@ -71,21 +64,21 @@ const AddSection = (props: AddSectionProps) => {
         <Dropdown
           label="Section:"
           list={ExtractAvailableSeatClasses()}
-          onChange={setSeatClass}
+          onChange={(value) => setSectionInfo({ ...sectionInfo, seatClass: value })}
           defaultOption={defaultOption}
           setDefaultOption={setDefaultOption}
         />
         <Dropdown
           label="Number of Rows:"
           list={rowsList()}
-          onChange={setRows}
+          onChange={(value) => setSectionInfo({ ...sectionInfo, rows: value })}
           defaultOption={defaultOption}
           setDefaultOption={setDefaultOption}
         />
         <Dropdown
           label="Number of Cols:"
           list={colsList()}
-          onChange={setCols}
+          onChange={(value) => setSectionInfo({ ...sectionInfo, cols: value })}
           defaultOption={defaultOption}
           setDefaultOption={setDefaultOption}
         />
@@ -113,16 +106,17 @@ const AddSection = (props: AddSectionProps) => {
                 })
               : null
           }
-          onDelete={(el: any) => props.deleteSection(flight!.id!, el.seatClass)}
+          onDelete={(el) => props.deleteSection({ id: flight!.id!, seatClass: el.seatClass })}
         />
       </div>
     </div>
   );
 };
 
-const mapStateToProps = (state: typeof store) => {
-  const flightIds = selectFlightIds(state);
-  const getFlightById = (flightId: string) => (flightId !== "" ? selectFlightByFlightId(state, flightId) : null);
+const mapStateToProps = (state: RootState) => {
+  const flightIds: string[] = selectFlightIds(state);
+  const getFlightById = (flightId: string): IFlight | undefined =>
+    flightId !== "" ? selectFlightByFlightId(state, flightId) : undefined;
 
   return { flightIds, getFlightById };
 };
