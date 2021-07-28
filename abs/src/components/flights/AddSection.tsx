@@ -11,30 +11,21 @@ import { AddSectionProps } from "../../interfaces/propsInterfaces";
 
 const AddSection = (props: AddSectionProps) => {
   const [flight, setFlight] = useState<IFlight | undefined>(undefined);
-  const [sectionInfo, setSectionInfo] = useState<{
-    seatClass: string;
-    rows: number;
-    cols: number;
-  }>({ seatClass: "", rows: 0, cols: 0 });
+  const [seatClass, setSeatClass] = useState<string>("");
+  const [rows, setRows] = useState<number>(0);
+  const [cols, setCols] = useState<number>(0);
 
   const [defaultOption, setDefaultOption] = useState(false);
 
   const resetValues = () => {
-    setSectionInfo({ seatClass: "", rows: 0, cols: 0 });
+    setSeatClass("");
+    setRows(0);
+    setCols(0);
     setDefaultOption(true);
   };
 
   const FlightIdChangeHandler = (flightId: string) => {
     setFlight(props.getFlightById(flightId));
-  };
-
-  const AddNewSectionHandler = () => {
-    props.createSection({
-      id: flight!.id,
-      seatClass: sectionInfo.seatClass,
-      rows: sectionInfo.rows,
-      cols: sectionInfo.cols,
-    });
   };
 
   const ExtractAvailableSeatClasses = () => {
@@ -47,8 +38,7 @@ const AddSection = (props: AddSectionProps) => {
     return availableseatClasses;
   };
 
-  let isAddSectionEnabled =
-    flight !== undefined && sectionInfo.rows !== 0 && sectionInfo.cols !== 0 && sectionInfo.seatClass !== "";
+  let isAddSectionEnabled = flight !== undefined && rows !== 0 && cols !== 0 && seatClass !== "";
 
   return (
     <div className="ui segment">
@@ -64,21 +54,21 @@ const AddSection = (props: AddSectionProps) => {
         <Dropdown
           label="Section:"
           list={ExtractAvailableSeatClasses()}
-          onChange={(value) => setSectionInfo({ ...sectionInfo, seatClass: value })}
+          onChange={setSeatClass}
           defaultOption={defaultOption}
           setDefaultOption={setDefaultOption}
         />
         <Dropdown
           label="Number of Rows:"
           list={rowsList()}
-          onChange={(value) => setSectionInfo({ ...sectionInfo, rows: value })}
+          onChange={setRows}
           defaultOption={defaultOption}
           setDefaultOption={setDefaultOption}
         />
         <Dropdown
           label="Number of Cols:"
           list={colsList()}
-          onChange={(value) => setSectionInfo({ ...sectionInfo, cols: value })}
+          onChange={setCols}
           defaultOption={defaultOption}
           setDefaultOption={setDefaultOption}
         />
@@ -87,7 +77,12 @@ const AddSection = (props: AddSectionProps) => {
       <button
         className={`ui ${isAddSectionEnabled ? "" : "disabled"} button`}
         onClick={() => {
-          AddNewSectionHandler();
+          props.createSection({
+            id: flight!.id,
+            seatClass: seatClass,
+            rows: rows,
+            cols: cols,
+          });
           resetValues();
         }}
       >
@@ -99,7 +94,7 @@ const AddSection = (props: AddSectionProps) => {
         <TableViewer
           content={
             flight
-              ? Array.from(flight.seatClasses!.values()).map((el) => {
+              ? Array.from(flight.seatClasses?.values()).map((el) => {
                   let elCopy = { ...el };
                   delete elCopy.seats;
                   return elCopy;
