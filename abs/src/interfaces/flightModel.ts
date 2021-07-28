@@ -12,7 +12,7 @@ export interface ISeatClasses {
   seatClass: string;
   rows: number;
   cols: number;
-  seats: Map<string, ISeat>;
+  seats?: Map<string, ISeat>;
   maxCapacity: number;
   currOcuppation: number;
 }
