@@ -1,14 +1,12 @@
 import React from "react";
-import { ISeat } from "../../interfaces/flightModel";
+import { ShowSeatsProps } from "../../interfaces/propsInterfaces";
 import TableViewer from "../_common/TableViewer";
-
-interface ShowSeatsProps {
-  seats: Map<string, ISeat>;
-}
 
 const ShowSeats = (props: ShowSeatsProps) => {
   const createSeatsContent = () => {
-    if (props.seats) {
+    console.log("SEATS");
+    if (props.seats !== undefined) {
+      console.log(props.seats!.values());
       let seats = Array.from(props.seats.values());
       return <TableViewer content={seats} />;
     }
