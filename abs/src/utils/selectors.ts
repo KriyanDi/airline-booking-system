@@ -1,17 +1,27 @@
-// Returns array of airports from the store
-export const selectAirports = (store: any) => (store && store.airportReducer ? Array.from(store.airportReducer.airports.values()) : []);
+import { IAirline } from "../interfaces/airlineModel";
+import { IAirport } from "../interfaces/airportModel";
+import { IFlight, ISeatClasses } from "../interfaces/flightModel";
+import { RootState } from "../_redux/store";
 
-// Returns array of airlines from the store
-export const selectAirlines = (store: any) => (store && store.airlineReducer ? Array.from(store.airlineReducer.airlines.values()) : []);
+// Returns array of airports from the state
+export const selectAirports = (state: RootState): IAirport[] =>
+  state && state.airportsReducer ? Array.from(state.airportsReducer.airports.values()) : [];
 
-// Returns array of flights from the store
-export const selectFlights = (store: any) => (store && store.flightReducer ? Array.from(store.flightReducer.flights.values()) : []);
+// Returns array of airlines from the state
+export const selectAirlines = (state: RootState): IAirline[] =>
+  state && state.airlinesReducer ? Array.from(state.airlinesReducer.airlines.values()) : [];
 
-// Returns array of flightIds from the store
-export const selectFlightIds = (store: any) => selectFlights(store).map((el: any) => el.flightId);
+// Returns array of flights from the state
+export const selectFlights = (state: RootState): IFlight[] =>
+  state && state.flightsReducer ? Array.from(state.flightsReducer.flights.values()) : [];
+
+// Returns array of flightIds from the state
+export const selectFlightIds = (state: RootState): string[] => selectFlights(state).map((el: IFlight) => el.flightId);
 
 // Returns flight by given flightId
-export const selectFlightByFlightId = (store: any, flightId: any): any => selectFlights(store).find((el: any) => el.flightId === flightId);
+export const selectFlightByFlightId = (state: RootState, flightId: string): IFlight | undefined =>
+  selectFlights(state).find((el: IFlight) => el.flightId === flightId);
 
 // Returns array of seat classes of flight by given flightId
-export const selectFlightSeatClasses = (store: any, flightId: any): any => selectFlightByFlightId(store, flightId).seatClasses;
+export const selectFlightSeatClasses = (state: RootState, flightId: string): Map<string, ISeatClasses> | undefined =>
+  selectFlightByFlightId(state, flightId)?.seatClasses;
