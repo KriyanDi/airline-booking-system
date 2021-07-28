@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IAirline } from "../../interfaces/airlineModel";
 
+let counter = 0;
+
 export interface AirlineState {
   airlines: Map<number, IAirline>;
 }
@@ -18,23 +20,21 @@ export const airlinesSlice = createSlice({
   name: "airlines",
   initialState: initialState,
   reducers: {
-    createAirline: (state, action: PayloadAction<{ id: number; name: string }>) => {
-      state.airlines.set(action.payload.id, {
+    createAirline: (state, action: PayloadAction<{ name: string }>) => {
+      const airlineId = counter++;
+
+      state.airlines.set(airlineId, {
         name: action.payload.name,
-        id: action.payload.id,
+        id: airlineId,
       });
 
-      return {
-        ...state,
-      };
+      return state;
     },
 
     deleteAirline: (state, action: PayloadAction<{ id: number }>) => {
       state.airlines.delete(action.payload.id);
 
-      return {
-        ...state,
-      };
+      return state;
     },
   },
 });
