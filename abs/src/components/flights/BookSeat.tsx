@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { RootState } from "../../_redux/store";
 import Dropdown from "../_common/Dropdown";
 import { connect } from "react-redux";
-import { IFlight } from "../../interfaces/flightModel";
+import { IFlight, ISeatClasses } from "../../interfaces/flightModel";
 import { selectFlightIds, selectAirports, selectFlightByFlightId } from "../../utils/selectors";
 import { colsListChar, rowsList } from "../../utils/constants";
 import ShowSeats from "./ShowSeats";
@@ -12,8 +12,8 @@ import { BookSeatProps } from "../../interfaces/propsInterfaces";
 const BookSeat = (props: BookSeatProps) => {
   const [flightId, setFlightId] = useState<string>("");
   const [seatClass, setSeatClass] = useState<string>("");
-  const [row, setRow] = useState<number>(0);
-  const [col, setCol] = useState<number>(0);
+  const [row, setRow] = useState<number | null>(0);
+  const [col, setCol] = useState<number | null>(0);
 
   const [defaultOption, setDefaultOption] = useState(false);
 
@@ -21,11 +21,11 @@ const BookSeat = (props: BookSeatProps) => {
     flight !== undefined && flight.seatClasses !== undefined ? Array.from(flight.seatClasses.keys()) : [];
 
   const extractSeats = (flightId: string) => {
-    if (flightId && flightId !== "") {
+    if (flightId !== "" && seatClass !== "") {
       let flight = props.getFlightById(flightId);
       if (flight) {
-        let section = flight.seatClasses?.get(seatClass!);
-        return section ? section.seats.values() : undefined;
+        let section: ISeatClasses = flight.seatClasses.get(seatClass);
+        return section ? section.seats : undefined;
       }
     }
 
@@ -33,8 +33,8 @@ const BookSeat = (props: BookSeatProps) => {
   };
 
   const resetValues = () => {
-    setRow(0);
-    setCol(0);
+    setRow(null);
+    setCol(null);
     setDefaultOption(true);
   };
 
@@ -43,7 +43,6 @@ const BookSeat = (props: BookSeatProps) => {
   return (
     <div className="ui form field segment container">
       <h4 className="ui dividing header">"Book Seat"</h4>
-
       <div className="two fields">
         <Dropdown label="Flight Id:" list={props.flightIds} onChange={setFlightId} />
         <Dropdown
@@ -52,6 +51,9 @@ const BookSeat = (props: BookSeatProps) => {
           onChange={setSeatClass}
         />
       </div>
+
+      {console.log("VEFORE")}
+      {console.log(seatClass)}
 
       <div className="two fields">
         <Dropdown
@@ -69,19 +71,26 @@ const BookSeat = (props: BookSeatProps) => {
           setDefaultOption={setDefaultOption}
         />
       </div>
-
       <button
         className={`ui ${isBookSeatButtonEnabled ? "" : "disabled"} button`}
         onClick={() => {
           let flight = props.getFlightById(flightId);
-          props.bookSeat({ id: flight?.id, seatClass: seatClass, seatId: `${row}${col}` });
+
+          console.log("AFTER");
+          console.log(`${row}${col}`);
+          console.log(seatClass);
+
+          let tempSeatId = `${row}${col}`;
+
+          props.bookSeat({ id: flight?.id, seatClass: seatClass, seatId: tempSeatId });
           resetValues();
         }}
       >
         Book Seat
       </button>
 
-      <ShowSeats seats={extractSeats(flightId)} />
+      {/* shows seats */}
+      <ShowSeats title={seatClass} seats={extractSeats(flightId)} />
     </div>
   );
 };
