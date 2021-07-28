@@ -1,16 +1,10 @@
 import React from "react";
-
-interface TableViewerProps {
-  content: any;
-  onDelete?(el: any): void;
-}
+import { TableViewerProps } from "../../interfaces/propsInterfaces";
 
 const getObjectKeys = (object: any) => (object ? Object.keys(object) : null);
 
 const setTableHead = (list: any) =>
-  list && list.length
-    ? list.map((el: any, index: number) => <th key={index}>{el.toUpperCase()}</th>)
-    : null;
+  list && list.length ? list.map((el: any, index: number) => <th key={index}>{el.toUpperCase()}</th>) : null;
 
 const setRowContent = (data: any) => {
   let keys = Object.keys(data);
