@@ -1,3 +1,9 @@
+export const SEATCLASS = {
+  FIRST: "FIRST",
+  BUSINESS: "BUSINESS",
+  ECONOMY: "ECONOMY",
+};
+
 export const years = () => {
   let _years = [];
 
