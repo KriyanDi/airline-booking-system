@@ -1,17 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
-import airlinesReducer from "./slices/airlinesSlice";
-import airportsReducer from "./slices/airportsSlice";
-import flightsReducer from "./slices/flightsSlice";
+import { createStore } from "@reduxjs/toolkit";
+import rootReducer from "./rootReducer";
 
-export const store = configureStore({
-  reducer: {
-    airlines: airlinesReducer,
-    airports: airportsReducer,
-    flights: flightsReducer,
-  },
-});
+export const store = createStore(rootReducer);
 
 export type AppDispatch = typeof store.dispatch;
+
 export type RootState = ReturnType<typeof store.getState>;
 
 export default store;
