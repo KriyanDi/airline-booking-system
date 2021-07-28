@@ -1,9 +1,9 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 
 interface DropdownProps {
   label: string;
   list: any[];
-  onChange(event: any): any; //fix this type
+  onChange(value: any): any;
   defaultOption?: boolean;
   setDefaultOption?(value: boolean): void;
 }
