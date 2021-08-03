@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportApi", "AirportApi\AirportApi.csproj", "{5B6681BD-CED0-4E74-B298-40FC393B123F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportsApi", "AirportsApi\AirportsApi.csproj", "{C2B4CCE5-A04B-40BF-A7C6-32BE653D4F69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5B6681BD-CED0-4E74-B298-40FC393B123F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B6681BD-CED0-4E74-B298-40FC393B123F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5B6681BD-CED0-4E74-B298-40FC393B123F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5B6681BD-CED0-4E74-B298-40FC393B123F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2B4CCE5-A04B-40BF-A7C6-32BE653D4F69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2B4CCE5-A04B-40BF-A7C6-32BE653D4F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2B4CCE5-A04B-40BF-A7C6-32BE653D4F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2B4CCE5-A04B-40BF-A7C6-32BE653D4F69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
