@@ -9,6 +9,7 @@ using WebAbsApi.Configurations;
 using WebAbsApi.Data;
 using WebAbsApi.IRepository;
 using WebAbsApi.Repository;
+using Newtonsoft.Json;
 
 namespace WebAbsApi
 {
@@ -37,7 +38,8 @@ namespace WebAbsApi
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             // CORS
-            services.AddCors(opt => {
+            services.AddCors(opt =>
+            {
                 opt.AddPolicy("CorsPolicy", builder =>
                     builder.AllowAnyOrigin()
                     .AllowAnyMethod()
@@ -50,7 +52,9 @@ namespace WebAbsApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAbsApi", Version = "v1" });
             });
 
-            services.AddControllers();
+            // Controllers
+            services.AddControllers()
+                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -12,6 +12,6 @@ namespace WebAbsApi.Models
 
     public class AirportDTO : CreateAirportDTO
     {
-        public int AirportId { get; set; }
+        public int Id { get; set; }
     }
 }
