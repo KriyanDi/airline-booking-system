@@ -64,6 +64,9 @@ namespace WebAbsApi
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AbsWepApi v1"));
 
+            // Global Exception Handler
+            app.ConfigureExceptionHandler();
+
             app.UseHttpsRedirection();
 
             // CORS
