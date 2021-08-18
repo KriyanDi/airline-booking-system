@@ -7,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using WebAbsApi.Configurations;
 using WebAbsApi.Data;
+using WebAbsApi.IRepository;
+using WebAbsApi.Repository;
 
 namespace WebAbsApi
 {
@@ -30,6 +32,9 @@ namespace WebAbsApi
 
             // AutoMapper
             services.AddAutoMapper(typeof(MapperInitializer));
+
+            // Transient
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             // CORS
             services.AddCors(opt => {
