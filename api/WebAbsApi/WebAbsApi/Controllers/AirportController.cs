@@ -25,16 +25,8 @@ namespace WebAbsApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAirports()
         {
-            try
-            {
-                var airports = await _unitOfWork.Airports.GetAll();
-                return Ok(airports);
-            }
-            catch (Exception ex)
-            {
-
-                return StatusCode(500, $"{ex}");
-            }
+            var airports = await _unitOfWork.Airports.GetAll();
+            return Ok(airports);
         }
     }
 }
