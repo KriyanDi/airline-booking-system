@@ -2,9 +2,8 @@ import React from "react";
 import ManageAirports from "./components/airports/ManageAirports";
 import ManageAirlines from "./components/airlines/ManageAirlines";
 import ManageFlights from "./components/flights/ManageFlights";
-
-import { Provider } from "react-redux";
 import store from "./_redux/store";
+import { Provider } from "react-redux";
 
 const App = () => {
   return (

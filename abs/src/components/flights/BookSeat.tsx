@@ -52,9 +52,6 @@ const BookSeat = (props: BookSeatProps) => {
         />
       </div>
 
-      {console.log("VEFORE")}
-      {console.log(seatClass)}
-
       <div className="two fields">
         <Dropdown
           label="Number of Rows:"
@@ -75,10 +72,6 @@ const BookSeat = (props: BookSeatProps) => {
         className={`ui ${isBookSeatButtonEnabled ? "" : "disabled"} button`}
         onClick={() => {
           let flight = props.getFlightById(flightId);
-
-          console.log("AFTER");
-          console.log(`${row}${col}`);
-          console.log(seatClass);
 
           let tempSeatId = `${row}${col}`;
 

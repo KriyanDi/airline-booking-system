@@ -1,8 +1,10 @@
 import React from "react";
 import { render } from "react-dom";
-import AppTest from "./test";
+import App from "./App";
+import Test from "./test";
 
 import { enableMapSet } from "immer";
 enableMapSet();
 
-render(<AppTest />, document.getElementById("root"));
+//render(<App />, document.getElementById("root"));
+render(<Test />, document.getElementById("root"));

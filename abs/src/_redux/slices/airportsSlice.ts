@@ -1,44 +1,71 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IAirport } from "../../interfaces/airportModel";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-let counter = 0;
+const fetchAirportNames = createAsyncThunk("airports/fetchAllAirportNamesStatus", async () => {
+  const response = await fetch("https://localhost:44350/api/Airports").then((response) => response.json());
+  return response.data;
+});
 
-export interface AirportState {
-  airports: Map<number, IAirport>;
-}
-
-const initialState: AirportState = {
-  airports: new Map()
-    .set(100, { name: "DTC", id: 100 })
-    .set(101, { name: "BGN", id: 101 })
-    .set(102, { name: "UTS", id: 102 })
-    .set(103, { name: "WEQ", id: 103 })
-    .set(104, { name: "POS", id: 104 }),
-};
-
-export const airportsSlice = createSlice({
+const airportsSlice = createSlice({
   name: "airports",
-  initialState: initialState,
-  reducers: {
-    createAirport: (state, action: PayloadAction<{ name: string }>) => {
-      const airlineId = counter++;
-
-      state.airports.set(airlineId, {
-        name: action.payload.name,
-        id: airlineId,
-      });
-
-      return state;
-    },
-
-    deleteAirport: (state, action: PayloadAction<{ id: number }>) => {
-      state.airports.delete(action.payload.id);
-
-      return state;
-    },
+  initialState: { airports: [], loading: "idle", error: `` },
+  reducers: {},
+  extraReducers: {
+    [fetchAirportNames.pending]: (state, action) => {},
   },
 });
 
-export const { createAirport, deleteAirport } = airportsSlice.actions;
+// import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+// import { IAirport } from "../../interfaces/airportModel";
+// import axios from "axios";
+// import { apiAddress } from "../../utils/constants";
+// import { useState } from "react";
 
-export default airportsSlice.reducer;
+// let counter = 0;
+
+// export interface AirportState {
+//   airports: Map<number, IAirport>;
+// }
+
+// async function setAirports() {
+//   let dataAirports: any = [];
+
+//   await axios
+//     .get(`${apiAddress}/Airports`)
+//     .then((res) => res)
+//     .then((info) => {
+//       dataAirports = info.data;
+//     })
+//     .catch(function (error) {
+//       console.log(error);
+//     });
+
+//   let initialState: AirportState = { airports: new Map() };
+
+//   dataAirports.forEach((airport: any) => initialState.airports.set(airport.id, { name: airport.name, id: airport.id }));
+
+//   console.log(initialState);
+
+//   return initialState;
+// }
+
+// export const airportsSlice = createSlice({
+//   name: "airports",
+//   initialState: setAirports(),
+//   reducers: {
+//     createAirport: async (state, action: PayloadAction<{ name: string }>) => {
+//       await axios.post(`${apiAddress}/Airports`, { name: action.payload.name });
+
+//       return state;
+//     },
+
+//     deleteAirport: async (state, action: PayloadAction<{ id: number }>) => {
+//       await axios.delete(`${apiAddress}/Airports/${action.payload.id}`);
+
+//       return state;
+//     },
+//   },
+// });
+
+// export const { createAirport, deleteAirport } = airportsSlice.actions;
+
+// export default airportsSlice.reducer;

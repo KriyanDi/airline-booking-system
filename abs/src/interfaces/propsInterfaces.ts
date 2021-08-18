@@ -5,7 +5,7 @@ import { IFlight, ISeat } from "./flightModel";
 
 // AIRPORT
 export interface ManageAirportProps {
-  airportValues: IAirport[];
+  airportValues: Promise<IAirport[]>;
   createAirport: ActionCreatorWithPayload<{ name: string }, string>;
   deleteAirport: ActionCreatorWithPayload<{ id: number }, string>;
   deleteFlightsOnDeletedAirport: ActionCreatorWithPayload<{ name: string }, string>;

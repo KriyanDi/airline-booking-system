@@ -68,3 +68,5 @@ export const colsListChar = (number: number) => {
 
   return _cols;
 };
+
+export const apiAddress = "https://localhost:44350/api";

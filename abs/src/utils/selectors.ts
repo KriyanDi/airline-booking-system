@@ -4,8 +4,8 @@ import { IFlight, ISeatClasses } from "../interfaces/flightModel";
 import { RootState } from "../_redux/store";
 
 // Returns array of airports from the state
-export const selectAirports = (state: RootState): IAirport[] =>
-  state && state.airportsReducer ? Array.from(state.airportsReducer.airports.values()) : [];
+export const selectAirports = async (state: RootState): Promise<IAirport[]> =>
+  state && state.airportsReducer ? Array.from((await state.airportsReducer).airports.values()) : [];
 
 // Returns array of airlines from the state
 export const selectAirlines = (state: RootState): IAirline[] =>
