@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using WebAbsApi.Configurations;
 using WebAbsApi.Data;
 
 namespace WebAbsApi
@@ -26,6 +27,9 @@ namespace WebAbsApi
             {
                 opt.UseSqlServer(Configuration.GetConnectionString("sqlConnection"));
             });
+
+            // AutoMapper
+            services.AddAutoMapper(typeof(MapperInitializer));
 
             // CORS
             services.AddCors(opt => {
