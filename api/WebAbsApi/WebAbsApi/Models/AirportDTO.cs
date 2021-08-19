@@ -10,6 +10,10 @@ namespace WebAbsApi.Models
         public string Name { get; set; }
     }
 
+    public class UpdateAirportDTO : CreateAirportDTO
+    {
+    }
+
     public class AirportDTO : CreateAirportDTO
     {
         public int Id { get; set; }
