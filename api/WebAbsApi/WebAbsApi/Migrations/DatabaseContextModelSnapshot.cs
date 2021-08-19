@@ -18,6 +18,52 @@ namespace WebAbsApi.Migrations
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("WebAbsApi.Data.Airline", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
+
+                    b.ToTable("Airlines");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "DELTA"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "SSSKY"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "FLYSS"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "ARB"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "WIZZ"
+                        });
+                });
+
             modelBuilder.Entity("WebAbsApi.Data.Airport", b =>
                 {
                     b.Property<int>("Id")

@@ -9,8 +9,8 @@ using WebAbsApi.Data;
 namespace WebAbsApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210818065641_AddedAirport")]
-    partial class AddedAirport
+    [Migration("20210819073535_AddAirlineAirport")]
+    partial class AddAirlineAirport
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,52 @@ namespace WebAbsApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("WebAbsApi.Data.Airline", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
+
+                    b.ToTable("Airlines");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "DELTA"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "SSSKY"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "FLYSS"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "ARB"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "WIZZ"
+                        });
+                });
 
             modelBuilder.Entity("WebAbsApi.Data.Airport", b =>
                 {

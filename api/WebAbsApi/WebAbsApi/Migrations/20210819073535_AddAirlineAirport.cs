@@ -2,10 +2,23 @@
 
 namespace WebAbsApi.Migrations
 {
-    public partial class AddedAirport : Migration
+    public partial class AddAirlineAirport : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Airlines",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Airlines", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Airports",
                 columns: table => new
@@ -17,6 +30,18 @@ namespace WebAbsApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Airports", x => x.Id);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Airlines",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "DELTA" },
+                    { 2, "SSSKY" },
+                    { 3, "FLYSS" },
+                    { 4, "ARB" },
+                    { 5, "WIZZ" }
                 });
 
             migrationBuilder.InsertData(
@@ -32,6 +57,13 @@ namespace WebAbsApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Airlines_Name",
+                table: "Airlines",
+                column: "Name",
+                unique: true,
+                filter: "[Name] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Airports_Name",
                 table: "Airports",
                 column: "Name",
@@ -41,6 +73,9 @@ namespace WebAbsApi.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Airlines");
+
             migrationBuilder.DropTable(
                 name: "Airports");
         }
