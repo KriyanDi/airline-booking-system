@@ -108,7 +108,7 @@ namespace WebAbsApi.Controllers
             var airport = await _unitOfWork.Airports.Get(q => q.Id == id);
             if (airport == null)
             {
-                _logger.LogError($"Invalid DELETE attempt in {nameof(UpdateAirport)}");
+                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteAirport)}");
                 return BadRequest("Submitted data is invalid.");
             }
 
