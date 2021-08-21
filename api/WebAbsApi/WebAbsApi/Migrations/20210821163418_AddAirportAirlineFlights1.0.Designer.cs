@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAbsApi.Data;
 
 namespace WebAbsApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210821163418_AddAirportAirlineFlights1.0")]
+    partial class AddAirportAirlineFlights10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,9 +160,9 @@ namespace WebAbsApi.Migrations
                             Id = 2,
                             AirlineId = 2,
                             Date = new DateTime(2021, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DestinationId = 1,
+                            DestinationId = 3,
                             FlightNumber = "211111111",
-                            OriginId = 5
+                            OriginId = 2
                         });
                 });
 

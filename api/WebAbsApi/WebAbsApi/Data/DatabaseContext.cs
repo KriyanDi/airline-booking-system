@@ -9,7 +9,6 @@ namespace WebAbsApi.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            // Airports
             builder.Entity<Airport>()
                 .HasIndex(e => e.Name)
                 .IsUnique(true);
@@ -41,7 +40,6 @@ namespace WebAbsApi.Data
                     Name = "ZAG"
                 });
 
-            // Airlines
             builder.Entity<Airline>(e =>
             {
                 e.HasKey(e => e.Id);
@@ -74,9 +72,41 @@ namespace WebAbsApi.Data
                     Id = 5,
                     Name = "WIZZ"
                 });
+
+            builder.Entity<Flight>().HasData(
+                new Flight
+                {
+                    Id = 1,
+                    FlightNumber = "111111111",
+                    Date = new System.DateTime(2021, 5, 13),
+                    AirlineId = 2,
+                    OriginId = 1,
+                    DestinationId = 5
+                },
+                new Flight
+                {
+                    Id = 2,
+                    FlightNumber = "211111111",
+                    Date = new System.DateTime(2021, 5, 20),
+                    AirlineId = 2,
+                    OriginId = 5,
+                    DestinationId = 1
+                }
+                );
+
+            builder.Entity<Flight>()
+                .HasOne(e => e.OriginAirport)
+                .WithMany(e => e.OriginToFlights)
+                .OnDelete(DeleteBehavior.ClientNoAction);
+
+            builder.Entity<Flight>()
+                .HasOne(e => e.DestinationAirport)
+                .WithMany(e => e.DestinationToFlights)
+                .OnDelete(DeleteBehavior.ClientNoAction);
         }
 
         public DbSet<Airport> Airports { get; set; }
         public DbSet<Airline> Airlines { get; set; }
+        public DbSet<Flight> Flights { get; set; }
     }
 }

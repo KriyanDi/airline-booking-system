@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using WebAbsApi.Data;
 using WebAbsApi.Models.ValidationAttributes;
 
 namespace WebAbsApi.Models
@@ -17,5 +19,8 @@ namespace WebAbsApi.Models
     public class AirportDTO : CreateAirportDTO
     {
         public int Id { get; set; }
+
+        public ICollection<FlightDTO> OriginToFlights { get; set; }
+        public ICollection<FlightDTO> DestinationToFlights { get; set; }
     }
 }

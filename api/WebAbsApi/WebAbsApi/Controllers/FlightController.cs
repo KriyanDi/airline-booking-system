@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WebAbsApi.Data;
 using WebAbsApi.IRepository;
@@ -12,13 +14,13 @@ namespace WebAbsApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AirlineController : ControllerBase
+    public class FlightController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger<AirlineController> _logger;
+        private readonly ILogger<FlightController> _logger;
         private readonly IMapper _mapper;
 
-        public AirlineController(IUnitOfWork unitOfWork, ILogger<AirlineController> logger, IMapper mapper)
+        public FlightController(IUnitOfWork unitOfWork, ILogger<FlightController> logger, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
@@ -28,20 +30,20 @@ namespace WebAbsApi.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetAirlines()
+        public async Task<IActionResult> GetFlights()
         {
-            var airlines = await _unitOfWork.Airlines.GetAll();
-            var results = _mapper.Map<IList<AirlineDTO>>(airlines);
+            var flights = await _unitOfWork.Flights.GetAll();
+            var results = _mapper.Map<IList<FlightDTO>>(flights);
             return Ok(results);
         }
 
-        [HttpGet("{id:int}", Name = "GetAirline")]
+        [HttpGet("{id:int}", Name = "GetFlight")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetAirline(int id)
+        public async Task<IActionResult> GetFlight(int id)
         {
-            var airline = await _unitOfWork.Airlines.Get(q => q.Id == id, new List<string>{"Flights"});
-            var result = _mapper.Map<AirlineDTO>(airline);
+            var flight = await _unitOfWork.Flights.Get(q => q.Id == id, new List<string> { "Airline", "OriginAirport", "DestinationAirport" });
+            var result = _mapper.Map<FlightDTO>(flight);
             return Ok(result);
         }
 
@@ -49,42 +51,42 @@ namespace WebAbsApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateAirline([FromBody] CreateAirlineDTO airlineDTO)
+        public async Task<IActionResult> CreateFlight([FromBody] CreateFlightDTO flightDTO)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _logger.LogError($"Invalid POST attempt in {nameof(CreateAirline)}");
+                _logger.LogError($"Invalid POST attempt in {nameof(CreateFlight)}");
                 return BadRequest(ModelState);
             }
 
-            var airline = _mapper.Map<Airline>(airlineDTO);
-            await _unitOfWork.Airlines.Insert(airline);
+            var flight = _mapper.Map<Flight>(flightDTO);
+            await _unitOfWork.Flights.Insert(flight);
             await _unitOfWork.Save();
 
-            return CreatedAtRoute("GetAirline", new { id = airline.Id }, airline);
+            return CreatedAtRoute("GetFlight", new { id = flight.Id }, flight);
         }
 
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateAirline(int id, [FromBody] UpdateAIrlineDTO airlineDTO)
+        public async Task<IActionResult> UpdateFlight(int id, [FromBody] UpdateFlightDTO flightDTO)
         {
-            if(!ModelState.IsValid || id < 0)
+            if (!ModelState.IsValid || id < 0)
             {
-                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateAirline)}");
+                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateFlight)}");
                 return BadRequest(ModelState);
             }
 
-            var airline = await _unitOfWork.Airlines.Get(q => q.Id == id);
-            if(airline == null)
+            var flight = await _unitOfWork.Flights.Get(q => q.Id == id);
+            if (flight == null)
             {
-                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateAirline)}");
+                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateFlight)}");
                 return BadRequest("Submitted data is invalid.");
             }
 
-            _mapper.Map(airlineDTO, airline);
-            _unitOfWork.Airlines.Update(airline);
+            _mapper.Map(flightDTO, flight);
+            _unitOfWork.Flights.Update(flight);
             await _unitOfWork.Save();
 
             return NoContent();
@@ -94,22 +96,22 @@ namespace WebAbsApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> DeleteAirline(int id)
+        public async Task<IActionResult> DeleteFlight(int id)
         {
-            if(id < 1)
+            if (id < 1)
             {
-                _logger.LogError($"Invalid DELETE attmpet in {nameof(DeleteAirline)}");
+                _logger.LogError($"Invalid DELETE attmpet in {nameof(DeleteFlight)}");
                 return BadRequest();
             }
 
-            var airline = await _unitOfWork.Airlines.Get(q => q.Id == id);
-            if(airline == null)
+            var flight = await _unitOfWork.Flights.Get(q => q.Id == id);
+            if (flight == null)
             {
-                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteAirline)}");
+                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteFlight)}");
                 return BadRequest("Submitted data is invalid.");
             }
 
-            await _unitOfWork.Airlines.Delete(id);
+            await _unitOfWork.Flights.Delete(id);
             await _unitOfWork.Save();
 
             return NoContent();

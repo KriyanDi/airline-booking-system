@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WebAbsApi.Data;
 using WebAbsApi.IRepository;
@@ -43,7 +41,7 @@ namespace WebAbsApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAirport(int id)
         {
-            var airport = await _unitOfWork.Airports.Get(q => q.Id == id);
+            var airport = await _unitOfWork.Airports.Get(q => q.Id == id, new List<string> { "OriginToFlights", "DestinationToFlights" });
             var result = _mapper.Map<AirportDTO>(airport);
             return Ok(result);
         }
@@ -73,14 +71,14 @@ namespace WebAbsApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateAirport(int id, [FromBody] UpdateAirportDTO airportDTO)
         {
-            if(!ModelState.IsValid || id < 1)
+            if (!ModelState.IsValid || id < 1)
             {
                 _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateAirport)}");
                 return BadRequest(ModelState);
             }
 
             var airport = await _unitOfWork.Airports.Get(q => q.Id == id);
-            if(airport == null)
+            if (airport == null)
             {
                 _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateAirport)}");
                 return BadRequest("Submitted data is invalid.");
@@ -99,7 +97,7 @@ namespace WebAbsApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteAirport(int id)
         {
-            if(id < 1)
+            if (id < 1)
             {
                 _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteAirport)}");
                 return BadRequest();

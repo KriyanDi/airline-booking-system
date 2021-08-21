@@ -17,6 +17,9 @@ namespace WebAbsApi.Configurations
 
             CreateMap<Airline, AirlineDTO>().ReverseMap();
             CreateMap<Airline, CreateAirlineDTO>().ReverseMap();
+
+            CreateMap<Flight, FlightDTO>().ReverseMap();
+            CreateMap<Flight, CreateFlightDTO>().ReverseMap();
         }
     }
 }
