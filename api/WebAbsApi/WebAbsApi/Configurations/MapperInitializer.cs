@@ -14,12 +14,19 @@ namespace WebAbsApi.Configurations
         {
             CreateMap<Airport, AirportDTO>().ReverseMap();
             CreateMap<Airport, CreateAirportDTO>().ReverseMap();
+            CreateMap<Airport, UpdateAirportDTO>().ReverseMap();
 
             CreateMap<Airline, AirlineDTO>().ReverseMap();
             CreateMap<Airline, CreateAirlineDTO>().ReverseMap();
+            CreateMap<Airline, UpdateAirlineDTO>().ReverseMap();
 
             CreateMap<Flight, FlightDTO>().ReverseMap();
             CreateMap<Flight, CreateFlightDTO>().ReverseMap();
+            CreateMap<Flight, UpdateFlightDTO>().ReverseMap();
+
+            CreateMap<FlightSection, FlightSectionDTO>().ReverseMap();
+            CreateMap<FlightSection, CreateFlightSectionDTO>().ReverseMap();
+            CreateMap<FlightSection, UpdateFlightSectionDTO>().ReverseMap();
         }
     }
 }
