@@ -34,6 +34,10 @@ namespace WebAbsApi.Configurations.Entities
                 );
 
             builder
+                .HasIndex(e => e.FlightNumber)
+                .IsUnique(true);
+
+            builder
                 .HasOne(e => e.OriginAirport)
                 .WithMany(e => e.OriginToFlights)
                 .OnDelete(DeleteBehavior.ClientNoAction);
