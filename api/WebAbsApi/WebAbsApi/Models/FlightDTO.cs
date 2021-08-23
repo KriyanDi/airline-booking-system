@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WebAbsApi.Data;
 
@@ -32,5 +33,7 @@ namespace WebAbsApi.Models
         public AirlineDTO Airline { get; set; }
         public AirportDTO OriginAirport { get; set; }
         public AirportDTO DestinationAirport { get; set; }
+
+        public ICollection<FlightSectionDTO> FlightSections { get; set; }
     }
 }

@@ -23,5 +23,7 @@ namespace WebAbsApi.Data
         [ForeignKey(nameof(DestinationAirport))]
         public int DestinationId { get; set; }
         public Airport DestinationAirport { get; set; }
+
+        public ICollection<FlightSection> FlightSections { get; set; }
     }
 }
