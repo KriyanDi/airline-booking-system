@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WebAbsApi.Data;
 using WebAbsApi.IRepository;
@@ -14,6 +12,7 @@ namespace WebAbsApi.Repository
         private IGenericRepository<Airport> _airports;
         private IGenericRepository<Airline> _airlines;
         private IGenericRepository<Flight> _flights;
+        private IGenericRepository<FlightSection> _flightSections;
 
         public UnitOfWork(DatabaseContext context)
         {
@@ -25,6 +24,8 @@ namespace WebAbsApi.Repository
         public IGenericRepository<Airline> Airlines => _airlines ??= new GenericRepository<Airline>(_context);
 
         public IGenericRepository<Flight> Flights => _flights ??= new GenericRepository<Flight>(_context);
+
+        public IGenericRepository<FlightSection> FlightSections => _flightSections ??= new GenericRepository<FlightSection>(_context);
 
         public async Task Save()
         {
