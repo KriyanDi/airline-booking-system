@@ -8,11 +8,11 @@ namespace WebAbsApi.Models
 {
     public class CreateAirlineDTO
     {
-        [AirlineName]
+        [AirlineName(ErrorMessage = "Name should contains between 1 and 5 capital letters or numbers.")]
         public string Name { get; set; }
     }
 
-    public class UpdateAIrlineDTO : CreateAirlineDTO
+    public class UpdateAirlineDTO : CreateAirlineDTO
     {
     }
 

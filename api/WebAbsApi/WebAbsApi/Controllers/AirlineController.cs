@@ -68,7 +68,7 @@ namespace WebAbsApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateAirline(int id, [FromBody] UpdateAIrlineDTO airlineDTO)
+        public async Task<IActionResult> UpdateAirline(int id, [FromBody] UpdateAirlineDTO airlineDTO)
         {
             if(!ModelState.IsValid || id < 0)
             {
