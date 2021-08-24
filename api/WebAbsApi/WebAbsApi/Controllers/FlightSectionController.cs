@@ -42,7 +42,7 @@ namespace WebAbsApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetFlightSection(int id)
         {
-            var flightSection = await _unitOfWork.FlightSections.Get(q => q.Id == id, new List<string> {"Flight"});
+            var flightSection = await _unitOfWork.FlightSections.Get(q => q.Id == id, new List<string> {"Flight","Seats"});
             var result = _mapper.Map<FlightSectionDTO>(flightSection);
             return Ok(result);
         }
