@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAbsApi.Data
@@ -13,6 +14,6 @@ namespace WebAbsApi.Data
         public int FlightId { get; set; }
         public Flight Flight { get; set; }
 
-        //public ICollection<Seat> Seats { get; set; }
+        public ICollection<Seat> Seats { get; set; }
     }
 }
