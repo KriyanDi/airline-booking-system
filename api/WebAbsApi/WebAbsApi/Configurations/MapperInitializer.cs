@@ -27,6 +27,10 @@ namespace WebAbsApi.Configurations
             CreateMap<FlightSection, FlightSectionDTO>().ReverseMap();
             CreateMap<FlightSection, CreateFlightSectionDTO>().ReverseMap();
             CreateMap<FlightSection, UpdateFlightSectionDTO>().ReverseMap();
+            
+            CreateMap<Seat, SeatDTO>().ReverseMap();
+            CreateMap<Seat, CreateSeatDTO>().ReverseMap();
+            CreateMap<Seat, UpdateSeatDTO>().ReverseMap();
         }
     }
 }

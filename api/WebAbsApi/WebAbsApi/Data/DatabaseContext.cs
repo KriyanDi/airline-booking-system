@@ -16,6 +16,7 @@ namespace WebAbsApi.Data
             builder.ApplyConfiguration(new AirlineConfiguration());
             builder.ApplyConfiguration(new FlightConfiguration());
             builder.ApplyConfiguration(new FlightSectionConfiguration());
+            builder.ApplyConfiguration(new SeatConfiguration());
         }
 
         public DbSet<Airport> Airports { get; set; }
