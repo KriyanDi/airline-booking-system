@@ -189,7 +189,7 @@ namespace WebAbsApi.Migrations
                         .IsUnique()
                         .HasFilter("[SeatClass] IS NOT NULL");
 
-                    b.ToTable("FlightSections");
+                    b.ToTable("Seats");
 
                     b.HasData(
                         new
@@ -242,7 +242,7 @@ namespace WebAbsApi.Migrations
             modelBuilder.Entity("WebAbsApi.Data.FlightSection", b =>
                 {
                     b.HasOne("WebAbsApi.Data.Flight", "Flight")
-                        .WithMany("FlightSections")
+                        .WithMany("Seats")
                         .HasForeignKey("FlightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -264,7 +264,7 @@ namespace WebAbsApi.Migrations
 
             modelBuilder.Entity("WebAbsApi.Data.Flight", b =>
                 {
-                    b.Navigation("FlightSections");
+                    b.Navigation("Seats");
                 });
 #pragma warning restore 612, 618
         }

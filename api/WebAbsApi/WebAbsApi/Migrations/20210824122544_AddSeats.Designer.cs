@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAbsApi.Data;
 
 namespace WebAbsApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210824122544_AddSeats")]
+    partial class AddSeats
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,7 +220,7 @@ namespace WebAbsApi.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Column")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("FlightSectionId")
                         .HasColumnType("int");
@@ -227,177 +229,13 @@ namespace WebAbsApi.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Row")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FlightSectionId", "Row", "Column")
-                        .IsUnique()
-                        .HasFilter("[Row] IS NOT NULL AND [Column] IS NOT NULL");
+                    b.HasIndex("FlightSectionId");
 
                     b.ToTable("Seat");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 7427,
-                            Column = "A",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "0"
-                        },
-                        new
-                        {
-                            Id = 7590,
-                            Column = "B",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "0"
-                        },
-                        new
-                        {
-                            Id = 1341,
-                            Column = "C",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "0"
-                        },
-                        new
-                        {
-                            Id = 8018,
-                            Column = "D",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "0"
-                        },
-                        new
-                        {
-                            Id = 1909,
-                            Column = "A",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "1"
-                        },
-                        new
-                        {
-                            Id = 8451,
-                            Column = "B",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "1"
-                        },
-                        new
-                        {
-                            Id = 2069,
-                            Column = "C",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "1"
-                        },
-                        new
-                        {
-                            Id = 1108,
-                            Column = "D",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "1"
-                        },
-                        new
-                        {
-                            Id = 922,
-                            Column = "A",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "2"
-                        },
-                        new
-                        {
-                            Id = 1309,
-                            Column = "B",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "2"
-                        },
-                        new
-                        {
-                            Id = 7279,
-                            Column = "C",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "2"
-                        },
-                        new
-                        {
-                            Id = 3463,
-                            Column = "D",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "2"
-                        },
-                        new
-                        {
-                            Id = 5722,
-                            Column = "A",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "3"
-                        },
-                        new
-                        {
-                            Id = 2444,
-                            Column = "B",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "3"
-                        },
-                        new
-                        {
-                            Id = 4078,
-                            Column = "C",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "3"
-                        },
-                        new
-                        {
-                            Id = 1651,
-                            Column = "D",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "3"
-                        },
-                        new
-                        {
-                            Id = 8982,
-                            Column = "A",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "4"
-                        },
-                        new
-                        {
-                            Id = 2694,
-                            Column = "B",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "4"
-                        },
-                        new
-                        {
-                            Id = 1826,
-                            Column = "C",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "4"
-                        },
-                        new
-                        {
-                            Id = 9749,
-                            Column = "D",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "4"
-                        });
                 });
 
             modelBuilder.Entity("WebAbsApi.Data.Flight", b =>
