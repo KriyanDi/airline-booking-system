@@ -13,6 +13,7 @@ namespace WebAbsApi.Repository
         private IGenericRepository<Airline> _airlines;
         private IGenericRepository<Flight> _flights;
         private IGenericRepository<FlightSection> _flightSections;
+        private IGenericRepository<Seat> _seats;
 
         public UnitOfWork(DatabaseContext context)
         {
@@ -26,6 +27,8 @@ namespace WebAbsApi.Repository
         public IGenericRepository<Flight> Flights => _flights ??= new GenericRepository<Flight>(_context);
 
         public IGenericRepository<FlightSection> FlightSections => _flightSections ??= new GenericRepository<FlightSection>(_context);
+
+        public IGenericRepository<Seat> Seats => _seats ??= new GenericRepository<Seat>(_context);
 
         public async Task Save()
         {

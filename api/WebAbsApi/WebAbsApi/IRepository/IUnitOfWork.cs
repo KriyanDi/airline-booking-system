@@ -9,6 +9,7 @@ namespace WebAbsApi.IRepository
         IGenericRepository<Airline> Airlines { get; }
         IGenericRepository<Flight> Flights { get; }
         IGenericRepository<FlightSection> FlightSections { get; }
+        IGenericRepository<Seat> Seats { get; }
 
         Task Save();
     }
