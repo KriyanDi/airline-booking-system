@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebAbsApi.Migrations
 {
-    public partial class AddAirportAirlineFlights10 : Migration
+    public partial class AddAirportAirlineFlightFlightsection : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,7 +39,7 @@ namespace WebAbsApi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FlightNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FlightNumber = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AirlineId = table.Column<int>(type: "int", nullable: false),
                     OriginId = table.Column<int>(type: "int", nullable: false),
@@ -58,15 +58,32 @@ namespace WebAbsApi.Migrations
                         name: "FK_Flights_Airports_DestinationId",
                         column: x => x.DestinationId,
                         principalTable: "Airports",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Flights_Airports_OriginId",
                         column: x => x.OriginId,
                         principalTable: "Airports",
-                        principalColumn: "Id"
-                        ,
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FlightSections",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SeatClass = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    FlightId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FlightSections", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FlightSections_Flights_FlightId",
+                        column: x => x.FlightId,
+                        principalTable: "Flights",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -96,12 +113,27 @@ namespace WebAbsApi.Migrations
             migrationBuilder.InsertData(
                 table: "Flights",
                 columns: new[] { "Id", "AirlineId", "Date", "DestinationId", "FlightNumber", "OriginId" },
-                values: new object[] { 2, 2, new DateTime(2021, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "211111111", 2 });
+                values: new object[] { 1, 2, new DateTime(2021, 5, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, "111111111", 1 });
 
             migrationBuilder.InsertData(
                 table: "Flights",
                 columns: new[] { "Id", "AirlineId", "Date", "DestinationId", "FlightNumber", "OriginId" },
-                values: new object[] { 1, 2, new DateTime(2021, 5, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, "111111111", 1 });
+                values: new object[] { 2, 2, new DateTime(2021, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "211111111", 5 });
+
+            migrationBuilder.InsertData(
+                table: "FlightSections",
+                columns: new[] { "Id", "FlightId", "SeatClass" },
+                values: new object[] { 1, 1, "FIRST" });
+
+            migrationBuilder.InsertData(
+                table: "FlightSections",
+                columns: new[] { "Id", "FlightId", "SeatClass" },
+                values: new object[] { 2, 1, "ECONOMY" });
+
+            migrationBuilder.InsertData(
+                table: "FlightSections",
+                columns: new[] { "Id", "FlightId", "SeatClass" },
+                values: new object[] { 3, 2, "BUSINESS" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Airlines_Name",
@@ -128,13 +160,30 @@ namespace WebAbsApi.Migrations
                 column: "DestinationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Flights_FlightNumber",
+                table: "Flights",
+                column: "FlightNumber",
+                unique: true,
+                filter: "[FlightNumber] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Flights_OriginId",
                 table: "Flights",
                 column: "OriginId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FlightSections_FlightId_SeatClass",
+                table: "FlightSections",
+                columns: new[] { "FlightId", "SeatClass" },
+                unique: true,
+                filter: "[SeatClass] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "FlightSections");
+
             migrationBuilder.DropTable(
                 name: "Flights");
 

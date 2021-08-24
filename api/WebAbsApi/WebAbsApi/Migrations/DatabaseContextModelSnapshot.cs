@@ -128,7 +128,7 @@ namespace WebAbsApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("FlightNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("OriginId")
                         .HasColumnType("int");
@@ -138,6 +138,10 @@ namespace WebAbsApi.Migrations
                     b.HasIndex("AirlineId");
 
                     b.HasIndex("DestinationId");
+
+                    b.HasIndex("FlightNumber")
+                        .IsUnique()
+                        .HasFilter("[FlightNumber] IS NOT NULL");
 
                     b.HasIndex("OriginId");
 
@@ -161,6 +165,48 @@ namespace WebAbsApi.Migrations
                             DestinationId = 1,
                             FlightNumber = "211111111",
                             OriginId = 5
+                        });
+                });
+
+            modelBuilder.Entity("WebAbsApi.Data.FlightSection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("FlightId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SeatClass")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FlightId", "SeatClass")
+                        .IsUnique()
+                        .HasFilter("[SeatClass] IS NOT NULL");
+
+                    b.ToTable("FlightSections");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FlightId = 1,
+                            SeatClass = "FIRST"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FlightId = 1,
+                            SeatClass = "ECONOMY"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FlightId = 2,
+                            SeatClass = "BUSINESS"
                         });
                 });
 
@@ -191,6 +237,17 @@ namespace WebAbsApi.Migrations
                     b.Navigation("OriginAirport");
                 });
 
+            modelBuilder.Entity("WebAbsApi.Data.FlightSection", b =>
+                {
+                    b.HasOne("WebAbsApi.Data.Flight", "Flight")
+                        .WithMany("FlightSections")
+                        .HasForeignKey("FlightId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Flight");
+                });
+
             modelBuilder.Entity("WebAbsApi.Data.Airline", b =>
                 {
                     b.Navigation("Flights");
@@ -201,6 +258,11 @@ namespace WebAbsApi.Migrations
                     b.Navigation("DestinationToFlights");
 
                     b.Navigation("OriginToFlights");
+                });
+
+            modelBuilder.Entity("WebAbsApi.Data.Flight", b =>
+                {
+                    b.Navigation("FlightSections");
                 });
 #pragma warning restore 612, 618
         }

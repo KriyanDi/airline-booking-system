@@ -10,8 +10,8 @@ using WebAbsApi.Data;
 namespace WebAbsApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210821170243_AddAirportAirlineFlights2.0")]
-    partial class AddAirportAirlineFlights20
+    [Migration("20210824102737_AddAirportAirlineFlightFlightsection")]
+    partial class AddAirportAirlineFlightFlightsection
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -130,7 +130,7 @@ namespace WebAbsApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("FlightNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("OriginId")
                         .HasColumnType("int");
@@ -140,6 +140,10 @@ namespace WebAbsApi.Migrations
                     b.HasIndex("AirlineId");
 
                     b.HasIndex("DestinationId");
+
+                    b.HasIndex("FlightNumber")
+                        .IsUnique()
+                        .HasFilter("[FlightNumber] IS NOT NULL");
 
                     b.HasIndex("OriginId");
 
@@ -160,9 +164,51 @@ namespace WebAbsApi.Migrations
                             Id = 2,
                             AirlineId = 2,
                             Date = new DateTime(2021, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DestinationId = 5,
+                            DestinationId = 1,
                             FlightNumber = "211111111",
-                            OriginId = 1
+                            OriginId = 5
+                        });
+                });
+
+            modelBuilder.Entity("WebAbsApi.Data.FlightSection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("FlightId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SeatClass")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FlightId", "SeatClass")
+                        .IsUnique()
+                        .HasFilter("[SeatClass] IS NOT NULL");
+
+                    b.ToTable("FlightSections");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FlightId = 1,
+                            SeatClass = "FIRST"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FlightId = 1,
+                            SeatClass = "ECONOMY"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FlightId = 2,
+                            SeatClass = "BUSINESS"
                         });
                 });
 
@@ -193,6 +239,17 @@ namespace WebAbsApi.Migrations
                     b.Navigation("OriginAirport");
                 });
 
+            modelBuilder.Entity("WebAbsApi.Data.FlightSection", b =>
+                {
+                    b.HasOne("WebAbsApi.Data.Flight", "Flight")
+                        .WithMany("FlightSections")
+                        .HasForeignKey("FlightId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Flight");
+                });
+
             modelBuilder.Entity("WebAbsApi.Data.Airline", b =>
                 {
                     b.Navigation("Flights");
@@ -203,6 +260,11 @@ namespace WebAbsApi.Migrations
                     b.Navigation("DestinationToFlights");
 
                     b.Navigation("OriginToFlights");
+                });
+
+            modelBuilder.Entity("WebAbsApi.Data.Flight", b =>
+                {
+                    b.Navigation("FlightSections");
                 });
 #pragma warning restore 612, 618
         }
