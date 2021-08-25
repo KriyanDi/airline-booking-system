@@ -10,8 +10,8 @@ using WebAbsApi.Data;
 namespace WebAbsApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210824102737_AddAirportAirlineFlightFlightsection")]
-    partial class AddAirportAirlineFlightFlightsection
+    [Migration("20210825064556_AddAirportAirlineFlightFlightsectionSeat")]
+    partial class AddAirportAirlineFlightFlightsectionSeat
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -189,7 +189,7 @@ namespace WebAbsApi.Migrations
                         .IsUnique()
                         .HasFilter("[SeatClass] IS NOT NULL");
 
-                    b.ToTable("Seats");
+                    b.ToTable("FlightSections");
 
                     b.HasData(
                         new
@@ -209,6 +209,196 @@ namespace WebAbsApi.Migrations
                             Id = 3,
                             FlightId = 2,
                             SeatClass = "BUSINESS"
+                        });
+                });
+
+            modelBuilder.Entity("WebAbsApi.Data.Seat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Column")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("FlightSectionId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsBooked")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Row")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FlightSectionId", "Row", "Column")
+                        .IsUnique()
+                        .HasFilter("[Row] IS NOT NULL AND [Column] IS NOT NULL");
+
+                    b.ToTable("Seats");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 8226,
+                            Column = "A",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "0"
+                        },
+                        new
+                        {
+                            Id = 1486,
+                            Column = "B",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "0"
+                        },
+                        new
+                        {
+                            Id = 7435,
+                            Column = "C",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "0"
+                        },
+                        new
+                        {
+                            Id = 9754,
+                            Column = "D",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "0"
+                        },
+                        new
+                        {
+                            Id = 3520,
+                            Column = "A",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "1"
+                        },
+                        new
+                        {
+                            Id = 1213,
+                            Column = "B",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "1"
+                        },
+                        new
+                        {
+                            Id = 6424,
+                            Column = "C",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "1"
+                        },
+                        new
+                        {
+                            Id = 6108,
+                            Column = "D",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "1"
+                        },
+                        new
+                        {
+                            Id = 1458,
+                            Column = "A",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "2"
+                        },
+                        new
+                        {
+                            Id = 244,
+                            Column = "B",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "2"
+                        },
+                        new
+                        {
+                            Id = 2292,
+                            Column = "C",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "2"
+                        },
+                        new
+                        {
+                            Id = 7536,
+                            Column = "D",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "2"
+                        },
+                        new
+                        {
+                            Id = 1140,
+                            Column = "A",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "3"
+                        },
+                        new
+                        {
+                            Id = 406,
+                            Column = "B",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "3"
+                        },
+                        new
+                        {
+                            Id = 226,
+                            Column = "C",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "3"
+                        },
+                        new
+                        {
+                            Id = 4871,
+                            Column = "D",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "3"
+                        },
+                        new
+                        {
+                            Id = 1569,
+                            Column = "A",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "4"
+                        },
+                        new
+                        {
+                            Id = 3786,
+                            Column = "B",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "4"
+                        },
+                        new
+                        {
+                            Id = 3512,
+                            Column = "C",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "4"
+                        },
+                        new
+                        {
+                            Id = 3972,
+                            Column = "D",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "4"
                         });
                 });
 
@@ -242,12 +432,23 @@ namespace WebAbsApi.Migrations
             modelBuilder.Entity("WebAbsApi.Data.FlightSection", b =>
                 {
                     b.HasOne("WebAbsApi.Data.Flight", "Flight")
-                        .WithMany("Seats")
+                        .WithMany("FlightSections")
                         .HasForeignKey("FlightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Flight");
+                });
+
+            modelBuilder.Entity("WebAbsApi.Data.Seat", b =>
+                {
+                    b.HasOne("WebAbsApi.Data.FlightSection", "FlightSection")
+                        .WithMany("Seats")
+                        .HasForeignKey("FlightSectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FlightSection");
                 });
 
             modelBuilder.Entity("WebAbsApi.Data.Airline", b =>
@@ -263,6 +464,11 @@ namespace WebAbsApi.Migrations
                 });
 
             modelBuilder.Entity("WebAbsApi.Data.Flight", b =>
+                {
+                    b.Navigation("FlightSections");
+                });
+
+            modelBuilder.Entity("WebAbsApi.Data.FlightSection", b =>
                 {
                     b.Navigation("Seats");
                 });

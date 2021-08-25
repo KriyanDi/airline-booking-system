@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebAbsApi.Migrations
 {
-    public partial class AddAirportAirlineFlightFlightsection : Migration
+    public partial class AddAirportAirlineFlightFlightsectionSeat : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -86,6 +86,28 @@ namespace WebAbsApi.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Seats",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Row = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Column = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    IsBooked = table.Column<bool>(type: "bit", nullable: false),
+                    FlightSectionId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Seats", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Seats_FlightSections_FlightSectionId",
+                        column: x => x.FlightSectionId,
+                        principalTable: "FlightSections",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Airlines",
                 columns: new[] { "Id", "Name" },
@@ -135,6 +157,33 @@ namespace WebAbsApi.Migrations
                 columns: new[] { "Id", "FlightId", "SeatClass" },
                 values: new object[] { 3, 2, "BUSINESS" });
 
+            migrationBuilder.InsertData(
+                table: "Seats",
+                columns: new[] { "Id", "Column", "FlightSectionId", "IsBooked", "Row" },
+                values: new object[,]
+                {
+                    { 8226, "A", 1, false, "0" },
+                    { 3786, "B", 1, false, "4" },
+                    { 1569, "A", 1, false, "4" },
+                    { 4871, "D", 1, false, "3" },
+                    { 226, "C", 1, false, "3" },
+                    { 406, "B", 1, false, "3" },
+                    { 1140, "A", 1, false, "3" },
+                    { 7536, "D", 1, false, "2" },
+                    { 2292, "C", 1, false, "2" },
+                    { 244, "B", 1, false, "2" },
+                    { 1458, "A", 1, false, "2" },
+                    { 6108, "D", 1, false, "1" },
+                    { 6424, "C", 1, false, "1" },
+                    { 1213, "B", 1, false, "1" },
+                    { 3520, "A", 1, false, "1" },
+                    { 9754, "D", 1, false, "0" },
+                    { 7435, "C", 1, false, "0" },
+                    { 1486, "B", 1, false, "0" },
+                    { 3512, "C", 1, false, "4" },
+                    { 3972, "D", 1, false, "4" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Airlines_Name",
                 table: "Airlines",
@@ -177,10 +226,20 @@ namespace WebAbsApi.Migrations
                 columns: new[] { "FlightId", "SeatClass" },
                 unique: true,
                 filter: "[SeatClass] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Seats_FlightSectionId_Row_Column",
+                table: "Seats",
+                columns: new[] { "FlightSectionId", "Row", "Column" },
+                unique: true,
+                filter: "[Row] IS NOT NULL AND [Column] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Seats");
+
             migrationBuilder.DropTable(
                 name: "FlightSections");
 
