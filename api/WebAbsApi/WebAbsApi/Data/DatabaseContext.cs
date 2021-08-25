@@ -23,5 +23,6 @@ namespace WebAbsApi.Data
         public DbSet<Airline> Airlines { get; set; }
         public DbSet<Flight> Flights { get; set; }
         public DbSet<FlightSection> FlightSections { get; set; }
+        public DbSet<Seat> Seats { get; set; }
     }
 }
