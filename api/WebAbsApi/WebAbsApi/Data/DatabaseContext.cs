@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using WebAbsApi.Configurations.Entities;
 
 namespace WebAbsApi.Data
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : IdentityDbContext<ApiUser>
     {
         public DatabaseContext(DbContextOptions options) : base(options)
         { }
@@ -17,6 +18,7 @@ namespace WebAbsApi.Data
             builder.ApplyConfiguration(new FlightConfiguration());
             builder.ApplyConfiguration(new FlightSectionConfiguration());
             builder.ApplyConfiguration(new SeatConfiguration());
+            builder.ApplyConfiguration(new RoleConfiguration());
         }
 
         public DbSet<Airport> Airports { get; set; }
