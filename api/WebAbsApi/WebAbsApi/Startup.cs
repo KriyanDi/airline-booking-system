@@ -10,6 +10,8 @@ using WebAbsApi.Data;
 using WebAbsApi.IRepository;
 using WebAbsApi.Repository;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Identity;
+using WebAbsApi.Services;
 
 namespace WebAbsApi
 {
@@ -31,11 +33,17 @@ namespace WebAbsApi
                 opt.UseSqlServer(Configuration.GetConnectionString("sqlConnection"));
             });
 
+            //IdentityUser
+            services.AddAuthentication();
+            services.ConfigureIdentity();
+
             // AutoMapper
             services.AddAutoMapper(typeof(MapperInitializer));
+ 
 
             // Transient
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IAuthManager, AuthManager>();
 
             // CORS
             services.AddCors(opt =>
@@ -78,6 +86,8 @@ namespace WebAbsApi
 
             app.UseRouting();
 
+            //Auth
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
