@@ -25,5 +25,6 @@ namespace WebAbsApi.Data
         public Airport DestinationAirport { get; set; }
 
         public ICollection<FlightSection> FlightSections { get; set; }
+        public ICollection<Ticket> Tickets { get; set; }
     }
 }

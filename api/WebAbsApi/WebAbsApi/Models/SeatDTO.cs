@@ -34,5 +34,6 @@ namespace WebAbsApi.Models
     {
         public int Id { get; set; }
         public FlightSection FlightSection { get; set; }
+        public TicketDTO Ticket { get; set; }
     }
 }

@@ -19,6 +19,7 @@ namespace WebAbsApi.Data
             builder.ApplyConfiguration(new FlightSectionConfiguration());
             builder.ApplyConfiguration(new SeatConfiguration());
             builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new TicketConfiguration());
         }
 
         public DbSet<Airport> Airports { get; set; }
@@ -26,5 +27,6 @@ namespace WebAbsApi.Data
         public DbSet<Flight> Flights { get; set; }
         public DbSet<FlightSection> FlightSections { get; set; }
         public DbSet<Seat> Seats { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
     }
 }

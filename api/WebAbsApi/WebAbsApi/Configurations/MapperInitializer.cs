@@ -34,6 +34,10 @@ namespace WebAbsApi.Configurations
 
             CreateMap<ApiUser, UserDTO>().ReverseMap();
             //CreateMap<ApiUser, LoginDTO>().ReverseMap();
+
+            CreateMap<Ticket, TicketDTO>().ReverseMap();
+            CreateMap<Ticket, CreateTicketDTO>().ReverseMap();
+            CreateMap<Ticket, UpdateTicketDTO>().ReverseMap();
         }
     }
 }

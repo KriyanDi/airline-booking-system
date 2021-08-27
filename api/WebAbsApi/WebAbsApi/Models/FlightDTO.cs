@@ -35,5 +35,6 @@ namespace WebAbsApi.Models
         public AirportDTO DestinationAirport { get; set; }
 
         public ICollection<FlightSectionDTO> FlightSections { get; set; }
+        public ICollection<TicketDTO> Tickets { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAbsApi.Data;
 
 namespace WebAbsApi.Models
 {
@@ -21,5 +22,6 @@ namespace WebAbsApi.Models
     public class UserDTO : LoginUserDTO
     {
         public ICollection<string> Roles { get; set; }
+        //public ICollection<TicketDTO> Tickets { get; set; }
     }
 }

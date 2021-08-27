@@ -17,5 +17,6 @@ namespace WebAbsApi.Data
         public int FlightSectionId { get; set; }
         public FlightSection FlightSection { get; set; }
 
+        public Ticket Ticket { get; set; }
     }
 }

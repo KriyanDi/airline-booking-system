@@ -26,5 +26,6 @@ namespace WebAbsApi.Models
         public FlightDTO Flight { get; set; }
         
         public ICollection<SeatDTO> Seats { get; set; }
+        public ICollection<TicketDTO> Tickets { get; set; }
     }
 }
