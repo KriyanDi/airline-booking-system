@@ -55,12 +55,12 @@ namespace WebAbsApi.Controllers
             }
 
             await _userManager.AddToRolesAsync(user, userDTO.Roles);
-            return Accepted(user);
+            return Accepted();
         }
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] UserDTO userDTO)
+        public async Task<IActionResult> Login([FromBody] LoginUserDTO userDTO)
         {
             _logger.LogInformation($"Login Attempt for {userDTO.Email}");
 
