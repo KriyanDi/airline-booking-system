@@ -27,7 +27,7 @@ namespace WebAbsApi
         {
             var jwtSettings = Configuration.GetSection("Jwt");
             //var key = Environment.GetEnvironmentVariable("KEY");
-            var key = "aaaaaa-aaaaaaaasdffas-asdfasdf-asdf";
+            var key = "1236476123t423hgqwkjgfkjshdgkjgfhjg2yu3t46t2386t4twghjgkjwqgekhjgru23t481t2384t123ighjgqjwer";
 
             services.AddAuthentication(o =>
             {
