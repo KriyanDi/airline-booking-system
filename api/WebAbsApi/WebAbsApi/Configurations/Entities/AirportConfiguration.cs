@@ -12,6 +12,17 @@ namespace WebAbsApi.Configurations.Entities
                 .HasIndex(e => e.Name)
                 .IsUnique(true);
 
+            // Airport <-o Flight
+            builder
+               .HasMany(e => e.OriginToFlights)
+               .WithOne(e => e.OriginAirport)
+               .OnDelete(DeleteBehavior.NoAction);
+
+            builder
+                .HasMany(e => e.DestinationToFlights)
+                .WithOne(e => e.DestinationAirport)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.HasData(
                 new Airport
                 {

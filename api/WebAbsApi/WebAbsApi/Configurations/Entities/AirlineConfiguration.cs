@@ -11,6 +11,12 @@ namespace WebAbsApi.Configurations.Entities
             builder.HasKey(e => e.Id);
             builder.HasIndex(e => e.Name).IsUnique(true);
 
+            // Airline <-o Flight
+            builder
+                .HasMany(e => e.Flights)
+                .WithOne(e => e.Airline)
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.HasData(
                 new Airline
                 {

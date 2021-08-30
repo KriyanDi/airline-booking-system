@@ -12,6 +12,22 @@ namespace WebAbsApi.Configurations.Entities
     {
         public void Configure(EntityTypeBuilder<Flight> builder)
         {
+            builder
+                .HasIndex(e => e.FlightNumber)
+                .IsUnique(true);
+
+            // Flight <-o FlightSection
+            builder
+                .HasMany(e => e.FlightSections)
+                .WithOne(e => e.Flight)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Flight <-o Ticket
+            builder
+                .HasMany(e => e.Tickets)
+                .WithOne(e => e.Flight)
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.HasData(
                 new Flight
                 {
@@ -33,19 +49,6 @@ namespace WebAbsApi.Configurations.Entities
                 }
                 );
 
-            builder
-                .HasIndex(e => e.FlightNumber)
-                .IsUnique(true);
-
-            builder
-                .HasOne(e => e.OriginAirport)
-                .WithMany(e => e.OriginToFlights)
-                .OnDelete(DeleteBehavior.ClientNoAction);
-
-            builder
-                .HasOne(e => e.DestinationAirport)
-                .WithMany(e => e.DestinationToFlights)
-                .OnDelete(DeleteBehavior.ClientNoAction);
         }
     }
 }

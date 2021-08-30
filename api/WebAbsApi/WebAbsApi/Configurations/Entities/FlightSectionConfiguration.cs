@@ -15,6 +15,18 @@ namespace WebAbsApi.Configurations.Entities
             // Flight can contain only one section of certain type
             builder.HasIndex(e => new { e.FlightId, e.SeatClass }).IsUnique(true);
 
+            // FlightSection <-o Seat
+            builder
+                .HasMany(e => e.Seats)
+                .WithOne(e => e.FlightSection)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // FlightSection <-o Ticket
+            builder
+                .HasMany(e => e.Tickets)
+                .WithOne(e => e.FlightSection)
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder
                 .HasData(
                 new FlightSection
