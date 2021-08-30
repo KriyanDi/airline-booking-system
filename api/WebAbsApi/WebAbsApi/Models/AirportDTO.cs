@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using WebAbsApi.Data;
 using WebAbsApi.Models.ValidationAttributes;
 
 namespace WebAbsApi.Models

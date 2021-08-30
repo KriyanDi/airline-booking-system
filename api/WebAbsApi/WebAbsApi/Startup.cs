@@ -9,8 +9,6 @@ using WebAbsApi.Configurations;
 using WebAbsApi.Data;
 using WebAbsApi.IRepository;
 using WebAbsApi.Repository;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Identity;
 using WebAbsApi.Services;
 
 namespace WebAbsApi

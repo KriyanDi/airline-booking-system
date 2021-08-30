@@ -4,7 +4,6 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,7 +68,7 @@ namespace WebAbsApi.Services
 
         private SigningCredentials GetSigningCredentials()
         {
-            var key = Environment.GetEnvironmentVariable("KEY");
+            var key = "1236476123t423hgqwkjgfkjshdgkjgfhjg2yu3t46t2386t4twghjgkjwqgekhjgru23t481t2384t123ighjgqjwer";//Environment.GetEnvironmentVariable("KEY");
             var secret = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
 
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
