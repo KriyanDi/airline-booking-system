@@ -16,12 +16,12 @@ namespace WebAbsApi.Configurations.Entities
             builder
                .HasMany(e => e.OriginToFlights)
                .WithOne(e => e.OriginAirport)
-               .OnDelete(DeleteBehavior.NoAction);
+               .OnDelete(DeleteBehavior.Cascade);
 
             builder
                 .HasMany(e => e.DestinationToFlights)
                 .WithOne(e => e.DestinationAirport)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasData(
                 new Airport

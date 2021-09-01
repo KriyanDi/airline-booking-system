@@ -19,14 +19,15 @@ namespace WebAbsApi.Configurations.Entities
                 .WithOne(e => e.Seat)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            for (int i = 0; i < 5; i++)
+            int counter = 1;
+            for (int i = 1; i <= 5; i++)
             {
                 foreach (var letter in new List<char> { 'A', 'B', 'C', 'D' })
                 {
                     builder.HasData(
                    new Seat
                    {
-                       Id = i + 1 + 65 - letter + new Random().Next(1,10000),
+                       Id = counter++,
                        Row = i.ToString(),
                        Column = letter.ToString(),
                        IsBooked = false,
