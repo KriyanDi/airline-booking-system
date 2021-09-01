@@ -33,7 +33,7 @@ namespace WebAbsApi.Controllers
         public async Task<IActionResult> GetAirports()
         {
             var airports = await _unitOfWork.Airports.GetAll();
-            var results = _mapper.Map<IList<AirportDTO>>(airports);
+            var results = _mapper.Map<IList<AirportShortDTO>>(airports);
             return Ok(results);
         }
 
@@ -112,6 +112,13 @@ namespace WebAbsApi.Controllers
             {
                 _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteAirport)}");
                 return BadRequest("Submitted data is invalid.");
+            }
+
+            var flights = await _unitOfWork.Flights.Get(q => q.OriginId == id || q.DestinationId == id);
+            if(flights != null)
+            {
+                await _unitOfWork.Flights.Delete(flights.Id);
+                await _unitOfWork.Save();
             }
 
             await _unitOfWork.Airports.Delete(id);

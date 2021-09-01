@@ -32,7 +32,7 @@ namespace WebAbsApi.Controllers
         public async Task<IActionResult> GetFlights()
         {
             var flights = await _unitOfWork.Flights.GetAll();
-            var results = _mapper.Map<IList<FlightDTO>>(flights);
+            var results = _mapper.Map<IList<FlightShortDTO>>(flights);
             return Ok(results);
         }
 
@@ -41,7 +41,16 @@ namespace WebAbsApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetFlight(int id)
         {
-            var flight = await _unitOfWork.Flights.Get(q => q.Id == id, new List<string> { "Airline", "OriginAirport", "DestinationAirport", "FlightSections" });
+            //TO DO:
+            var flight = await _unitOfWork.Flights.Get(q => q.Id == id, new List<string> { "Airline", "OriginAirport", "DestinationAirport", "FlightSections"});
+            if (flight != null && flight.FlightSections.Count != 0)
+            {
+                foreach (var flightSection in flight.FlightSections)
+                {
+                    var flightSectionTemp = await _unitOfWork.FlightSections.Get(q => q.Id == flightSection.Id, new List<string> { "Flight", "Seats" });
+                    flightSection.Seats = flightSectionTemp.Seats;
+                }
+            }
             var result = _mapper.Map<FlightDTO>(flight);
             return Ok(result);
         }

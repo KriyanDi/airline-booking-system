@@ -32,7 +32,7 @@ namespace WebAbsApi.Controllers
         public async Task<IActionResult> GetFlightSections()
         {
             var flightSections = await _unitOfWork.FlightSections.GetAll();
-            var results = _mapper.Map<IList<FlightSectionDTO>>(flightSections);
+            var results = _mapper.Map<IList<FlightSectionShortDTO>>(flightSections);
             return Ok(results);
         }
 

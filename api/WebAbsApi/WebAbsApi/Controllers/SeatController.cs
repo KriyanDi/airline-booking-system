@@ -31,7 +31,7 @@ namespace WebAbsApi.Controllers
         public async Task<IActionResult> GetSeats()
         {
             var seats = await _unitOfWork.Seats.GetAll();
-            var results = _mapper.Map<IList<SeatDTO>>(seats);
+            var results = _mapper.Map<IList<SeatShortDTO>>(seats);
             return Ok(results);
         }
 
@@ -40,7 +40,7 @@ namespace WebAbsApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetSeat(int id)
         {
-            var seat = await _unitOfWork.Seats.Get(q => q.Id == id, new List<string> {"FlightSection"});
+            var seat = await _unitOfWork.Seats.Get(q => q.Id == id, new List<string> { "FlightSection" });
             var result = _mapper.Map<SeatDTO>(seat);
             return Ok(result);
         }
