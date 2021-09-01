@@ -13,9 +13,13 @@ namespace WebAbsApi.Models
     {
     }
 
-    public class AirlineDTO : CreateAirlineDTO
+    public class AirlineShortDTO : CreateAirlineDTO
     {
         public int Id { get; set; }
-        public ICollection<FlightDTO> Flights { get; set; }
+    }
+
+    public class AirlineDTO : AirlineShortDTO
+    {
+        public ICollection<FlightShortDTO> Flights { get; set; }
     }
 }

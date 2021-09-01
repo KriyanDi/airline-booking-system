@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using WebAbsApi.Data;
 using WebAbsApi.Models.ValidationAttributes;
 
@@ -26,10 +27,17 @@ namespace WebAbsApi.Models
 
     }
 
-    public class SeatDTO : CreateSeatDTO
+    public class SeatShortDTO
     {
         public int Id { get; set; }
-        public FlightSection FlightSection { get; set; }
+        public string Row { get; set; }
+        public string Column { get; set; }
+        public bool IsBooked { get; set; }
+    }
+
+    public class SeatDTO : SeatShortDTO
+    {
+        public FlightSectionShortDTO FlightSection { get; set; }
         public TicketDTO Ticket { get; set; }
     }
 }

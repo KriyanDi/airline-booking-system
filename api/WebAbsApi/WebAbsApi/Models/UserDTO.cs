@@ -10,7 +10,7 @@ namespace WebAbsApi.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(15, ErrorMessage = "Your Password is limited to", MinimumLength = 8)]
+        [StringLength(15, ErrorMessage = "Your Password is limited to 8", MinimumLength = 8)]
         public string Password { get; set; }
     }
 

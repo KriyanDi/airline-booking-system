@@ -15,11 +15,14 @@ namespace WebAbsApi.Models
     {
     }
 
-    public class AirportDTO : CreateAirportDTO
+    public class AirportShortDTO : CreateAirportDTO
     {
         public int Id { get; set; }
+    }
 
-        public ICollection<FlightDTO> OriginToFlights { get; set; }
-        public ICollection<FlightDTO> DestinationToFlights { get; set; }
+    public class AirportDTO : AirportShortDTO
+    { 
+        public ICollection<FlightShortDTO> OriginToFlights { get; set; }
+        public ICollection<FlightShortDTO> DestinationToFlights { get; set; }
     }
 }
