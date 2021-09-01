@@ -34,6 +34,7 @@ namespace WebAbsApi
             //IdentityUser
             services.AddAuthentication();
             services.ConfigureIdentity();
+            services.ConfigureJWT(Configuration);
 
             // AutoMapper
             services.AddAutoMapper(typeof(MapperInitializer));

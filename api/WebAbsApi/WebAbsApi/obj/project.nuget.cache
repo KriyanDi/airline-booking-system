@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kdSOZaXeBIw+tlwYW6kFYUaVUY8rpnSXGYHZME4hya6KWjAsPH2/fmoHMFVSUJkCzewRaUW9Te+XMV5/CXEmiA==",
+  "dgSpecHash": "SH7afK1y5M/VpFI1qhwdp6I7OJi2a2Aw09zE/EkY9yov3YOQ5Xt60bAtv8wb5SC9Vbt7BmRj0/8JU97J2cUgTQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kristiyan Dimitrov\\Documents\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsAPI\\WebAbsApi\\WebAbsApi.csproj",
+  "projectFilePath": "C:\\Users\\Kristiyan Dimitrov\\Documents\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

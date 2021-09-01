@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebAbsApi.Migrations
 {
-    public partial class AddModels : Migration
+    public partial class AddAllModels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -320,8 +320,8 @@ namespace WebAbsApi.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "e9f87d14-a905-44ef-ba8a-4451f323c514", "df54f5e5-fc33-4ef0-8f61-8e6aa45ea468", "User", "USER" },
-                    { "e1c38f47-31f3-406d-9911-29edc37471f9", "653f6157-4f32-4dac-85fe-f242de5ec3fe", "Admin", "ADMIN" }
+                    { "3b4cc535-ec11-4ceb-a073-c5d2edea5f4e", "20aec54c-82e0-41dc-98b2-25ffccae25a6", "User", "USER" },
+                    { "3c0a4c9c-d5e7-4d51-98bc-c4766f3a5998", "203fbbe3-18ac-406a-8753-a22ac2d0da92", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -354,26 +354,26 @@ namespace WebAbsApi.Migrations
                 columns: new[] { "Id", "Column", "FlightSectionId", "IsBooked", "Row" },
                 values: new object[,]
                 {
-                    { 5732, "A", 1, false, "0" },
-                    { 8138, "B", 1, false, "4" },
-                    { 2089, "A", 1, false, "4" },
-                    { 3876, "D", 1, false, "3" },
-                    { 6483, "C", 1, false, "3" },
-                    { 9771, "B", 1, false, "3" },
-                    { 5106, "A", 1, false, "3" },
-                    { 7901, "D", 1, false, "2" },
-                    { 3976, "C", 1, false, "2" },
-                    { 6519, "B", 1, false, "2" },
-                    { 7808, "A", 1, false, "2" },
-                    { 2853, "D", 1, false, "1" },
-                    { 8231, "C", 1, false, "1" },
-                    { 7693, "B", 1, false, "1" },
-                    { 6906, "A", 1, false, "1" },
-                    { 8241, "D", 1, false, "0" },
-                    { 4395, "C", 1, false, "0" },
-                    { 4599, "B", 1, false, "0" },
-                    { 7287, "C", 1, false, "4" },
-                    { 2066, "D", 1, false, "4" }
+                    { 1, "A", 1, false, "1" },
+                    { 18, "B", 1, false, "5" },
+                    { 17, "A", 1, false, "5" },
+                    { 16, "D", 1, false, "4" },
+                    { 15, "C", 1, false, "4" },
+                    { 14, "B", 1, false, "4" },
+                    { 13, "A", 1, false, "4" },
+                    { 12, "D", 1, false, "3" },
+                    { 11, "C", 1, false, "3" },
+                    { 10, "B", 1, false, "3" },
+                    { 9, "A", 1, false, "3" },
+                    { 8, "D", 1, false, "2" },
+                    { 7, "C", 1, false, "2" },
+                    { 6, "B", 1, false, "2" },
+                    { 5, "A", 1, false, "2" },
+                    { 4, "D", 1, false, "1" },
+                    { 3, "C", 1, false, "1" },
+                    { 2, "B", 1, false, "1" },
+                    { 19, "C", 1, false, "5" },
+                    { 20, "D", 1, false, "5" }
                 });
 
             migrationBuilder.CreateIndex(

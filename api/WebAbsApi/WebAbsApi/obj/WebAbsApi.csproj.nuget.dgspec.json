@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kristiyan Dimitrov\\Documents\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsAPI\\WebAbsApi\\WebAbsApi.csproj": {}
+    "C:\\Users\\Kristiyan Dimitrov\\Documents\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kristiyan Dimitrov\\Documents\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsAPI\\WebAbsApi\\WebAbsApi.csproj": {
+    "C:\\Users\\Kristiyan Dimitrov\\Documents\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kristiyan Dimitrov\\Documents\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsAPI\\WebAbsApi\\WebAbsApi.csproj",
+        "projectUniqueName": "C:\\Users\\Kristiyan Dimitrov\\Documents\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
         "projectName": "WebAbsApi",
-        "projectPath": "C:\\Users\\Kristiyan Dimitrov\\Documents\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsAPI\\WebAbsApi\\WebAbsApi.csproj",
+        "projectPath": "C:\\Users\\Kristiyan Dimitrov\\Documents\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
         "packagesPath": "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kristiyan Dimitrov\\Documents\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsAPI\\WebAbsApi\\obj\\",
+        "outputPath": "C:\\Users\\Kristiyan Dimitrov\\Documents\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

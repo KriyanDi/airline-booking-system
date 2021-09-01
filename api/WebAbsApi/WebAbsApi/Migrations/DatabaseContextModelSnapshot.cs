@@ -48,15 +48,15 @@ namespace WebAbsApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e9f87d14-a905-44ef-ba8a-4451f323c514",
-                            ConcurrencyStamp = "df54f5e5-fc33-4ef0-8f61-8e6aa45ea468",
+                            Id = "3b4cc535-ec11-4ceb-a073-c5d2edea5f4e",
+                            ConcurrencyStamp = "20aec54c-82e0-41dc-98b2-25ffccae25a6",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "e1c38f47-31f3-406d-9911-29edc37471f9",
-                            ConcurrencyStamp = "653f6157-4f32-4dac-85fe-f242de5ec3fe",
+                            Id = "3c0a4c9c-d5e7-4d51-98bc-c4766f3a5998",
+                            ConcurrencyStamp = "203fbbe3-18ac-406a-8753-a22ac2d0da92",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -452,39 +452,7 @@ namespace WebAbsApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 5732,
-                            Column = "A",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "0"
-                        },
-                        new
-                        {
-                            Id = 4599,
-                            Column = "B",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "0"
-                        },
-                        new
-                        {
-                            Id = 4395,
-                            Column = "C",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "0"
-                        },
-                        new
-                        {
-                            Id = 8241,
-                            Column = "D",
-                            FlightSectionId = 1,
-                            IsBooked = false,
-                            Row = "0"
-                        },
-                        new
-                        {
-                            Id = 6906,
+                            Id = 1,
                             Column = "A",
                             FlightSectionId = 1,
                             IsBooked = false,
@@ -492,7 +460,7 @@ namespace WebAbsApi.Migrations
                         },
                         new
                         {
-                            Id = 7693,
+                            Id = 2,
                             Column = "B",
                             FlightSectionId = 1,
                             IsBooked = false,
@@ -500,7 +468,7 @@ namespace WebAbsApi.Migrations
                         },
                         new
                         {
-                            Id = 8231,
+                            Id = 3,
                             Column = "C",
                             FlightSectionId = 1,
                             IsBooked = false,
@@ -508,7 +476,7 @@ namespace WebAbsApi.Migrations
                         },
                         new
                         {
-                            Id = 2853,
+                            Id = 4,
                             Column = "D",
                             FlightSectionId = 1,
                             IsBooked = false,
@@ -516,7 +484,7 @@ namespace WebAbsApi.Migrations
                         },
                         new
                         {
-                            Id = 7808,
+                            Id = 5,
                             Column = "A",
                             FlightSectionId = 1,
                             IsBooked = false,
@@ -524,7 +492,7 @@ namespace WebAbsApi.Migrations
                         },
                         new
                         {
-                            Id = 6519,
+                            Id = 6,
                             Column = "B",
                             FlightSectionId = 1,
                             IsBooked = false,
@@ -532,7 +500,7 @@ namespace WebAbsApi.Migrations
                         },
                         new
                         {
-                            Id = 3976,
+                            Id = 7,
                             Column = "C",
                             FlightSectionId = 1,
                             IsBooked = false,
@@ -540,7 +508,7 @@ namespace WebAbsApi.Migrations
                         },
                         new
                         {
-                            Id = 7901,
+                            Id = 8,
                             Column = "D",
                             FlightSectionId = 1,
                             IsBooked = false,
@@ -548,7 +516,7 @@ namespace WebAbsApi.Migrations
                         },
                         new
                         {
-                            Id = 5106,
+                            Id = 9,
                             Column = "A",
                             FlightSectionId = 1,
                             IsBooked = false,
@@ -556,7 +524,7 @@ namespace WebAbsApi.Migrations
                         },
                         new
                         {
-                            Id = 9771,
+                            Id = 10,
                             Column = "B",
                             FlightSectionId = 1,
                             IsBooked = false,
@@ -564,7 +532,7 @@ namespace WebAbsApi.Migrations
                         },
                         new
                         {
-                            Id = 6483,
+                            Id = 11,
                             Column = "C",
                             FlightSectionId = 1,
                             IsBooked = false,
@@ -572,7 +540,7 @@ namespace WebAbsApi.Migrations
                         },
                         new
                         {
-                            Id = 3876,
+                            Id = 12,
                             Column = "D",
                             FlightSectionId = 1,
                             IsBooked = false,
@@ -580,7 +548,7 @@ namespace WebAbsApi.Migrations
                         },
                         new
                         {
-                            Id = 2089,
+                            Id = 13,
                             Column = "A",
                             FlightSectionId = 1,
                             IsBooked = false,
@@ -588,7 +556,7 @@ namespace WebAbsApi.Migrations
                         },
                         new
                         {
-                            Id = 8138,
+                            Id = 14,
                             Column = "B",
                             FlightSectionId = 1,
                             IsBooked = false,
@@ -596,7 +564,7 @@ namespace WebAbsApi.Migrations
                         },
                         new
                         {
-                            Id = 7287,
+                            Id = 15,
                             Column = "C",
                             FlightSectionId = 1,
                             IsBooked = false,
@@ -604,11 +572,43 @@ namespace WebAbsApi.Migrations
                         },
                         new
                         {
-                            Id = 2066,
+                            Id = 16,
                             Column = "D",
                             FlightSectionId = 1,
                             IsBooked = false,
                             Row = "4"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Column = "A",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "5"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Column = "B",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "5"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Column = "C",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "5"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Column = "D",
+                            FlightSectionId = 1,
+                            IsBooked = false,
+                            Row = "5"
                         });
                 });
 
