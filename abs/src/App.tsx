@@ -1,23 +1,26 @@
-import React from "react";
-import ManageAirports from "./components/airports/ManageAirports";
-import ManageAirlines from "./components/airlines/ManageAirlines";
-import ManageFlights from "./components/flights/ManageFlights";
-import store from "./_redux/store";
-import { Provider } from "react-redux";
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
 
-const App = () => {
+function App() {
   return (
-    <Provider store={store}>
-      <div className="ui form attached segment">
-        <div className="ui segment">
-          <h2 className="ui dividing header container">"Airline Booking System ✈️"</h2>
-          <ManageAirports />
-          <ManageAirlines />
-          <ManageFlights />
-        </div>
-      </div>
-    </Provider>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.tsx</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
   );
-};
+}
 
 export default App;
