@@ -7,4 +7,4 @@ build_property.PublishSingleFile =
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = WebAbsApi
-build_property.ProjectDir = C:\Users\Kristiyan Dimitrov\Documents\_1_Първа задача\ABS\airline-booking-system\api\WebAbsApi\WebAbsApi\
+build_property.ProjectDir = D:\ABS\airline-booking-system\api\WebAbsApi\WebAbsApi\

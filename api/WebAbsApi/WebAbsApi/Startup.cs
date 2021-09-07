@@ -47,7 +47,7 @@ namespace WebAbsApi
             // CORS
             services.AddCors(opt =>
             {
-                opt.AddPolicy("CorsPolicy", builder =>
+                opt.AddPolicy("AllowAll", builder =>
                     builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader());
