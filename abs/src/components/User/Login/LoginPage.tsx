@@ -5,8 +5,11 @@ import { useAppDispatch } from "../../../redux/hooks";
 import { loginUser } from "../../../redux/slices/user/userSlice";
 import "../../User/Login/LoginPage";
 
-const LoginPage = () => {
+const LoginPage = (props: any) => {
   const dispatch = useAppDispatch();
+
+  let { setActiveItem } = props;
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -46,6 +49,7 @@ const LoginPage = () => {
                 />
               </div>
             </div>
+
             <Button fluid large submit onClick={() => dispatch(loginUser({ email: email, password: password }))}>
               Login
             </Button>
@@ -57,7 +61,9 @@ const LoginPage = () => {
         <div className="ui message">
           New to us?{" "}
           <Link to="/register">
-            <a href="">Register</a>
+            <a href="" onClick={() => setActiveItem("register")}>
+              Register
+            </a>
           </Link>
         </div>
       </Grid.Column>

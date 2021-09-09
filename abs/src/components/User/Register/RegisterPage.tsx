@@ -4,11 +4,16 @@ import { Button, Form, Grid, Segment } from "semantic-ui-react";
 import { useAppDispatch } from "../../../redux/hooks";
 import { registerUser } from "../../../redux/slices/user/userSlice";
 import "../../User/Register/RegisterPage.css";
+import PasswordsDontMatch from "./PasswordsDontMatch";
 
-const RegisterPage = () => {
+const RegisterPage = (props: any) => {
   const dispatch = useAppDispatch();
+
+  let { setActiveItem } = props;
+
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password1, setPassword1] = useState("");
+  const [password2, setPassword2] = useState("");
 
   return (
     <Grid middle aligned centered className="grid">
@@ -38,10 +43,10 @@ const RegisterPage = () => {
                 <i className="lock icon"></i>
                 <input
                   type="password"
-                  name="password"
+                  name="password1"
                   placeholder="Password"
                   onChange={(e) => {
-                    setPassword(e.target.value);
+                    setPassword1(e.target.value);
                   }}
                 />
               </div>
@@ -52,15 +57,16 @@ const RegisterPage = () => {
                 <i className="lock icon"></i>
                 <input
                   type="password"
-                  name="password"
+                  name="password2"
                   placeholder="Password Again"
                   onChange={(e) => {
-                    setPassword(e.target.value);
+                    setPassword2(e.target.value);
                   }}
                 />
               </div>
             </div>
-            <Button fluid large submit onClick={() => dispatch(registerUser({ email: email, password: password }))}>
+            {password1 !== password2 ? <PasswordsDontMatch /> : null}
+            <Button fluid large submit onClick={() => dispatch(registerUser({ email: email, password: password1 }))}>
               Register
             </Button>
           </Segment>
@@ -71,7 +77,9 @@ const RegisterPage = () => {
         <div className="ui message">
           Already registered?{" "}
           <Link to="/login">
-            <a href="">Login</a>
+            <a href="" onClick={() => setActiveItem("login")}>
+              Login
+            </a>
           </Link>
         </div>
       </Grid.Column>
