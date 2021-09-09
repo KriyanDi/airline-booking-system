@@ -4,6 +4,7 @@ export interface IUser {
 
 export interface IUserState {
   user: IUser;
+  logged: boolean;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
 }
