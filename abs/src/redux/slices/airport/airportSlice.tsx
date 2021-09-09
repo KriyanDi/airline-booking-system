@@ -42,7 +42,7 @@ export const airportSlice = createSlice({
 export const {} = airportSlice.actions;
 
 export const selectAirports = (state: RootState) => state.airportReducer.airports;
-
+export const selectAirportStateStatus = (state: RootState) => state.airportReducer.status;
 export const selectAirportById = (state: RootState, airportId: string) =>
   state.airportReducer.airports.find((airport) => airport.id === airportId);
 
