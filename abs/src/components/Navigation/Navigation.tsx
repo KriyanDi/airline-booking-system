@@ -1,14 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Menu, Segment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
-interface NavigationProps {
-  activeItem: string;
-  setActiveItem: React.Dispatch<React.SetStateAction<string>>;
-}
-
-const Navigation = (props: NavigationProps) => {
+const Navigation = (props: any) => {
   let { activeItem, setActiveItem } = props;
+
   return (
     <Segment inverted>
       <Menu right inverted secondary>
