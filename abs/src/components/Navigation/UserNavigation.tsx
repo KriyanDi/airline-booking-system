@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Menu, Segment } from "semantic-ui-react";
+import { Button, Menu, Segment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { logout } from "../../redux/slices/user/userSlice";
+import { useAppDispatch } from "../../redux/hooks";
 
 const UserNavigation = (props: any) => {
+  const dispatch = useAppDispatch();
   const { activeItem, setActiveItem } = props;
-
-  setActiveItem("book");
 
   return (
     <Segment inverted>
@@ -20,16 +21,6 @@ const UserNavigation = (props: any) => {
           />
         </Link>
 
-        <Link to="/flights">
-          <Menu.Item
-            name="flights"
-            active={activeItem === "flights"}
-            onClick={() => {
-              setActiveItem("flights");
-            }}
-          />
-        </Link>
-
         <Link to="/tickets">
           <Menu.Item
             name="tickets"
@@ -39,6 +30,19 @@ const UserNavigation = (props: any) => {
             }}
           />
         </Link>
+
+        <Menu.Menu position="right">
+          <Link to="/">
+            <Button
+              inverted
+              onClick={() => {
+                dispatch(logout());
+              }}
+            >
+              Log out
+            </Button>
+          </Link>
+        </Menu.Menu>
       </Menu>
     </Segment>
   );
