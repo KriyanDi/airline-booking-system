@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Form, Grid, Segment } from "semantic-ui-react";
-import { useAppDispatch } from "../../../redux/hooks";
-import { loginUser } from "../../../redux/slices/user/userSlice";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { loginUser, selectUser } from "../../../redux/slices/user/userSlice";
 import "../../User/Login/LoginPage";
 
 const LoginPage = (props: any) => {
   const dispatch = useAppDispatch();
+  const selector = useAppSelector;
 
   let { setActiveItem } = props;
+
+  let isAdmin = selector(selectUser).isAdmin;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -50,9 +53,23 @@ const LoginPage = (props: any) => {
               </div>
             </div>
 
-            <Button fluid large submit onClick={() => dispatch(loginUser({ email: email, password: password }))}>
-              Login
-            </Button>
+            <Link to={`/${isAdmin ? "manageAirports" : "book"}`}>
+              <Button
+                fluid
+                large
+                submit
+                onClick={() => {
+                  dispatch(loginUser({ email: email, password: password }));
+                  if (isAdmin) {
+                    setActiveItem("book");
+                  } else {
+                    setActiveItem("manageAirports");
+                  }
+                }}
+              >
+                Login
+              </Button>
+            </Link>
           </Segment>
 
           <div className="ui error message"></div>
