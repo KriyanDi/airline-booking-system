@@ -42,8 +42,10 @@ export const airportSlice = createSlice({
 export const {} = airportSlice.actions;
 
 export const selectAirports = (state: RootState) => state.airportReducer.airports;
+
 export const selectAirportStateStatus = (state: RootState) => state.airportReducer.status;
-export const selectAirportById = (state: RootState, airportId: string) =>
+
+export const selectAirportById = (state: RootState, airportId: number) =>
   state.airportReducer.airports.find((airport) => airport.id === airportId);
 
 export default airportSlice.reducer;
