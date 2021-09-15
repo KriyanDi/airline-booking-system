@@ -66,9 +66,18 @@ const RegisterPage = (props: any) => {
               </div>
             </div>
             {password1 !== password2 ? <PasswordsDontMatch /> : null}
-            <Button fluid large submit onClick={() => dispatch(registerUser({ email: email, password: password1 }))}>
-              Register
-            </Button>
+            <Link to="/book">
+              <Button
+                fluid
+                large
+                submit
+                onClick={() => {
+                  dispatch(registerUser({ email: email, password: password1 }));
+                }}
+              >
+                Register
+              </Button>
+            </Link>
           </Segment>
 
           <div className="ui error message"></div>
