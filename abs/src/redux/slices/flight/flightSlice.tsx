@@ -43,7 +43,8 @@ export const {} = flightSlice.actions;
 
 export const selectFlights = (state: RootState) => state.flightReducer.flights;
 
-export const selectFlightById = (state: RootState, airportId: string) =>
-  state.airportReducer.airports.find((airport) => airport.id === airportId);
+export function selectFlightById(flightId: number): any {
+  return (state: RootState) => state.flightReducer.flights.find((flight) => flight.id === flightId);
+}
 
 export default flightSlice.reducer;
