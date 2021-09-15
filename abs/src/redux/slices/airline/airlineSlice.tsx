@@ -43,7 +43,7 @@ export const {} = airlineSlice.actions;
 
 export const selectAirlines = (state: RootState) => state.airlineReducer;
 
-export const selectAirlineById = (state: RootState, airlineId: string) =>
+export const selectAirlineById = (state: RootState, airlineId: number) =>
   state.airlineReducer.airlines.find((airline) => airline.id === airlineId);
 
 export default airlineSlice.reducer;

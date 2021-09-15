@@ -1,5 +1,5 @@
 export interface IAirline {
-  id: string;
+  id: number;
   name: string;
 }
 
