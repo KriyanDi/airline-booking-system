@@ -1,23 +1,63 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Navigation from "./components/Navigation/Navigation";
+import UserNavigation from "./components/Navigation/UserNavigation";
 import LoginPage from "./components/User/Login/LoginPage";
 import RegisterPage from "./components/User/Register/RegisterPage";
+import { useAppDispatch, useAppSelector } from "./redux/hooks";
+import { logout, selectLogged, selectUser } from "./redux/slices/user/userSlice";
+import UserBook from "./components/User/User/UserBook";
+import UserTickets from "./components/User/User/UserTickets";
+import AdminNavigation from "./components/Navigation/AdminNavigation";
+import ManageAirports from "./components/User/Admin/ManageAirports";
 
 const App = () => {
-  const [activeItem, setActiveItem] = useState("/");
+  const dispatch = useAppDispatch();
+  const selector = useAppSelector;
 
-  let hasLoggedUser = false;
+  const [activeItem, setActiveItem] = useState("home");
+
+  let isLogged = false;
+  let isAdmin = false;
+
+  useEffect(() => {}, [dispatch]);
+
+  isLogged = selector(selectLogged);
+  isAdmin = selector(selectUser)?.isAdmin;
+
+  let navigation = () => {
+    if (isLogged) {
+      return isAdmin ? (
+        <AdminNavigation activeItem={activeItem} setActiveItem={setActiveItem} />
+      ) : (
+        <UserNavigation activeItem={activeItem} setActiveItem={setActiveItem} />
+      );
+    } else {
+      return <Navigation activeItem={activeItem} setActiveItem={setActiveItem} />;
+    }
+  };
 
   return (
     <Router>
       <div>
-        {!hasLoggedUser ? <Navigation activeItem={activeItem} setActiveItem={setActiveItem} /> : null}
+        {navigation()}
+
         <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/login" exact component={LoginPage} />
-          <Route path="/register" exact component={RegisterPage} />
+          <Route exact path="/" render={(props) => <Home activeItem={activeItem} setActiveItem={setActiveItem} />} />
+          <Route
+            exact
+            path="/login"
+            render={(props) => <LoginPage activeItem={activeItem} setActiveItem={setActiveItem} />}
+          />
+          <Route
+            exact
+            path="/register"
+            render={(props) => <RegisterPage activeItem={activeItem} setActiveItem={setActiveItem} />}
+          />
+          <Route exact path="/book" component={UserBook} />
+          <Route exact path="/tickets" component={UserTickets} />
+          <Route exact path="/manageAirports" component={ManageAirports} />
         </Switch>
       </div>
     </Router>
