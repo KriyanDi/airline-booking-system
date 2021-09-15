@@ -1,5 +1,8 @@
 export interface IUser {
   token: string;
+  email: string;
+  id: string;
+  isAdmin: boolean;
 }
 
 export interface IUserState {
