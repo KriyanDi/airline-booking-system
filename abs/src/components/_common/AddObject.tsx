@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { Button, Form, Header, Input, Segment } from "semantic-ui-react";
-import { useAppDispatch } from "../../redux/hooks";
+import { Header, Segment } from "semantic-ui-react";
 
 const AddObject = (props: any) => {
-  const dispatch = useAppDispatch();
-  const { objectName, postMethod } = props;
+  const { objectName, postMethod, postObjectMethod } = props;
 
   const [input, setInput] = useState("");
-  const [inputPlaceholder, setPlaceholder] = useState(`Add ${objectName} ...`);
+  const [inputPlaceholder, setInputPlaceholder] = useState(`Add ${objectName} ...`);
 
   return (
     <Segment>
@@ -26,8 +24,8 @@ const AddObject = (props: any) => {
         <div
           className="ui button"
           onClick={() => {
-            dispatch(postMethod);
-            setPlaceholder(`Add ${objectName} ...`);
+            postObjectMethod(input);
+            setInputPlaceholder(`Add ${objectName} 111...`);
           }}
         >
           Add
