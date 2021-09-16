@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { useAppSelector } from "../../hooks";
 import type { RootState } from "../../store";
+import { selectUser } from "../user/userSlice";
 import { IAirportState, IAirport } from "./airportInterfaces";
 
 export const fetchAirports = createAsyncThunk("abs/fetchAirports", async () => {
@@ -8,8 +10,29 @@ export const fetchAirports = createAsyncThunk("abs/fetchAirports", async () => {
   return response.data;
 });
 
-export const deleteAirport = createAsyncThunk("abs/deleteAirport", async (obj: { id: string }, { dispatch }) => {
-  const response = await axios.delete(`https://localhost:44318/api/Airport/${obj.id}`);
+export const postAirport = createAsyncThunk("abs/postAirport", async (obj: { name: string }, { dispatch }) => {
+  const token = useAppSelector(selectUser).token;
+
+  const response = await axios.post(`https://localhost:44318/api/Airport`, {
+    name: obj.name,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  dispatch(fetchAirports());
+
+  console.log("END");
+
+  return response;
+});
+
+export const deleteAirport = createAsyncThunk("abs/deleteAirport", async (obj: { id: number }, { dispatch }) => {
+  const token = useAppSelector(selectUser).token;
+
+  const response = await axios.delete(`https://localhost:44318/api/Airport/${obj.id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   dispatch(fetchAirports());
   return response;
 });
