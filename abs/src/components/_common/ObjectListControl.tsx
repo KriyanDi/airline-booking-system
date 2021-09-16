@@ -15,7 +15,7 @@ const generateListItem = (element: any, onDelete?: (element: any) => void) => {
           <Button
             color="red"
             onClick={() => {
-              onDelete(element);
+              onDelete(element.id);
             }}
           >
             Delete

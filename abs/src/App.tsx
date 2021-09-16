@@ -11,6 +11,9 @@ import UserBook from "./components/User/User/UserBook";
 import UserTickets from "./components/User/User/UserTickets";
 import AdminNavigation from "./components/Navigation/AdminNavigation";
 import ManageAirports from "./components/User/Admin/ManageAirports";
+import ManageAirlines from "./components/User/Admin/ManageAirlines";
+import ManageTickets from "./components/User/Admin/ManageTickets";
+import ManageFlights from "./components/User/Admin/ManageFlights";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -58,6 +61,9 @@ const App = () => {
           <Route exact path="/book" component={UserBook} />
           <Route exact path="/tickets" component={UserTickets} />
           <Route exact path="/manageAirports" component={ManageAirports} />
+          <Route exact path="/manageAirlines" component={ManageAirlines} />
+          <Route exact path="/manageFlights" component={ManageFlights} />
+          <Route exact path="/manageTickets" component={ManageTickets} />
         </Switch>
       </div>
     </Router>
