@@ -1,24 +1,28 @@
 import React from "react";
-import { Button, List, Segment } from "semantic-ui-react";
+import { Button, Header, List, Segment } from "semantic-ui-react";
 
 const ListViewerControl = (props: any) => {
-  const { data } = props;
+  const { data, deleteObjectMethod, objectName } = props;
 
   const generateBody = (data: any[]) => {
     return data.map((d) => {
       let body: any[] = [];
 
-      for (const key of Object.keys(d)) {
-        const val = d[key];
-        body.push(
-          <List.Item>
+      body.push(
+        <List.Item>
+          {deleteObjectMethod !== undefined ? (
             <List.Content red floated="right">
-              <Button>Remove</Button>
+              <Button color="red" onClick={() => deleteObjectMethod(d.id)}>
+                Delete
+              </Button>
             </List.Content>
-            <List.Content>d.</List.Content>
-          </List.Item>
-        );
-      }
+          ) : null}
+
+          <List.Content>
+            <div className="content">{d.name}</div>
+          </List.Content>
+        </List.Item>
+      );
 
       return body;
     });
@@ -26,10 +30,12 @@ const ListViewerControl = (props: any) => {
 
   return (
     <Segment>
+      <Header as="h3" dividing>
+        All {`${objectName}`}
+      </Header>
       <List divided verticalAlign="middle">
         {generateBody(data)}
       </List>
-      ;
     </Segment>
   );
 };
