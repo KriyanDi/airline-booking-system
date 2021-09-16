@@ -14,7 +14,7 @@ const AirportsListManage = (props: any) => {
 
   let list = selector(selectAirports);
 
-  const onDelete = (element: { id: string }): void => {
+  const onDelete = (element: { id: number }): void => {
     dispatch(deleteAirport({ id: element.id }));
   };
 
