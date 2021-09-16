@@ -1,17 +1,24 @@
-import React from "react";
-import Segment from "semantic-ui-react/dist/commonjs/elements/Segment";
-import { useAppSelector } from "../../../redux/hooks";
-import AddObject from "../../_common/AddObject";
-import ListViewerControl from "../../_common/ListViewerControl";
+import React, { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { selectAirports, deleteAirport, postAirport, fetchAirports } from "../../../redux/slices/airport/airportSlice";
+
+import ManageObject from "../../_common/ManageObject";
 
 const ManageAirports = (props: any) => {
+  const dispatch = useAppDispatch();
   const selector = useAppSelector;
 
+  let data = selector(selectAirports);
+  const deleteAirportMethod = (id: number) => dispatch(deleteAirport({ id: id }));
+  const postObjectMethod = (name: string) => dispatch(postAirport({ name: name }));
+
   return (
-    <Segment>
-      <AddObject objectName="Airports" />
-      <ListViewerControl />
-    </Segment>
+    <ManageObject
+      objectName="Airports"
+      data={data}
+      deleteObjectMethod={deleteAirportMethod}
+      postObjectMethod={postObjectMethod}
+    />
   );
 };
 
