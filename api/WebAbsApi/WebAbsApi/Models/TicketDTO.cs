@@ -23,12 +23,12 @@ namespace WebAbsApi.Models
 
     }
 
-    public class TicketDTO
+    public class TicketDTO: CreateTicketDTO
     {
         public int Id { get; set; }
-        public ApiUser ApiUser { get; set; }
-        public Flight Flight { get; set; }
-        public FlightSection FlightSection { get; set; }
-        public Seat Seat { get; set; }
+        public UserDTO ApiUser { get; set; }
+        public FlightShortDTO Flight { get; set; }
+        public FlightSectionShortDTO FlightSection { get; set; }
+        public SeatShortDTO Seat { get; set; }
     }
 }

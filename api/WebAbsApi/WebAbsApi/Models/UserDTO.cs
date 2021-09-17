@@ -15,8 +15,10 @@ namespace WebAbsApi.Models
     }
 
     public class UserDTO : LoginUserDTO
-    {
+    { 
         public ICollection<string> Roles { get; set; }
+
+        public string Id { get; set; }
         //public ICollection<TicketDTO> Tickets { get; set; }
     }
 }

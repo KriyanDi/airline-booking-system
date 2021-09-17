@@ -32,23 +32,23 @@ namespace WebAbsApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetTickets()
         {
-            var tickets = await _unitOfWork.Tickets.GetAll();
+            var tickets = await _unitOfWork.Tickets.GetAll(null,null, new List<string> { "Seat", "FlightSection", "Flight", "ApiUser" });
             var results = _mapper.Map<IList<TicketDTO>>(tickets);
             return Ok(results);
         }
 
-        [Authorize(Roles = "Admin,User")]
+        //[Authorize(Roles = "Admin,User")]
         [HttpGet("{id:int}", Name = "GetTicket")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetTicket(int id)
         {
-            var ticket = await _unitOfWork.Tickets.Get(q => q.Id == id);
+            var ticket = await _unitOfWork.Tickets.Get(q => q.Id == id, new List<string> { "Seat", "FlightSection", "Flight","ApiUser"});
             var result = _mapper.Map<TicketDTO>(ticket);
             return Ok(result);
         }
 
-        [Authorize(Roles = "Admin,User")]
+        //[Authorize(Roles = "Admin,User")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -62,13 +62,18 @@ namespace WebAbsApi.Controllers
             }
 
             var ticket = _mapper.Map<Ticket>(ticketDTO);
+
+            var seat = await _unitOfWork.Seats.Get(q => q.Id == ticket.SeatId);
+            seat.IsBooked = true;
+            _unitOfWork.Seats.Update(seat);
+
             await _unitOfWork.Tickets.Insert(ticket);
             await _unitOfWork.Save();
 
             return CreatedAtRoute("GetTicket", new { id = ticket.Id }, ticket);
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -95,7 +100,7 @@ namespace WebAbsApi.Controllers
             return NoContent();
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -114,6 +119,10 @@ namespace WebAbsApi.Controllers
                 _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteTicket)}");
                 return BadRequest("Submitted data is invalid.");
             }
+
+            var seat = await _unitOfWork.Seats.Get(q => q.Id == ticket.SeatId);
+            seat.IsBooked = false;
+            _unitOfWork.Seats.Update(seat);
 
             await _unitOfWork.Tickets.Delete(id);
             await _unitOfWork.Save();

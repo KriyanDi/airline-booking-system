@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 using System.Threading.Tasks;
 using WebAbsApi.Data;
 using WebAbsApi.Models;
@@ -76,7 +77,12 @@ namespace WebAbsApi.Controllers
                 return Unauthorized();
             }
 
-            return Accepted(new { Token = await _authManager.CreateToken()});
+            var _user = await _userManager.FindByNameAsync(userDTO.Email);
+
+            var user = _userManager.Users.Where(p => p.Email == userDTO.Email).ToList()[0];
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            return Accepted(new { Token = await _authManager.CreateToken(), UserId = _user.Id, Roles = userRoles});
         }
     }
 }

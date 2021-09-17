@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -64,6 +65,7 @@ namespace WebAbsApi.Controllers
             return CreatedAtRoute("GetSeat", new { id = seat.Id }, seat);
         }
 
+        //[Authorize(Roles = "Admin,User")]
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -90,6 +92,7 @@ namespace WebAbsApi.Controllers
             return NoContent();
         }
 
+        //[Authorize(Roles = "User")]
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
