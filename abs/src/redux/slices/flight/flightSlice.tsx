@@ -30,6 +30,7 @@ export const postFlight = createAsyncThunk(
     });
 
     dispatch(fetchFlights());
+
     return response;
   }
 );

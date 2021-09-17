@@ -29,7 +29,9 @@ export const deleteAirport = createAsyncThunk("abs/deleteAirport", async (obj: {
   const token = useAppSelector(selectUser).token;
 
   const response = await axios.delete(`https://localhost:44318/api/Airport/${obj.id}`, {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   dispatch(fetchAirports());

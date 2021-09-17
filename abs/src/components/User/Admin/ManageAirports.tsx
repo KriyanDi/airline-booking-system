@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { selectAirports, deleteAirport, postAirport, fetchAirports } from "../../../redux/slices/airport/airportSlice";
@@ -14,8 +15,21 @@ const ManageAirports = (props: any) => {
 
   let data = selector(selectAirports);
 
-  const deleteAirportMethod = (id: number) => dispatch(deleteAirport({ id: id }));
-  const postObjectMethod = (name: string) => dispatch(postAirport({ name: name }));
+  const deleteAirportMethod = async (id: number) => {
+    const response = await axios.delete(`https://localhost:44318/api/Airport/${id}`);
+
+    dispatch(fetchAirports());
+    // dispatch(deleteAirport({ id: id }));
+  };
+
+  const postObjectMethod = async (name: string) => {
+    const response = await axios.post(`https://localhost:44318/api/Airport`, {
+      name: name,
+    });
+
+    dispatch(fetchAirports());
+    // dispatch(postAirport({ name: name }));
+  };
 
   return (
     <ManageObject

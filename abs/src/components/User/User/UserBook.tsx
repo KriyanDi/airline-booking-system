@@ -33,7 +33,7 @@ const UserBook = () => {
       column: seat.data.column,
       isBooked: true,
       flightSectionId: seat.data.flightSection.id,
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { "Content-Type": "text/json", Authorization: `Bearer ${token}` },
     };
 
     await axios.put(`https://localhost:44318/api/Seat/${id}`, seatUpdated);
@@ -43,7 +43,7 @@ const UserBook = () => {
       flightId: flightId,
       flightSectionId: sectionId,
       seatId: seatId,
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { "Content-Type": "text/json", Authorization: `Bearer ${token}` },
     });
 
     return response;

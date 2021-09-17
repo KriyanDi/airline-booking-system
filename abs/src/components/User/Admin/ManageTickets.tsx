@@ -15,12 +15,16 @@ const ManageTickets = (props: any) => {
 
   const getTickets = async () => {
     await axios
-      .get("https://localhost:44318/api/Ticket", { headers: { Authorization: `Bearer ${token}` } })
+      .get("https://localhost:44318/api/Ticket", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((res) => setTickets(res.data));
   };
 
   const deleteTicketById = async (id: number) => {
-    await axios.delete(`https://localhost:44318/api/Ticket/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+    await axios.delete(`https://localhost:44318/api/Ticket/${id}`, {
+      headers: { "content-type": "text/json", Authorization: `Bearer ${token}` },
+    });
     getTickets();
   };
 
