@@ -3,10 +3,10 @@ import axios from "axios";
 import { useAppSelector } from "../../hooks";
 import type { RootState } from "../../store";
 import { selectUser } from "../user/userSlice";
-import { IAirlineState, IAirline } from "./airlineInterfaces";
+import { IAirlineState } from "./airlineInterfaces";
 
 export const fetchAirlines = createAsyncThunk("abs/fetchAirlines", async () => {
-  const response = await axios.get("https://localhost:44318/api/Airlines");
+  const response = await axios.get("https://localhost:44318/api/Airline");
   return response.data;
 });
 
@@ -55,11 +55,27 @@ export const airlineSlice = createSlice({
       })
       .addCase(fetchAirlines.rejected, (state, action) => {
         state.status = "failed";
+      })
+      .addCase(postAirline.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(postAirline.fulfilled, (state, action) => {
+        state.status = "succeeded";
+      })
+      .addCase(postAirline.rejected, (state, action) => {
+        state.status = "failed";
+      })
+      .addCase(deleteAirline.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(deleteAirline.fulfilled, (state, action) => {
+        state.status = "succeeded";
+      })
+      .addCase(deleteAirline.rejected, (state, action) => {
+        state.status = "failed";
       });
   },
 });
-
-export const {} = airlineSlice.actions;
 
 export const selectAirlines = (state: RootState) => state.airlineReducer.airlines;
 

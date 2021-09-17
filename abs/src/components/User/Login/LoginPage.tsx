@@ -15,6 +15,11 @@ const LoginPage = (props: any) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [routeToAdminPartOrUserPart, setRouteToAdminPartOrUserPart] = useState("");
+
+  useEffect(() => {
+    setRouteToAdminPartOrUserPart(`/${isAdmin ? "manageAirports" : "book"}`);
+  }, [dispatch]);
 
   return (
     <Grid middle aligned centered className="grid">
@@ -53,7 +58,7 @@ const LoginPage = (props: any) => {
               </div>
             </div>
 
-            <Link to={`/${isAdmin ? "manageAirports" : "book"}`}>
+            <Link to={routeToAdminPartOrUserPart}>
               <Button
                 fluid
                 large

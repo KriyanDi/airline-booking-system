@@ -25,17 +25,15 @@ const TableViewerControl = (props: any) => {
     });
   };
 
-  {
-    return (
-      <Table singleLine>
-        <Table.Header>
-          <Table.Row>{generateHeaders(headers)}</Table.Row>
-        </Table.Header>
+  return (
+    <Table singleLine>
+      <Table.Header>
+        <Table.Row>{generateHeaders(headers)}</Table.Row>
+      </Table.Header>
 
-        <Table.Body>{generateBody(data)}</Table.Body>
-      </Table>
-    );
-  }
+      <Table.Body>{generateBody(data)}</Table.Body>
+    </Table>
+  );
 };
 
 export default TableViewerControl;

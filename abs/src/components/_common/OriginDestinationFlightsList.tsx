@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
-import { Button, Dropdown, Form, Header, Input, Segment } from "semantic-ui-react";
+import { Dropdown, Form, Header, Input, Segment } from "semantic-ui-react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchAirports, selectAirports } from "../../redux/slices/airport/airportSlice";
-import { fetchFlights, selectFlightById, selectFlights } from "../../redux/slices/flight/flightSlice";
+import { fetchFlights, selectFlights } from "../../redux/slices/flight/flightSlice";
 
 const OriginDestinationFlightsList = (props: any) => {
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
 
-  const currentDate = new Date();
-  let year = `${currentDate.getFullYear()}`;
-  let month = `${currentDate.getMonth() > 10 ? currentDate.getMonth() : `0${currentDate.getMonth()}`}`;
-  let day = `${currentDate.getDay() > 10 ? currentDate.getDay() : `0${currentDate.getDay()}`}`;
-  const calendarDateLimit = `${year}-${month}-${day}`;
+  // const currentDate = new Date();
+  // let year = `${currentDate.getFullYear()}`;
+  // let month = `${currentDate.getMonth() > 10 ? currentDate.getMonth() : `0${currentDate.getMonth()}`}`;
+  // let day = `${currentDate.getDay() > 10 ? currentDate.getDay() : `0${currentDate.getDay()}`}`;
+  // const calendarDateLimit = `${year}-${month}-${day}`;
 
   const {
     originId,

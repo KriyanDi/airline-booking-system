@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Menu, Segment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { logout } from "../../redux/slices/user/userSlice";

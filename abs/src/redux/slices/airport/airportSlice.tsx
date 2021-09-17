@@ -3,7 +3,7 @@ import axios from "axios";
 import { useAppSelector } from "../../hooks";
 import type { RootState } from "../../store";
 import { selectUser } from "../user/userSlice";
-import { IAirportState, IAirport } from "./airportInterfaces";
+import { IAirportState } from "./airportInterfaces";
 
 export const fetchAirports = createAsyncThunk("abs/fetchAirports", async () => {
   const response = await axios.get("https://localhost:44318/api/Airport");
@@ -22,8 +22,6 @@ export const postAirport = createAsyncThunk("abs/postAirport", async (obj: { nam
 
   dispatch(fetchAirports());
 
-  console.log("END");
-
   return response;
 });
 
@@ -33,6 +31,7 @@ export const deleteAirport = createAsyncThunk("abs/deleteAirport", async (obj: {
   const response = await axios.delete(`https://localhost:44318/api/Airport/${obj.id}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
+
   dispatch(fetchAirports());
   return response;
 });
@@ -58,11 +57,27 @@ export const airportSlice = createSlice({
       })
       .addCase(fetchAirports.rejected, (state, action) => {
         state.status = "failed";
+      })
+      .addCase(postAirport.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(postAirport.fulfilled, (state, action) => {
+        state.status = "succeeded";
+      })
+      .addCase(postAirport.rejected, (state, action) => {
+        state.status = "failed";
+      })
+      .addCase(deleteAirport.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(deleteAirport.fulfilled, (state, action) => {
+        state.status = "succeeded";
+      })
+      .addCase(deleteAirport.rejected, (state, action) => {
+        state.status = "failed";
       });
   },
 });
-
-export const {} = airportSlice.actions;
 
 export const selectAirports = (state: RootState) => state.airportReducer.airports;
 

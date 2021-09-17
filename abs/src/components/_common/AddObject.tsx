@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Header, Segment } from "semantic-ui-react";
 
 const AddObject = (props: any) => {
-  const { objectName, postMethod, postObjectMethod } = props;
+  const { objectName, postObjectMethod } = props;
 
   const [input, setInput] = useState("");
   const [inputPlaceholder, setInputPlaceholder] = useState(`Add ${objectName} ...`);

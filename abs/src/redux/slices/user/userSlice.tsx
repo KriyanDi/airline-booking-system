@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { useAppDispatch } from "../../hooks";
 import type { RootState } from "../../store";
-import { IUser, IUserState } from "../user/userInterfaces";
+import { IUserState } from "../user/userInterfaces";
 
 const initialState: IUserState = {
   user: { token: "", email: "", id: "", isAdmin: false },

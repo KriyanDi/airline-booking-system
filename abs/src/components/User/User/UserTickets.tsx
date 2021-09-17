@@ -2,15 +2,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Header, Segment } from "semantic-ui-react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { selectFlightById } from "../../../redux/slices/flight/flightSlice";
 import { selectUser } from "../../../redux/slices/user/userSlice";
 import TableViewerControl from "../../_common/TableViewerControl";
 
 const UserTickets = (props: any) => {
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
-  const [tickets, setTickets] = useState([{ flightId: -1, flightSectionId: -1, seatId: -1, userId: -1 }]);
-  const [flight, setFlight] = useState(null);
+
+  const [tickets, setTickets] = useState<any>(null);
 
   const token = selector(selectUser).token;
 
@@ -30,7 +29,19 @@ const UserTickets = (props: any) => {
         Your Tickets
       </Header>
 
-      <TableViewerControl headers={["Flight Id", "Section", "Seat"]} data={[]} />
+      <TableViewerControl
+        headers={["Flight Number", "Section", "Seat", "Date"]}
+        data={
+          tickets === null
+            ? []
+            : tickets.map((ticket: any) => ({
+                flightNumber: ticket.flight.flightNumber,
+                section: ticket.flightSection.seatClass,
+                saet: `${ticket.seat.row}${ticket.seat.column}`,
+                date: new Date(ticket.flight.date).toISOString().split("T")[0],
+              }))
+        }
+      />
     </Segment>
   );
 };

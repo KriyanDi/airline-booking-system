@@ -6,7 +6,7 @@ import UserNavigation from "./components/Navigation/UserNavigation";
 import LoginPage from "./components/User/Login/LoginPage";
 import RegisterPage from "./components/User/Register/RegisterPage";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
-import { logout, selectLogged, selectUser } from "./redux/slices/user/userSlice";
+import { selectLogged, selectUser } from "./redux/slices/user/userSlice";
 import UserBook from "./components/User/User/UserBook";
 import UserTickets from "./components/User/User/UserTickets";
 import AdminNavigation from "./components/Navigation/AdminNavigation";
