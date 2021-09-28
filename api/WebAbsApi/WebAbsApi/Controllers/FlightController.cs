@@ -34,14 +34,13 @@ namespace WebAbsApi.Controllers
             var flights = await _unitOfWork.Flights.GetAll();
             var results = _mapper.Map<IList<FlightShortDTO>>(flights);
             return Ok(results);
-        }
+        }//com
 
         [HttpGet("{id:int}", Name = "GetFlight")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetFlight(int id)
         {
-            //TO DO:
             var flight = await _unitOfWork.Flights.Get(q => q.Id == id, new List<string> { "Airline", "OriginAirport", "DestinationAirport", "FlightSections"});
             if (flight != null && flight.FlightSections.Count != 0)
             {
