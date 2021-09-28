@@ -6959,11 +6959,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "D:\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
       "projectName": "WebAbsApi",
       "projectPath": "D:\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
       "packagesPath": "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\",
       "outputPath": "D:\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\obj\\",
+=======
+      "projectUniqueName": "D:\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
+      "projectName": "WebAbsApi",
+      "projectPath": "D:\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
+      "packagesPath": "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\",
+      "outputPath": "D:\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\obj\\",
+>>>>>>> eb5d8502ddc17bba6d96d0f7ff7a10abbd0273f3
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
