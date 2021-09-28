@@ -63,8 +63,21 @@ const ManageFlights = (props: any) => {
     value: n,
   }));
 
-  let sectionsOptions = selector(selectFlightById(flightId));
-  console.log(sectionsOptions);
+  let columnsOptions = Array.from({ length: 10 }, (_, i) => i + 1).map((n) => ({
+    key: n,
+    text: n,
+    value: n,
+  }));
+
+  let sectionsOptions = async () => {
+    //TODO:
+    let data: any;
+    let response = await axios.get(`https://localhost:44318/api/Flight/${flightId}`).then((res) => (data = res.data));
+
+    let flightSections = data.flightSections.map((s: any) => s.seatClass);
+    console.log(flightSections);
+    return data;
+  };
 
   const deleteFlightById = (id: number) => dispatch(deleteFlight({ id: id }));
 
@@ -207,7 +220,7 @@ const ManageFlights = (props: any) => {
               control={Dropdown}
               label="Columns"
               clearable
-              options={colum}
+              options={columnsOptions}
               selection
               onChange={(e: any, data: any) => {
                 setColumns(data.value);
