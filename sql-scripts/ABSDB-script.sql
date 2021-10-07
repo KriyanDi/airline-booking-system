@@ -55,3 +55,14 @@ create table FLIGHT_SECTION
  constraint CHK_NUMBER_OF_ROWS_FOR_FLIGHT_SECTION check (1 <= ROWS and ROWS <= 100),
  constraint CHK_NUMEBR_OF_COLS_FOR_FLIGHT_SECTION check (1 <= COLS and COLS <= 10),
 );
+
+create table SEAT
+(SEAT_ID sql_variant not null,
+ FLIGHT_SECTION_ID sql_variant not null,
+ BOOKED BIT not null,
+ ROW int not null,
+ COL int not null,
+
+ constraint PK_SEAT primary key (SEAT_ID),
+ constraint FK_FLIGHT_SECTION_SEAT foreign key (FLIGHT_SECTION_ID) references FLIGHT_SECTION (FLIGHT_SECTION_ID)
+);
