@@ -90,3 +90,15 @@ create table ACCOUNT
  constraint CHK_EMAIL_VALIDATION check (EMAIL like '%@%.%'),
  constraint CHK_PASSWORD_LENGHT check (len(PASSWORD) >= 8)
 );
+
+create table TICKET
+(TICKET_ID sql_variant not null,
+ ACCOUNT_ID sql_variant not null,
+ FLIGHT_ID sql_variant not null,
+ PRICE money not null,
+
+ constraint PK_TICKET primary key (TICKET_ID),
+ constraint FK_ACCOUNT_TICKET foreign key (ACCOUNT_ID) references ACCOUNT(ACCOUNT_ID),
+ constraint FK_FLIGHT_TICKET foreign key (FLIGHT_ID) references FLIGHT(FLIGHT_ID),
+ constraint CHK_PRICE check (PRICE >= 0.0)
+)
