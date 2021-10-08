@@ -75,3 +75,18 @@ create table ROLE
  constraint UQ_ROLE_TYPE unique (TYPE),
  constraint CHK_TYPE_LENGTH check (len(TYPE) > 0)
 );
+
+create table ACCOUNT
+(ACCOUNT_ID sql_variant not null,
+ ROLE_ID sql_variant not null,
+ USERNAME nvarchar(32) not null,
+ EMAIL nvarchar(255) not null,
+ PASSWORD nvarchar(32) not null,
+
+ constraint PK_ACCOUNT primary key (ACCOUNT_ID),
+ constraint UQ_USERNAME unique (USERNAME),
+ constraint UQ_EMAIL unique (EMAIL),
+ constraint CHK_USERNAME_LENGHT check (len(USERNAME) >= 8),
+ constraint CHK_EMAIL_VALIDATION check (EMAIL like '%@%.%'),
+ constraint CHK_PASSWORD_LENGHT check (len(PASSWORD) >= 8)
+);
