@@ -32,3 +32,11 @@ create table FLIGHT
  constraint FK_ORIGIN_AIRPORT_FLIGHT foreign key (ORIG_AIRPORT_ID) references AIRPORT(AIRPORT_ID) on update no action on delete no action,
  constraint FK_DESTINATION_AIRPORT_FLIGHT foreign key (DEST_AIRPORT_ID) references AIRPORT(AIRPORT_ID) on update no action on delete no action
  );
+
+ create table SEATCLASS
+(SEATCLASS_ID sql_variant not null,
+ TYPE nvarchar(25) not null,
+
+ constraint PK_SEATCLASS primary key (SEATCLASS_ID),
+ constraint UQ_SEATCLASS_TYPE unique (TYPE)
+);
