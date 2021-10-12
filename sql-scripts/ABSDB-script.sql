@@ -66,3 +66,12 @@ create table SEAT
  constraint PK_SEAT primary key (SEAT_ID),
  constraint FK_FLIGHT_SECTION_SEAT foreign key (FLIGHT_SECTION_ID) references FLIGHT_SECTION (FLIGHT_SECTION_ID)
 );
+
+create table ROLE
+(ROLE_ID sql_variant not null,
+ TYPE nvarchar(16) not null,
+
+ constraint PK_ROLE primary key (ROLE_ID),
+ constraint UQ_ROLE_TYPE unique (TYPE),
+ constraint CHK_TYPE_LENGTH check (len(TYPE) > 0)
+);
