@@ -40,3 +40,18 @@ create table FLIGHT
  constraint PK_SEATCLASS primary key (SEATCLASS_ID),
  constraint UQ_SEATCLASS_TYPE unique (TYPE)
 );
+
+create table FLIGHT_SECTION
+(FLIGHT_SECTION_ID sql_variant not null,
+ FLIGHT_ID sql_variant not null,
+ SEATCLASS_ID sql_variant not null,
+ ROWS int not null,
+ COLS int not null,
+
+ constraint PK_FLIGHT_SECTION primary key (FLIGHT_SECTION_ID),
+ constraint UQ_FLIGHT_SEATCLASS unique (FLIGHT_ID, SEATCLASS_ID),
+ constraint FK_FLIGHT_FLIGHT_SECTION foreign key (FLIGHT_ID) references FLIGHT (FLIGHT_ID),
+ constraint FK_SEATCLASS_FLIGHT_SECTION foreign key (SEATCLASS_ID) references SEATCLASS (SEATCLASS_ID),
+ constraint CHK_NUMBER_OF_ROWS_FOR_FLIGHT_SECTION check (1 <= ROWS and ROWS <= 100),
+ constraint CHK_NUMEBR_OF_COLS_FOR_FLIGHT_SECTION check (1 <= COLS and COLS <= 10),
+);
