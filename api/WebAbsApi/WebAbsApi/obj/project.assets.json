@@ -3298,7 +3298,6 @@
       "path": "system.appcontext/4.1.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -4604,7 +4603,6 @@
       "path": "system.linq.expressions/4.1.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -4809,7 +4807,6 @@
       "path": "system.objectmodel/4.0.12",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -6616,7 +6613,6 @@
       "path": "system.threading.timer/4.0.1",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -6953,32 +6949,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "D:\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
+      "projectUniqueName": "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_TASK\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
       "projectName": "WebAbsApi",
-      "projectPath": "D:\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
+      "projectPath": "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_TASK\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
       "packagesPath": "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\",
-      "outputPath": "D:\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\obj\\",
-=======
-      "projectUniqueName": "D:\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
-      "projectName": "WebAbsApi",
-      "projectPath": "D:\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
-      "packagesPath": "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\",
-      "outputPath": "D:\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\obj\\",
->>>>>>> eb5d8502ddc17bba6d96d0f7ff7a10abbd0273f3
+      "outputPath": "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_TASK\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
         "C:\\Users\\Kristiyan Dimitrov\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7061,8 +7044,16 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_TASK\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
