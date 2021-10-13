@@ -10,6 +10,7 @@ using WebAbsApi.Data;
 using WebAbsApi.IRepository;
 using WebAbsApi.Repository;
 using WebAbsApi.Services;
+using Newtonsoft.Json.Serialization;
 
 namespace WebAbsApi
 {
@@ -53,6 +54,8 @@ namespace WebAbsApi
                     .AllowAnyHeader());
             });
 
+
+
             // Swagger 
             services.AddSwaggerGen(c =>
             {
@@ -61,7 +64,8 @@ namespace WebAbsApi
 
             // Controllers
             services.AddControllers()
-                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+                .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
