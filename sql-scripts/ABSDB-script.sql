@@ -101,4 +101,4 @@ create table TICKET
  constraint FK_ACCOUNT_TICKET foreign key (ACCOUNT_ID) references ACCOUNT(ACCOUNT_ID) on update no action on delete no action,
  constraint FK_FLIGHT_TICKET foreign key (FLIGHT_ID) references FLIGHT(FLIGHT_ID) on update no action on delete no action,
  constraint CHK_PRICE check (PRICE >= 0.0)
-)
+);
