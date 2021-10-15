@@ -28,7 +28,7 @@ create table FLIGHT
 
  constraint PK_FLIGHT primary key (FLIGHT_ID),
  constraint UQ_FLIGHT_NUMBER unique (FLIGHT_NUMBER),
- constraint FK_AIRLINE_FLIGHT foreign key (AIRLINE_ID) references AIRLINE(AIRLINE_ID),
+ constraint FK_AIRLINE_FLIGHT foreign key (AIRLINE_ID) references AIRLINE(AIRLINE_ID) on update no action on delete no action,
  constraint FK_ORIGIN_AIRPORT_FLIGHT foreign key (ORIG_AIRPORT_ID) references AIRPORT(AIRPORT_ID) on update no action on delete no action,
  constraint FK_DESTINATION_AIRPORT_FLIGHT foreign key (DEST_AIRPORT_ID) references AIRPORT(AIRPORT_ID) on update no action on delete no action
  );
@@ -50,8 +50,8 @@ create table FLIGHT_SECTION
 
  constraint PK_FLIGHT_SECTION primary key (FLIGHT_SECTION_ID),
  constraint UQ_FLIGHT_SEATCLASS unique (FLIGHT_ID, SEATCLASS_ID),
- constraint FK_FLIGHT_FLIGHT_SECTION foreign key (FLIGHT_ID) references FLIGHT (FLIGHT_ID),
- constraint FK_SEATCLASS_FLIGHT_SECTION foreign key (SEATCLASS_ID) references SEATCLASS (SEATCLASS_ID),
+ constraint FK_FLIGHT_FLIGHT_SECTION foreign key (FLIGHT_ID) references FLIGHT (FLIGHT_ID) on update no action on delete no action,
+ constraint FK_SEATCLASS_FLIGHT_SECTION foreign key (SEATCLASS_ID) references SEATCLASS (SEATCLASS_ID) on update no action on delete no action,
  constraint CHK_NUMBER_OF_ROWS_FOR_FLIGHT_SECTION check (1 <= ROWS and ROWS <= 100),
  constraint CHK_NUMEBR_OF_COLS_FOR_FLIGHT_SECTION check (1 <= COLS and COLS <= 10),
 );
@@ -64,7 +64,7 @@ create table SEAT
  COL int not null,
 
  constraint PK_SEAT primary key (SEAT_ID),
- constraint FK_FLIGHT_SECTION_SEAT foreign key (FLIGHT_SECTION_ID) references FLIGHT_SECTION (FLIGHT_SECTION_ID)
+ constraint FK_FLIGHT_SECTION_SEAT foreign key (FLIGHT_SECTION_ID) references FLIGHT_SECTION (FLIGHT_SECTION_ID) on update no action on delete no action
 );
 
 create table ROLE
@@ -98,7 +98,7 @@ create table TICKET
  PRICE money not null,
 
  constraint PK_TICKET primary key (TICKET_ID),
- constraint FK_ACCOUNT_TICKET foreign key (ACCOUNT_ID) references ACCOUNT(ACCOUNT_ID),
- constraint FK_FLIGHT_TICKET foreign key (FLIGHT_ID) references FLIGHT(FLIGHT_ID),
+ constraint FK_ACCOUNT_TICKET foreign key (ACCOUNT_ID) references ACCOUNT(ACCOUNT_ID) on update no action on delete no action,
+ constraint FK_FLIGHT_TICKET foreign key (FLIGHT_ID) references FLIGHT(FLIGHT_ID) on update no action on delete no action,
  constraint CHK_PRICE check (PRICE >= 0.0)
 )
