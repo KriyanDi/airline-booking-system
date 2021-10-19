@@ -33,7 +33,7 @@ create table FLIGHT
  constraint FK_DESTINATION_AIRPORT_FLIGHT foreign key (DEST_AIRPORT_ID) references AIRPORT(AIRPORT_ID) on update no action on delete no action
  );
 
- create table SEATCLASS
+create table SEATCLASS
 (SEATCLASS_ID sql_variant not null,
  TYPE nvarchar(25) not null,
 
@@ -102,3 +102,58 @@ create table TICKET
  constraint FK_FLIGHT_TICKET foreign key (FLIGHT_ID) references FLIGHT(FLIGHT_ID) on update no action on delete no action,
  constraint CHK_PRICE check (PRICE >= 0.0)
 );
+
+
+
+insert into AIRPORT (AIRPORT_ID, NAME) 
+values 
+ (1, 'CAN'),
+ (2, 'TEW'),
+ (3, 'AED'),
+ (4, 'OQW'),
+ (5, 'FDA'),
+ (6, 'BVD'),
+ (7, 'ASD'),
+ (8, 'BZX'),
+ (9, 'WIU'),
+ (10, 'USA');
+
+insert into AIRLINE (AIRLINE_ID, NAME) 
+values 
+ (1, 'DELTA'),
+ (2, 'WIZZ'),
+ (3, 'CLOUD'),
+ (4, 'RTRN'),
+ (5, 'BBERT'),
+ (6, 'HWG'),
+ (7, 'PUUI'),
+ (8, 'APLUS'),
+ (9, 'WIU'),
+ (10, 'ATTA');
+
+insert into FLIGHT (FLIGHT_ID, FLIGHT_NUMBER, AIRLINE_ID, ORIG_AIRPORT_ID, DEST_AIRPORT_ID, TAKE_OFF)
+values
+ (1, '100-100-01', 1, 1, 2, '2021-10-01 12:35:29.00'),
+ (2, '100-100-02', 2, 2, 2, '2021-10-01 12:35:29.00'),
+ (3, '100-100-03', 3, 3, 5, '2021-10-01 12:35:29.00'),
+ (4, '100-100-04', 4, 1, 7, '2021-10-01 12:35:29.00'),
+ (5, '100-100-05', 5, 8, 10, '2021-10-01 12:35:29.00');
+
+insert into SEATCLASS(SEATCLASS_ID, TYPE) 
+values
+  (1, 'FIRST'),
+  (2, 'BUSINESS'),
+  (3, 'ECONOMY');
+
+insert into FLIGHT_SECTION(FLIGHT_SECTION_ID, FLIGHT_ID, SEATCLASS_ID, ROWS, COLS)
+values
+ (1, 1, 1, 10, 6),
+ (2, 1, 2, 10, 6),
+ (3, 2, 3, 10, 6),
+ (4, 2, 1, 10, 6),
+ (5, 3, 3, 10, 6);
+
+insert into ROLE(ROLE_ID, TYPE)
+values
+ (1, 'ADMIN'),
+ (2, 'USER');
