@@ -28,7 +28,7 @@ create table FLIGHT
 
  constraint PK_FLIGHT primary key (FLIGHT_ID),
  constraint UQ_FLIGHT_NUMBER unique (FLIGHT_NUMBER),
- constraint FK_AIRLINE_FLIGHT foreign key (AIRLINE_ID) references AIRLINE(AIRLINE_ID) on update no action on delete no action,
+ constraint FK_AIRLINE_FLIGHT foreign key (AIRLINE_ID) references AIRLINE(AIRLINE_ID) on update cascade on delete cascade,
  constraint FK_ORIGIN_AIRPORT_FLIGHT foreign key (ORIG_AIRPORT_ID) references AIRPORT(AIRPORT_ID) on update no action on delete no action,
  constraint FK_DESTINATION_AIRPORT_FLIGHT foreign key (DEST_AIRPORT_ID) references AIRPORT(AIRPORT_ID) on update no action on delete no action
  );
@@ -50,8 +50,8 @@ create table FLIGHT_SECTION
 
  constraint PK_FLIGHT_SECTION primary key (FLIGHT_SECTION_ID),
  constraint UQ_FLIGHT_SEATCLASS unique (FLIGHT_ID, SEATCLASS_ID),
- constraint FK_FLIGHT_FLIGHT_SECTION foreign key (FLIGHT_ID) references FLIGHT (FLIGHT_ID) on update no action on delete no action,
- constraint FK_SEATCLASS_FLIGHT_SECTION foreign key (SEATCLASS_ID) references SEATCLASS (SEATCLASS_ID) on update no action on delete no action,
+ constraint FK_FLIGHT_FLIGHT_SECTION foreign key (FLIGHT_ID) references FLIGHT (FLIGHT_ID) on update cascade on delete cascade,
+ constraint FK_SEATCLASS_FLIGHT_SECTION foreign key (SEATCLASS_ID) references SEATCLASS (SEATCLASS_ID) on update cascade on delete cascade,
  constraint CHK_NUMBER_OF_ROWS_FOR_FLIGHT_SECTION check (1 <= ROWS and ROWS <= 100),
  constraint CHK_NUMEBR_OF_COLS_FOR_FLIGHT_SECTION check (1 <= COLS and COLS <= 10),
 );
@@ -64,7 +64,7 @@ create table SEAT
  COL int not null,
 
  constraint PK_SEAT primary key (SEAT_ID),
- constraint FK_FLIGHT_SECTION_SEAT foreign key (FLIGHT_SECTION_ID) references FLIGHT_SECTION (FLIGHT_SECTION_ID) on update no action on delete no action
+ constraint FK_FLIGHT_SECTION_SEAT foreign key (FLIGHT_SECTION_ID) references FLIGHT_SECTION (FLIGHT_SECTION_ID) on update cascade on delete cascade
 );
 
 create table ROLE
@@ -94,14 +94,52 @@ create table ACCOUNT
 create table TICKET
 (TICKET_ID sql_variant not null,
  ACCOUNT_ID sql_variant not null,
- FLIGHT_ID sql_variant not null,
+ FLIGHT_SECTION_ID sql_variant not null,
+ SEAT_ID sql_variant not null,
  PRICE money not null,
 
  constraint PK_TICKET primary key (TICKET_ID),
- constraint FK_ACCOUNT_TICKET foreign key (ACCOUNT_ID) references ACCOUNT(ACCOUNT_ID) on update no action on delete no action,
- constraint FK_FLIGHT_TICKET foreign key (FLIGHT_ID) references FLIGHT(FLIGHT_ID) on update no action on delete no action,
+ constraint FK_ACCOUNT_TICKET foreign key (ACCOUNT_ID) references ACCOUNT(ACCOUNT_ID) on update cascade on delete cascade,
+ constraint FK_SEAT_TICKET foreign key (SEAT_ID) references SEAT(SEAT_ID) on update cascade on delete cascade,
  constraint CHK_PRICE check (PRICE >= 0.0)
 );
+go
+
+create trigger TR_AIRPORT_INSTEAD_OF_DELETE
+on AIRPORT
+instead of DELETE
+as
+begin
+	delete from FLIGHT
+	where 
+	 FLIGHT.DEST_AIRPORT_ID in (select AIRPORT_ID from DELETED)
+	 or FLIGHT.ORIG_AIRPORT_ID in (select AIRPORT_ID from DELETED);
+
+	 delete from AIRPORT
+	 where AIRPORT.AIRPORT_ID in (select AIRPORT_ID from DELETED)
+end
+go
+
+create trigger TR_SEAT_BEFORE_DELETE
+on SEAT
+for DELETE
+as
+begin
+	delete from TICKET
+	where TICKET.SEAT_ID in (select SEAT_ID from DELETED)
+end
+go
+
+create trigger TR_TICKET_AFTER_DELETE
+on TICKET
+for delete
+as
+begin
+	update SEAT
+	set SEAT.BOOKED = 'FALSE'
+	where SEAT.SEAT_ID in (select SEAT_ID from DELETED);
+end
+go
 
 
 
@@ -157,3 +195,4 @@ insert into ROLE(ROLE_ID, TYPE)
 values
  (1, 'ADMIN'),
  (2, 'USER');
+go
