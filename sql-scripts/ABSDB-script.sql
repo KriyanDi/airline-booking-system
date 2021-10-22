@@ -86,6 +86,7 @@ create table ACCOUNT
  constraint PK_ACCOUNT primary key (ACCOUNT_ID),
  constraint UQ_USERNAME unique (USERNAME),
  constraint UQ_EMAIL unique (EMAIL),
+ constraint FK_ROLE_ACCOUNT foreign key (ROLE_ID) references ROLE(ROLE_ID),
  constraint CHK_USERNAME_LENGHT check (len(USERNAME) >= 8),
  constraint CHK_EMAIL_VALIDATION check (EMAIL like '%@%.%'),
  constraint CHK_PASSWORD_LENGHT check (len(PASSWORD) >= 8)
@@ -209,7 +210,7 @@ values
 insert into FLIGHT (FLIGHT_ID, FLIGHT_NUMBER, AIRLINE_ID, ORIG_AIRPORT_ID, DEST_AIRPORT_ID, TAKE_OFF)
 values
  (1, '100-100-01', 1, 1, 2, '2021-10-01 12:35:29.00'),
- (2, '100-100-02', 2, 2, 2, '2021-10-01 12:35:29.00'),
+ (2, '100-100-02', 2, 2, 5, '2021-10-01 12:35:29.00'),
  (3, '100-100-03', 3, 3, 5, '2021-10-01 12:35:29.00'),
  (4, '100-100-04', 4, 1, 7, '2021-10-01 12:35:29.00'),
  (5, '100-100-05', 5, 8, 10, '2021-10-01 12:35:29.00');
@@ -232,4 +233,31 @@ insert into ROLE(ROLE_ID, TYPE)
 values
  (1, 'ADMIN'),
  (2, 'USER');
+go
+
+
+
+
+create view FLIGHTS_INFORMATION as
+select
+	f.FLIGHT_ID, 
+	f.FLIGHT_NUMBER, 
+	airl.NAME as AIRLINE,
+	(select NAME from AIRPORT where AIRPORT_ID = f.ORIG_AIRPORT_ID) as ORIG, 
+	(select NAME from AIRPORT where AIRPORT_ID = f.DEST_AIRPORT_ID) as DEST, 
+	f.TAKE_OFF, 
+	sc.TYPE as SEATCLASS, 
+	(select COUNT(s.SEAT_ID) from SEAT s where s.FLIGHT_SECTION_ID = fs.FLIGHT_SECTION_ID and s.BOOKED = 1) as BOOKED_SEATS,
+	(select COUNT(s.SEAT_ID) from SEAT s where s.FLIGHT_SECTION_ID = fs.FLIGHT_SECTION_ID and s.BOOKED = 0) as FREE_SEATS 
+from 
+	FLIGHT_SECTION fs
+	inner join FLIGHT f on f.FLIGHT_ID = fs.FLIGHT_ID
+	inner join AIRLINE airl on airl.AIRLINE_ID = f.AIRLINE_ID
+	inner join SEATCLASS sc on sc.SEATCLASS_ID = fs.SEATCLASS_ID;
+go
+
+create view AVAIL_FLIGHTS as
+select FLIGHT_ID, SEATCLASS
+from FLIGHTS_INFORMATION
+where FREE_SEATS > 0;
 go
