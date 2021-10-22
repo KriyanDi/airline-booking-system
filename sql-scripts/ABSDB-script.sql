@@ -61,7 +61,7 @@ create table SEAT
  FLIGHT_SECTION_ID sql_variant not null,
  BOOKED BIT not null,
  ROW int not null,
- COL int not null,
+ COL nchar(1) not null,
 
  constraint PK_SEAT primary key (SEAT_ID),
  constraint FK_FLIGHT_SECTION_SEAT foreign key (FLIGHT_SECTION_ID) references FLIGHT_SECTION (FLIGHT_SECTION_ID) on update cascade on delete cascade
@@ -105,6 +105,8 @@ create table TICKET
 );
 go
 
+
+
 create trigger TR_AIRPORT_INSTEAD_OF_DELETE
 on AIRPORT
 instead of DELETE
@@ -141,6 +143,41 @@ begin
 end
 go
 
+create trigger TR_FLIGHT_SECTION_AFTER_INSERT
+on FLIGHT_SECTION
+after insert
+as
+begin
+	declare @flight_section_id sql_variant
+	declare @rows int
+	declare @cols int
+
+	declare ins_cur cursor for
+		select FLIGHT_SECTION_ID, ROWS, COLS from INSERTED
+
+	open ins_cur
+
+	fetch next from ins_cur into @flight_section_id, @rows, @cols
+	while @@FETCH_STATUS = 0
+	begin
+		declare @num_of_seats int
+		set @num_of_seats = @rows * @cols
+		declare @count_seat int
+		set @count_seat = 0
+		while(@count_seat < @num_of_seats)
+			begin
+				insert into SEAT(SEAT_ID, FLIGHT_SECTION_ID, BOOKED, ROW, COL)
+				values (NEWID( ), @flight_section_id, 0, @count_seat + 1, CHAR(65 + @count_seat % @cols))
+				set @count_seat = @count_seat + 1
+			end
+
+		fetch next from ins_cur into @flight_section_id, @rows, @cols
+	end
+
+	close ins_cur
+    deallocate ins_cur
+end
+go
 
 
 insert into AIRPORT (AIRPORT_ID, NAME) 
@@ -183,13 +220,13 @@ values
   (2, 'BUSINESS'),
   (3, 'ECONOMY');
 
-insert into FLIGHT_SECTION(FLIGHT_SECTION_ID, FLIGHT_ID, SEATCLASS_ID, ROWS, COLS)
-values
- (1, 1, 1, 10, 6),
- (2, 1, 2, 10, 6),
- (3, 2, 3, 10, 6),
- (4, 2, 1, 10, 6),
- (5, 3, 3, 10, 6);
+insert into FLIGHT_SECTION(FLIGHT_SECTION_ID, FLIGHT_ID, SEATCLASS_ID, ROWS, COLS) 
+values 
+ (1, 1, 1, 2, 5),
+ (2, 1, 2, 2, 5),
+ (3, 2, 3, 2, 5),
+ (4, 2, 1, 2, 5),
+ (5, 3, 3, 2, 5);
 
 insert into ROLE(ROLE_ID, TYPE)
 values
