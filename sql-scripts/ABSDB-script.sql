@@ -1,7 +1,7 @@
 use ABSDB;
 
 create table AIRPORT
-(AIRPORT_ID sql_variant not null,
+(AIRPORT_ID uniqueidentifier not null,
  NAME nchar(3) not null,
 
  constraint PK_AIRPORT primary key (AIRPORT_ID),
@@ -10,7 +10,7 @@ create table AIRPORT
 );
 
 create table AIRLINE
-(AIRLINE_ID sql_variant not null,
+(AIRLINE_ID uniqueidentifier not null,
  NAME nvarchar(5) not null,
 
  constraint PK_AIRLINE primary key (AIRLINE_ID),
@@ -19,11 +19,11 @@ create table AIRLINE
 );
 
 create table FLIGHT
-(FLIGHT_ID sql_variant not null,
+(FLIGHT_ID uniqueidentifier  not null,
+ AIRLINE_ID uniqueidentifier  not null,
+ ORIG_AIRPORT_ID uniqueidentifier not null,
+ DEST_AIRPORT_ID uniqueidentifier not null,
  FLIGHT_NUMBER nchar(10) not null,
- AIRLINE_ID sql_variant not null,
- ORIG_AIRPORT_ID sql_variant not null,
- DEST_AIRPORT_ID sql_variant not null,
  TAKE_OFF datetime not null
 
  constraint PK_FLIGHT primary key (FLIGHT_ID),
@@ -34,7 +34,7 @@ create table FLIGHT
  );
 
 create table SEATCLASS
-(SEATCLASS_ID sql_variant not null,
+(SEATCLASS_ID uniqueidentifier not null,
  TYPE nvarchar(25) not null,
 
  constraint PK_SEATCLASS primary key (SEATCLASS_ID),
@@ -42,9 +42,9 @@ create table SEATCLASS
 );
 
 create table FLIGHT_SECTION
-(FLIGHT_SECTION_ID sql_variant not null,
- FLIGHT_ID sql_variant not null,
- SEATCLASS_ID sql_variant not null,
+(FLIGHT_SECTION_ID uniqueidentifier not null,
+ FLIGHT_ID uniqueidentifier not null,
+ SEATCLASS_ID uniqueidentifier not null,
  ROWS int not null,
  COLS int not null,
 
@@ -57,8 +57,8 @@ create table FLIGHT_SECTION
 );
 
 create table SEAT
-(SEAT_ID sql_variant not null,
- FLIGHT_SECTION_ID sql_variant not null,
+(SEAT_ID uniqueidentifier not null,
+ FLIGHT_SECTION_ID uniqueidentifier not null,
  BOOKED BIT not null,
  ROW int not null,
  COL nchar(1) not null,
@@ -68,7 +68,7 @@ create table SEAT
 );
 
 create table ROLE
-(ROLE_ID sql_variant not null,
+(ROLE_ID uniqueidentifier not null,
  TYPE nvarchar(16) not null,
 
  constraint PK_ROLE primary key (ROLE_ID),
@@ -77,8 +77,8 @@ create table ROLE
 );
 
 create table ACCOUNT
-(ACCOUNT_ID sql_variant not null,
- ROLE_ID sql_variant not null,
+(ACCOUNT_ID uniqueidentifier not null,
+ ROLE_ID uniqueidentifier not null,
  USERNAME nvarchar(32) not null,
  EMAIL nvarchar(255) not null,
  PASSWORD nvarchar(32) not null,
@@ -93,10 +93,10 @@ create table ACCOUNT
 );
 
 create table TICKET
-(TICKET_ID sql_variant not null,
- ACCOUNT_ID sql_variant not null,
- FLIGHT_SECTION_ID sql_variant not null,
- SEAT_ID sql_variant not null,
+(TICKET_ID uniqueidentifier not null,
+ ACCOUNT_ID uniqueidentifier not null,
+ FLIGHT_SECTION_ID uniqueidentifier not null,
+ SEAT_ID uniqueidentifier not null,
  PRICE money not null,
 
  constraint PK_TICKET primary key (TICKET_ID),
@@ -183,56 +183,56 @@ go
 
 insert into AIRPORT (AIRPORT_ID, NAME) 
 values 
- (1, 'CAN'),
- (2, 'TEW'),
- (3, 'AED'),
- (4, 'OQW'),
- (5, 'FDA'),
- (6, 'BVD'),
- (7, 'ASD'),
- (8, 'BZX'),
- (9, 'WIU'),
- (10, 'USA');
+ (NEWID(), 'CAN'),
+ (NEWID(), 'TEW'),
+ (NEWID(), 'AED'),
+ (NEWID(), 'OQW'),
+ (NEWID(), 'FDA'),
+ (NEWID(), 'BVD'),
+ (NEWID(), 'ASD'),
+ (NEWID(), 'BZX'),
+ (NEWID(), 'WIU'),
+ (NEWID(), 'USA');
 
 insert into AIRLINE (AIRLINE_ID, NAME) 
 values 
- (1, 'DELTA'),
- (2, 'WIZZ'),
- (3, 'CLOUD'),
- (4, 'RTRN'),
- (5, 'BBERT'),
- (6, 'HWG'),
- (7, 'PUUI'),
- (8, 'APLUS'),
- (9, 'WIU'),
- (10, 'ATTA');
+ (NEWID(), 'DELTA'),
+ (NEWID(), 'WIZZ'),
+ (NEWID(), 'CLOUD'),
+ (NEWID(), 'RTRN'),
+ (NEWID(), 'BBERT'),
+ (NEWID(), 'HWG'),
+ (NEWID(), 'PUUI'),
+ (NEWID(), 'APLUS'),
+ (NEWID(), 'WIU'),
+ (NEWID(), 'ATTA');
 
 insert into FLIGHT (FLIGHT_ID, FLIGHT_NUMBER, AIRLINE_ID, ORIG_AIRPORT_ID, DEST_AIRPORT_ID, TAKE_OFF)
 values
- (1, '100-100-01', 1, 1, 2, '2021-10-01 12:35:29.00'),
- (2, '100-100-02', 2, 2, 5, '2021-10-01 12:35:29.00'),
- (3, '100-100-03', 3, 3, 5, '2021-10-01 12:35:29.00'),
- (4, '100-100-04', 4, 1, 7, '2021-10-01 12:35:29.00'),
- (5, '100-100-05', 5, 8, 10, '2021-10-01 12:35:29.00');
+ (NEWID(), '100-100-01', 1, 1, 2, '2021-10-01 12:35:29.00'),
+ (NEWID(), '100-100-02', 2, 2, 5, '2021-10-01 12:35:29.00'),
+ (NEWID(), '100-100-03', 3, 3, 5, '2021-10-01 12:35:29.00'),
+ (NEWID(), '100-100-04', 4, 1, 7, '2021-10-01 12:35:29.00'),
+ (NEWID(), '100-100-05', 5, 8, 10, '2021-10-01 12:35:29.00');
 
 insert into SEATCLASS(SEATCLASS_ID, TYPE) 
 values
-  (1, 'FIRST'),
-  (2, 'BUSINESS'),
-  (3, 'ECONOMY');
+  (NEWID(), 'FIRST'),
+  (NEWID(), 'BUSINESS'),
+  (NEWID(), 'ECONOMY');
 
 insert into FLIGHT_SECTION(FLIGHT_SECTION_ID, FLIGHT_ID, SEATCLASS_ID, ROWS, COLS) 
 values 
- (1, 1, 1, 2, 5),
- (2, 1, 2, 2, 5),
- (3, 2, 3, 2, 5),
- (4, 2, 1, 2, 5),
- (5, 3, 3, 2, 5);
+ (NEWID(), 1, 1, 2, 5),
+ (NEWID(), 1, 2, 2, 5),
+ (NEWID(), 2, 3, 2, 5),
+ (NEWID(), 2, 1, 2, 5),
+ (NEWID(), 3, 3, 2, 5);
 
 insert into ROLE(ROLE_ID, TYPE)
 values
- (1, 'ADMIN'),
- (2, 'USER');
+ (NEWID(), 'ADMIN'),
+ (NEWID(), 'USER');
 go
 
 
