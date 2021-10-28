@@ -1,38 +1,20 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-    "D:\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj": {}
+    "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_TASK\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj": {}
   },
   "projects": {
-    "D:\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj": {
+    "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_TASK\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
+        "projectUniqueName": "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_TASK\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
         "projectName": "WebAbsApi",
-        "projectPath": "D:\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
+        "projectPath": "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_TASK\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
         "packagesPath": "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\",
-        "outputPath": "D:\\_1_Първа задача\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\obj\\",
-=======
-    "D:\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj": {}
-  },
-  "projects": {
-    "D:\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "D:\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
-        "projectName": "WebAbsApi",
-        "projectPath": "D:\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
-        "packagesPath": "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\",
-        "outputPath": "D:\\ABS\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\obj\\",
->>>>>>> eb5d8502ddc17bba6d96d0f7ff7a10abbd0273f3
+        "outputPath": "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_TASK\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\Kristiyan Dimitrov\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -95,6 +77,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.3, )"
             }
           },
           "imports": [
@@ -115,7 +101,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
