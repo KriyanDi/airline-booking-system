@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 using Serilog;
 using System.Text;
 using WebAbsApi.Data;
@@ -15,6 +18,22 @@ namespace WebAbsApi
 {
     public static class ServiceExtensions
     {
+        public static void ConfigureDbContext(this IServiceCollection services, IConfiguration Configuration)
+        {
+            services.AddDbContext<CoreDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AbsConnection")));
+        }
+
+        public static void ConfigureCors(this IServiceCollection services)
+        {
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("AllowAll", builder =>
+                    builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
+        }
+
         public static void ConfigureIdentity(this IServiceCollection services)
         {
             var builder = services.AddIdentityCore<ApiUser>(q => q.User.RequireUniqueEmail = true);
@@ -67,6 +86,21 @@ namespace WebAbsApi
                     }
                 });
             });
+        }
+
+        public static void ConfigureSwagger(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAbsApi", Version = "v1" });
+            });
+        }
+
+        public static void ConfigureControllers(this IServiceCollection services)
+        {
+            services.AddControllers()
+               .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+               .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }
     }
 }

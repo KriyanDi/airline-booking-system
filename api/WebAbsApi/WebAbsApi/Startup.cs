@@ -27,10 +27,7 @@ namespace WebAbsApi
         public void ConfigureServices(IServiceCollection services)
         {
             // Database context
-            services.AddDbContext<DatabaseContext>(opt =>
-            {
-                opt.UseSqlServer(Configuration.GetConnectionString("sqlConnection"));
-            });
+            services.ConfigureDbContext(Configuration);
 
             //IdentityUser
             services.AddAuthentication();
@@ -39,33 +36,19 @@ namespace WebAbsApi
 
             // AutoMapper
             services.AddAutoMapper(typeof(MapperInitializer));
- 
 
             // Transient
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAuthManager, AuthManager>();
 
             // CORS
-            services.AddCors(opt =>
-            {
-                opt.AddPolicy("AllowAll", builder =>
-                    builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader());
-            });
-
-
+            services.ConfigureCors();
 
             // Swagger 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAbsApi", Version = "v1" });
-            });
+            services.ConfigureSwagger();
 
             // Controllers
-            services.AddControllers()
-                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
-                .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+            services.ConfigureControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
