@@ -1,19 +1,39 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
-namespace WebAbsApi.Data
+#nullable disable
+
+namespace WebAbsApi.Models
 {
-    public class Seat
+    [Table("SEAT")]
+    public partial class Seat
     {
-        public int Id { get; set; }
-        public string Row { get; set; }
-        public string Column { get; set; }
-        public bool IsBooked { get; set; }
+        public Seat()
+        {
+            Tickets = new HashSet<Ticket>();
+        }
 
-        [ForeignKey(nameof(FlightSection))]
-        public int FlightSectionId { get; set; }
-        public FlightSection FlightSection { get; set; }
+        [Key]
+        [Column("SEAT_ID")]
+        public Guid SeatId { get; set; }
+        [Column("FLIGHT_SECTION_ID")]
+        public Guid FlightSectionId { get; set; }
+        [Column("BOOKED")]
+        public bool Booked { get; set; }
+        [Column("ROW")]
+        public int Row { get; set; }
+        [Required]
+        [Column("COL")]
+        [StringLength(1)]
+        public string Col { get; set; }
 
-        public Ticket Ticket { get; set; }
+        [ForeignKey(nameof(FlightSectionId))]
+        [InverseProperty("Seats")]
+        public virtual FlightSection FlightSection { get; set; }
+        [InverseProperty(nameof(Ticket.Seat))]
+        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }

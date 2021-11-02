@@ -1,25 +1,33 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
-namespace WebAbsApi.Data
+#nullable disable
+
+namespace WebAbsApi.Models
 {
-    public class Ticket
+    [Table("TICKET")]
+    public partial class Ticket
     {
-        public int Id { get; set; }
+        [Key]
+        [Column("TICKET_ID")]
+        public Guid TicketId { get; set; }
+        [Column("ACCOUNT_ID")]
+        public Guid AccountId { get; set; }
+        [Column("FLIGHT_SECTION_ID")]
+        public Guid FlightSectionId { get; set; }
+        [Column("SEAT_ID")]
+        public Guid SeatId { get; set; }
+        [Column("PRICE", TypeName = "money")]
+        public decimal Price { get; set; }
 
-        [ForeignKey(nameof(ApiUser))]
-        public string UserId { get; set; }
-        public ApiUser ApiUser { get; set; }
-
-        [ForeignKey(nameof(Flight))]
-        public int FlightId { get; set; }
-        public Flight Flight { get; set; }
-
-        [ForeignKey(nameof(FlightSection))]
-        public int FlightSectionId { get; set; }
-        public FlightSection FlightSection { get; set; }
-
-        [ForeignKey(nameof(Seat))]
-        public int SeatId { get; set; }
-        public Seat Seat { get; set; }
+        [ForeignKey(nameof(AccountId))]
+        [InverseProperty("Tickets")]
+        public virtual Account Account { get; set; }
+        [ForeignKey(nameof(SeatId))]
+        [InverseProperty("Tickets")]
+        public virtual Seat Seat { get; set; }
     }
 }

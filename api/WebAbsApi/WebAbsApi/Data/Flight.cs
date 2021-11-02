@@ -1,28 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
-namespace WebAbsApi.Data
+#nullable disable
+
+namespace WebAbsApi.Models
 {
-    public class Flight
+    [Table("FLIGHT")]
+    [Index(nameof(FlightNumber), Name = "UQ_FLIGHT_NUMBER", IsUnique = true)]
+    public partial class Flight
     {
-        public int Id { get; set; }
+        public Flight()
+        {
+            FlightSections = new HashSet<FlightSection>();
+        }
+
+        [Key]
+        [Column("FLIGHT_ID")]
+        public Guid FlightId { get; set; }
+        [Column("AIRLINE_ID")]
+        public Guid AirlineId { get; set; }
+        [Column("ORIG_AIRPORT_ID")]
+        public Guid OrigAirportId { get; set; }
+        [Column("DEST_AIRPORT_ID")]
+        public Guid DestAirportId { get; set; }
+        [Required]
+        [Column("FLIGHT_NUMBER")]
+        [StringLength(10)]
         public string FlightNumber { get; set; }
-        public DateTime Date { get; set; }
+        [Column("TAKE_OFF", TypeName = "datetime")]
+        public DateTime TakeOff { get; set; }
 
-        [ForeignKey(nameof(Airline))]
-        public int AirlineId { get; set; }
-        public Airline Airline { get; set; }
-
-        [ForeignKey(nameof(OriginAirport))]
-        public int OriginId { get; set; }
-        public Airport OriginAirport { get; set; }
-
-        [ForeignKey(nameof(DestinationAirport))]
-        public int DestinationId { get; set; }
-        public Airport DestinationAirport { get; set; }
-
-        public ICollection<FlightSection> FlightSections { get; set; }
-        public ICollection<Ticket> Tickets { get; set; }
+        [ForeignKey(nameof(AirlineId))]
+        [InverseProperty("Flights")]
+        public virtual Airline Airline { get; set; }
+        [ForeignKey(nameof(DestAirportId))]
+        [InverseProperty(nameof(Airport.FlightDestAirports))]
+        public virtual Airport DestAirport { get; set; }
+        [ForeignKey(nameof(OrigAirportId))]
+        [InverseProperty(nameof(Airport.FlightOrigAirports))]
+        public virtual Airport OrigAirport { get; set; }
+        [InverseProperty(nameof(FlightSection.Flight))]
+        public virtual ICollection<FlightSection> FlightSections { get; set; }
     }
 }
