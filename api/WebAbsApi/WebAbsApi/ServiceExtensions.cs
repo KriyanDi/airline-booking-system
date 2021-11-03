@@ -11,7 +11,6 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using Serilog;
 using System.Text;
-using WebAbsApi.Data;
 using WebAbsApi.Models;
 
 namespace WebAbsApi
@@ -36,10 +35,10 @@ namespace WebAbsApi
 
         public static void ConfigureIdentity(this IServiceCollection services)
         {
-            var builder = services.AddIdentityCore<ApiUser>(q => q.User.RequireUniqueEmail = true);
+            //var builder = services.AddIdentityCore<ApiUser>(q => q.User.RequireUniqueEmail = true);
 
-            builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), services);
-            builder.AddEntityFrameworkStores<DatabaseContext>().AddDefaultTokenProviders();
+            //builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), services);
+            //builder.AddEntityFrameworkStores<DatabaseContext>().AddDefaultTokenProviders();
         }
 
         public static void ConfigureJWT(this IServiceCollection services, IConfiguration Configuration)

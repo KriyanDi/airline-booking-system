@@ -6,10 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using WebAbsApi.Configurations;
-using WebAbsApi.Data;
 using WebAbsApi.IRepository;
 using WebAbsApi.Repository;
-using WebAbsApi.Services;
 using Newtonsoft.Json.Serialization;
 
 namespace WebAbsApi
@@ -39,7 +37,7 @@ namespace WebAbsApi
 
             // Transient
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IAuthManager, AuthManager>();
+            //services.AddScoped<IAuthManager, AuthManager>();
 
             // CORS
             services.ConfigureCors();
