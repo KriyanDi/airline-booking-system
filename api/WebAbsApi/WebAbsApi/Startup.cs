@@ -9,6 +9,8 @@ using WebAbsApi.Configurations;
 using WebAbsApi.IRepository;
 using WebAbsApi.Repository;
 using Newtonsoft.Json.Serialization;
+using WebAbsApi.Context;
+using WebAbsApi.Contracts;
 
 namespace WebAbsApi
 {
@@ -34,6 +36,12 @@ namespace WebAbsApi
 
             // AutoMapper
             services.AddAutoMapper(typeof(MapperInitializer));
+
+            //Dapper
+            services.AddSingleton<DapperContext>();
+
+            //Repository
+            services.AddScoped<IAbsRepository, AbsRepository>();
 
             // Transient
             services.AddTransient<IUnitOfWork, UnitOfWork>();
