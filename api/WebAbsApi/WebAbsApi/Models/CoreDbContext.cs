@@ -55,7 +55,7 @@ namespace WebAbsApi.Models
 
             modelBuilder.Entity<Airline>(entity =>
             {
-                entity.Property(e => e.AirlineId).ValueGeneratedNever();
+                entity.Property(e => e.Airline_Id).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<Airport>(entity =>

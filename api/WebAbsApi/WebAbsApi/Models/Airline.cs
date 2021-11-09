@@ -19,7 +19,7 @@ namespace WebAbsApi.Models
 
         [Key]
         [Column("AIRLINE_ID")]
-        public Guid AirlineId { get; set; }
+        public Guid Airline_Id { get; set; }
 
         [Required]
         [Column("NAME")]

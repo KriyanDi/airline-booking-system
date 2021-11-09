@@ -56,8 +56,46 @@ namespace WebAbsApi.Repository
             var parameters = new DynamicParameters();
             parameters.Add("airp_id", id, DbType.Guid, ParameterDirection.Input);
             IEnumerable<Airport> result = await ExecStoredProcedure<Airport>("DeleteAirprot", parameters);
-        } 
+        }
         #endregion
+
+        #region Airline
+        public async Task<IEnumerable<AirlineDTO>> GetAirlines()
+        {
+            IEnumerable<Airline> result = await ExecStoredProcedure<Airline>("GetAirlines");
+            return _mapper.Map<IEnumerable<AirlineDTO>>(result).ToList();
+        }
+        public async Task<AirlineDTO> GetAirline(Guid id)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("airl_id", id, DbType.Guid, ParameterDirection.Input);
+            IEnumerable<Airline> result = await ExecStoredProcedure<Airline>("GetAirlineById", parameters);
+            return _mapper.Map<AirlineDTO>(result);
+        }
+        public async Task<AirlineDTO> CreateAirline(CreateAirlineDTO airline)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("airl_name", airline.Name, DbType.String, ParameterDirection.Input);
+            IEnumerable<Airport> result = await ExecStoredProcedure<Airport>("AddAirline", parameters);
+            return _mapper.Map<AirlineDTO>(result);
+        }
+        public async Task<AirlineDTO> UpdateAirline(Guid id, CreateAirlineDTO airline)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("airl_id", id, DbType.Guid, ParameterDirection.Input);
+            parameters.Add("airl_new_name", airline.Name, DbType.String, ParameterDirection.Input);
+            IEnumerable<Airline> result = await ExecStoredProcedure<Airline>("UpdateAirline", parameters);
+            return _mapper.Map<AirlineDTO>(result);
+        }
+        public async Task DeleteAirline(Guid id)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("airl_id", id, DbType.Guid, ParameterDirection.Input);
+            IEnumerable<Airline> result = await ExecStoredProcedure<Airline>("DeleteAirline", parameters);
+        }
+        #endregion
+
+
 
         #region Utilities
         public async Task<IEnumerable<T>> ExecStoredProcedure<T>(string storedProcedureName, DynamicParameters parameters = null)

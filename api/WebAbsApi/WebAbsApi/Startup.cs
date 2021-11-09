@@ -44,7 +44,6 @@ namespace WebAbsApi
             services.AddScoped<IAbsRepository, AbsRepository>();
 
             // Transient
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
             //services.AddScoped<IAuthManager, AuthManager>();
 
             // CORS

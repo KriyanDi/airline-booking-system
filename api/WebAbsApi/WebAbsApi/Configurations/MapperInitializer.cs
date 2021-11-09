@@ -9,7 +9,7 @@ namespace WebAbsApi.Configurations
         public MapperInitializer()
         {
             CreateMap<Airport, AirportDTO>().ReverseMap();
-            
+            CreateMap<Airline, AirlineDTO>().ReverseMap();
         }
     }
 }
