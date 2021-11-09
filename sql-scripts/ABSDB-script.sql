@@ -1,3 +1,5 @@
+create database ABSDB;
+
 use ABSDB;
 
 create table AIRPORT
@@ -252,14 +254,14 @@ create procedure GetAirports
 as
 begin
 	set nocount on
-	select NAME from AIRPORT
+	select * from AIRPORT
 end;
 go
 
-create procedure GetAirportId(@airp_name uniqueidentifier)
+create procedure GetAirportById(@airp_id uniqueidentifier)
 as
 begin
-	select AIRPORT.NAME from AIRPORT where AIRPORT.AIRPORT_ID = @airp_name
+	select * from AIRPORT where AIRPORT.AIRPORT_ID = @airp_id
 end;
 go
 
@@ -292,14 +294,14 @@ create procedure GetAirlines
 as
 begin
 	set nocount on
-	select NAME from AIRLINE
+	select * from AIRLINE
 end;
 go
 
-create procedure GetAirlineId(@airl_name uniqueidentifier)
+create procedure GetAirlineId(@airl_id uniqueidentifier)
 as
 begin
-	select AIRLINE.NAME from AIRLINE where AIRLINE.AIRLINE_ID = @airl_name
+	select AIRLINE.NAME from AIRLINE where AIRLINE.AIRLINE_ID = @airl_id
 end;
 go
 
