@@ -37,7 +37,7 @@ namespace WebAbsApi.Controllers
         public async Task<IActionResult> CreateAirport([FromBody] CreateAirportDTO airportDTO)
         {
             var airport = await _absRepository.CreateAirport(airportDTO);
-            return CreatedAtRoute("GetAirportById", new { id = airport.AirportId }, airport);
+            return CreatedAtRoute("GetAirportById", new { id = airport.Airport_Id }, airport);
         }
 
         [HttpPut("{id:Guid}")]

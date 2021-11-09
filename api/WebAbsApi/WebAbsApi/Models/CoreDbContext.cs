@@ -60,7 +60,7 @@ namespace WebAbsApi.Models
 
             modelBuilder.Entity<Airport>(entity =>
             {
-                entity.Property(e => e.AirportId).ValueGeneratedNever();
+                entity.Property(e => e.Airport_Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Name).IsFixedLength(true);
             });

@@ -13,6 +13,6 @@ namespace WebAbsApi.Data
 
     public class AirportDTO : CreateAirportDTO
     {
-        public Guid AirportId { get; set; }
+        public Guid Airport_Id { get; set; }
     }
 }

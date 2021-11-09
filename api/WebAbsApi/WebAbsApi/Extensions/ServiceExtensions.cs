@@ -10,10 +10,11 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using Serilog;
+using System.Net;
 using System.Text;
 using WebAbsApi.Models;
 
-namespace WebAbsApi
+namespace WebAbsApi.Extensions
 {
     public static class ServiceExtensions
     {
@@ -68,19 +69,22 @@ namespace WebAbsApi
 
         public static void ConfigureExceptionHandler(this IApplicationBuilder app)
         {
-            app.UseExceptionHandler(error => {
-                error.Run(async context => {
-                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+            app.UseExceptionHandler(appError =>
+            {
+                appError.Run(async context =>
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     context.Response.ContentType = "application/json";
+
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {
-                        Log.Error($"Something Went Wrong in the {contextFeature.Error}");
+                        Log.Error($"Something went wrong: {contextFeature.Error}");
 
-                        await context.Response.WriteAsync(new Error
+                        await context.Response.WriteAsync(new Error()
                         {
                             StatusCode = context.Response.StatusCode,
-                            Message = "Internal Server Error. Please Try Again Later."
+                            Message = "Internal Server Error."
                         }.ToString());
                     }
                 });
