@@ -10,7 +10,6 @@ using WebAbsApi.IRepository;
 using WebAbsApi.Repository;
 using Newtonsoft.Json.Serialization;
 using WebAbsApi.Context;
-using WebAbsApi.Contracts;
 
 namespace WebAbsApi
 {
