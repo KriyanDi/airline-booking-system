@@ -21,6 +21,7 @@ namespace WebAbsApi.Models
         [Key]
         [Column("AIRPORT_ID")]
         public Guid AirportId { get; set; }
+
         [Required]
         [Column("NAME")]
         [StringLength(3)]

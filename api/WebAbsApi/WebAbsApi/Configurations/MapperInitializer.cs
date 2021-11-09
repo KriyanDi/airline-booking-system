@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using WebAbsApi.Data;
+using WebAbsApi.Models;
 
 namespace WebAbsApi.Configurations
 {
@@ -6,7 +8,7 @@ namespace WebAbsApi.Configurations
     {
         public MapperInitializer()
         {
-            //CreateMap<Airport, AirportDTO>().ReverseMap();
+            CreateMap<Airport, AirportDTO>().ReverseMap();
             //CreateMap<Airport, AirportShortDTO>().ReverseMap();
             //CreateMap<Airport, CreateAirportDTO>().ReverseMap();
             //CreateMap<Airport, UpdateAirportDTO>().ReverseMap();
