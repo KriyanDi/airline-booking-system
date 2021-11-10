@@ -1,6 +1,8 @@
 create database ABSDB;
+go
 
 use ABSDB;
+go
 
 create table AIRPORT
 (AIRPORT_ID uniqueidentifier not null,
@@ -270,6 +272,8 @@ as
 begin
 	insert into AIRPORT(AIRPORT_ID, NAME)
 	values (NEWID(), @airp_name)
+
+	select * from AIRPORT where AIRPORT.NAME = @airp_name
 end;
 go
 
@@ -279,6 +283,8 @@ begin
 	update AIRPORT
 	set AIRPORT.NAME = @new_airp_name
 	where AIRPORT_ID = @airp_id
+
+	select * from AIRPORT where AIRPORT.NAME = @new_airp_name
 end;
 go
 

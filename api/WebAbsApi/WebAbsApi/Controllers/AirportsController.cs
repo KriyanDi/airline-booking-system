@@ -26,7 +26,7 @@ namespace WebAbsApi.Controllers
             return Ok(airports);
         }
 
-        [HttpGet("{id:Guid}")]
+        [HttpGet("{id:Guid}", Name = "GetAirportById")]
         public async Task<IActionResult> GetAirportById(Guid id)
         {
             var airport = await _absRepository.GetAirport(id);

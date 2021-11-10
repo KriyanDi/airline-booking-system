@@ -47,14 +47,14 @@ namespace WebAbsApi.Repository
         {
             var parameters = new DynamicParameters();
             parameters.Add("airp_id", id, DbType.Guid, ParameterDirection.Input);
-            parameters.Add("airp_new_name", airport.Name, DbType.String, ParameterDirection.Input);
-            IEnumerable<Airport> result = await ExecStoredProcedure<Airport>("UpdateAirport", parameters);
+            parameters.Add("new_airp_name", airport.Name, DbType.String, ParameterDirection.Input);
+            await ExecStoredProcedure<Airport>("UpdateAirport", parameters);
         }
         public async Task DeleteAirport(Guid id)
         {
             var parameters = new DynamicParameters();
             parameters.Add("airp_id", id, DbType.Guid, ParameterDirection.Input);
-            IEnumerable<Airport> result = await ExecStoredProcedure<Airport>("DeleteAirprot", parameters);
+            await ExecStoredProcedure<Airport>("DeleteAirport", parameters);
         }
         #endregion
 
@@ -101,7 +101,7 @@ namespace WebAbsApi.Repository
             {
                 return await connection.QueryAsync<T>(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
             }
-        } 
+        }
         #endregion
     }
 }
