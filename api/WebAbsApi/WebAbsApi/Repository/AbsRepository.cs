@@ -34,22 +34,21 @@ namespace WebAbsApi.Repository
             var parameters = new DynamicParameters();
             parameters.Add("airp_id", id, DbType.Guid, ParameterDirection.Input);
             IEnumerable<Airport> result = await ExecStoredProcedure<Airport>("GetAirportById", parameters);
-            return _mapper.Map<AirportDTO>(result);
+            return _mapper.Map<AirportDTO>(result.First());
         }
         public async Task<AirportDTO> CreateAirport(CreateAirportDTO airport)
         {
             var parameters = new DynamicParameters();
             parameters.Add("airp_name", airport.Name, DbType.String, ParameterDirection.Input);
             IEnumerable<Airport> result = await ExecStoredProcedure<Airport>("AddAirport", parameters);
-            return _mapper.Map<AirportDTO>(result);
+            return _mapper.Map<AirportDTO>(result.First());
         }
-        public async Task<AirportDTO> UpdateAirport(Guid id, CreateAirportDTO airport)
+        public async Task UpdateAirport(Guid id, CreateAirportDTO airport)
         {
             var parameters = new DynamicParameters();
             parameters.Add("airp_id", id, DbType.Guid, ParameterDirection.Input);
             parameters.Add("airp_new_name", airport.Name, DbType.String, ParameterDirection.Input);
             IEnumerable<Airport> result = await ExecStoredProcedure<Airport>("UpdateAirport", parameters);
-            return _mapper.Map<AirportDTO>(result);
         }
         public async Task DeleteAirport(Guid id)
         {
@@ -94,8 +93,6 @@ namespace WebAbsApi.Repository
             IEnumerable<Airline> result = await ExecStoredProcedure<Airline>("DeleteAirline", parameters);
         }
         #endregion
-
-
 
         #region Utilities
         public async Task<IEnumerable<T>> ExecStoredProcedure<T>(string storedProcedureName, DynamicParameters parameters = null)

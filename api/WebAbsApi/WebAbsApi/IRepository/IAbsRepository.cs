@@ -13,7 +13,7 @@ namespace WebAbsApi.IRepository
         public Task<IEnumerable<AirportDTO>> GetAirports();
         public Task<AirportDTO> GetAirport(Guid id);
         public Task<AirportDTO> CreateAirport(CreateAirportDTO airport);
-        public Task<AirportDTO> UpdateAirport(Guid id, CreateAirportDTO airport);
+        public Task UpdateAirport(Guid id, CreateAirportDTO airport);
         public Task DeleteAirport(Guid id);
         #endregion
 
