@@ -27,7 +27,7 @@ create table FLIGHT
  AIRLINE_ID uniqueidentifier  not null,
  ORIG_AIRPORT_ID uniqueidentifier not null,
  DEST_AIRPORT_ID uniqueidentifier not null,
- FLIGHT_NUMBER nchar(10) not null,
+ FLIGHT_NUMBER nvarchar(50) not null,
  TAKE_OFF datetime not null
 
  constraint PK_FLIGHT primary key (FLIGHT_ID),
@@ -245,7 +245,7 @@ from
 go
 
 create view AVAIL_FLIGHTS as
-select FLIGHT_ID, SEATCLASS
+select *
 from FLIGHTS_INFORMATION
 where FREE_SEATS > 0;
 go
@@ -283,8 +283,6 @@ begin
 	update AIRPORT
 	set AIRPORT.NAME = @new_airp_name
 	where AIRPORT_ID = @airp_id
-
-	select * from AIRPORT where AIRPORT.NAME = @new_airp_name
 end;
 go
 
@@ -304,10 +302,10 @@ begin
 end;
 go
 
-create procedure GetAirlineId(@airl_id uniqueidentifier)
+create procedure GetAirlineById(@airl_id uniqueidentifier)
 as
 begin
-	select AIRLINE.NAME from AIRLINE where AIRLINE.AIRLINE_ID = @airl_id
+	select * from AIRLINE where AIRLINE.AIRLINE_ID = @airl_id
 end;
 go
 
@@ -316,6 +314,8 @@ as
 begin
 	insert into AIRLINE(AIRLINE_ID, NAME)
 	values (NEWID(), @airl_name)
+
+	select * from AIRLINE where AIRLINE.NAME = @airl_name
 end;
 go
 
@@ -336,11 +336,27 @@ begin
 end;
 go
 
+create procedure GetFlights
+as 
+begin
+	select * from FLIGHT
+end;
+go
+
 create procedure GetFlightsInformation
 as
 begin
 	set nocount on
 	select * from FLIGHTS_INFORMATION
+end;
+go
+
+create procedure GetFlightInformationById(@flight_id uniqueidentifier)
+as
+begin
+	set nocount on
+	select * from FLIGHTS_INFORMATION
+	where FLIGHTS_INFORMATION.FLIGHT_ID = @flight_id
 end;
 go
 
@@ -352,11 +368,31 @@ begin
 end;
 go
 
+create procedure SearchFlights(@orig nchar(3), @dest nchar(3))
+as
+begin
+
+	select * from FLIGHTS_INFORMATION
+	--case
+	--	when (@orig is not null) and @orig != '' and @dest is null or @dest = '') 
+	--		then (select * from FLIGHTS_INFORMATION where FLIGHTS_INFORMATION.ORIG = @orig)
+
+	--	when @orig is null or @orig = '' and @dest is not null and @dest != '' 
+	--		then (select * from FLIGHTS_INFORMATION where FLIGHTS_INFORMATION.DEST = @dest)
+
+	--	when @orig is not null and @orig != '' and @dest is not null and @dest != '' 
+	--		then (select * from FLIGHTS_INFORMATION where FLIGHTS_INFORMATION.ORIG = @orig and FLIGHTS_INFORMATION.DEST = @dest)
+
+	--	else (select * from FLIGHTS_INFORMATION)
+	--end
+end;
+go
+
 create procedure AddFlight(@airl_id uniqueidentifier, @orig_id uniqueidentifier, @dest_id uniqueidentifier, @take_off datetime)
 as
 begin
 	declare @orig nchar(3)
-	set @orig= (select AIRPORT.NAME from AIRPORT where AIRPORT.AIRPORT_ID = @orig_id)
+	set @orig = (select AIRPORT.NAME from AIRPORT where AIRPORT.AIRPORT_ID = @orig_id)
 
 	declare @dest nchar(3)
 	set @dest = (select AIRPORT.NAME from AIRPORT where AIRPORT.AIRPORT_ID = @dest_id)
@@ -375,8 +411,13 @@ begin
 	end
 	set @final_flight_number = CONCAT(@final_flight_number, @count)
 
+	declare @flight_id uniqueidentifier;
+	set @flight_id = NEWID();
+
 	insert into FLIGHT(FLIGHT_ID , AIRLINE_ID, ORIG_AIRPORT_ID, DEST_AIRPORT_ID, FLIGHT_NUMBER, TAKE_OFF)
-	values (NEWID(), @airl_id, @orig_id, @dest_id, @final_flight_number, @take_off)
+	values (@flight_id, @airl_id, @orig_id, @dest_id, @final_flight_number, @take_off)
+
+	select * from FLIGHT where FLIGHT.FLIGHT_ID = @flight_id
 end;
 go
 
@@ -421,30 +462,32 @@ begin
 end;
 go
 
-create procedure AddFlightSection(@flight_id uniqueidentifier, @seatclass_id uniqueidentifier, @rows int, @cols int)
+create procedure GetNotAddedSeatclasses(@flight_id uniqueidentifier)
 as
 begin
-	insert into FLIGHT_SECTION(FLIGHT_SECTION_ID, FLIGHT_ID, SEATCLASS_ID, ROWS, COLS)
-	values (NEWID(), @flight_id, @seatclass_id, @rows, @cols)
-end;
-go
-
-create procedure DeleteFlightSection(@fl_sc_id uniqueidentifier)
-as
-begin
-	delete from FLIGHT_SECTION
-	where FLIGHT_SECTION.FLIGHT_SECTION_ID = @fl_sc_id
-end;
-go
-
-create procedure GetFreeFlightSections(@flight_id uniqueidentifier)
-as
-begin
-	select SEATCLASS.TYPE 
+	select * 
 	from SEATCLASS
 	where SEATCLASS.TYPE not in (select FLIGHTS_INFORMATION.SEATCLASS
 								 from FLIGHTS_INFORMATION 
 								 where FLIGHTS_INFORMATION.FLIGHT_ID = FLIGHT_ID)
+end;
+go
+
+create procedure GetAddedSeatclasses(@flight_id uniqueidentifier)
+as
+begin
+	select * 
+	from SEATCLASS
+	where SEATCLASS.TYPE in (select FLIGHTS_INFORMATION.SEATCLASS
+					         from FLIGHTS_INFORMATION 
+							 where FLIGHTS_INFORMATION.FLIGHT_ID = FLIGHT_ID)
+end;
+go
+
+create procedure GetFlightSection(@flight_id uniqueidentifier, @seatclass_id uniqueidentifier)
+as
+begin
+	select * from FLIGHT_SECTION where FLIGHT_SECTION.FLIGHT_ID = @flight_id and FLIGHT_SECTION.SEATCLASS_ID = @seatclass_id
 end;
 go
 
@@ -464,6 +507,27 @@ begin
 	from SEAT 
 	where SEAT.FLIGHT_SECTION_ID = @fl_sc_id
 	and SEAT.BOOKED = 0
+end;
+go
+
+create procedure AddFlightSection(@flight_id uniqueidentifier, @seatclass_id uniqueidentifier, @rows int, @cols int)
+as
+begin
+	declare @fl_sc uniqueidentifier;
+	set @fl_sc = NEWID();
+
+	insert into FLIGHT_SECTION(FLIGHT_SECTION_ID, FLIGHT_ID, SEATCLASS_ID, ROWS, COLS)
+	values (@fl_sc, @flight_id, @seatclass_id, @rows, @cols)
+
+	select * from FLIGHT_SECTION where FLIGHT_SECTION.FLIGHT_SECTION_ID = @fl_sc
+end;
+go
+
+create procedure DeleteFlightSection(@fl_sc_id uniqueidentifier)
+as
+begin
+	delete from FLIGHT_SECTION
+	where FLIGHT_SECTION.FLIGHT_SECTION_ID = @fl_sc_id
 end;
 go
 
