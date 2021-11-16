@@ -8,7 +8,7 @@ using WebAbsApi.IRepository;
 
 namespace WebAbsApi.Controllers
 {
-    [Route("api/airports")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AirportsController : ControllerBase
     {
@@ -45,7 +45,7 @@ namespace WebAbsApi.Controllers
         {
             var airport = await _absRepository.GetAirport(id);
 
-            if(airport == null)
+            if (airport == null)
             {
                 return NotFound();
             }
