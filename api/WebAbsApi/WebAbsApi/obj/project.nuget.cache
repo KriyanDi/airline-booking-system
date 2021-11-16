@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Y/hVQLwVvHLRq0bY2jicqjHddgy23BiXVF5UlABrD/RRCQ+yOgvqZClPs8XlRG4YOaEWc9zffTFl3UuDCXygyA==",
+  "dgSpecHash": "O4NiwOwGBSi/mFNTLcISnNGIF8ZtxFHcgaDpuY5aCJXdFqhdUqnWgu1R2SVYqnO960f43J6GOCXgSunRtWTwtg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_TASK\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
-    "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\dapper\\2.0.90\\dapper.2.0.90.nupkg.sha512",
+    "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.11\\microsoft.aspnetcore.authentication.jwtbearer.5.0.11.nupkg.sha512",
     "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.11\\microsoft.aspnetcore.cryptography.internal.5.0.11.nupkg.sha512",
@@ -180,12 +180,5 @@
     "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_TASK\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

@@ -29,7 +29,7 @@
           "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
-      "Dapper/2.0.90": {
+      "Dapper/2.0.123": {
         "type": "package",
         "compile": {
           "lib/net5.0/Dapper.dll": {}
@@ -2732,15 +2732,15 @@
         "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
       ]
     },
-    "Dapper/2.0.90": {
-      "sha512": "e4YjOLJptnpwHIbP8HxjaYf7So9lhUC43rvvGMEkH4Q4CiVlm4rOxYDo0HyuHlMQKj0U5Ob/nCMm52TUhTaZQg==",
+    "Dapper/2.0.123": {
+      "sha512": "RDFF4rBLLmbpi6pwkY7q/M6UXHRJEOerplDGE5jwEkP/JGJnBauAClYavNKJPW1yOTWRPIyfj4is3EaJxQXILQ==",
       "type": "package",
-      "path": "dapper/2.0.90",
+      "path": "dapper/2.0.123",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Dapper.png",
-        "dapper.2.0.90.nupkg.sha512",
+        "dapper.2.0.123.nupkg.sha512",
         "dapper.nuspec",
         "lib/net461/Dapper.dll",
         "lib/net461/Dapper.xml",
@@ -8849,7 +8849,7 @@
   "projectFileDependencyGroups": {
     "net5.0": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 8.1.1",
-      "Dapper >= 2.0.90",
+      "Dapper >= 2.0.123",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 5.0.11",
       "Microsoft.AspNetCore.Diagnostics >= 2.2.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 5.0.11",
@@ -8908,7 +8908,7 @@
           },
           "Dapper": {
             "target": "Package",
-            "version": "[2.0.90, )"
+            "version": "[2.0.123, )"
           },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
@@ -8974,13 +8974,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_TASK\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }
