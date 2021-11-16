@@ -18,9 +18,9 @@ namespace WebAbsApi.Models
 
         [Key]
         [Column("SEAT_ID")]
-        public Guid SeatId { get; set; }
+        public Guid Seat_Id { get; set; }
         [Column("FLIGHT_SECTION_ID")]
-        public Guid FlightSectionId { get; set; }
+        public Guid Flight_Section_Id { get; set; }
         [Column("BOOKED")]
         public bool Booked { get; set; }
         [Column("ROW")]
@@ -30,7 +30,7 @@ namespace WebAbsApi.Models
         [StringLength(1)]
         public string Col { get; set; }
 
-        [ForeignKey(nameof(FlightSectionId))]
+        [ForeignKey(nameof(Flight_Section_Id))]
         [InverseProperty("Seats")]
         public virtual FlightSection FlightSection { get; set; }
         [InverseProperty(nameof(Ticket.Seat))]

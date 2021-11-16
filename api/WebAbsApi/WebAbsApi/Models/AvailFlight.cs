@@ -13,6 +13,7 @@ namespace WebAbsApi.Models
     {
         [Column("FLIGHT_ID")]
         public Guid FlightId { get; set; }
+
         [Required]
         [Column("SEATCLASS")]
         [StringLength(25)]

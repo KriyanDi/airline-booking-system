@@ -19,7 +19,7 @@ namespace WebAbsApi.Models
 
         [Key]
         [Column("SEATCLASS_ID")]
-        public Guid SeatclassId { get; set; }
+        public Guid Seatclass_Id { get; set; }
         [Required]
         [Column("TYPE")]
         [StringLength(25)]

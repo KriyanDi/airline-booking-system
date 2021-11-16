@@ -72,40 +72,40 @@ namespace WebAbsApi.Models
 
             modelBuilder.Entity<Flight>(entity =>
             {
-                entity.Property(e => e.FlightId).ValueGeneratedNever();
+                entity.Property(e => e.Flight_Id).ValueGeneratedNever();
 
-                entity.Property(e => e.FlightNumber).IsFixedLength(true);
+                entity.Property(e => e.Flight_Number).IsFixedLength(true);
 
                 entity.HasOne(d => d.Airline)
                     .WithMany(p => p.Flights)
-                    .HasForeignKey(d => d.AirlineId)
+                    .HasForeignKey(d => d.Airline_Id)
                     .HasConstraintName("FK_AIRLINE_FLIGHT");
 
                 entity.HasOne(d => d.DestAirport)
                     .WithMany(p => p.FlightDestAirports)
-                    .HasForeignKey(d => d.DestAirportId)
+                    .HasForeignKey(d => d.Dest_Airport_Id)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DESTINATION_AIRPORT_FLIGHT");
 
                 entity.HasOne(d => d.OrigAirport)
                     .WithMany(p => p.FlightOrigAirports)
-                    .HasForeignKey(d => d.OrigAirportId)
+                    .HasForeignKey(d => d.Orig_Airport_Id)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ORIGIN_AIRPORT_FLIGHT");
             });
 
             modelBuilder.Entity<FlightSection>(entity =>
             {
-                entity.Property(e => e.FlightSectionId).ValueGeneratedNever();
+                entity.Property(e => e.Flight_Section_Id).ValueGeneratedNever();
 
                 entity.HasOne(d => d.Flight)
                     .WithMany(p => p.FlightSections)
-                    .HasForeignKey(d => d.FlightId)
+                    .HasForeignKey(d => d.Flight_Id)
                     .HasConstraintName("FK_FLIGHT_FLIGHT_SECTION");
 
                 entity.HasOne(d => d.Seatclass)
                     .WithMany(p => p.FlightSections)
-                    .HasForeignKey(d => d.SeatclassId)
+                    .HasForeignKey(d => d.Seatclass_Id)
                     .HasConstraintName("FK_SEATCLASS_FLIGHT_SECTION");
             });
 
@@ -115,7 +115,7 @@ namespace WebAbsApi.Models
 
                 entity.Property(e => e.Dest).IsFixedLength(true);
 
-                entity.Property(e => e.FlightNumber).IsFixedLength(true);
+                entity.Property(e => e.Flight_Number).IsFixedLength(true);
 
                 entity.Property(e => e.Orig).IsFixedLength(true);
             });
@@ -127,19 +127,19 @@ namespace WebAbsApi.Models
 
             modelBuilder.Entity<Seat>(entity =>
             {
-                entity.Property(e => e.SeatId).ValueGeneratedNever();
+                entity.Property(e => e.Seat_Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Col).IsFixedLength(true);
 
                 entity.HasOne(d => d.FlightSection)
                     .WithMany(p => p.Seats)
-                    .HasForeignKey(d => d.FlightSectionId)
+                    .HasForeignKey(d => d.Flight_Section_Id)
                     .HasConstraintName("FK_FLIGHT_SECTION_SEAT");
             });
 
             modelBuilder.Entity<Seatclass>(entity =>
             {
-                entity.Property(e => e.SeatclassId).ValueGeneratedNever();
+                entity.Property(e => e.Seatclass_Id).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<Ticket>(entity =>

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace WebAbsApi.Models
 {
     [Table("FLIGHT")]
-    [Index(nameof(FlightNumber), Name = "UQ_FLIGHT_NUMBER", IsUnique = true)]
+    [Index(nameof(Flight_Number), Name = "UQ_FLIGHT_NUMBER", IsUnique = true)]
     public partial class Flight
     {
         public Flight()
@@ -19,29 +19,37 @@ namespace WebAbsApi.Models
 
         [Key]
         [Column("FLIGHT_ID")]
-        public Guid FlightId { get; set; }
+        public Guid Flight_Id { get; set; }
+
         [Column("AIRLINE_ID")]
-        public Guid AirlineId { get; set; }
+        public Guid Airline_Id { get; set; }
+
         [Column("ORIG_AIRPORT_ID")]
-        public Guid OrigAirportId { get; set; }
+        public Guid Orig_Airport_Id { get; set; }
+
         [Column("DEST_AIRPORT_ID")]
-        public Guid DestAirportId { get; set; }
+        public Guid Dest_Airport_Id { get; set; }
+
         [Required]
         [Column("FLIGHT_NUMBER")]
         [StringLength(10)]
-        public string FlightNumber { get; set; }
-        [Column("TAKE_OFF", TypeName = "datetime")]
-        public DateTime TakeOff { get; set; }
+        public string Flight_Number { get; set; }
 
-        [ForeignKey(nameof(AirlineId))]
+        [Column("TAKE_OFF", TypeName = "datetime")]
+        public DateTime Take_Off { get; set; }
+
+        [ForeignKey(nameof(Airline_Id))]
         [InverseProperty("Flights")]
         public virtual Airline Airline { get; set; }
-        [ForeignKey(nameof(DestAirportId))]
+
+        [ForeignKey(nameof(Dest_Airport_Id))]
         [InverseProperty(nameof(Airport.FlightDestAirports))]
         public virtual Airport DestAirport { get; set; }
-        [ForeignKey(nameof(OrigAirportId))]
+
+        [ForeignKey(nameof(Orig_Airport_Id))]
         [InverseProperty(nameof(Airport.FlightOrigAirports))]
         public virtual Airport OrigAirport { get; set; }
+
         [InverseProperty(nameof(FlightSection.Flight))]
         public virtual ICollection<FlightSection> FlightSections { get; set; }
     }

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace WebAbsApi.Models
 {
     [Table("FLIGHT_SECTION")]
-    [Index(nameof(FlightId), nameof(SeatclassId), Name = "UQ_FLIGHT_SEATCLASS", IsUnique = true)]
+    [Index(nameof(Flight_Id), nameof(Seatclass_Id), Name = "UQ_FLIGHT_SEATCLASS", IsUnique = true)]
     public partial class FlightSection
     {
         public FlightSection()
@@ -19,20 +19,20 @@ namespace WebAbsApi.Models
 
         [Key]
         [Column("FLIGHT_SECTION_ID")]
-        public Guid FlightSectionId { get; set; }
+        public Guid Flight_Section_Id { get; set; }
         [Column("FLIGHT_ID")]
-        public Guid FlightId { get; set; }
+        public Guid Flight_Id { get; set; }
         [Column("SEATCLASS_ID")]
-        public Guid SeatclassId { get; set; }
+        public Guid Seatclass_Id { get; set; }
         [Column("ROWS")]
         public int Rows { get; set; }
         [Column("COLS")]
         public int Cols { get; set; }
 
-        [ForeignKey(nameof(FlightId))]
+        [ForeignKey(nameof(Flight_Id))]
         [InverseProperty("FlightSections")]
         public virtual Flight Flight { get; set; }
-        [ForeignKey(nameof(SeatclassId))]
+        [ForeignKey(nameof(Seatclass_Id))]
         [InverseProperty("FlightSections")]
         public virtual Seatclass Seatclass { get; set; }
         [InverseProperty(nameof(Seat.FlightSection))]
