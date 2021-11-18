@@ -497,6 +497,7 @@ begin
 	select * 
 	from SEAT 
 	where SEAT.FLIGHT_SECTION_ID = @fl_sc_id
+	order by SEAT.ROW
 end;
 go
 
@@ -507,6 +508,7 @@ begin
 	from SEAT 
 	where SEAT.FLIGHT_SECTION_ID = @fl_sc_id
 	and SEAT.BOOKED = 0
+	order by SEAT.ROW
 end;
 go
 
