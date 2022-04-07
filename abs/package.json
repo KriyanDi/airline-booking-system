@@ -8,32 +8,22 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "@types/jest": "^26.0.24",
-    "@types/node": "^12.20.23",
-    "@types/react": "^17.0.19",
+    "@types/node": "^12.20.16",
+    "@types/react": "^17.0.14",
     "@types/react-dom": "^17.0.9",
-<<<<<<< HEAD
     "@types/react-redux": "^7.1.18",
-    "axios": "^0.21.1",
+    "axios": "^0.24.0",
     "immer": "^9.0.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
-    "react-scripts": "^4.0.3",
-    "redux": "^4.1.0",
-    "redux-thunk": "^2.3.0",
-    "typescript": "^4.3.5",
-=======
-    "axios": "^0.21.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-redux": "^7.2.4",
-    "react-router-dom": "^5.3.0",
+    "react-router": "^6.0.2",
+    "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
-    "redux": "^4.1.1",
+    "redux": "^4.1.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^2.0.3",
-    "typescript": "^4.4.2",
->>>>>>> eb5d8502ddc17bba6d96d0f7ff7a10abbd0273f3
+    "semantic-ui-react": "^2.0.4",
+    "typescript": "^4.3.5",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
@@ -59,8 +49,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/react-router-dom": "^5.1.8"
   }
 }

@@ -21,9 +21,7 @@ export class AirportApiClient implements IAirportApiClient {
 
   async getAirports(): Promise<IAirport[] | undefined> {
     try {
-      const response = await this.airportApiClient.get<IAirport[]>(
-        `${this.apiBase}`
-      );
+      const response = await this.airportApiClient.get<IAirport[]>(`${this.apiBase}`);
       return response;
     } catch (error) {
       console.error(error);
@@ -32,9 +30,7 @@ export class AirportApiClient implements IAirportApiClient {
 
   async getAirport(Airport_Id: string): Promise<IAirport | undefined> {
     try {
-      const response = await this.airportApiClient.get<IAirport>(
-        `${this.apiBase}/${Airport_Id}`
-      );
+      const response = await this.airportApiClient.get<IAirport>(`${this.apiBase}/${Airport_Id}`);
       return response;
     } catch (error) {
       console.error(error);
@@ -43,10 +39,7 @@ export class AirportApiClient implements IAirportApiClient {
 
   async createAirport(object: ICreateAirport): Promise<boolean> {
     try {
-      await this.airportApiClient.post<ICreateAirport, any>(
-        `${this.apiBase}`,
-        object
-      );
+      await this.airportApiClient.post<ICreateAirport, any>(`${this.apiBase}`, object);
       return true;
     } catch (error) {
       console.error(error);
@@ -54,15 +47,9 @@ export class AirportApiClient implements IAirportApiClient {
     }
   }
 
-  async updateAirport(
-    Airport_Id: string,
-    object: IUpdateAirport
-  ): Promise<boolean> {
+  async updateAirport(Airport_Id: string, object: IUpdateAirport): Promise<boolean> {
     try {
-      await this.airportApiClient.put<IUpdateAirport, any>(
-        `${this.apiBase}/${Airport_Id}`,
-        object
-      );
+      await this.airportApiClient.put<IUpdateAirport, any>(`${this.apiBase}/${Airport_Id}`, object);
       return true;
     } catch (error) {
       console.error(error);

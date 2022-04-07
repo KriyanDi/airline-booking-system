@@ -1,83 +1,45 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Segment } from "semantic-ui-react";
 import Home from "./components/Home/Home";
-import Navigation from "./components/Navigation/Navigation";
-import UserNavigation from "./components/Navigation/UserNavigation";
-import LoginPage from "./components/User/Login/LoginPage";
-import RegisterPage from "./components/User/Register/RegisterPage";
-import { useAppDispatch, useAppSelector } from "./redux/hooks";
-import { selectLogged, selectUser } from "./redux/slices/user/userSlice";
-import UserBook from "./components/User/User/UserBook";
-import UserTickets from "./components/User/User/UserTickets";
-import AdminNavigation from "./components/Navigation/AdminNavigation";
-import ManageAirports from "./components/User/Admin/ManageAirports";
-import ManageAirlines from "./components/User/Admin/ManageAirlines";
-import ManageTickets from "./components/User/Admin/ManageTickets";
-import ManageFlights from "./components/User/Admin/ManageFlights";
+import { NavigationBar } from "./components/Navigation/Utilities";
+import SearchTickets from "./components/SearchTickets/SearchTickets";
+// import LoginPage from "./components/Users/Login/LoginPage";
+// import RegisterPage from "./components/Users/Register/RegisterPage";
 
 const App = () => {
-  const dispatch = useAppDispatch();
-  const selector = useAppSelector;
-
   const [activeItem, setActiveItem] = useState("home");
+  const [airports, setAirports] = useState(null);
 
-  let isLogged = false;
-  let isAdmin = false;
+  let handleItemClick = (name: string) => setActiveItem(name);
 
-  useEffect(() => {}, [dispatch]);
-
-  isLogged = selector(selectLogged);
-  isAdmin = selector(selectUser)?.isAdmin;
-
-  let navigation = () => {
-    if (isLogged) {
-      return isAdmin ? (
-        <AdminNavigation activeItem={activeItem} setActiveItem={setActiveItem} />
-      ) : (
-        <UserNavigation activeItem={activeItem} setActiveItem={setActiveItem} />
-      );
-    } else {
-      return <Navigation activeItem={activeItem} setActiveItem={setActiveItem} />;
-    }
-  };
+  const [isLogged, setIsLogged] = useState<boolean>(false);
+  const [isUser, setIsUser] = useState<boolean>(true);
 
   return (
-<<<<<<< HEAD
-    <Provider store={store}>
-      <div className="ui form attached segment">
-        {/* <div className="ui segment">
-          <h2 className="ui dividing header container">"Airline Booking System ✈️"</h2>
-          <ManageAirports />
-          <ManageAirlines />
-          <ManageFlights />
-        </div> */}
-=======
-    <Router>
-      <div>
-        {navigation()}
+    <div>
+      {/* <BrowserRouter>
+        {NavigationBar()}
+        <Routes>
+          {isLogged ? }
+          <Route path="home" element={<Home props={handleItemClick} />} />
 
-        <Switch>
-          <Route exact path="/" render={(props) => <Home activeItem={activeItem} setActiveItem={setActiveItem} />} />
+          <Route path="login" element={<LoginPage props={handleItemClick} />} />
+
           <Route
-            exact
-            path="/login"
-            render={(props) => <LoginPage activeItem={activeItem} setActiveItem={setActiveItem} />}
+            path="registration"
+            element={<RegisterPage props={handleItemClick} />}
           />
-          <Route
-            exact
-            path="/register"
-            render={(props) => <RegisterPage activeItem={activeItem} setActiveItem={setActiveItem} />}
-          />
-          <Route exact path="/book" component={UserBook} />
-          <Route exact path="/tickets" component={UserTickets} />
-          <Route exact path="/manageAirports" component={ManageAirports} />
-          <Route exact path="/manageAirlines" component={ManageAirlines} />
-          <Route exact path="/manageFlights" component={ManageFlights} />
-          <Route exact path="/manageTickets" component={ManageTickets} />
-        </Switch>
->>>>>>> eb5d8502ddc17bba6d96d0f7ff7a10abbd0273f3
-      </div>
-    </Router>
+
+          <Route path="search">
+
+          
+        </Routes>
+      </BrowserRouter> */}
+      <Segment>
+        <SearchTickets />
+      </Segment>
+    </div>
   );
 };
 

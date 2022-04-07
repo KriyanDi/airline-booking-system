@@ -554,3 +554,10 @@ begin
 	and SEAT.COL = @col
 end;
 go
+
+create procedure GetSeatclasses
+as
+begin
+	select * from SEATCLASS
+end;
+go

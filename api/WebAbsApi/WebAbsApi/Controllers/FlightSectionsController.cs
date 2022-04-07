@@ -20,6 +20,13 @@ namespace WebAbsApi.Controllers
             _absRepository = absRepository;
         }
 
+        [HttpGet("AllSeatclasses")]
+        public async Task<IActionResult> GetSeatclasses()
+        {
+            var seatclasses = await _absRepository.GetSeatclasses();
+            return Ok(seatclasses);
+        }
+
         [HttpGet(Name = "GetFlightSection")]
         public async Task<IActionResult> GetFlightSection(Guid flight_id, Guid seatclass_id)
         {

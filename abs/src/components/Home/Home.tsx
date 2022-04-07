@@ -1,27 +1,45 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Button, Segment } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Button, Form, Grid, Segment } from "semantic-ui-react";
 
-const Home = (props: any) => {
-  const { setActiveItem } = props;
-
+const Home = ({ handleItemClick }: any) => {
   return (
-    <div>
-      <Segment centered>
-        <h4>Welcome to the Airline Booking System - please proceed to the next step:</h4>
-        <Link to="/login">
-          <Button primary onClick={() => setActiveItem("login")}>
-            Login
-          </Button>
-        </Link>
+    <Grid middle aligned centered className="grid">
+      <Grid.Column>
+        <h2 className="ui image header">
+          <div className="content">Welcome to Airline Booking System!</div>
+        </h2>
 
-        <Link to="/register">
-          <Button secondary onClick={() => setActiveItem("register")}>
-            Register
-          </Button>
-        </Link>
-      </Segment>
-    </div>
+        <Segment stacked secondary>
+          <Form>
+            <div>
+              <h5>Please proceed to the next step:</h5>
+
+              <div className="field">
+                <Button
+                  fluid
+                  large
+                  primary
+                  onClick={() => handleItemClick("login")}
+                >
+                  Login
+                </Button>
+              </div>
+
+              <div className="field">
+                <Button
+                  fluid
+                  large
+                  secondary
+                  onClick={() => handleItemClick("registration")}
+                >
+                  Register
+                </Button>
+              </div>
+            </div>
+          </Form>
+        </Segment>
+      </Grid.Column>
+    </Grid>
   );
 };
 

@@ -1,44 +1,40 @@
-import React from "react";
-import { Menu, Segment } from "semantic-ui-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Icon, Menu } from "semantic-ui-react";
 
-const Navigation = (props: any) => {
-  let { activeItem, setActiveItem } = props;
+const Navigation = (items: string[], additionalMenuItems: any) => {
+  const [activeItem, setActiveItem] = useState<string>("");
+
+  let handleItemClick = (name: string) => setActiveItem(name);
+
+  let configureMenuItems = (items: string[]) => {
+    return items && items.length
+      ? items.map((item: string) => {
+          return (
+            <Link to={item}>
+              <Menu.Item
+                name={item}
+                active={activeItem === item}
+                onClick={() => handleItemClick(item)}
+              >
+                {item.toLocaleUpperCase()}
+              </Menu.Item>
+            </Link>
+          );
+        })
+      : null;
+  };
 
   return (
-    <Segment inverted>
-      <Menu right inverted secondary>
-        <Link to="/">
-          <Menu.Item
-            name="home"
-            active={activeItem === "home"}
-            onClick={() => {
-              setActiveItem("home");
-            }}
-          />
-        </Link>
+    <Menu stackable>
+      <Menu.Item>
+        <Icon name="paper plane outline" />
+      </Menu.Item>
 
-        <Link to="/login">
-          <Menu.Item
-            name="login"
-            active={activeItem === "login"}
-            onClick={() => {
-              setActiveItem("login");
-            }}
-          />
-        </Link>
+      {configureMenuItems(items)}
 
-        <Link to="/register">
-          <Menu.Item
-            name="register"
-            active={activeItem === "register"}
-            onClick={() => {
-              setActiveItem("register");
-            }}
-          />
-        </Link>
-      </Menu>
-    </Segment>
+      {additionalMenuItems}
+    </Menu>
   );
 };
 

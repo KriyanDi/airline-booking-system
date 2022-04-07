@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Dropdown, Form, Header, Segment } from "semantic-ui-react";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch } from "../../_redux/hooks";
 
 const FlightSectionsList = (props: any) => {
   const dispatch = useAppDispatch();
@@ -10,12 +10,16 @@ const FlightSectionsList = (props: any) => {
   const { flightId, setSectionId } = props;
 
   const getFlightById = async (obj: { id: number }) => {
-    const response = await axios.get(`https://localhost:44318/api/Flight/${obj.id}`);
+    const response = await axios.get(
+      `https://localhost:44318/api/Flight/${obj.id}`
+    );
     return response.data;
   };
 
   useEffect(() => {
-    getFlightById({ id: flightId }).then((res) => setSections(res.flightSections));
+    getFlightById({ id: flightId }).then((res) =>
+      setSections(res.flightSections)
+    );
   }, [dispatch, flightId]);
 
   let sectionsOptions =

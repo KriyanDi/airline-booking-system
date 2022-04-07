@@ -13,18 +13,19 @@ export interface IFlightSectionApiClient {
     Seatclass_Id: string
   ): Promise<IFlightSection | undefined>;
 
-  getAddedSeatclasses(Flight_Id: string): Promise<ISeatclass | undefined>;
-  getRemainingSeatclasses(Flight_Id: string): Promise<ISeatclass | undefined>;
+  getAllSeatclasses(): Promise<ISeatclass[] | undefined>;
+  getAddedSeatclasses(Flight_Id: string): Promise<ISeatclass[] | undefined>;
+  getRemainingSeatclasses(Flight_Id: string): Promise<ISeatclass[] | undefined>;
 
   getAllSeats(
     Flight_Id: string,
     Seatclass_Id: string
-  ): Promise<ISeat | undefined>;
+  ): Promise<ISeat[] | undefined>;
 
   getFreeSeats(
     Flight_Id: string,
     Seatclass_Id: string
-  ): Promise<ISeat | undefined>;
+  ): Promise<ISeat[] | undefined>;
 
   createFlightSection(object: ICreateFlightSection): Promise<boolean>;
 
@@ -57,11 +58,22 @@ export class FlighSectionApiClient implements IFlightSectionApiClient {
     }
   }
 
+  async getAllSeatclasses(): Promise<ISeatclass[] | undefined> {
+    try {
+      const response = await this.flightSectionApiClient.get<ISeatclass[]>(
+        `${this.apiBase}/AllSeatclasses`
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async getAddedSeatclasses(
     Flight_Id: string
-  ): Promise<ISeatclass | undefined> {
+  ): Promise<ISeatclass[] | undefined> {
     try {
-      const response = await this.flightSectionApiClient.get<ISeatclass>(
+      const response = await this.flightSectionApiClient.get<ISeatclass[]>(
         `${this.apiBase}/AddedSeatclasses/${Flight_Id}`
       );
       return response;
@@ -72,9 +84,9 @@ export class FlighSectionApiClient implements IFlightSectionApiClient {
 
   async getRemainingSeatclasses(
     Flight_Id: string
-  ): Promise<ISeatclass | undefined> {
+  ): Promise<ISeatclass[] | undefined> {
     try {
-      const response = await this.flightSectionApiClient.get<ISeatclass>(
+      const response = await this.flightSectionApiClient.get<ISeatclass[]>(
         `${this.apiBase}/NotAddedSeatclasses/${Flight_Id}`
       );
       return response;
@@ -86,9 +98,9 @@ export class FlighSectionApiClient implements IFlightSectionApiClient {
   async getAllSeats(
     Flight_Id: string,
     Seatclass_Id: string
-  ): Promise<ISeat | undefined> {
+  ): Promise<ISeat[] | undefined> {
     try {
-      const response = await this.flightSectionApiClient.get<ISeat>(
+      const response = await this.flightSectionApiClient.get<ISeat[]>(
         `${this.apiBase}/AllSeats?flight_id=${Flight_Id}&seatclass_id=${Seatclass_Id}`
       );
       return response;
@@ -100,9 +112,9 @@ export class FlighSectionApiClient implements IFlightSectionApiClient {
   async getFreeSeats(
     Flight_Id: string,
     Seatclass_Id: string
-  ): Promise<ISeat | undefined> {
+  ): Promise<ISeat[] | undefined> {
     try {
-      const response = await this.flightSectionApiClient.get<ISeat>(
+      const response = await this.flightSectionApiClient.get<ISeat[]>(
         `${this.apiBase}/FreeSeats?flight_id=${Flight_Id}&seatclass_id=${Seatclass_Id}`
       );
       return response;

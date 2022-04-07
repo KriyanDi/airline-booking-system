@@ -153,6 +153,13 @@ namespace WebAbsApi.Repository
         #endregion
 
         #region FlightSection
+        public async Task<IEnumerable<SeatclassDTO>> GetSeatclasses()
+        {
+            var parameters = new DynamicParameters();
+            IEnumerable<SeatclassDTO> result = await ExecStoredProcedure<SeatclassDTO>("GetSeatclasses", parameters);
+            return _mapper.Map<IEnumerable<SeatclassDTO>>(result);
+        }
+
         public async Task<FlightSectionDTO> GetFlightSection(Guid flight_id, Guid seatclass_id)
         {
             var parameters = new DynamicParameters();

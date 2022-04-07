@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WebAbsApi.Data;
-using WebAbsApi.Models;
 
 namespace WebAbsApi.IRepository
 {
@@ -37,6 +35,7 @@ namespace WebAbsApi.IRepository
         #endregion
 
         #region FlightSection
+        public Task<IEnumerable<SeatclassDTO>> GetSeatclasses();
         public Task<FlightSectionDTO> GetFlightSection(Guid flight_id, Guid seatclass_id);
         public Task<IEnumerable<SeatclassDTO>> GetNotAddedSeatclasses(Guid flight_id);
         public Task<IEnumerable<SeatclassDTO>> GetAddedSeatclasses(Guid flight_id);
