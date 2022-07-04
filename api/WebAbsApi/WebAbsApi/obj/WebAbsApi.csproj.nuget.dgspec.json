@@ -1,33 +1,39 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_TASK\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj": {}
+    "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_ABS_TO_DOCKER_&_NEW_DOT_NET\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_TASK\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj": {
+    "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_ABS_TO_DOCKER_&_NEW_DOT_NET\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_TASK\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
+        "projectUniqueName": "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_ABS_TO_DOCKER_&_NEW_DOT_NET\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
         "projectName": "WebAbsApi",
-        "projectPath": "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_TASK\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
+        "projectPath": "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_ABS_TO_DOCKER_&_NEW_DOT_NET\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\WebAbsApi.csproj",
         "packagesPath": "C:\\Users\\Kristiyan Dimitrov\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_TASK\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\obj\\",
+        "outputPath": "C:\\Users\\Kristiyan Dimitrov\\Documents\\Work - Nemetchek\\_ABS_TO_DOCKER_&_NEW_DOT_NET\\airline-booking-system\\api\\WebAbsApi\\WebAbsApi\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "C:\\Users\\Kristiyan Dimitrov\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "net6.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {},
-          "https://nuget.bluebeam.com/nuget": {}
+          "https://nuget.bluebeam.com/nuget": {},
+          "https://pkgs.dev.azure.com/BoschEITDevOps/c810655b-3e0b-4e3d-ad25-702da030c5e9/_packaging/SRS.Common/nuget/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -38,8 +44,8 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
@@ -110,7 +116,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }
